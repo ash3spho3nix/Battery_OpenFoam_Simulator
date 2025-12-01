@@ -1,0 +1,19 @@
+# Core GUI Framework
+PyQt6>=6.5.2
+
+# Results Visualization (Alternative to QCustomPlot)
+pyqtgraph>=0.13.4
+
+# For matplotlib as alternative plotting option
+matplotlib>=3.7.2
+
+# Development Tools
+pytest>=7.4.3
+black>=23.7.0
+mypy>=1.5.1
+
+# Optional: For enhanced file operations
+pathlib2>=2.3.7
+
+# Optional: For configuration management
+configparser>=5.3.0
