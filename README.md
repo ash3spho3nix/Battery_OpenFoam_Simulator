@@ -2,6 +2,9 @@
 
 This directory contains the Python implementation of the Battery Simulator, migrated from C++/Qt to maintain compatibility with OpenFOAM solvers while providing a modern Python codebase.
 
+Inspired from : https://github.com/KinomotoTomoyo/BatterySimulator.git
+Kudos and thanks to https://github.com/KinomotoTomoyo and https://github.com/Jason-Imperial
+
 ## Project Structure
 
 ```
