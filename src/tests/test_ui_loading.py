@@ -13,7 +13,7 @@ import sys
 import os
 from pathlib import Path
 
-# Add the src_py directory to Python path for imports
+# Add the src directory to Python path for imports
 sys.path.insert(0, str(Path(__file__).parent))
 
 from PyQt6.QtWidgets import QApplication, QWidget, QVBoxLayout, QLabel, QPushButton

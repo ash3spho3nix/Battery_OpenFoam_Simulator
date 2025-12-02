@@ -19,12 +19,12 @@ from PyQt6.QtCore import Qt, pyqtSignal, QTimer
 from PyQt6.QtGui import QIcon, QPixmap
 
 # Import modules using absolute imports to avoid packaging issues
-from src_py.gui.interfaces.base_interface import BaseInterface
-from src_py.openfoam.process_controller import ProcessController
-from src_py.openfoam.solver_manager import OpenFOAMSolverManager
-from src_py.utils.parameter_parser import ParameterManager
-from src_py.utils.file_operations import TemplateManager
-from src_py.core.constants import (
+from src.gui.interfaces.base_interface import BaseInterface
+from src.openfoam.process_controller import ProcessController
+from src.openfoam.solver_manager import OpenFOAMSolverManager
+from src.utils.parameter_parser import ParameterManager
+from src.utils.file_operations import TemplateManager
+from src.core.constants import (
     ERROR_MESSAGES, SUCCESS_MESSAGES, WARNING_MESSAGES,
     PARAMETER_FILES, DEFAULT_PARAMETERS, SCHEME_OPTIONS,
     UI_WIDGET_NAMES, UI_DEFAULT_VALUES
@@ -54,6 +54,60 @@ class CarbonInterface(BaseInterface):
         super().__init__(parent, ui_config)
         self.interface_type = "carbon"
         self.setWindowTitle("BatteryFOAM - SPM Interface")
+        
+        # Add diagnostic logging to check widget availability
+        self._diagnose_widget_availability()
+        
+    def _diagnose_widget_availability(self):
+        """Diagnose widget availability and naming issues."""
+        import logging
+        logger = logging.getLogger(__name__)
+        
+        logger.debug("=== CARBON INTERFACE WIDGET DIAGNOSIS ===")
+        
+        # Check if we're using .ui file or hand-coded widgets
+        if hasattr(self, 'length_lineEdit'):
+            logger.debug("✓ Found length_lineEdit (from .ui file)")
+        elif hasattr(self, 'length_edit'):
+            logger.debug("✓ Found length_edit (from hand-coded)")
+        else:
+            logger.error("✗ Neither length_lineEdit nor length_edit found!")
+            
+        if hasattr(self, 'width_lineEdit'):
+            logger.debug("✓ Found width_lineEdit (from .ui file)")
+        elif hasattr(self, 'width_edit'):
+            logger.debug("✓ Found width_edit (from hand-coded)")
+        else:
+            logger.error("✗ Neither width_lineEdit nor width_edit found!")
+            
+        if hasattr(self, 'height_lineEdit'):
+            logger.debug("✓ Found height_lineEdit (from .ui file)")
+        elif hasattr(self, 'height_edit'):
+            logger.debug("✓ Found height_edit (from hand-coded)")
+        else:
+            logger.error("✗ Neither height_lineEdit nor height_edit found!")
+            
+        if hasattr(self, 'unit_select_box'):
+            logger.debug("✓ Found unit_select_box (from .ui file)")
+        elif hasattr(self, 'unit_combo'):
+            logger.debug("✓ Found unit_combo (from hand-coded)")
+        else:
+            logger.error("✗ Neither unit_select_box nor unit_combo found!")
+            
+        # Check tab widget
+        if hasattr(self, 'tabWidget'):
+            logger.debug("✓ Found tabWidget")
+        else:
+            logger.error("✗ tabWidget not found!")
+            
+        # List all attributes that contain 'lineEdit' or 'edit'
+        logger.debug("All QLineEdit-like attributes:")
+        for attr_name in dir(self):
+            if 'lineEdit' in attr_name.lower() or 'edit' in attr_name.lower():
+                attr_value = getattr(self, attr_name, None)
+                logger.debug(f"  {attr_name}: {type(attr_value)} = {attr_value}")
+                
+        logger.debug("=== END DIAGNOSIS ===")
         
     def _add_boundary_configuration(self, layout: QVBoxLayout):
         """Add SPM-specific boundary configuration."""

@@ -10,7 +10,7 @@ import threading
 import time
 from typing import Optional
 from PyQt6.QtCore import QObject, pyqtSignal
-from src_py.core.constants import PROCESS_TIMEOUT
+from src.core.constants import PROCESS_TIMEOUT
 
 
 class ProcessController(QObject):

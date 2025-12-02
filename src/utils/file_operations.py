@@ -11,8 +11,6 @@ from pathlib import Path
 from typing import Optional
 import re
 
-from core.constants import ERROR_MESSAGES, SUCCESS_MESSAGES, BACKUP_SUFFIX
-
 
 class TemplateManager:
     """
@@ -213,7 +211,7 @@ class TemplateManager:
         Returns:
             str: Path to the backup file
         """
-        backup_path = file_path + BACKUP_SUFFIX
+        backup_path = file_path + self._get_backup_suffix()
         shutil.copy2(file_path, backup_path)
         return backup_path
         
@@ -227,7 +225,7 @@ class TemplateManager:
         Returns:
             str: Path to the restored file
         """
-        original_path = backup_path.replace(BACKUP_SUFFIX, "")
+        original_path = backup_path.replace(self._get_backup_suffix(), "")
         shutil.copy2(backup_path, original_path)
         return original_path
         
@@ -253,3 +251,8 @@ class TemplateManager:
                 file_list.append(str(relative_path))
                 
         return sorted(file_list)
+        
+    def _get_backup_suffix(self) -> str:
+        """Get the backup file suffix."""
+        from src.core.constants import BACKUP_SUFFIX
+        return BACKUP_SUFFIX

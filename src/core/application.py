@@ -15,14 +15,16 @@ from PyQt6.QtWidgets import (
     QLabel, QPushButton, QMessageBox, QFileDialog, QLineEdit, 
     QRadioButton, QFrame, QTextBrowser
 )
+import logging
+
+# Set up logging
+logger = logging.getLogger(__name__)
 
 from .constants import (
     APP_NAME, APP_VERSION, SUPPORTED_MODULES, DEFAULT_PROJECT_PATH,
     ERROR_MESSAGES, SUCCESS_MESSAGES, WARNING_MESSAGES
 )
 from .project_manager import ProjectManager
-
-
 
 
 class BatterySimulatorApp(QMainWindow):
@@ -46,6 +48,7 @@ class BatterySimulatorApp(QMainWindow):
             parent: Parent widget
             ui_config: UI configuration for loading mode
         """
+        logger.debug("BatterySimulatorApp.__init__() called")
         super().__init__(parent)
         
         # Store UI configuration
@@ -74,7 +77,7 @@ class BatterySimulatorApp(QMainWindow):
         
     def _get_ui_config(self):
         """Lazy import of UIConfig to avoid circular imports."""
-        from src_py.gui.ui_config import UIConfig
+        from src.gui.ui_config import UIConfig
         return UIConfig()
         
     def _setup_ui(self):
@@ -84,6 +87,7 @@ class BatterySimulatorApp(QMainWindow):
         Creates the tabbed interface with "New" and "Open" tabs,
         similar to the C++ implementation.
         """
+        logger.debug("BatterySimulatorApp._setup_ui() called")
         # Create central widget
         central_widget = QWidget()
         self.setCentralWidget(central_widget)
@@ -107,6 +111,7 @@ class BatterySimulatorApp(QMainWindow):
         
         Contains project creation interface with module selection.
         """
+        logger.debug("BatterySimulatorApp._create_new_project_tab() called")
         new_tab = QWidget()
         layout = QVBoxLayout()
         
@@ -170,6 +175,7 @@ class BatterySimulatorApp(QMainWindow):
         
         Contains project opening interface with recent projects.
         """
+        logger.debug("BatterySimulatorApp._create_open_project_tab() called")
         open_tab = QWidget()
         layout = QVBoxLayout()
         
@@ -220,6 +226,7 @@ class BatterySimulatorApp(QMainWindow):
         
         Opens file dialog to select project directory.
         """
+        logger.debug("BatterySimulatorApp.on_main_path_button_clicked() called")
         project_path = QFileDialog.getExistingDirectory(
             self, "Choose a position", DEFAULT_PROJECT_PATH
         )
@@ -242,21 +249,29 @@ class BatterySimulatorApp(QMainWindow):
         Validates input and creates new project with selected module.
         Uses interface factory to create appropriate interface.
         """
+        logger.debug("BatterySimulatorApp.on_main_next_button_clicked() called")
+        logger.debug(f"Project name: {self.pro_name_editline.text().strip()}")
+        logger.debug(f"Project path: {self.project_path}")
+        
         self.project_name = self.pro_name_editline.text().strip()
         
         if not self.project_name:
+            logger.warning("Project name is empty")
             QMessageBox.information(self, "Hint", ERROR_MESSAGES["invalid_name"])
             return
             
         if not self.project_path:
+            logger.warning("Project path is empty")
             QMessageBox.information(self, "Hint", ERROR_MESSAGES["invalid_path"])
             return
             
         # Create complete project path
         complete_project_path = os.path.join(self.project_path, self.project_name)
+        logger.debug(f"Complete project path: {complete_project_path}")
         
         # Check if project already exists
         if os.path.exists(complete_project_path):
+            logger.warning(f"Project already exists: {complete_project_path}")
             QMessageBox.warning(
                 self, "BatteryFOAM", 
                 ERROR_MESSAGES["name_exists"]
@@ -271,37 +286,66 @@ class BatterySimulatorApp(QMainWindow):
         elif self.fullcell_button.isChecked():
             module = "fullCell"
         else:
+            logger.warning("No module selected")
             QMessageBox.warning(self, "Error", "Please select a module")
             return
             
+        logger.info(f"Creating project: {self.project_name} with module: {module}")
+            
         try:
             # Create project
+            logger.debug("Calling project_manager.create_project()")
             self.project_manager.create_project(
                 self.project_path, self.project_name, module
             )
+            logger.debug("Project created successfully")
             
             # Hide main window and show appropriate interface
+            logger.debug("Hiding main window")
             self.hide()
             
             # Use interface factory to create the appropriate interface
+            logger.debug("Getting interface type")
             interface_type = self._get_interface_type(module)
+            logger.debug(f"Interface type: {interface_type}")
+            
+            logger.debug("Getting interface factory")
             interface_factory = self._get_interface_factory()
+            
+            logger.debug(f"Creating interface with type: {interface_type}, parent: {self}, ui_config: {self.ui_config}")
             self.current_interface = interface_factory.create_interface(
                 interface_type, self, self.ui_config
             )
-            self.current_interface.show()
+            logger.debug(f"Interface created: {self.current_interface}")
             
-            # Connect exit signal if available
-            if hasattr(self.current_interface, 'exit_signal'):
-                self.current_interface.exit_signal.connect(self.show)
+            if self.current_interface:
+                logger.debug(f"Interface type: {type(self.current_interface)}")
+                logger.debug(f"Interface parent: {self.current_interface.parent()}")
+                logger.debug(f"Interface geometry: {self.current_interface.geometry()}")
+                
+                logger.debug("Showing interface")
+                self.current_interface.show()
+                logger.debug("Interface shown")
+                
+                # Connect exit signal if available
+                if hasattr(self.current_interface, 'exit_signal'):
+                    logger.debug("Connecting exit signal")
+                    self.current_interface.exit_signal.connect(self.show)
+                    logger.debug("Exit signal connected")
+                else:
+                    logger.debug("No exit signal available")
+            else:
+                logger.error("Interface creation returned None!")
                 
         except Exception as e:
+            logger.error(f"Failed to create project: {e}", exc_info=True)
             QMessageBox.critical(self, "Error", f"Failed to create project: {str(e)}")
             
     def on_main_name_hint_clicked(self):
         """
         Show project name constraints hint.
         """
+        logger.debug("BatterySimulatorApp.on_main_name_hint_clicked() called")
         QMessageBox.information(
             self, "Hint", 
             "Only supports upper&lower case letter, number and underscore\n"
@@ -312,6 +356,7 @@ class BatterySimulatorApp(QMainWindow):
         """
         Handle path selection for opening existing project.
         """
+        logger.debug("BatterySimulatorApp.on_main_path_button_2_clicked() called")
         project_path = QFileDialog.getExistingDirectory(
             self, "Choose a project", DEFAULT_PROJECT_PATH
         )
@@ -334,6 +379,7 @@ class BatterySimulatorApp(QMainWindow):
         """
         Open the most recently used project.
         """
+        logger.debug("BatterySimulatorApp.on_recent_path_button_clicked() called")
         recent_file_path = Path(__file__).parent.parent / "resources" / "most_recent_file"
         
         if recent_file_path.exists():
@@ -355,11 +401,14 @@ class BatterySimulatorApp(QMainWindow):
         Handle opening existing project.
         Uses interface factory to create appropriate interface.
         """
+        logger.debug("BatterySimulatorApp.on_main_next_button_2_clicked() called")
         if not self.project_path or not self.project_name:
+            logger.warning("Project path or name is empty")
             QMessageBox.information(self, "Hint", ERROR_MESSAGES["invalid_path"])
             return
             
         # Save recent project
+        logger.debug("Saving recent project")
         recent_file_path = Path(__file__).parent.parent / "resources" / "most_recent_file"
         recent_file_path.parent.mkdir(parents=True, exist_ok=True)
         
@@ -367,6 +416,7 @@ class BatterySimulatorApp(QMainWindow):
             f.write(os.path.join(self.project_path, self.project_name))
             
         # Determine which module to open
+        logger.debug("Detecting module type")
         project_dir = os.path.join(self.project_path, self.project_name)
         
         if os.path.exists(os.path.join(project_dir, "SPMFoam")):
@@ -376,28 +426,42 @@ class BatterySimulatorApp(QMainWindow):
         elif os.path.exists(os.path.join(project_dir, "fullCellFoam")):
             module = "fullCell"
         else:
+            logger.warning("Invalid project structure")
             QMessageBox.information(self, "Hint", "The folder you chose is invalid.")
             return
             
+        logger.info(f"Opening project: {self.project_name} with module: {module}")
+            
         # Hide main window and show appropriate interface
+        logger.debug("Hiding main window")
         self.hide()
         
         # Use interface factory to create the appropriate interface
+        logger.debug("Creating interface for existing project")
         interface_type = self._get_interface_type(module)
         interface_factory = self._get_interface_factory()
         self.current_interface = interface_factory.create_interface(
             interface_type, self, self.ui_config
         )
-        self.current_interface.show()
         
-        # Connect exit signal if available
-        if hasattr(self.current_interface, 'exit_signal'):
-            self.current_interface.exit_signal.connect(self.show)
+        if self.current_interface:
+            logger.debug(f"Interface created: {self.current_interface}")
+            logger.debug(f"Interface type: {type(self.current_interface)}")
             
-        # Clear labels
-        self.recent_path_label.clear()
-        self.main_path_label_2.clear()
-        
+            logger.debug("Showing interface")
+            self.current_interface.show()
+            
+            # Connect exit signal if available
+            if hasattr(self.current_interface, 'exit_signal'):
+                logger.debug("Connecting exit signal")
+                self.current_interface.exit_signal.connect(self.show)
+                
+            # Clear labels
+            self.recent_path_label.clear()
+            self.main_path_label_2.clear()
+        else:
+            logger.error("Interface creation for existing project returned None!")
+            
     def _get_interface_type(self, module: str) -> str:
         """
         Get the interface type for a module.
@@ -408,14 +472,19 @@ class BatterySimulatorApp(QMainWindow):
         Returns:
             str: Corresponding interface type
         """
+        logger.debug(f"BatterySimulatorApp._get_interface_type() called with module: {module}")
         interface_map = {
             "SPM": "carbon",
             "halfCell": "halfcell", 
             "fullCell": "fullcell"
         }
-        return interface_map.get(module, "carbon")
+        result = interface_map.get(module, "carbon")
+        logger.debug(f"BatterySimulatorApp._get_interface_type() returning: {result}")
+        return result
         
     def _get_interface_factory(self):
         """Lazy import of InterfaceFactory to avoid circular imports."""
-        from src_py.gui.interface_factory import InterfaceFactory
+        logger.debug("BatterySimulatorApp._get_interface_factory() called")
+        from src.gui.interface_factory import InterfaceFactory
+        logger.debug("InterfaceFactory imported successfully")
         return InterfaceFactory

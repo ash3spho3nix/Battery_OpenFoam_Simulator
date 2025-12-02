@@ -3,8 +3,8 @@ Base interface class for Battery Simulator interfaces.
 
 This module provides the BaseInterface class, which serves as the foundation
 for all simulation interfaces (Carbon, HalfCell, FullCell, Result).
-It handles common functionality like UI loading, process control, and
-parameter management.
+It handles common functionality like UI loading, process control,
+parameter management, and file operations.
 """
 
 import os
@@ -18,15 +18,9 @@ from PyQt6.QtWidgets import (
 )
 from PyQt6.QtCore import Qt, pyqtSignal, QTimer
 from PyQt6.QtGui import QIcon, QPixmap
+import logging
 
-from ...openfoam.process_controller import ProcessController
-from ...openfoam.solver_manager import OpenFOAMSolverManager
-from ...utils.parameter_parser import ParameterManager
-from ...utils.file_operations import TemplateManager
-from ...core.constants import (
-    ERROR_MESSAGES, SUCCESS_MESSAGES, WARNING_MESSAGES,
-    PARAMETER_FILES, DEFAULT_PARAMETERS, SCHEME_OPTIONS
-)
+logger = logging.getLogger(__name__)
 
 
 class BaseInterface(QWidget):
@@ -57,16 +51,19 @@ class BaseInterface(QWidget):
             parent: Parent widget
             ui_config: UI configuration for loading mode
         """
+        # Import logging here to avoid circular imports
+        import logging
+        
         super().__init__(parent)
         
         self.ui_config = ui_config
         self.interface_type = self.__class__.__name__.lower().replace('interface', '')
         
-        # Initialize core components
-        self.process_controller = ProcessController()
+        # Initialize core components with lazy imports
+        self.process_controller = self._get_process_controller()
         self.solver_manager = None
         self.parameter_manager = None  # Initialize as None, will be set after project_path
-        self.template_manager = TemplateManager(self._get_templates_path())
+        self.template_manager = self._get_template_manager()
         
         # UI components
         self.tab_widget = None
@@ -89,12 +86,29 @@ class BaseInterface(QWidget):
         # Setup UI
         self._setup_ui()
         
+    def _get_process_controller(self):
+        """Lazy import of ProcessController to avoid circular imports."""
+        from src.openfoam.process_controller import ProcessController
+        return ProcessController()
+        
+    def _get_template_manager(self):
+        """Lazy import of TemplateManager to avoid circular imports."""
+        from src.utils.file_operations import TemplateManager
+        templates_path = str(self._get_templates_path())
+        return TemplateManager(templates_path)
+        
+    def _get_templates_path(self) -> str:
+        """Get the path to OpenFOAM templates."""
+        from src.core.constants import TEMPLATES_PATH
+        return str(TEMPLATES_PATH)
+        
     def _connect_signals(self):
         """Connect process controller signals to handlers."""
-        self.process_controller.output_received.connect(self._on_process_output)
-        self.process_controller.error_received.connect(self._on_process_error)
-        self.process_controller.process_started.connect(self._on_process_started)
-        self.process_controller.process_finished.connect(self._on_process_finished)
+        if self.process_controller:
+            self.process_controller.output_received.connect(self._on_process_output)
+            self.process_controller.error_received.connect(self._on_process_error)
+            self.process_controller.process_started.connect(self._on_process_started)
+            self.process_controller.process_finished.connect(self._on_process_finished)
         
     def _setup_ui(self):
         """Setup the base interface UI structure."""
@@ -135,9 +149,9 @@ class BaseInterface(QWidget):
         
         # Dimensions
         dims_layout = QHBoxLayout()
-        self.length_edit = QLineEdit(str(DEFAULT_PARAMETERS["length"]))
-        self.width_edit = QLineEdit(str(DEFAULT_PARAMETERS["width"]))
-        self.height_edit = QLineEdit(str(DEFAULT_PARAMETERS["height"]))
+        self.length_edit = QLineEdit(str(self._get_default_parameter("length")))
+        self.width_edit = QLineEdit(str(self._get_default_parameter("width")))
+        self.height_edit = QLineEdit(str(self._get_default_parameter("height")))
         
         dims_layout.addWidget(QLabel("Length (μm):"))
         dims_layout.addWidget(self.length_edit)
@@ -152,9 +166,9 @@ class BaseInterface(QWidget):
         self.x_div_edit = QSpinBox()
         self.y_div_edit = QSpinBox()
         self.z_div_edit = QSpinBox()
-        self.x_div_edit.setValue(DEFAULT_PARAMETERS["x_division"])
-        self.y_div_edit.setValue(DEFAULT_PARAMETERS["y_division"])
-        self.z_div_edit.setValue(DEFAULT_PARAMETERS["z_division"])
+        self.x_div_edit.setValue(self._get_default_parameter("x_division"))
+        self.y_div_edit.setValue(self._get_default_parameter("y_division"))
+        self.z_div_edit.setValue(self._get_default_parameter("z_division"))
         
         div_layout.addWidget(QLabel("X divisions:"))
         div_layout.addWidget(self.x_div_edit)
@@ -166,7 +180,7 @@ class BaseInterface(QWidget):
         
         # Radius (for particle models)
         radius_layout = QHBoxLayout()
-        self.radius_edit = QLineEdit(str(DEFAULT_PARAMETERS["radius"]))
+        self.radius_edit = QLineEdit(str(self._get_default_parameter("radius")))
         radius_layout.addWidget(QLabel("Particle radius (μm):"))
         radius_layout.addWidget(self.radius_edit)
         geometry_layout.addLayout(radius_layout)
@@ -175,7 +189,7 @@ class BaseInterface(QWidget):
         unit_layout = QHBoxLayout()
         self.unit_combo = QComboBox()
         self.unit_combo.addItems(["micrometer (μm)", "millimeter (mm)", "meter (m)"])
-        self.unit_combo.setCurrentText(DEFAULT_PARAMETERS["unit"])
+        self.unit_combo.setCurrentText(self._get_default_parameter("unit"))
         unit_layout.addWidget(QLabel("Units:"))
         unit_layout.addWidget(self.unit_combo)
         geometry_layout.addLayout(unit_layout)
@@ -240,7 +254,7 @@ class BaseInterface(QWidget):
         
         for param, description in params:
             row_layout = QHBoxLayout()
-            edit = QLineEdit(str(DEFAULT_PARAMETERS.get(param.lower(), 0.0)))
+            edit = QLineEdit(str(self._get_default_parameter(param.lower())))
             self.param_edits[param] = edit
             row_layout.addWidget(QLabel(f"{param}:"))
             row_layout.addWidget(edit)
@@ -323,11 +337,12 @@ class BaseInterface(QWidget):
         schemes_group = QGroupBox("Discretization Schemes")
         schemes_layout = QVBoxLayout()
         
+        from src.core.constants import SCHEME_OPTIONS
         for scheme_type, options in SCHEME_OPTIONS.items():
             row_layout = QHBoxLayout()
             combo = QComboBox()
             combo.addItems(options)
-            combo.setCurrentText(DEFAULT_PARAMETERS.get(scheme_type, options[0]))
+            combo.setCurrentText(self._get_default_parameter(scheme_type, options[0]))
             setattr(self, f"{scheme_type.lower()}_combo", combo)
             row_layout.addWidget(QLabel(f"{scheme_type}:"))
             row_layout.addWidget(combo)
@@ -367,13 +382,13 @@ class BaseInterface(QWidget):
         # Time parameters
         time_layout = QHBoxLayout()
         self.end_time_edit = QDoubleSpinBox()
-        self.end_time_edit.setValue(DEFAULT_PARAMETERS["endTime"])
+        self.end_time_edit.setValue(self._get_default_parameter("endTime"))
         self.end_time_edit.setRange(0, 1e6)
         self.delta_t_edit = QDoubleSpinBox()
-        self.delta_t_edit.setValue(DEFAULT_PARAMETERS["deltaT"])
+        self.delta_t_edit.setValue(self._get_default_parameter("deltaT"))
         self.delta_t_edit.setRange(1e-6, 1e3)
         self.write_interval_edit = QDoubleSpinBox()
-        self.write_interval_edit.setValue(DEFAULT_PARAMETERS["writeInterval"])
+        self.write_interval_edit.setValue(self._get_default_parameter("writeInterval"))
         self.write_interval_edit.setRange(1e-3, 1e6)
         
         time_layout.addWidget(QLabel("End time:"))
@@ -386,7 +401,7 @@ class BaseInterface(QWidget):
         
         # Tolerance
         tol_layout = QHBoxLayout()
-        self.tolerance_edit = QLineEdit(str(DEFAULT_PARAMETERS["tolerance"]))
+        self.tolerance_edit = QLineEdit(str(self._get_default_parameter("tolerance")))
         tol_layout.addWidget(QLabel("Tolerance:"))
         tol_layout.addWidget(self.tolerance_edit)
         control_layout.addLayout(tol_layout)
@@ -454,29 +469,31 @@ class BaseInterface(QWidget):
         """Connect interface-specific signals."""
         pass
         
-    def _get_templates_path(self) -> str:
-        """Get the path to OpenFOAM templates."""
-        from ...core.constants import TEMPLATES_PATH
-        return str(TEMPLATES_PATH)
+    def _get_default_parameter(self, param_name: str, default_value=None):
+        """Get default parameter value."""
+        from src.core.constants import DEFAULT_PARAMETERS
+        return DEFAULT_PARAMETERS.get(param_name, default_value)
         
     def _on_process_output(self, output: str):
         """Handle process output."""
-        self.terminal_output.append(output)
-        self.output_received.emit(output)
-        
-        # Limit output to prevent memory issues (manual limit for QTextEdit)
-        cursor = self.terminal_output.textCursor()
-        block_count = cursor.blockNumber() + 1
-        if block_count > 1000:
-            # Remove old content to keep memory usage reasonable
-            self.terminal_output.clear()
-            self.terminal_output.append("... Output truncated to prevent memory issues ...")
+        if self.terminal_output:
             self.terminal_output.append(output)
+            self.output_received.emit(output)
+            
+            # Limit output to prevent memory issues (manual limit for QTextEdit)
+            cursor = self.terminal_output.textCursor()
+            block_count = cursor.blockNumber() + 1
+            if block_count > 1000:
+                # Remove old content to keep memory usage reasonable
+                self.terminal_output.clear()
+                self.terminal_output.append("... Output truncated to prevent memory issues ...")
+                self.terminal_output.append(output)
         
     def _on_process_error(self, error: str):
         """Handle process errors."""
-        self.terminal_output.append(f"ERROR: {error}")
-        self.error_received.emit(error)
+        if self.terminal_output:
+            self.terminal_output.append(f"ERROR: {error}")
+            self.error_received.emit(error)
         
     def _on_process_started(self):
         """Handle process start."""
@@ -491,9 +508,11 @@ class BaseInterface(QWidget):
         self.simulation_stopped.emit()
         self._update_control_buttons()
         if exit_code == 0:
-            self.terminal_output.append("Simulation completed successfully.")
+            if self.terminal_output:
+                self.terminal_output.append("Simulation completed successfully.")
         else:
-            self.terminal_output.append(f"Simulation failed with exit code: {exit_code}")
+            if self.terminal_output:
+                self.terminal_output.append(f"Simulation failed with exit code: {exit_code}")
             
     def _update_control_buttons(self):
         """Update control button states based on simulation status."""
@@ -513,7 +532,8 @@ class BaseInterface(QWidget):
         try:
             # Update blockMeshDict and topoSetDict
             self._update_geometry_parameters()
-            self.terminal_output.append("Geometry parameters updated successfully.")
+            if self.terminal_output:
+                self.terminal_output.append("Geometry parameters updated successfully.")
         except Exception as e:
             QMessageBox.critical(self, "Error", f"Failed to update geometry: {str(e)}")
             
@@ -522,7 +542,8 @@ class BaseInterface(QWidget):
         try:
             # Run mesh generation commands
             self._run_geometry_commands()
-            self.terminal_output.append("Geometry generation completed.")
+            if self.terminal_output:
+                self.terminal_output.append("Geometry generation completed.")
         except Exception as e:
             QMessageBox.critical(self, "Error", f"Failed to run geometry: {str(e)}")
             
@@ -538,7 +559,8 @@ class BaseInterface(QWidget):
         """Handle constants parameter changes."""
         try:
             self._update_constants_parameters()
-            self.terminal_output.append("Constants parameters updated successfully.")
+            if self.terminal_output:
+                self.terminal_output.append("Constants parameters updated successfully.")
         except Exception as e:
             QMessageBox.critical(self, "Error", f"Failed to update constants: {str(e)}")
             
@@ -546,7 +568,8 @@ class BaseInterface(QWidget):
         """Handle constants setup."""
         try:
             self._run_constants_commands()
-            self.terminal_output.append("Constants setup completed.")
+            if self.terminal_output:
+                self.terminal_output.append("Constants setup completed.")
         except Exception as e:
             QMessageBox.critical(self, "Error", f"Failed to run constants: {str(e)}")
             
@@ -570,7 +593,8 @@ class BaseInterface(QWidget):
         """Handle boundary parameter changes."""
         try:
             self._update_boundary_parameters()
-            self.terminal_output.append("Boundary parameters updated successfully.")
+            if self.terminal_output:
+                self.terminal_output.append("Boundary parameters updated successfully.")
         except Exception as e:
             QMessageBox.critical(self, "Error", f"Failed to update boundary: {str(e)}")
             
@@ -578,7 +602,8 @@ class BaseInterface(QWidget):
         """Handle boundary setup."""
         try:
             self._run_boundary_commands()
-            self.terminal_output.append("Boundary setup completed.")
+            if self.terminal_output:
+                self.terminal_output.append("Boundary setup completed.")
         except Exception as e:
             QMessageBox.critical(self, "Error", f"Failed to run boundary: {str(e)}")
             
@@ -586,7 +611,8 @@ class BaseInterface(QWidget):
         """Handle function parameter changes."""
         try:
             self._update_functions_parameters()
-            self.terminal_output.append("Function parameters updated successfully.")
+            if self.terminal_output:
+                self.terminal_output.append("Function parameters updated successfully.")
         except Exception as e:
             QMessageBox.critical(self, "Error", f"Failed to update functions: {str(e)}")
             
@@ -594,7 +620,8 @@ class BaseInterface(QWidget):
         """Handle function setup."""
         try:
             self._run_functions_commands()
-            self.terminal_output.append("Function setup completed.")
+            if self.terminal_output:
+                self.terminal_output.append("Function setup completed.")
         except Exception as e:
             QMessageBox.critical(self, "Error", f"Failed to run functions: {str(e)}")
             
@@ -602,7 +629,8 @@ class BaseInterface(QWidget):
         """Handle control parameter changes."""
         try:
             self._update_control_parameters()
-            self.terminal_output.append("Control parameters updated successfully.")
+            if self.terminal_output:
+                self.terminal_output.append("Control parameters updated successfully.")
         except Exception as e:
             QMessageBox.critical(self, "Error", f"Failed to update control: {str(e)}")
             
@@ -631,8 +659,9 @@ class BaseInterface(QWidget):
     def _on_command_entered(self):
         """Handle manual command execution."""
         command = self.command_input.text().strip()
-        if command:
-            self.terminal_output.append(f"$ {command}")
+        if command and self.process_controller:
+            if self.terminal_output:
+                self.terminal_output.append(f"$ {command}")
             self._execute_command(command)
             self.command_input.clear()
             
@@ -656,7 +685,7 @@ class BaseInterface(QWidget):
         for command in commands:
             self._execute_command(command)
             # Wait for completion before next command
-            while self.process_controller.is_running():
+            while self.process_controller and self.process_controller.is_running():
                 import time
                 time.sleep(0.1)
                 
@@ -685,7 +714,7 @@ class BaseInterface(QWidget):
         
         for command in commands:
             self._execute_command(command)
-            while self.process_controller.is_running():
+            while self.process_controller and self.process_controller.is_running():
                 import time
                 time.sleep(0.1)
                 
@@ -727,7 +756,7 @@ class BaseInterface(QWidget):
         
     def _pause_simulation(self):
         """Pause the simulation."""
-        if self.process_controller.is_running():
+        if self.process_controller and self.process_controller.is_running():
             self.process_controller.send_signal(19)  # SIGSTOP
             self.simulation_paused = True
             self.simulation_paused.emit()
@@ -735,20 +764,22 @@ class BaseInterface(QWidget):
             
     def _resume_simulation(self):
         """Resume the simulation."""
-        if self.process_controller.is_running():
+        if self.process_controller and self.process_controller.is_running():
             self.process_controller.send_signal(18)  # SIGCONT
             self.simulation_paused = False
             self._update_control_buttons()
             
     def _stop_simulation(self):
         """Stop the simulation."""
-        self.process_controller.terminate_process()
-        self.simulation_stopped.emit()
-        self._update_control_buttons()
+        if self.process_controller:
+            self.process_controller.terminate_process()
+            self.simulation_stopped.emit()
+            self._update_control_buttons()
         
     def _execute_command(self, command: str):
         """Execute a command using the process controller."""
-        self.process_controller.start_process(command)
+        if self.process_controller:
+            self.process_controller.start_process(command)
         
     def set_project_paths(self, project_path: str, project_name: str):
         """Set the project paths for this interface."""
@@ -759,12 +790,22 @@ class BaseInterface(QWidget):
         
         # Initialize solver manager
         solver_name = self._get_solver_name()
-        self.solver_manager = OpenFOAMSolverManager(self.solver_path, solver_name)
+        self.solver_manager = self._get_solver_manager(solver_name)
         
         # Initialize parameter manager with project path
-        self.parameter_manager = ParameterManager(self.project_path)
+        self.parameter_manager = self._get_parameter_manager()
         
     def _get_solver_name(self) -> str:
         """Get the solver name for this interface."""
-        from ...core.constants import SOLVER_NAMES
+        from src.core.constants import SOLVER_NAMES
         return SOLVER_NAMES.get(self.interface_type, self.interface_type)
+        
+    def _get_solver_manager(self, solver_name: str):
+        """Lazy import of OpenFOAMSolverManager to avoid circular imports."""
+        from src.openfoam.solver_manager import OpenFOAMSolverManager
+        return OpenFOAMSolverManager(self.solver_path, solver_name)
+        
+    def _get_parameter_manager(self):
+        """Lazy import of ParameterManager to avoid circular imports."""
+        from src.utils.parameter_parser import ParameterManager
+        return ParameterManager(self.project_path)

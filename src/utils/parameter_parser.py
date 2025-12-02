@@ -10,8 +10,6 @@ import re
 from pathlib import Path
 from typing import Dict, Any, Optional, List
 
-from core.constants import PARAMETER_FILES, ERROR_MESSAGES, SUCCESS_MESSAGES
-
 
 class ParameterManager:
     """
@@ -39,12 +37,12 @@ class ParameterManager:
         params = {}
         
         # Load from blockMeshDict
-        blockmesh_path = os.path.join(self.project_path, PARAMETER_FILES["blockMeshDict"])
+        blockmesh_path = os.path.join(self.project_path, self._get_parameter_file("blockMeshDict"))
         if os.path.exists(blockmesh_path):
             params.update(self._parse_blockmesh_dict(blockmesh_path))
             
         # Load from topoSetDict
-        topo_path = os.path.join(self.project_path, PARAMETER_FILES["topoSetDict"])
+        topo_path = os.path.join(self.project_path, self._get_parameter_file("topoSetDict"))
         if os.path.exists(topo_path):
             params.update(self._parse_topo_set_dict(topo_path))
             
@@ -147,7 +145,7 @@ class ParameterManager:
         """
         params = {}
         
-        li_properties_path = os.path.join(self.project_path, PARAMETER_FILES["LiProperties"])
+        li_properties_path = os.path.join(self.project_path, self._get_parameter_file("LiProperties"))
         if os.path.exists(li_properties_path):
             params.update(self._parse_li_properties(li_properties_path))
             
@@ -203,12 +201,12 @@ class ParameterManager:
         params = {}
         
         # Load from fvSchemes
-        fv_schemes_path = os.path.join(self.project_path, PARAMETER_FILES["fvSchemes"])
+        fv_schemes_path = os.path.join(self.project_path, self._get_parameter_file("fvSchemes"))
         if os.path.exists(fv_schemes_path):
             params.update(self._parse_fv_schemes(fv_schemes_path))
             
         # Load from fvSolution
-        fv_solution_path = os.path.join(self.project_path, PARAMETER_FILES["fvSolution"])
+        fv_solution_path = os.path.join(self.project_path, self._get_parameter_file("fvSolution"))
         if os.path.exists(fv_solution_path):
             params.update(self._parse_fv_solution(fv_solution_path))
             
@@ -285,7 +283,7 @@ class ParameterManager:
         """
         params = {}
         
-        control_dict_path = os.path.join(self.project_path, PARAMETER_FILES["controlDict"])
+        control_dict_path = os.path.join(self.project_path, self._get_parameter_file("controlDict"))
         if os.path.exists(control_dict_path):
             params.update(self._parse_control_dict(control_dict_path))
             
@@ -332,12 +330,12 @@ class ParameterManager:
             params: Dictionary of parameters to save
         """
         # Update blockMeshDict
-        blockmesh_path = os.path.join(self.project_path, PARAMETER_FILES["blockMeshDict"])
+        blockmesh_path = os.path.join(self.project_path, self._get_parameter_file("blockMeshDict"))
         if os.path.exists(blockmesh_path):
             self._update_blockmesh_dict(blockmesh_path, params)
             
         # Update topoSetDict
-        topo_path = os.path.join(self.project_path, PARAMETER_FILES["topoSetDict"])
+        topo_path = os.path.join(self.project_path, self._get_parameter_file("topoSetDict"))
         if os.path.exists(topo_path):
             self._update_topo_set_dict(topo_path, params)
             
@@ -445,3 +443,8 @@ class ParameterManager:
         """
         self.save_geometry_parameters(params)
         # Additional save methods can be added here for other parameter types
+        
+    def _get_parameter_file(self, file_type: str) -> str:
+        """Get the path to a parameter file."""
+        from src.core.constants import PARAMETER_FILES
+        return PARAMETER_FILES[file_type]

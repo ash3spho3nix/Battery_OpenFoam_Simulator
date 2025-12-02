@@ -7,8 +7,8 @@ This test validates that the circular import issue has been resolved.
 import sys
 import os
 
-# Add the src_py directory to Python path
-sys.path.insert(0, os.path.join(os.path.dirname(__file__), 'src_py'))
+# Add the src directory to Python path
+sys.path.insert(0, os.path.join(os.path.dirname(__file__), 'src'))
 
 def test_imports():
     """Test that all modules can be imported without errors."""
@@ -16,19 +16,19 @@ def test_imports():
     print("=" * 50)
     
     modules_to_test = [
-        'src_py.gui.main_window',
-        'src_py.gui.interface_factory', 
-        'src_py.gui.interfaces.base_interface',
-        'src_py.gui.interfaces.carbon_interface',
-        'src_py.gui.interfaces.halfcell_interface',
-        'src_py.gui.interfaces.fullcell_interface',
-        'src_py.gui.interfaces.result_interface',
-        'src_py.openfoam.process_controller',
-        'src_py.openfoam.solver_manager',
-        'src_py.utils.parameter_parser',
-        'src_py.utils.file_operations',
-        'src_py.core.constants',
-        'src_py.main'
+        'src.gui.main_window',
+        'src.gui.interface_factory', 
+        'src.gui.interfaces.base_interface',
+        'src.gui.interfaces.carbon_interface',
+        'src.gui.interfaces.halfcell_interface',
+        'src.gui.interfaces.fullcell_interface',
+        'src.gui.interfaces.result_interface',
+        'src.openfoam.process_controller',
+        'src.openfoam.solver_manager',
+        'src.utils.parameter_parser',
+        'src.utils.file_operations',
+        'src.core.constants',
+        'src.main'
     ]
     
     success_count = 0

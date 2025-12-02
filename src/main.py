@@ -19,9 +19,9 @@ from PyQt6.QtCore import Qt, QCoreApplication
 from PyQt6.QtGui import QIcon
 
 # Import modules using absolute imports to avoid packaging issues
-from src_py.gui.main_window import MainWindow
-from src_py.gui.ui_config import UIConfig
-from src_py.core.constants import APP_NAME, APP_VERSION
+from src.gui.main_window import MainWindow
+from src.gui.ui_config import UIConfig
+from src.core.constants import APP_NAME, APP_VERSION
 
 
 def parse_arguments():

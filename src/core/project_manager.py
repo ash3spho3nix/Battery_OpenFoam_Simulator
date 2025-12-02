@@ -12,11 +12,6 @@ from pathlib import Path
 from typing import Optional, Dict, Any
 import re
 
-from .constants import (
-    SUPPORTED_MODULES, SOLVER_NAMES, ERROR_MESSAGES, SUCCESS_MESSAGES,
-    TEMPLATES_PATH, BACKUP_SUFFIX
-)
-
 
 class ProjectManager:
     """
@@ -28,7 +23,12 @@ class ProjectManager:
     
     def __init__(self):
         """Initialize the project manager."""
-        self.templates_path = TEMPLATES_PATH
+        self.templates_path = self._get_templates_path()
+        
+    def _get_templates_path(self):
+        """Lazy import of TEMPLATES_PATH to avoid circular imports."""
+        from src.core.constants import TEMPLATES_PATH
+        return TEMPLATES_PATH
         
     def create_project(
         self, 
@@ -47,7 +47,7 @@ class ProjectManager:
         Returns:
             bool: True if successful, False otherwise
         """
-        if module not in SUPPORTED_MODULES:
+        if module not in self._get_supported_modules():
             raise ValueError(f"Unsupported module: {module}")
             
         # Get template source
@@ -97,7 +97,7 @@ class ProjectManager:
         
         # Rename the main solver directory
         old_solver_name = next((d for d in os.listdir(destination) 
-                               if d in SUPPORTED_MODULES.values()), None)
+                               if d in self._get_solver_names().values()), None)
         if old_solver_name:
             old_path = os.path.join(destination, old_solver_name)
             new_path = os.path.join(destination, project_name)
@@ -127,7 +127,7 @@ class ProjectManager:
                 content = f.read()
                 
             # Replace module references
-            old_solver_name = SOLVER_NAMES[module]
+            old_solver_name = self._get_solver_names()[module]
             content = content.replace(old_solver_name, project_name)
             
             with open(make_file, 'w') as f:
@@ -187,7 +187,7 @@ class ProjectManager:
         Returns:
             Module type or None if undetectable
         """
-        for module in SUPPORTED_MODULES:
+        for module in self._get_supported_modules():
             solver_dir = os.path.join(project_path, module)
             if os.path.exists(solver_dir):
                 return module
@@ -223,7 +223,7 @@ class ProjectManager:
             
         return {
             'name': module,
-            'description': SUPPORTED_MODULES.get(module, ''),
+            'description': self._get_module_descriptions().get(module, ''),
             'path': str(template_path),
             'exists': template_path.exists()
         }
@@ -236,8 +236,23 @@ class ProjectManager:
             Dict mapping module names to template info
         """
         templates = {}
-        for module in SUPPORTED_MODULES:
+        for module in self._get_supported_modules():
             info = self.get_template_info(module)
             if info:
                 templates[module] = info
         return templates
+        
+    def _get_supported_modules(self):
+        """Lazy import of SUPPORTED_MODULES to avoid circular imports."""
+        from src.core.constants import SUPPORTED_MODULES
+        return SUPPORTED_MODULES
+        
+    def _get_solver_names(self):
+        """Lazy import of SOLVER_NAMES to avoid circular imports."""
+        from src.core.constants import SOLVER_NAMES
+        return SOLVER_NAMES
+        
+    def _get_module_descriptions(self):
+        """Lazy import of MODULE_DESCRIPTIONS to avoid circular imports."""
+        from src.core.constants import MODULE_DESCRIPTIONS
+        return MODULE_DESCRIPTIONS

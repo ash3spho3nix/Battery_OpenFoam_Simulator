@@ -13,10 +13,10 @@ from pathlib import Path
 logging.basicConfig(level=logging.DEBUG, format='%(levelname)s:%(name)s:%(message)s')
 logger = logging.getLogger(__name__)
 
-# Add the src_py directory to Python path for imports
+# Add the src directory to Python path for imports
 current_dir = Path(__file__).parent
-src_py_path = current_dir / "src_py"
-sys.path.insert(0, str(src_py_path))
+src_path = current_dir / "src"
+sys.path.insert(0, str(src_path))
 
 def test_import_chain():
     """Test the import chain to detect circular imports."""
@@ -26,17 +26,17 @@ def test_import_chain():
     try:
         # Test 1: Import interface_factory directly
         print("1. Testing interface_factory import...")
-        from src_py.gui.interface_factory import InterfaceFactory
+        from src.gui.interface_factory import InterfaceFactory
         print("   ✓ interface_factory imported successfully")
         
         # Test 2: Import main_window directly
         print("2. Testing main_window import...")
-        from src_py.gui.main_window import MainWindow
+        from src.gui.main_window import MainWindow
         print("   ✓ main_window imported successfully")
         
         # Test 3: Test InterfaceFactory.create_main_window method
         print("3. Testing InterfaceFactory.create_main_window method...")
-        from src_py.gui.ui_config import UIConfig
+        from src.gui.ui_config import UIConfig
         ui_config = UIConfig()
         ui_config.set_mode("hand_coded")  # Force hand-coded mode to avoid .ui file issues
         
@@ -71,11 +71,11 @@ def test_individual_modules():
     print("-" * 40)
     
     modules_to_test = [
-        "src_py.gui.ui_loader",
-        "src_py.gui.ui_config", 
-        "src_py.gui.interface_factory",
-        "src_py.gui.main_window",
-        "src_py.core.application"
+        "src.gui.ui_loader",
+        "src.gui.ui_config", 
+        "src.gui.interface_factory",
+        "src.gui.main_window",
+        "src.core.application"
     ]
     
     for module_name in modules_to_test:
@@ -110,7 +110,7 @@ if __name__ == "__main__":
     if individual_success and chain_success:
         print("🎉 SUCCESS: Circular import issue has been resolved!")
         print("\nYou can now run the application with:")
-        print("  python src_py/main.py")
+        print("  python src/main.py")
         sys.exit(0)
     else:
         print("❌ FAILURE: Circular import issue still exists.")

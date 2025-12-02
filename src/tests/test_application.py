@@ -11,36 +11,36 @@ import os
 import argparse
 from pathlib import Path
 
-# Add the src_py directory to Python path for imports
+# Add the src directory to Python path for imports
 current_dir = Path(__file__).parent
-src_py_path = current_dir / "src_py"
-sys.path.insert(0, str(src_py_path))
+src_path = current_dir / "src"
+sys.path.insert(0, str(src_path))
 
 def test_imports():
     """Test all import statements to ensure no packaging issues."""
     print("Testing imports...")
     try:
         # Test core imports
-        from src_py.core.constants import APP_NAME, APP_VERSION, UI_WIDGET_NAMES
+        from src.core.constants import APP_NAME, APP_VERSION, UI_WIDGET_NAMES
         print(f"✓ Core constants imported: {APP_NAME} v{APP_VERSION}")
         
         # Test GUI imports
-        from src_py.gui.main_window import MainWindow
-        from src_py.gui.ui_config import UIConfig, UILoadingMode
-        from src_py.gui.ui_loader import UILoader
-        from src_py.gui.interface_factory import InterfaceFactory
+        from src.gui.main_window import MainWindow
+        from src.gui.ui_config import UIConfig, UILoadingMode
+        from src.gui.ui_loader import UILoader
+        from src.gui.interface_factory import InterfaceFactory
         print("✓ GUI modules imported successfully")
         
         # Test interface imports
-        from src_py.gui.interfaces.base_interface import BaseInterface
-        from src_py.gui.interfaces.carbon_interface import CarbonInterface
-        from src_py.gui.interfaces.halfcell_interface import HalfCellInterface
-        from src_py.gui.interfaces.fullcell_interface import FullCellInterface
-        from src_py.gui.interfaces.result_interface import ResultInterface
+        from src.gui.interfaces.base_interface import BaseInterface
+        from src.gui.interfaces.carbon_interface import CarbonInterface
+        from src.gui.interfaces.halfcell_interface import HalfCellInterface
+        from src.gui.interfaces.fullcell_interface import FullCellInterface
+        from src.gui.interfaces.result_interface import ResultInterface
         print("✓ Interface modules imported successfully")
         
         # Test utility imports
-        from src_py.utils.debug_utils import OpenFOAMDebugger, validate_openfoam_installation
+        from src.utils.debug_utils import OpenFOAMDebugger, validate_openfoam_installation
         print("✓ Utility modules imported successfully")
         
         return True
@@ -52,8 +52,8 @@ def test_ui_loading_modes():
     """Test different UI loading modes."""
     print("\nTesting UI loading modes...")
     try:
-        from src_py.gui.ui_config import UIConfig, UILoadingMode
-        from src_py.gui.ui_loader import UILoader
+        from src.gui.ui_config import UIConfig, UILoadingMode
+        from src.gui.ui_loader import UILoader
         
         # Test UI_FILES mode
         ui_config_ui_files = UIConfig()
@@ -71,7 +71,7 @@ def test_ui_loading_modes():
         print(f"✓ AUTO_DETECT mode configured: {ui_config_auto.should_load_ui_files()}")
         
         # Test UI file existence
-        ui_files_path = src_py_path.parent / "src_py" / "resources" / "ui"
+        ui_files_path = src_path.parent / "src" / "resources" / "ui"
         ui_files_exist = UILoader.ui_file_exists("mainwindow", str(ui_files_path))
         print(f"✓ UI files exist: {ui_files_exist}")
         
@@ -84,7 +84,7 @@ def test_openfoam_integration():
     """Test OpenFOAM integration and debugging utilities."""
     print("\nTesting OpenFOAM integration...")
     try:
-        from src_py.utils.debug_utils import (
+        from src.utils.debug_utils import (
             OpenFOAMDebugger, 
             validate_openfoam_installation, 
             check_solver_availability
@@ -111,7 +111,7 @@ def test_constants_and_ui_values():
     """Test that hardcoded values from .ui files are properly loaded."""
     print("\nTesting constants and UI values...")
     try:
-        from src_py.core.constants import UI_WIDGET_NAMES, UI_TAB_TITLES, UI_DEFAULT_VALUES
+        from src.core.constants import UI_WIDGET_NAMES, UI_TAB_TITLES, UI_DEFAULT_VALUES
         
         # Test widget names
         main_window_widgets = UI_WIDGET_NAMES.get("main_window", {})
@@ -141,8 +141,8 @@ def test_application_initialization():
     print("\nTesting application initialization...")
     try:
         from PyQt6.QtWidgets import QApplication
-        from src_py.gui.main_window import MainWindow
-        from src_py.gui.ui_config import UIConfig, UILoadingMode
+        from src.gui.main_window import MainWindow
+        from src.gui.ui_config import UIConfig, UILoadingMode
         
         # Create Qt application (headless)
         app = QApplication(sys.argv)
@@ -207,11 +207,11 @@ def run_comprehensive_test():
     if passed == total:
         print("✓ All tests passed! The application should now run without import errors.")
         print("\nTo run the application, use:")
-        print("  python src_py/main.py")
+        print("  python src/main.py")
         print("\nTo test with specific UI mode:")
-        print("  python src_py/main.py --ui-mode ui_files")
-        print("  python src_py/main.py --ui-mode hand_coded")
-        print("  python src_py/main.py --ui-mode auto")
+        print("  python src/main.py --ui-mode ui_files")
+        print("  python src/main.py --ui-mode hand_coded")
+        print("  python src/main.py --ui-mode auto")
     else:
         print("✗ Some tests failed. Please check the errors above.")
     
@@ -230,7 +230,7 @@ def main():
         print(f"Python path: {sys.path}")
         print(f"Current directory: {os.getcwd()}")
         print(f"Script location: {__file__}")
-        print(f"Source path: {src_py_path}")
+        print(f"Source path: {src_path}")
     
     if args.test == 'all':
         success = run_comprehensive_test()
