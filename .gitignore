@@ -1,0 +1,46 @@
+# Byte-compiled / optimized / DLL files
+**/__pycache__/
+*.py[cod]
+*$py.class
+src/resources/templates/
+# C extensions
+*.so
+__pycache__/
+*__pycache__/
+# Distribution / packaging
+.Python
+build/
+dist/
+
+eggs/
+.eggs/
+lib/
+lib64/
+*.egg-info/
+.installed.cfg
+*.egg
+# PyInstaller
+*.manifest
+*.spec
+# -----------------------------
+# KiloCode (DO NOT COMMIT)
+# -----------------------------
+.kilocode/
+.kilocode/*
+.kilocodemodes
+.kilocodemodes/*
+.kilocode/workflows/
+.kilocode/rules/
+.kilocode/profiles/
+.kilocode/logs/
+.kilocode/cache/
+.kilocodesmodes
+kilocodes_backup/
+kilocodes_backup/*
+
+
+# -----------------------------
+# Continue (DO NOT COMMIT)
+# -----------------------------
+.continue/
+.continue/*

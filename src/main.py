@@ -10,7 +10,7 @@ import os
 import argparse
 from pathlib import Path
 
-# Add the src_py directory to Python path for imports
+# Add the src directory to Python path for imports
 current_dir = Path(__file__).parent
 sys.path.insert(0, str(current_dir))
 
