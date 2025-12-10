@@ -1,52 +1,52 @@
 """
 Battery Simulator - Python Migration
 
-This package contains the Python implementation of the Battery Simulator,
-migrated from C++/Qt to maintain compatibility with OpenFOAM solvers
-while providing a modern Python codebase.
+This package contains the Python implementation of the Battery Simulator application,
+migrated from C++/Qt. The application provides a GUI interface for creating and running
+battery simulations using OpenFOAM solvers.
 
-Author: Migration Team
-Version: 1.0.0
+Package Structure:
+- core/     : Core application logic and project management
+- gui/      : GUI components and interfaces  
+- openfoam/ : OpenFOAM integration and process management
+- utils/    : Utility functions and helpers
+- resources/ : Static resources (templates, UI files)
+
+Key Classes:
+- MainWindow: Main application window and project management
+- ProjectManager: Handles project creation and management
+- InterfaceFactory: Creates simulation interfaces
+- ProcessController: Manages OpenFOAM process execution
 """
 
-__version__ = "1.0.0"
-__author__ = "Battery Simulator Migration Team"
-
 # Import core modules
-from .core.application import BatterySimulatorApp
-from .core.project_manager import ProjectManager
-from .core.constants import *
-
-# Import GUI modules
 from .gui.main_window import MainWindow
+from .core.project_manager import ProjectManager
+
+# Import GUI components
+from .gui.interface_factory import InterfaceFactory
+from .gui.ui_loader import UiLoader
 
 # Import OpenFOAM integration
-from .openfoam.solver_manager import OpenFOAMSolverManager
 from .openfoam.process_controller import ProcessController
+from .openfoam.solver_manager import SolverManager
 
 # Import utilities
-from .utils.file_operations import TemplateManager
-from .utils.parameter_parser import ParameterManager
+from .utils.file_operations import FileOperations
+from .utils.parameter_parser import ParameterParser
 
+# Version information
+__version__ = "1.0.0"
+__author__ = "Battery Simulator Team"
+
+# Package metadata
 __all__ = [
-    # Core classes
-    'BatterySimulatorApp',
-    'ProjectManager',
-    
-    # GUI classes
     'MainWindow',
-    
-    # OpenFOAM integration
-    'OpenFOAMSolverManager',
+    'ProjectManager', 
+    'InterfaceFactory',
+    'UiLoader',
     'ProcessController',
-    
-    # Utilities
-    'TemplateManager',
-    'ParameterManager',
-    
-    # Constants
-    'APP_NAME',
-    'APP_VERSION',
-    'SUPPORTED_MODULES',
-    'DEFAULT_PROJECT_PATH'
+    'SolverManager',
+    'FileOperations',
+    'ParameterParser'
 ]

@@ -74,10 +74,12 @@ MODULE_DESCRIPTIONS = {
 DEFAULT_PROJECT_PATH = str(Path("~").expanduser())
 
 # Path to UI files (equivalent to .ui files in C++)
-UI_FILES_PATH = str(Path("resources/ui"))
+# Use absolute path relative to this file's location
+_CURRENT_DIR = Path(__file__).parent
+UI_FILES_PATH = str(_CURRENT_DIR.parent / "resources" / "ui")
 
 # Path to OpenFOAM templates (equivalent to GUI/OpenfoamModule)
-TEMPLATES_PATH = str(Path("resources/templates"))
+TEMPLATES_PATH = str(_CURRENT_DIR.parent / "resources" / "templates")
 
 # OpenFOAM solver names (from C++ Make/files)
 SOLVER_NAMES = {

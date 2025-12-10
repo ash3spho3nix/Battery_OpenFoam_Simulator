@@ -43,6 +43,7 @@ lib64/
 kilocodes_summary
 kilocodes_implementation
 
+src/dev_docs/
 dev_docs/
 test_projects/
 # -----------------------------

@@ -1,11 +1,12 @@
 """
 Main window implementation for Battery Simulator.
-
+ 
 This module contains the MainWindow class, which is the Python equivalent
 of the C++ MainWindow class. It manages the overall application state,
 project creation, and navigation between different interfaces.
+Supports both .ui file loading and hand-coded widget approaches.
 """
-
+ 
 import os
 import sys
 from pathlib import Path
@@ -16,17 +17,16 @@ from PyQt6.QtWidgets import (
     QRadioButton, QFrame, QTextBrowser
 )
 import logging
-
+ 
 # Set up logging
 logger = logging.getLogger(__name__)
-
+ 
 from ..core.constants import (
     APP_NAME, APP_VERSION, SUPPORTED_MODULES, DEFAULT_PROJECT_PATH,
     ERROR_MESSAGES, SUCCESS_MESSAGES, WARNING_MESSAGES
 )
-from ..core.project_manager import ProjectManager
-
-
+ 
+ 
 class MainWindow(QMainWindow):
     """
     Main application window for Battery Simulator.
@@ -72,8 +72,8 @@ class MainWindow(QMainWindow):
         # Initialize UI
         self._setup_ui()
         
-        # Initialize project manager
-        self.project_manager = ProjectManager()
+        # Initialize project manager WITH required parameter
+        self.project_manager = self._create_project_manager()
         
     def _get_ui_config(self):
         """Lazy import of UIConfig to avoid circular imports."""
@@ -81,6 +81,28 @@ class MainWindow(QMainWindow):
         from ..gui.ui_config import UIConfig
         logger.debug("UIConfig imported successfully")
         return UIConfig()
+        
+    def _create_project_manager(self):
+        """Create ProjectManager with required base_projects_path parameter."""
+        logger.debug("MainWindow._create_project_manager() called")
+        try:
+            # Use DEFAULT_PROJECT_PATH as the base projects path
+            from ..core.project_manager import ProjectManager
+            base_projects_path = Path(DEFAULT_PROJECT_PATH)
+            logger.debug(f"Creating ProjectManager with base_projects_path: {base_projects_path}")
+            project_manager = ProjectManager(base_projects_path)
+            logger.debug("ProjectManager created successfully")
+            return project_manager
+        except Exception as e:
+            logger.error(f"Failed to create ProjectManager: {e}", exc_info=True)
+            # Create a mock project manager or handle gracefully
+            QMessageBox.critical(
+                self, "Error", 
+                f"Failed to initialize project manager: {str(e)}\n\n"
+                "The application may not function correctly."
+            )
+            # Return None and handle gracefully in the rest of the code
+            return None
         
     def _setup_ui(self):
         """
@@ -267,6 +289,12 @@ class MainWindow(QMainWindow):
             QMessageBox.information(self, "Hint", ERROR_MESSAGES["invalid_path"])
             return
             
+        # Check if project manager is available
+        if self.project_manager is None:
+            logger.error("Project manager is not available")
+            QMessageBox.critical(self, "Error", "Project manager is not available. Cannot create project.")
+            return
+            
         # Create complete project path
         complete_project_path = os.path.join(self.project_path, self.project_name)
         logger.debug(f"Complete project path: {complete_project_path}")
@@ -407,6 +435,12 @@ class MainWindow(QMainWindow):
         if not self.project_path or not self.project_name:
             logger.warning("Project path or name is empty")
             QMessageBox.information(self, "Hint", ERROR_MESSAGES["invalid_path"])
+            return
+            
+        # Check if project manager is available
+        if self.project_manager is None:
+            logger.error("Project manager is not available")
+            QMessageBox.critical(self, "Error", "Project manager is not available. Cannot open project.")
             return
             
         # Save recent project
