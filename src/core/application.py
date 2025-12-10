@@ -20,7 +20,8 @@ import logging
 # Set up logging
 logger = logging.getLogger(__name__)
 
-from .constants import (
+# Import configuration only (no circular dependencies)
+from .config import (
     APP_NAME, APP_VERSION, SUPPORTED_MODULES, DEFAULT_PROJECT_PATH,
     ERROR_MESSAGES, SUCCESS_MESSAGES, WARNING_MESSAGES
 )
@@ -77,6 +78,7 @@ class BatterySimulatorApp(QMainWindow):
         
     def _get_ui_config(self):
         """Lazy import of UIConfig to avoid circular imports."""
+        logger.debug("BatterySimulatorApp._get_ui_config() called")
         from src.gui.ui_config import UIConfig
         return UIConfig()
         

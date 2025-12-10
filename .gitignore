@@ -12,6 +12,11 @@ __pycache__/
 build/
 dist/
 
+.git/
+.github/
+.pytest_cache/
+
+
 eggs/
 .eggs/
 lib/
@@ -35,10 +40,11 @@ lib64/
 .kilocode/logs/
 .kilocode/cache/
 .kilocodesmodes
-kilocodes_backup/
-kilocodes_backup/*
+kilocodes_summary
+kilocodes_implementation
 
-
+dev_docs/
+test_projects/
 # -----------------------------
 # Continue (DO NOT COMMIT)
 # -----------------------------

@@ -19,9 +19,9 @@ sys.path.insert(0, str(Path(__file__).parent))
 from PyQt6.QtWidgets import QApplication, QWidget, QVBoxLayout, QLabel, QPushButton
 from PyQt6.QtCore import Qt
 
-from gui.ui_loader import UILoader, UILoadingMode
-from gui.ui_config import UIConfig
-from gui.interface_factory import InterfaceFactory
+from src.gui.ui_loader import UILoader, UILoadingMode
+from src.gui.ui_config import UIConfig
+from src.gui.interface_factory import InterfaceFactory
 
 
 def test_ui_loader():

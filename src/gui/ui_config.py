@@ -15,7 +15,7 @@ class UILoadingMode(Enum):
     UI loading modes for the Battery Simulator.
     
     Defines different ways the application can load its user interface:
-    - UI_FILES: Load from Qt Designer .ui files at runtime
+    - UI_FILES: Load from Qt Designer .ui files
     - HAND_CODED: Use hand-coded PyQt6 widgets
     - AUTO_DETECT: Automatically choose based on file availability
     """

@@ -39,7 +39,11 @@ class ProcessController(QObject):
         self.process = None
         self.stdout_thread = None
         self.stderr_thread = None
+        self.monitor_thread = None
+        self._paused = False
         self._running = False
+        self.output_buffer = []
+        self.error_buffer = []
         
     def start_process(self, command: str, working_dir: str = None):
         """
@@ -65,6 +69,7 @@ class ProcessController(QObject):
             )
             
             self._running = True
+            self._paused = False
             self.process_started.emit()
             
             # Start output monitoring threads
@@ -109,14 +114,19 @@ class ProcessController(QObject):
         try:
             for line in iter(stream.readline, ''):
                 if line:
+                    line_stripped = line.rstrip()
                     if is_error:
-                        self.error_received.emit(line.rstrip())
+                        self.error_received.emit(line_stripped)
+                        self.error_buffer.append(line_stripped)
                     else:
-                        self.output_received.emit(line.rstrip())
+                        self.output_received.emit(line_stripped)
+                        self.output_buffer.append(line_stripped)
                         
         except Exception as e:
             if self._running:
-                self.error_received.emit(f"Error reading stream: {str(e)}")
+                error_msg = f"Error reading stream: {str(e)}"
+                self.error_received.emit(error_msg)
+                self.error_buffer.append(error_msg)
                 
     def _monitor_process(self):
         """
@@ -126,11 +136,14 @@ class ProcessController(QObject):
             # Wait for process to complete
             exit_code = self.process.wait()
             self._running = False
+            self._paused = False
             self.process_finished.emit(exit_code)
             
         except Exception as e:
             if self._running:
-                self.error_received.emit(f"Error monitoring process: {str(e)}")
+                error_msg = f"Error monitoring process: {str(e)}"
+                self.error_received.emit(error_msg)
+                self.error_buffer.append(error_msg)
                 
     def terminate_process(self):
         """
@@ -149,6 +162,7 @@ class ProcessController(QObject):
                 self.error_received.emit(f"Error terminating process: {str(e)}")
                 
         self._running = False
+        self._paused = False
         
     def is_running(self) -> bool:
         """
@@ -158,6 +172,15 @@ class ProcessController(QObject):
             bool: True if process is running
         """
         return self._running
+        
+    def is_paused(self) -> bool:
+        """
+        Check if the process is currently paused.
+        
+        Returns:
+            bool: True if process is paused
+        """
+        return self._paused
         
     def get_exit_code(self) -> Optional[int]:
         """
@@ -197,6 +220,31 @@ class ProcessController(QObject):
             except Exception as e:
                 self.error_received.emit(f"Error writing to stdin: {str(e)}")
                 
+    def get_output_buffer(self) -> list:
+        """
+        Get the output buffer containing all received output.
+        
+        Returns:
+            list: List of output lines
+        """
+        return self.output_buffer.copy()
+        
+    def get_error_buffer(self) -> list:
+        """
+        Get the error buffer containing all received errors.
+        
+        Returns:
+            list: List of error lines
+        """
+        return self.error_buffer.copy()
+        
+    def clear_buffers(self):
+        """
+        Clear the output and error buffers.
+        """
+        self.output_buffer.clear()
+        self.error_buffer.clear()
+        
     def cleanup(self):
         """
         Clean up resources.
@@ -205,3 +253,5 @@ class ProcessController(QObject):
         if self.process:
             self.process = None
         self._running = False
+        self._paused = False
+        self.clear_buffers()

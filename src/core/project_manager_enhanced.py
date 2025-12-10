@@ -14,6 +14,7 @@ from datetime import datetime
 import logging
 import re
 import hashlib
+import zipfile
 
 logger = logging.getLogger(__name__)
 
