@@ -177,20 +177,22 @@ class InterfaceFactory:
         if not cls._should_try_ui_loading(interface_type, ui_config, 'enhanced'):
             return None
         
-        # Import enhanced UI loader
-        from src.gui.ui_loader import UILoader
+        # Import UI loader
+        from src.gui.ui_loader import UiLoader
         
         # Get UI name mapping
         ui_name = cls._get_ui_name(interface_type)
-        ui_path = UILoader.get_ui_path(ui_name, ui_config.get_ui_base_path())
         
-        # Validate UI file integrity before loading
-        if not UILoader.validate_ui_integrity(ui_path):
-            logger.warning(f"UI file integrity check failed: {ui_path}")
-            return None
+        # Load UI using UiLoader
+        try:
+            widget = UiLoader.load_ui(ui_name, parent)
+            if widget:
+                logger.debug(f"Successfully loaded UI: {ui_name}")
+                return widget
+        except Exception as e:
+            logger.debug(f"Failed to load UI {ui_name}: {e}")
         
-        # Load UI with enhanced validation
-        return UILoader.load_ui_file(ui_path, parent, validate_ui=True)
+        return None
     
     @classmethod
     def _create_ui_basic(
@@ -204,18 +206,21 @@ class InterfaceFactory:
             return None
         
         # Import basic UI loader
-        from src.gui.ui_loader import UILoader
+        from src.gui.ui_loader import UiLoader
         
         # Get UI name mapping
         ui_name = cls._get_ui_name(interface_type)
-        ui_path = UILoader.get_ui_path(ui_name, ui_config.get_ui_base_path())
         
-        # Check if UI file exists
-        if not UILoader.ui_file_exists(ui_name, ui_config.get_ui_base_path()):
-            return None
+        # Load UI
+        try:
+            widget = UiLoader.load_ui(ui_name, parent)
+            if widget:
+                logger.debug(f"Successfully loaded UI: {ui_name}")
+                return widget
+        except Exception as e:
+            logger.debug(f"Failed to load UI {ui_name}: {e}")
         
-        # Load UI with basic validation
-        return UILoader.load_ui_file(ui_path, parent)
+        return None
     
     @classmethod
     def _create_hand_coded(
@@ -282,10 +287,8 @@ class InterfaceFactory:
         elif ui_config.mode == UILoadingMode.HAND_CODED:
             return False
         elif ui_config.mode == UILoadingMode.AUTO_DETECT:
-            # In auto-detect mode, check if UI files are available
-            ui_name = cls._get_ui_name(interface_type)
-            from src.gui.ui_loader import UILoader
-            return UILoader.ui_file_exists(ui_name, ui_config.get_ui_base_path())
+            # In auto-detect mode, prefer hand-coded for now (UI files may not be properly set up)
+            return False
         return False
     
     @staticmethod

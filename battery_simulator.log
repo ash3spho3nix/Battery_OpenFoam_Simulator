@@ -1,0 +1,716 @@
+2025-12-12 13:48:28,668 - __main__ - INFO - Starting Battery Simulator application
+2025-12-12 13:48:28,669 - __main__ - ERROR - Failed to import required modules: attempted relative import beyond top-level package
+2025-12-12 13:49:20,363 - __main__ - INFO - Starting Battery Simulator application
+2025-12-12 13:49:20,393 - __main__ - ERROR - Failed to import required modules: attempted relative import beyond top-level package
+2025-12-12 13:52:51,077 - __main__ - INFO - Starting Battery Simulator application
+2025-12-12 13:52:51,146 - __main__ - ERROR - Failed to import required modules: No module named 'src'
+2025-12-12 13:53:02,515 - src.main - INFO - Starting Battery Simulator application
+2025-12-12 13:53:02,599 - src.gui.main_window - DEBUG - MainWindow.__init__() called
+2025-12-12 13:53:02,599 - src.gui.main_window - DEBUG - MainWindow._setup_ui() called
+2025-12-12 13:53:02,606 - src.gui.main_window - DEBUG - MainWindow._create_new_project_tab() called
+2025-12-12 13:53:02,618 - src.gui.main_window - DEBUG - MainWindow._create_open_project_tab() called
+2025-12-12 13:53:02,618 - src.gui.main_window - DEBUG - MainWindow._create_project_manager() called
+2025-12-12 13:53:02,618 - src.gui.main_window - DEBUG - Creating ProjectManager with base_projects_path: C:\Users\vsharma.A123SYSTEMSEU
+2025-12-12 13:53:02,627 - src.gui.main_window - DEBUG - ProjectManager created successfully
+2025-12-12 13:53:02,833 - src.main - INFO - Application started successfully
+2025-12-12 13:53:25,761 - __main__ - INFO - Starting Battery Simulator application
+2025-12-12 13:53:26,214 - src.gui.main_window - DEBUG - MainWindow.__init__() called
+2025-12-12 13:53:26,223 - src.gui.main_window - DEBUG - MainWindow._setup_ui() called
+2025-12-12 13:53:26,225 - src.gui.main_window - DEBUG - MainWindow._create_new_project_tab() called
+2025-12-12 13:53:26,239 - src.gui.main_window - DEBUG - MainWindow._create_open_project_tab() called
+2025-12-12 13:53:26,243 - src.gui.main_window - DEBUG - MainWindow._create_project_manager() called
+2025-12-12 13:53:26,243 - src.gui.main_window - DEBUG - Creating ProjectManager with base_projects_path: C:\Users\vsharma.A123SYSTEMSEU
+2025-12-12 13:53:26,243 - src.gui.main_window - DEBUG - ProjectManager created successfully
+2025-12-12 13:53:26,360 - __main__ - INFO - Application started successfully
+2025-12-12 13:53:58,466 - __main__ - INFO - Starting Battery Simulator application
+2025-12-12 13:53:58,536 - src.gui.main_window - DEBUG - MainWindow.__init__() called
+2025-12-12 13:53:58,539 - src.gui.main_window - DEBUG - MainWindow._setup_ui() called
+2025-12-12 13:53:58,539 - src.gui.main_window - DEBUG - MainWindow._create_new_project_tab() called
+2025-12-12 13:53:58,547 - src.gui.main_window - DEBUG - MainWindow._create_open_project_tab() called
+2025-12-12 13:53:58,547 - src.gui.main_window - DEBUG - MainWindow._create_project_manager() called
+2025-12-12 13:53:58,547 - src.gui.main_window - DEBUG - Creating ProjectManager with base_projects_path: C:\Users\vsharma.A123SYSTEMSEU
+2025-12-12 13:53:58,547 - src.gui.main_window - DEBUG - ProjectManager created successfully
+2025-12-12 13:53:58,638 - __main__ - INFO - Application started successfully
+2025-12-12 13:54:02,333 - src.gui.main_window - DEBUG - MainWindow.on_main_path_button_clicked() called
+2025-12-12 13:54:24,088 - src.gui.main_window - DEBUG - MainWindow.on_main_next_button_clicked() called
+2025-12-12 13:54:24,088 - src.gui.main_window - DEBUG - Project name: project10
+2025-12-12 13:54:24,104 - src.gui.main_window - DEBUG - Project path: C:/Users/vsharma.A123SYSTEMSEU/Documents/BatterySimulator/project
+2025-12-12 13:54:24,104 - src.gui.main_window - DEBUG - Complete project path: C:/Users/vsharma.A123SYSTEMSEU/Documents/BatterySimulator/project\project10
+2025-12-12 13:54:24,104 - src.gui.main_window - INFO - Creating project: project10 with module: SPM
+2025-12-12 13:54:24,104 - src.gui.main_window - DEBUG - Calling project_manager.create_project()
+2025-12-12 13:54:24,104 - src.core.project_manager - ERROR - Failed to create project project10: Template path does not exist: SPM
+Traceback (most recent call last):
+  File "C:\Users\vsharma.A123SYSTEMSEU\Documents\BatterySimulator\BatteryOpenFoamSimulator\Battery_OpenFoam_Simulator\src\core\project_manager.py", line 120, in create_project
+    self._validate_template_path(template_path)
+  File "C:\Users\vsharma.A123SYSTEMSEU\Documents\BatterySimulator\BatteryOpenFoamSimulator\Battery_OpenFoam_Simulator\src\core\project_manager.py", line 179, in _validate_template_path
+    raise ProjectValidationError(f"Template path does not exist: {template_path}")
+src.core.project_manager.ProjectValidationError: Template path does not exist: SPM
+2025-12-12 13:54:24,135 - src.gui.main_window - DEBUG - Project created successfully
+2025-12-12 13:54:24,135 - src.gui.main_window - DEBUG - Hiding main window
+2025-12-12 13:54:24,150 - src.gui.main_window - DEBUG - Getting interface type
+2025-12-12 13:54:24,150 - src.gui.main_window - DEBUG - MainWindow._get_interface_type() called with module: SPM
+2025-12-12 13:54:24,150 - src.gui.main_window - DEBUG - MainWindow._get_interface_type() returning: carbon
+2025-12-12 13:54:24,150 - src.gui.main_window - DEBUG - Interface type: carbon
+2025-12-12 13:54:24,150 - src.gui.main_window - DEBUG - Getting interface factory
+2025-12-12 13:54:24,150 - src.gui.main_window - DEBUG - MainWindow._get_interface_factory() called
+2025-12-12 13:54:24,150 - src.gui.main_window - DEBUG - InterfaceFactory imported successfully
+2025-12-12 13:54:24,150 - src.gui.main_window - DEBUG - Creating interface with type: carbon, parent: <src.gui.main_window.MainWindow object at 0x000001D50265DA90>, ui_config: UIConfig(mode=auto_detect, prefer_ui_files=True, fallback_enabled=True, ui_base_path=None)
+2025-12-12 13:54:24,150 - src.gui.interface_factory - INFO - Creating interface: carbon with mode: auto_detect
+2025-12-12 13:54:24,150 - src.gui.interface_factory - DEBUG - Trying Enhanced UI loading (auto) for carbon
+2025-12-12 13:54:24,150 - src.gui.interface_factory - WARNING - Failed to create interface using Enhanced UI loading (auto): cannot import name 'UILoader' from 'src.gui.ui_loader' (C:\Users\vsharma.A123SYSTEMSEU\Documents\BatterySimulator\BatteryOpenFoamSimulator\Battery_OpenFoam_Simulator\src\gui\ui_loader.py)
+2025-12-12 13:54:24,173 - src.gui.interface_factory - DEBUG - Full traceback: Traceback (most recent call last):
+  File "C:\Users\vsharma.A123SYSTEMSEU\Documents\BatterySimulator\BatteryOpenFoamSimulator\Battery_OpenFoam_Simulator\src\gui\interface_factory.py", line 144, in _create_interface_with_fallback
+    interface = cls._create_ui_enhanced(interface_type, parent, ui_config)
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\vsharma.A123SYSTEMSEU\Documents\BatterySimulator\BatteryOpenFoamSimulator\Battery_OpenFoam_Simulator\src\gui\interface_factory.py", line 177, in _create_ui_enhanced
+    if not cls._should_try_ui_loading(interface_type, ui_config, 'enhanced'):
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\vsharma.A123SYSTEMSEU\Documents\BatterySimulator\BatteryOpenFoamSimulator\Battery_OpenFoam_Simulator\src\gui\interface_factory.py", line 287, in _should_try_ui_loading
+    from src.gui.ui_loader import UILoader
+ImportError: cannot import name 'UILoader' from 'src.gui.ui_loader' (C:\Users\vsharma.A123SYSTEMSEU\Documents\BatterySimulator\BatteryOpenFoamSimulator\Battery_OpenFoam_Simulator\src\gui\ui_loader.py). Did you mean: 'UiLoader'?
+
+2025-12-12 13:54:24,173 - src.gui.interface_factory - DEBUG - Trying Basic UI loading for carbon
+2025-12-12 13:54:24,173 - src.gui.interface_factory - WARNING - Failed to create interface using Basic UI loading: cannot import name 'UILoader' from 'src.gui.ui_loader' (C:\Users\vsharma.A123SYSTEMSEU\Documents\BatterySimulator\BatteryOpenFoamSimulator\Battery_OpenFoam_Simulator\src\gui\ui_loader.py)
+2025-12-12 13:54:24,173 - src.gui.interface_factory - DEBUG - Full traceback: Traceback (most recent call last):
+  File "C:\Users\vsharma.A123SYSTEMSEU\Documents\BatterySimulator\BatteryOpenFoamSimulator\Battery_OpenFoam_Simulator\src\gui\interface_factory.py", line 146, in _create_interface_with_fallback
+    interface = cls._create_ui_basic(interface_type, parent, ui_config)
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\vsharma.A123SYSTEMSEU\Documents\BatterySimulator\BatteryOpenFoamSimulator\Battery_OpenFoam_Simulator\src\gui\interface_factory.py", line 203, in _create_ui_basic
+    if not cls._should_try_ui_loading(interface_type, ui_config, 'basic'):
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\vsharma.A123SYSTEMSEU\Documents\BatterySimulator\BatteryOpenFoamSimulator\Battery_OpenFoam_Simulator\src\gui\interface_factory.py", line 287, in _should_try_ui_loading
+    from src.gui.ui_loader import UILoader
+ImportError: cannot import name 'UILoader' from 'src.gui.ui_loader' (C:\Users\vsharma.A123SYSTEMSEU\Documents\BatterySimulator\BatteryOpenFoamSimulator\Battery_OpenFoam_Simulator\src\gui\ui_loader.py). Did you mean: 'UiLoader'?
+
+2025-12-12 13:54:24,173 - src.gui.interface_factory - DEBUG - Trying Hand-coded widgets for carbon
+2025-12-12 13:54:24,173 - src.gui.interface_factory - DEBUG - Creating hand-coded interface: carbon
+2025-12-12 13:54:24,220 - src.gui.interfaces.carbon_interface - DEBUG - === CARBON INTERFACE WIDGET DIAGNOSIS ===
+2025-12-12 13:54:24,304 - src.gui.interfaces.carbon_interface - DEBUG - All QLineEdit-like attributes:
+2025-12-12 13:54:24,304 - src.gui.interfaces.carbon_interface - DEBUG -   delta_t_edit: <class 'PyQt6.QtWidgets.QDoubleSpinBox'> = <PyQt6.QtWidgets.QDoubleSpinBox object at 0x000001D502704370>
+2025-12-12 13:54:24,304 - src.gui.interfaces.carbon_interface - DEBUG -   end_time_edit: <class 'PyQt6.QtWidgets.QDoubleSpinBox'> = <PyQt6.QtWidgets.QDoubleSpinBox object at 0x000001D5027042D0>
+2025-12-12 13:54:24,304 - src.gui.interfaces.carbon_interface - DEBUG -   height_edit: <class 'PyQt6.QtWidgets.QLineEdit'> = <PyQt6.QtWidgets.QLineEdit object at 0x000001D5026D7070>
+2025-12-12 13:54:24,304 - src.gui.interfaces.carbon_interface - DEBUG -   initial_cs_edit: <class 'PyQt6.QtWidgets.QLineEdit'> = <PyQt6.QtWidgets.QLineEdit object at 0x000001D502702B70>
+2025-12-12 13:54:24,304 - src.gui.interfaces.carbon_interface - DEBUG -   length_edit: <class 'PyQt6.QtWidgets.QLineEdit'> = <PyQt6.QtWidgets.QLineEdit object at 0x000001D5026D6F30>
+2025-12-12 13:54:24,304 - src.gui.interfaces.carbon_interface - DEBUG -   param_edits: <class 'dict'> = {'DS_value': <PyQt6.QtWidgets.QLineEdit object at 0x000001D5027007D0>, 'CS_max': <PyQt6.QtWidgets.QLineEdit object at 0x000001D502700A50>, 'kReact': <PyQt6.QtWidgets.QLineEdit object at 0x000001D502700CD0>, 'R': <PyQt6.QtWidgets.QLineEdit object at 0x000001D502700F50>, 'F': <PyQt6.QtWidgets.QLineEdit object at 0x000001D5027011D0>, 'Ce': <PyQt6.QtWidgets.QLineEdit object at 0x000001D502701450>, 'alphaA': <PyQt6.QtWidgets.QLineEdit object at 0x000001D5027016D0>, 'alphaC': <PyQt6.QtWidgets.QLineEdit object at 0x000001D502701950>, 'T_temp': <PyQt6.QtWidgets.QLineEdit object at 0x000001D502701BD0>, 'I_app': <PyQt6.QtWidgets.QLineEdit object at 0x000001D502701E50>, 'initial_cs': <PyQt6.QtWidgets.QLineEdit object at 0x000001D5027020D0>}
+2025-12-12 13:54:24,304 - src.gui.interfaces.carbon_interface - DEBUG -   radius_edit: <class 'PyQt6.QtWidgets.QLineEdit'> = <PyQt6.QtWidgets.QLineEdit object at 0x000001D5026D7A70>
+2025-12-12 13:54:24,304 - src.gui.interfaces.carbon_interface - DEBUG -   tolerance_edit: <class 'PyQt6.QtWidgets.QLineEdit'> = <PyQt6.QtWidgets.QLineEdit object at 0x000001D502704730>
+2025-12-12 13:54:24,304 - src.gui.interfaces.carbon_interface - DEBUG -   width_edit: <class 'PyQt6.QtWidgets.QLineEdit'> = <PyQt6.QtWidgets.QLineEdit object at 0x000001D5026D6FD0>
+2025-12-12 13:54:24,304 - src.gui.interfaces.carbon_interface - DEBUG -   write_interval_edit: <class 'PyQt6.QtWidgets.QDoubleSpinBox'> = <PyQt6.QtWidgets.QDoubleSpinBox object at 0x000001D502704410>
+2025-12-12 13:54:24,304 - src.gui.interfaces.carbon_interface - DEBUG -   x_div_edit: <class 'PyQt6.QtWidgets.QSpinBox'> = <PyQt6.QtWidgets.QSpinBox object at 0x000001D5026D7610>
+2025-12-12 13:54:24,304 - src.gui.interfaces.carbon_interface - DEBUG -   y_div_edit: <class 'PyQt6.QtWidgets.QSpinBox'> = <PyQt6.QtWidgets.QSpinBox object at 0x000001D5026D76B0>
+2025-12-12 13:54:24,304 - src.gui.interfaces.carbon_interface - DEBUG -   z_div_edit: <class 'PyQt6.QtWidgets.QSpinBox'> = <PyQt6.QtWidgets.QSpinBox object at 0x000001D5026D7750>
+2025-12-12 13:54:24,304 - src.gui.interfaces.carbon_interface - DEBUG - === END DIAGNOSIS ===
+2025-12-12 13:54:24,304 - src.gui.interface_factory - INFO - Successfully created interface using Hand-coded widgets
+2025-12-12 13:54:24,304 - src.gui.interface_factory - DEBUG - Cached interface: carbon_701317102896085726
+2025-12-12 13:54:24,304 - src.gui.interface_factory - INFO - Interface creation completed in 0.154s
+2025-12-12 13:54:24,304 - src.gui.main_window - DEBUG - Interface created: <src.gui.interfaces.carbon_interface.CarbonInterface object at 0x000001D502691E50>
+2025-12-12 13:54:24,304 - src.gui.main_window - DEBUG - Interface type: <class 'src.gui.interfaces.carbon_interface.CarbonInterface'>
+2025-12-12 13:54:24,304 - src.gui.main_window - DEBUG - Interface parent: <src.gui.main_window.MainWindow object at 0x000001D50265DA90>
+2025-12-12 13:54:24,304 - src.gui.main_window - DEBUG - Interface geometry: PyQt6.QtCore.QRect(0, 0, 1000, 700)
+2025-12-12 13:54:24,304 - src.gui.main_window - DEBUG - Showing interface
+2025-12-12 13:54:24,320 - src.gui.main_window - DEBUG - Interface shown
+2025-12-12 13:54:24,320 - src.gui.main_window - DEBUG - Connecting exit signal
+2025-12-12 13:54:24,320 - src.gui.main_window - DEBUG - Exit signal connected
+2025-12-12 14:00:57,449 - __main__ - INFO - Starting Battery Simulator application
+2025-12-12 14:00:57,565 - __main__ - ERROR - Failed to start application: invalid syntax (project_manager.py, line 91)
+Traceback (most recent call last):
+  File "C:\Users\vsharma.A123SYSTEMSEU\Documents\BatterySimulator\BatteryOpenFoamSimulator\Battery_OpenFoam_Simulator\src\main.py", line 39, in main
+    from src.gui.main_window import MainWindow
+  File "C:\Users\vsharma.A123SYSTEMSEU\Documents\BatterySimulator\BatteryOpenFoamSimulator\Battery_OpenFoam_Simulator\src\__init__.py", line 23, in <module>
+    from .gui.main_window import MainWindow
+  File "C:\Users\vsharma.A123SYSTEMSEU\Documents\BatterySimulator\BatteryOpenFoamSimulator\Battery_OpenFoam_Simulator\src\gui\main_window.py", line 24, in <module>
+    from ..core.constants import (
+  File "C:\Users\vsharma.A123SYSTEMSEU\Documents\BatterySimulator\BatteryOpenFoamSimulator\Battery_OpenFoam_Simulator\src\core\__init__.py", line 7, in <module>
+    from .project_manager import ProjectManager
+  File "C:\Users\vsharma.A123SYSTEMSEU\Documents\BatterySimulator\BatteryOpenFoamSimulator\Battery_OpenFoam_Simulator\src\core\project_manager.py", line 91
+    self._cache = {}    def create_project(
+                        ^^^
+SyntaxError: invalid syntax
+2025-12-12 14:02:39,508 - __main__ - INFO - Starting Battery Simulator application
+2025-12-12 14:02:39,798 - src.gui.main_window - DEBUG - MainWindow.__init__() called
+2025-12-12 14:02:39,798 - src.gui.main_window - DEBUG - MainWindow._setup_ui() called
+2025-12-12 14:02:39,800 - src.gui.main_window - DEBUG - MainWindow._create_new_project_tab() called
+2025-12-12 14:02:39,811 - src.gui.main_window - DEBUG - MainWindow._create_open_project_tab() called
+2025-12-12 14:02:39,811 - src.gui.main_window - DEBUG - MainWindow._create_project_manager() called
+2025-12-12 14:02:39,811 - src.gui.main_window - DEBUG - Creating ProjectManager with base_projects_path: C:\Users\vsharma.A123SYSTEMSEU
+2025-12-12 14:02:39,811 - src.gui.main_window - DEBUG - ProjectManager created successfully
+2025-12-12 14:02:40,069 - __main__ - INFO - Application started successfully
+2025-12-12 14:02:47,036 - src.gui.main_window - DEBUG - MainWindow.on_main_path_button_clicked() called
+2025-12-12 14:03:12,209 - src.gui.main_window - DEBUG - MainWindow.on_main_next_button_clicked() called
+2025-12-12 14:03:12,209 - src.gui.main_window - DEBUG - Project name: project10
+2025-12-12 14:03:12,209 - src.gui.main_window - DEBUG - Project path: C:/Users/vsharma.A123SYSTEMSEU/Documents/BatterySimulator/project
+2025-12-12 14:03:12,209 - src.gui.main_window - DEBUG - Complete project path: C:/Users/vsharma.A123SYSTEMSEU/Documents/BatterySimulator/project\project10
+2025-12-12 14:03:12,209 - src.gui.main_window - INFO - Creating project: project10 with module: halfCell
+2025-12-12 14:03:12,209 - src.gui.main_window - DEBUG - Calling project_manager.create_project()
+2025-12-12 14:03:12,209 - src.core.project_manager - ERROR - Failed to create project project10: Template missing critical directories: ['Make', 'system', 'constant']
+Traceback (most recent call last):
+  File "C:\Users\vsharma.A123SYSTEMSEU\Documents\BatterySimulator\BatteryOpenFoamSimulator\Battery_OpenFoam_Simulator\src\core\project_manager.py", line 129, in create_project
+    self._validate_template_path(template_path)            # Create project directory
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\vsharma.A123SYSTEMSEU\Documents\BatterySimulator\BatteryOpenFoamSimulator\Battery_OpenFoam_Simulator\src\core\project_manager.py", line 226, in _validate_template_path
+    raise ProjectValidationError(f"Template missing critical directories: {missing_dirs}")
+src.core.project_manager.ProjectValidationError: Template missing critical directories: ['Make', 'system', 'constant']
+2025-12-12 14:03:12,209 - src.gui.main_window - DEBUG - Project created successfully
+2025-12-12 14:03:12,209 - src.gui.main_window - DEBUG - Hiding main window
+2025-12-12 14:03:12,243 - src.gui.main_window - DEBUG - Getting interface type
+2025-12-12 14:03:12,243 - src.gui.main_window - DEBUG - MainWindow._get_interface_type() called with module: halfCell
+2025-12-12 14:03:12,244 - src.gui.main_window - DEBUG - MainWindow._get_interface_type() returning: halfcell
+2025-12-12 14:03:12,244 - src.gui.main_window - DEBUG - Interface type: halfcell
+2025-12-12 14:03:12,244 - src.gui.main_window - DEBUG - Getting interface factory
+2025-12-12 14:03:12,244 - src.gui.main_window - DEBUG - MainWindow._get_interface_factory() called
+2025-12-12 14:03:12,245 - src.gui.main_window - DEBUG - InterfaceFactory imported successfully
+2025-12-12 14:03:12,245 - src.gui.main_window - DEBUG - Creating interface with type: halfcell, parent: <src.gui.main_window.MainWindow object at 0x000001B77986BCF0>, ui_config: UIConfig(mode=auto_detect, prefer_ui_files=True, fallback_enabled=True, ui_base_path=None)
+2025-12-12 14:03:12,245 - src.gui.interface_factory - INFO - Creating interface: halfcell with mode: auto_detect
+2025-12-12 14:03:12,245 - src.gui.interface_factory - DEBUG - Trying Enhanced UI loading (auto) for halfcell
+2025-12-12 14:03:12,246 - src.gui.interface_factory - WARNING - Failed to create interface using Enhanced UI loading (auto): cannot import name 'UILoader' from 'src.gui.ui_loader' (C:\Users\vsharma.A123SYSTEMSEU\Documents\BatterySimulator\BatteryOpenFoamSimulator\Battery_OpenFoam_Simulator\src\gui\ui_loader.py)
+2025-12-12 14:03:12,268 - src.gui.interface_factory - DEBUG - Full traceback: Traceback (most recent call last):
+  File "C:\Users\vsharma.A123SYSTEMSEU\Documents\BatterySimulator\BatteryOpenFoamSimulator\Battery_OpenFoam_Simulator\src\gui\interface_factory.py", line 144, in _create_interface_with_fallback
+    interface = cls._create_ui_enhanced(interface_type, parent, ui_config)
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\vsharma.A123SYSTEMSEU\Documents\BatterySimulator\BatteryOpenFoamSimulator\Battery_OpenFoam_Simulator\src\gui\interface_factory.py", line 177, in _create_ui_enhanced
+    if not cls._should_try_ui_loading(interface_type, ui_config, 'enhanced'):
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\vsharma.A123SYSTEMSEU\Documents\BatterySimulator\BatteryOpenFoamSimulator\Battery_OpenFoam_Simulator\src\gui\interface_factory.py", line 287, in _should_try_ui_loading
+    from src.gui.ui_loader import UILoader
+ImportError: cannot import name 'UILoader' from 'src.gui.ui_loader' (C:\Users\vsharma.A123SYSTEMSEU\Documents\BatterySimulator\BatteryOpenFoamSimulator\Battery_OpenFoam_Simulator\src\gui\ui_loader.py). Did you mean: 'UiLoader'?
+
+2025-12-12 14:03:12,268 - src.gui.interface_factory - DEBUG - Trying Basic UI loading for halfcell
+2025-12-12 14:03:12,268 - src.gui.interface_factory - WARNING - Failed to create interface using Basic UI loading: cannot import name 'UILoader' from 'src.gui.ui_loader' (C:\Users\vsharma.A123SYSTEMSEU\Documents\BatterySimulator\BatteryOpenFoamSimulator\Battery_OpenFoam_Simulator\src\gui\ui_loader.py)
+2025-12-12 14:03:12,271 - src.gui.interface_factory - DEBUG - Full traceback: Traceback (most recent call last):
+  File "C:\Users\vsharma.A123SYSTEMSEU\Documents\BatterySimulator\BatteryOpenFoamSimulator\Battery_OpenFoam_Simulator\src\gui\interface_factory.py", line 146, in _create_interface_with_fallback
+    interface = cls._create_ui_basic(interface_type, parent, ui_config)
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\vsharma.A123SYSTEMSEU\Documents\BatterySimulator\BatteryOpenFoamSimulator\Battery_OpenFoam_Simulator\src\gui\interface_factory.py", line 203, in _create_ui_basic
+    if not cls._should_try_ui_loading(interface_type, ui_config, 'basic'):
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\vsharma.A123SYSTEMSEU\Documents\BatterySimulator\BatteryOpenFoamSimulator\Battery_OpenFoam_Simulator\src\gui\interface_factory.py", line 287, in _should_try_ui_loading
+    from src.gui.ui_loader import UILoader
+ImportError: cannot import name 'UILoader' from 'src.gui.ui_loader' (C:\Users\vsharma.A123SYSTEMSEU\Documents\BatterySimulator\BatteryOpenFoamSimulator\Battery_OpenFoam_Simulator\src\gui\ui_loader.py). Did you mean: 'UiLoader'?
+
+2025-12-12 14:03:12,271 - src.gui.interface_factory - DEBUG - Trying Hand-coded widgets for halfcell
+2025-12-12 14:03:12,271 - src.gui.interface_factory - DEBUG - Creating hand-coded interface: halfcell
+2025-12-12 14:03:12,310 - src.gui.interface_factory - INFO - Successfully created interface using Hand-coded widgets
+2025-12-12 14:03:12,310 - src.gui.interface_factory - DEBUG - Cached interface: halfcell_3652044638558046739
+2025-12-12 14:03:12,310 - src.gui.interface_factory - INFO - Interface creation completed in 0.065s
+2025-12-12 14:03:12,311 - src.gui.main_window - DEBUG - Interface created: <src.gui.interfaces.halfcell_interface.HalfCellInterface object at 0x000001B77B6A5270>
+2025-12-12 14:03:12,311 - src.gui.main_window - DEBUG - Interface type: <class 'src.gui.interfaces.halfcell_interface.HalfCellInterface'>
+2025-12-12 14:03:12,311 - src.gui.main_window - DEBUG - Interface parent: <src.gui.main_window.MainWindow object at 0x000001B77986BCF0>
+2025-12-12 14:03:12,311 - src.gui.main_window - DEBUG - Interface geometry: PyQt6.QtCore.QRect(0, 0, 1000, 700)
+2025-12-12 14:03:12,311 - src.gui.main_window - DEBUG - Showing interface
+2025-12-12 14:03:12,319 - src.gui.main_window - DEBUG - Interface shown
+2025-12-12 14:03:12,319 - src.gui.main_window - DEBUG - Connecting exit signal
+2025-12-12 14:03:12,321 - src.gui.main_window - DEBUG - Exit signal connected
+2025-12-12 14:05:40,615 - __main__ - INFO - Starting Battery Simulator application
+2025-12-12 14:05:40,859 - __main__ - ERROR - Failed to start application: invalid syntax (project_manager.py, line 234)
+Traceback (most recent call last):
+  File "C:\Users\vsharma.A123SYSTEMSEU\Documents\BatterySimulator\BatteryOpenFoamSimulator\Battery_OpenFoam_Simulator\src\main.py", line 39, in main
+    from src.gui.main_window import MainWindow
+  File "C:\Users\vsharma.A123SYSTEMSEU\Documents\BatterySimulator\BatteryOpenFoamSimulator\Battery_OpenFoam_Simulator\src\__init__.py", line 23, in <module>
+    from .gui.main_window import MainWindow
+  File "C:\Users\vsharma.A123SYSTEMSEU\Documents\BatterySimulator\BatteryOpenFoamSimulator\Battery_OpenFoam_Simulator\src\gui\main_window.py", line 24, in <module>
+    from ..core.constants import (
+  File "C:\Users\vsharma.A123SYSTEMSEU\Documents\BatterySimulator\BatteryOpenFoamSimulator\Battery_OpenFoam_Simulator\src\core\__init__.py", line 7, in <module>
+    from .project_manager import ProjectManager
+  File "C:\Users\vsharma.A123SYSTEMSEU\Documents\BatterySimulator\BatteryOpenFoamSimulator\Battery_OpenFoam_Simulator\src\core\project_manager.py", line 234
+    return True    def _copy_template_files(self, source: Path, destination: Path):
+                   ^^^
+SyntaxError: invalid syntax
+2025-12-12 14:06:00,767 - __main__ - INFO - Starting Battery Simulator application
+2025-12-12 14:06:01,041 - src.gui.main_window - DEBUG - MainWindow.__init__() called
+2025-12-12 14:06:01,043 - src.gui.main_window - DEBUG - MainWindow._setup_ui() called
+2025-12-12 14:06:01,043 - src.gui.main_window - DEBUG - MainWindow._create_new_project_tab() called
+2025-12-12 14:06:01,054 - src.gui.main_window - DEBUG - MainWindow._create_open_project_tab() called
+2025-12-12 14:06:01,055 - src.gui.main_window - DEBUG - MainWindow._create_project_manager() called
+2025-12-12 14:06:01,055 - src.gui.main_window - DEBUG - Creating ProjectManager with base_projects_path: C:\Users\vsharma.A123SYSTEMSEU
+2025-12-12 14:06:01,056 - src.gui.main_window - DEBUG - ProjectManager created successfully
+2025-12-12 14:06:01,151 - __main__ - INFO - Application started successfully
+2025-12-12 14:06:04,513 - src.gui.main_window - DEBUG - MainWindow.on_main_path_button_clicked() called
+2025-12-12 14:06:26,818 - src.gui.main_window - DEBUG - MainWindow.on_main_next_button_clicked() called
+2025-12-12 14:06:26,818 - src.gui.main_window - DEBUG - Project name: project100
+2025-12-12 14:06:26,818 - src.gui.main_window - DEBUG - Project path: C:/Users/vsharma.A123SYSTEMSEU/Documents/BatterySimulator/project
+2025-12-12 14:06:26,818 - src.gui.main_window - DEBUG - Complete project path: C:/Users/vsharma.A123SYSTEMSEU/Documents/BatterySimulator/project\project100
+2025-12-12 14:06:26,818 - src.gui.main_window - INFO - Creating project: project100 with module: SPM
+2025-12-12 14:06:26,818 - src.gui.main_window - DEBUG - Calling project_manager.create_project()
+2025-12-12 14:06:27,283 - src.core.project_manager - INFO - Project created successfully: project100
+2025-12-12 14:06:27,283 - src.gui.main_window - DEBUG - Project created successfully
+2025-12-12 14:06:27,283 - src.gui.main_window - DEBUG - Hiding main window
+2025-12-12 14:06:27,291 - src.gui.main_window - DEBUG - Getting interface type
+2025-12-12 14:06:27,291 - src.gui.main_window - DEBUG - MainWindow._get_interface_type() called with module: SPM
+2025-12-12 14:06:27,291 - src.gui.main_window - DEBUG - MainWindow._get_interface_type() returning: carbon
+2025-12-12 14:06:27,291 - src.gui.main_window - DEBUG - Interface type: carbon
+2025-12-12 14:06:27,291 - src.gui.main_window - DEBUG - Getting interface factory
+2025-12-12 14:06:27,291 - src.gui.main_window - DEBUG - MainWindow._get_interface_factory() called
+2025-12-12 14:06:27,291 - src.gui.main_window - DEBUG - InterfaceFactory imported successfully
+2025-12-12 14:06:27,291 - src.gui.main_window - DEBUG - Creating interface with type: carbon, parent: <src.gui.main_window.MainWindow object at 0x000001B5E580BCF0>, ui_config: UIConfig(mode=auto_detect, prefer_ui_files=True, fallback_enabled=True, ui_base_path=None)
+2025-12-12 14:06:27,291 - src.gui.interface_factory - INFO - Creating interface: carbon with mode: auto_detect
+2025-12-12 14:06:27,291 - src.gui.interface_factory - DEBUG - Trying Enhanced UI loading (auto) for carbon
+2025-12-12 14:06:27,291 - src.gui.interface_factory - DEBUG - Trying Basic UI loading for carbon
+2025-12-12 14:06:27,291 - src.gui.interface_factory - DEBUG - Trying Hand-coded widgets for carbon
+2025-12-12 14:06:27,291 - src.gui.interface_factory - DEBUG - Creating hand-coded interface: carbon
+2025-12-12 14:06:27,340 - src.gui.interfaces.carbon_interface - DEBUG - === CARBON INTERFACE WIDGET DIAGNOSIS ===
+2025-12-13 19:19:25,893 - __main__ - INFO - Starting Battery Simulator application
+2025-12-13 19:19:26,219 - src.gui.main_window - DEBUG - MainWindow.__init__() called
+2025-12-13 19:19:26,219 - src.gui.main_window - DEBUG - MainWindow._setup_ui() called
+2025-12-13 19:19:26,219 - src.gui.main_window - DEBUG - MainWindow._create_new_project_tab() called
+2025-12-13 19:19:26,229 - src.gui.main_window - DEBUG - MainWindow._create_open_project_tab() called
+2025-12-13 19:19:26,237 - src.gui.main_window - DEBUG - MainWindow._create_project_manager() called
+2025-12-13 19:19:26,237 - src.gui.main_window - DEBUG - Creating ProjectManager with base_projects_path: C:\Users\vsharma.A123SYSTEMSEU
+2025-12-13 19:19:26,237 - src.gui.main_window - DEBUG - ProjectManager created successfully
+2025-12-13 19:19:26,364 - __main__ - INFO - Application started successfully
+2025-12-13 19:19:30,427 - src.gui.main_window - DEBUG - MainWindow.on_main_path_button_clicked() called
+2025-12-13 19:19:45,849 - src.gui.main_window - DEBUG - MainWindow.on_main_next_button_clicked() called
+2025-12-13 19:19:45,851 - src.gui.main_window - DEBUG - Project name: project111
+2025-12-13 19:19:45,851 - src.gui.main_window - DEBUG - Project path: C:/Users/vsharma.A123SYSTEMSEU/Documents/BatterySimulator/project
+2025-12-13 19:19:45,851 - src.gui.main_window - DEBUG - Complete project path: C:/Users/vsharma.A123SYSTEMSEU/Documents/BatterySimulator/project\project111
+2025-12-13 19:19:45,851 - src.gui.main_window - INFO - Creating project: project111 with module: SPM
+2025-12-13 19:19:45,851 - src.gui.main_window - DEBUG - Calling project_manager.create_project()
+2025-12-13 19:19:46,357 - src.core.project_manager - INFO - Project created successfully: project111
+2025-12-13 19:19:46,357 - src.gui.main_window - DEBUG - Project created successfully
+2025-12-13 19:19:46,357 - src.gui.main_window - DEBUG - Hiding main window
+2025-12-13 19:19:46,365 - src.gui.main_window - DEBUG - Getting interface type
+2025-12-13 19:19:46,365 - src.gui.main_window - DEBUG - MainWindow._get_interface_type() called with module: SPM
+2025-12-13 19:19:46,365 - src.gui.main_window - DEBUG - MainWindow._get_interface_type() returning: carbon
+2025-12-13 19:19:46,365 - src.gui.main_window - DEBUG - Interface type: carbon
+2025-12-13 19:19:46,365 - src.gui.main_window - DEBUG - Getting interface factory
+2025-12-13 19:19:46,365 - src.gui.main_window - DEBUG - MainWindow._get_interface_factory() called
+2025-12-13 19:19:46,365 - src.gui.main_window - DEBUG - InterfaceFactory imported successfully
+2025-12-13 19:19:46,365 - src.gui.main_window - DEBUG - Creating interface with type: carbon, parent: <src.gui.main_window.MainWindow object at 0x000002047445BBB0>, ui_config: UIConfig(mode=auto_detect, prefer_ui_files=True, fallback_enabled=True, ui_base_path=None)
+2025-12-13 19:19:46,365 - src.gui.interface_factory - INFO - Creating interface: carbon with mode: auto_detect
+2025-12-13 19:19:46,375 - src.gui.interface_factory - DEBUG - Trying Enhanced UI loading (auto) for carbon
+2025-12-13 19:19:46,375 - src.gui.interface_factory - DEBUG - Trying Basic UI loading for carbon
+2025-12-13 19:19:46,375 - src.gui.interface_factory - DEBUG - Trying Hand-coded widgets for carbon
+2025-12-13 19:19:46,375 - src.gui.interface_factory - DEBUG - Creating hand-coded interface: carbon
+2025-12-13 19:19:46,422 - src.gui.interfaces.carbon_interface - DEBUG - === CARBON INTERFACE WIDGET DIAGNOSIS ===
+2025-12-13 19:19:58,574 - __main__ - INFO - Starting Battery Simulator application
+2025-12-13 19:19:58,620 - src.gui.main_window - DEBUG - MainWindow.__init__() called
+2025-12-13 19:19:58,622 - src.gui.main_window - DEBUG - MainWindow._setup_ui() called
+2025-12-13 19:19:58,622 - src.gui.main_window - DEBUG - MainWindow._create_new_project_tab() called
+2025-12-13 19:19:58,633 - src.gui.main_window - DEBUG - MainWindow._create_open_project_tab() called
+2025-12-13 19:19:58,633 - src.gui.main_window - DEBUG - MainWindow._create_project_manager() called
+2025-12-13 19:19:58,633 - src.gui.main_window - DEBUG - Creating ProjectManager with base_projects_path: C:\Users\vsharma.A123SYSTEMSEU
+2025-12-13 19:19:58,633 - src.gui.main_window - DEBUG - ProjectManager created successfully
+2025-12-13 19:19:58,691 - __main__ - INFO - Application started successfully
+2025-12-13 19:20:06,214 - src.gui.main_window - DEBUG - MainWindow.on_main_path_button_clicked() called
+2025-12-13 19:20:19,993 - src.gui.main_window - DEBUG - MainWindow.on_main_next_button_clicked() called
+2025-12-13 19:20:19,993 - src.gui.main_window - DEBUG - Project name: project123
+2025-12-13 19:20:19,993 - src.gui.main_window - DEBUG - Project path: C:/Users/vsharma.A123SYSTEMSEU/Documents/BatterySimulator/project
+2025-12-13 19:20:19,993 - src.gui.main_window - DEBUG - Complete project path: C:/Users/vsharma.A123SYSTEMSEU/Documents/BatterySimulator/project\project123
+2025-12-13 19:20:19,993 - src.gui.main_window - INFO - Creating project: project123 with module: SPM
+2025-12-13 19:20:19,993 - src.gui.main_window - DEBUG - Calling project_manager.create_project()
+2025-12-13 19:20:20,322 - src.core.project_manager - INFO - Project created successfully: project123
+2025-12-13 19:20:20,322 - src.gui.main_window - DEBUG - Project created successfully
+2025-12-13 19:20:20,322 - src.gui.main_window - DEBUG - Hiding main window
+2025-12-13 19:20:20,328 - src.gui.main_window - DEBUG - Getting interface type
+2025-12-13 19:20:20,328 - src.gui.main_window - DEBUG - MainWindow._get_interface_type() called with module: SPM
+2025-12-13 19:20:20,328 - src.gui.main_window - DEBUG - MainWindow._get_interface_type() returning: carbon
+2025-12-13 19:20:20,328 - src.gui.main_window - DEBUG - Interface type: carbon
+2025-12-13 19:20:20,328 - src.gui.main_window - DEBUG - Getting interface factory
+2025-12-13 19:20:20,328 - src.gui.main_window - DEBUG - MainWindow._get_interface_factory() called
+2025-12-13 19:20:20,336 - src.gui.main_window - DEBUG - InterfaceFactory imported successfully
+2025-12-13 19:20:20,336 - src.gui.main_window - DEBUG - Creating interface with type: carbon, parent: <src.gui.main_window.MainWindow object at 0x000002A3D21DD9F0>, ui_config: UIConfig(mode=auto_detect, prefer_ui_files=True, fallback_enabled=True, ui_base_path=None)
+2025-12-13 19:20:20,336 - src.gui.interface_factory - INFO - Creating interface: carbon with mode: auto_detect
+2025-12-13 19:20:20,336 - src.gui.interface_factory - DEBUG - Trying Enhanced UI loading (auto) for carbon
+2025-12-13 19:20:20,346 - src.gui.interface_factory - DEBUG - Trying Basic UI loading for carbon
+2025-12-13 19:20:20,346 - src.gui.interface_factory - DEBUG - Trying Hand-coded widgets for carbon
+2025-12-13 19:20:20,346 - src.gui.interface_factory - DEBUG - Creating hand-coded interface: carbon
+2025-12-13 19:20:20,362 - src.gui.interfaces.carbon_interface - DEBUG - === CARBON INTERFACE WIDGET DIAGNOSIS ===
+2025-12-13 19:20:20,425 - src.gui.interfaces.carbon_interface - DEBUG - All QLineEdit-like attributes:
+2025-12-13 19:20:20,440 - src.gui.interfaces.carbon_interface - DEBUG -   delta_t_edit: <class 'PyQt6.QtWidgets.QDoubleSpinBox'> = <PyQt6.QtWidgets.QDoubleSpinBox object at 0x000002A3D2267ED0>
+2025-12-13 19:20:20,440 - src.gui.interfaces.carbon_interface - DEBUG -   end_time_edit: <class 'PyQt6.QtWidgets.QDoubleSpinBox'> = <PyQt6.QtWidgets.QDoubleSpinBox object at 0x000002A3D2267E30>
+2025-12-13 19:20:20,447 - src.gui.interfaces.carbon_interface - DEBUG -   height_edit: <class 'PyQt6.QtWidgets.QLineEdit'> = <PyQt6.QtWidgets.QLineEdit object at 0x000002A3D220E0D0>
+2025-12-13 19:20:20,447 - src.gui.interfaces.carbon_interface - DEBUG -   initial_cs_edit: <class 'PyQt6.QtWidgets.QLineEdit'> = <PyQt6.QtWidgets.QLineEdit object at 0x000002A3D2266710>
+2025-12-13 19:20:20,447 - src.gui.interfaces.carbon_interface - DEBUG -   length_edit: <class 'PyQt6.QtWidgets.QLineEdit'> = <PyQt6.QtWidgets.QLineEdit object at 0x000002A3D220D810>
+2025-12-13 19:20:20,447 - src.gui.interfaces.carbon_interface - DEBUG -   param_edits: <class 'dict'> = {'DS_value': <PyQt6.QtWidgets.QLineEdit object at 0x000002A3D2264370>, 'CS_max': <PyQt6.QtWidgets.QLineEdit object at 0x000002A3D22645F0>, 'kReact': <PyQt6.QtWidgets.QLineEdit object at 0x000002A3D2264870>, 'R': <PyQt6.QtWidgets.QLineEdit object at 0x000002A3D2264AF0>, 'F': <PyQt6.QtWidgets.QLineEdit object at 0x000002A3D2264D70>, 'Ce': <PyQt6.QtWidgets.QLineEdit object at 0x000002A3D2264FF0>, 'alphaA': <PyQt6.QtWidgets.QLineEdit object at 0x000002A3D2265270>, 'alphaC': <PyQt6.QtWidgets.QLineEdit object at 0x000002A3D22654F0>, 'T_temp': <PyQt6.QtWidgets.QLineEdit object at 0x000002A3D2265770>, 'I_app': <PyQt6.QtWidgets.QLineEdit object at 0x000002A3D22659F0>, 'initial_cs': <PyQt6.QtWidgets.QLineEdit object at 0x000002A3D2265C70>}
+2025-12-13 19:20:20,447 - src.gui.interfaces.carbon_interface - DEBUG -   radius_edit: <class 'PyQt6.QtWidgets.QLineEdit'> = <PyQt6.QtWidgets.QLineEdit object at 0x000002A3D223B610>
+2025-12-13 19:20:20,447 - src.gui.interfaces.carbon_interface - DEBUG -   tolerance_edit: <class 'PyQt6.QtWidgets.QLineEdit'> = <PyQt6.QtWidgets.QLineEdit object at 0x000002A3D226C2D0>
+2025-12-13 19:20:20,447 - src.gui.interfaces.carbon_interface - DEBUG -   width_edit: <class 'PyQt6.QtWidgets.QLineEdit'> = <PyQt6.QtWidgets.QLineEdit object at 0x000002A3D220D770>
+2025-12-13 19:20:20,447 - src.gui.interfaces.carbon_interface - DEBUG -   write_interval_edit: <class 'PyQt6.QtWidgets.QDoubleSpinBox'> = <PyQt6.QtWidgets.QDoubleSpinBox object at 0x000002A3D2267F70>
+2025-12-13 19:20:20,447 - src.gui.interfaces.carbon_interface - DEBUG -   x_div_edit: <class 'PyQt6.QtWidgets.QSpinBox'> = <PyQt6.QtWidgets.QSpinBox object at 0x000002A3D223B1B0>
+2025-12-13 19:20:20,447 - src.gui.interfaces.carbon_interface - DEBUG -   y_div_edit: <class 'PyQt6.QtWidgets.QSpinBox'> = <PyQt6.QtWidgets.QSpinBox object at 0x000002A3D223B250>
+2025-12-13 19:20:20,447 - src.gui.interfaces.carbon_interface - DEBUG -   z_div_edit: <class 'PyQt6.QtWidgets.QSpinBox'> = <PyQt6.QtWidgets.QSpinBox object at 0x000002A3D223B2F0>
+2025-12-13 19:20:20,447 - src.gui.interfaces.carbon_interface - DEBUG - === END DIAGNOSIS ===
+2025-12-13 19:20:20,447 - src.gui.interface_factory - INFO - Successfully created interface using Hand-coded widgets
+2025-12-13 19:20:20,447 - src.gui.interface_factory - DEBUG - Cached interface: carbon_-3354095308955755763
+2025-12-13 19:20:20,447 - src.gui.interface_factory - INFO - Interface creation completed in 0.110s
+2025-12-13 19:20:20,447 - src.gui.main_window - DEBUG - Interface created: <src.gui.interfaces.carbon_interface.CarbonInterface object at 0x000002A3D220E210>
+2025-12-13 19:20:20,447 - src.gui.main_window - DEBUG - Interface type: <class 'src.gui.interfaces.carbon_interface.CarbonInterface'>
+2025-12-13 19:20:20,447 - src.gui.main_window - DEBUG - Interface parent: <src.gui.main_window.MainWindow object at 0x000002A3D21DD9F0>
+2025-12-13 19:20:20,447 - src.gui.main_window - DEBUG - Interface geometry: PyQt6.QtCore.QRect(0, 0, 1000, 700)
+2025-12-13 19:20:20,447 - src.gui.main_window - DEBUG - Showing interface
+2025-12-13 19:20:20,447 - src.gui.main_window - DEBUG - Interface shown
+2025-12-13 19:20:20,447 - src.gui.main_window - DEBUG - Connecting exit signal
+2025-12-13 19:20:20,447 - src.gui.main_window - DEBUG - Exit signal connected
+2025-12-13 19:23:56,721 - __main__ - INFO - Starting Battery Simulator application
+2025-12-13 19:23:57,166 - src.gui.main_window - DEBUG - MainWindow.__init__() called
+2025-12-13 19:23:57,166 - src.gui.main_window - DEBUG - MainWindow._setup_ui() called
+2025-12-13 19:23:57,166 - src.gui.main_window - DEBUG - MainWindow._create_new_project_tab() called
+2025-12-13 19:23:57,201 - src.gui.main_window - DEBUG - MainWindow._create_open_project_tab() called
+2025-12-13 19:23:57,202 - src.gui.main_window - DEBUG - MainWindow._create_project_manager() called
+2025-12-13 19:23:57,202 - src.gui.main_window - DEBUG - Creating ProjectManager with base_projects_path: C:\Users\vsharma.A123SYSTEMSEU
+2025-12-13 19:23:57,202 - src.gui.main_window - DEBUG - ProjectManager created successfully
+2025-12-13 19:23:57,304 - __main__ - INFO - Application started successfully
+2025-12-13 19:24:01,832 - src.gui.main_window - DEBUG - MainWindow.on_main_path_button_clicked() called
+2025-12-13 19:24:22,813 - src.gui.main_window - DEBUG - MainWindow.on_main_next_button_clicked() called
+2025-12-13 19:24:22,813 - src.gui.main_window - DEBUG - Project name: project198
+2025-12-13 19:24:22,813 - src.gui.main_window - DEBUG - Project path: C:/Users/vsharma.A123SYSTEMSEU/Documents/BatterySimulator/project
+2025-12-13 19:24:22,813 - src.gui.main_window - DEBUG - Complete project path: C:/Users/vsharma.A123SYSTEMSEU/Documents/BatterySimulator/project\project198
+2025-12-13 19:24:22,813 - src.gui.main_window - INFO - Creating project: project198 with module: SPM
+2025-12-13 19:24:22,813 - src.gui.main_window - DEBUG - Calling project_manager.create_project()
+2025-12-13 19:24:23,201 - src.core.project_manager - INFO - Project created successfully: project198
+2025-12-13 19:24:23,203 - src.gui.main_window - DEBUG - Project created successfully
+2025-12-13 19:24:23,203 - src.gui.main_window - DEBUG - Hiding main window
+2025-12-13 19:24:23,213 - src.gui.main_window - DEBUG - Getting interface type
+2025-12-13 19:24:23,213 - src.gui.main_window - DEBUG - MainWindow._get_interface_type() called with module: SPM
+2025-12-13 19:24:23,213 - src.gui.main_window - DEBUG - MainWindow._get_interface_type() returning: carbon
+2025-12-13 19:24:23,213 - src.gui.main_window - DEBUG - Interface type: carbon
+2025-12-13 19:24:23,213 - src.gui.main_window - DEBUG - Getting interface factory
+2025-12-13 19:24:23,221 - src.gui.main_window - DEBUG - MainWindow._get_interface_factory() called
+2025-12-13 19:24:23,221 - src.gui.main_window - DEBUG - InterfaceFactory imported successfully
+2025-12-13 19:24:23,221 - src.gui.main_window - DEBUG - Creating interface with type: carbon, parent: <src.gui.main_window.MainWindow object at 0x0000026F719ABCF0>, ui_config: UIConfig(mode=auto_detect, prefer_ui_files=True, fallback_enabled=True, ui_base_path=None)
+2025-12-13 19:24:23,227 - src.gui.interface_factory - INFO - Creating interface: carbon with mode: auto_detect
+2025-12-13 19:24:23,227 - src.gui.interface_factory - DEBUG - Trying Enhanced UI loading (auto) for carbon
+2025-12-13 19:24:23,227 - src.gui.interface_factory - DEBUG - Trying Basic UI loading for carbon
+2025-12-13 19:24:23,227 - src.gui.interface_factory - DEBUG - Trying Hand-coded widgets for carbon
+2025-12-13 19:24:23,227 - src.gui.interface_factory - DEBUG - Creating hand-coded interface: carbon
+2025-12-13 19:24:23,260 - src.gui.interfaces.carbon_interface - DEBUG - === CARBON INTERFACE WIDGET DIAGNOSIS ===
+2025-12-13 19:24:23,292 - src.gui.interfaces.carbon_interface - DEBUG - All QLineEdit-like attributes:
+2025-12-13 19:24:23,292 - src.gui.interfaces.carbon_interface - DEBUG -   delta_t_edit: <class 'PyQt6.QtWidgets.QDoubleSpinBox'> = <PyQt6.QtWidgets.QDoubleSpinBox object at 0x0000026F73977750>
+2025-12-13 19:24:23,292 - src.gui.interfaces.carbon_interface - DEBUG -   end_time_edit: <class 'PyQt6.QtWidgets.QDoubleSpinBox'> = <PyQt6.QtWidgets.QDoubleSpinBox object at 0x0000026F739776B0>
+2025-12-13 19:24:23,292 - src.gui.interfaces.carbon_interface - DEBUG -   height_edit: <class 'PyQt6.QtWidgets.QLineEdit'> = <PyQt6.QtWidgets.QLineEdit object at 0x0000026F7392D950>
+2025-12-13 19:24:23,292 - src.gui.interfaces.carbon_interface - DEBUG -   initial_cs_edit: <class 'PyQt6.QtWidgets.QLineEdit'> = <PyQt6.QtWidgets.QLineEdit object at 0x0000026F73975F90>
+2025-12-13 19:24:23,292 - src.gui.interfaces.carbon_interface - DEBUG -   length_edit: <class 'PyQt6.QtWidgets.QLineEdit'> = <PyQt6.QtWidgets.QLineEdit object at 0x0000026F7392D090>
+2025-12-13 19:24:23,292 - src.gui.interfaces.carbon_interface - DEBUG -   param_edits: <class 'dict'> = {'DS_value': <PyQt6.QtWidgets.QLineEdit object at 0x0000026F7394FBB0>, 'CS_max': <PyQt6.QtWidgets.QLineEdit object at 0x0000026F7394FE30>, 'kReact': <PyQt6.QtWidgets.QLineEdit object at 0x0000026F739740F0>, 'R': <PyQt6.QtWidgets.QLineEdit object at 0x0000026F73974370>, 'F': <PyQt6.QtWidgets.QLineEdit object at 0x0000026F739745F0>, 'Ce': <PyQt6.QtWidgets.QLineEdit object at 0x0000026F73974870>, 'alphaA': <PyQt6.QtWidgets.QLineEdit object at 0x0000026F73974AF0>, 'alphaC': <PyQt6.QtWidgets.QLineEdit object at 0x0000026F73974D70>, 'T_temp': <PyQt6.QtWidgets.QLineEdit object at 0x0000026F73974FF0>, 'I_app': <PyQt6.QtWidgets.QLineEdit object at 0x0000026F73975270>, 'initial_cs': <PyQt6.QtWidgets.QLineEdit object at 0x0000026F739754F0>}
+2025-12-13 19:24:23,292 - src.gui.interfaces.carbon_interface - DEBUG -   radius_edit: <class 'PyQt6.QtWidgets.QLineEdit'> = <PyQt6.QtWidgets.QLineEdit object at 0x0000026F7394EE90>
+2025-12-13 19:24:23,292 - src.gui.interfaces.carbon_interface - DEBUG -   tolerance_edit: <class 'PyQt6.QtWidgets.QLineEdit'> = <PyQt6.QtWidgets.QLineEdit object at 0x0000026F73977B10>
+2025-12-13 19:24:23,292 - src.gui.interfaces.carbon_interface - DEBUG -   width_edit: <class 'PyQt6.QtWidgets.QLineEdit'> = <PyQt6.QtWidgets.QLineEdit object at 0x0000026F7392CEB0>
+2025-12-13 19:24:23,292 - src.gui.interfaces.carbon_interface - DEBUG -   write_interval_edit: <class 'PyQt6.QtWidgets.QDoubleSpinBox'> = <PyQt6.QtWidgets.QDoubleSpinBox object at 0x0000026F739777F0>
+2025-12-13 19:24:23,292 - src.gui.interfaces.carbon_interface - DEBUG -   x_div_edit: <class 'PyQt6.QtWidgets.QSpinBox'> = <PyQt6.QtWidgets.QSpinBox object at 0x0000026F7394EA30>
+2025-12-13 19:24:23,292 - src.gui.interfaces.carbon_interface - DEBUG -   y_div_edit: <class 'PyQt6.QtWidgets.QSpinBox'> = <PyQt6.QtWidgets.QSpinBox object at 0x0000026F7394EAD0>
+2025-12-13 19:24:23,300 - src.gui.interfaces.carbon_interface - DEBUG -   z_div_edit: <class 'PyQt6.QtWidgets.QSpinBox'> = <PyQt6.QtWidgets.QSpinBox object at 0x0000026F7394EB70>
+2025-12-13 19:24:23,300 - src.gui.interfaces.carbon_interface - DEBUG - === END DIAGNOSIS ===
+2025-12-13 19:24:23,300 - src.gui.interface_factory - INFO - Successfully created interface using Hand-coded widgets
+2025-12-13 19:24:23,300 - src.gui.interface_factory - DEBUG - Cached interface: carbon_4800296758864081791
+2025-12-13 19:24:23,300 - src.gui.interface_factory - INFO - Interface creation completed in 0.073s
+2025-12-13 19:24:23,300 - src.gui.main_window - DEBUG - Interface created: <src.gui.interfaces.carbon_interface.CarbonInterface object at 0x0000026F733242D0>
+2025-12-13 19:24:23,300 - src.gui.main_window - DEBUG - Interface type: <class 'src.gui.interfaces.carbon_interface.CarbonInterface'>
+2025-12-13 19:24:23,300 - src.gui.main_window - DEBUG - Interface parent: <src.gui.main_window.MainWindow object at 0x0000026F719ABCF0>
+2025-12-13 19:24:23,300 - src.gui.main_window - DEBUG - Interface geometry: PyQt6.QtCore.QRect(0, 0, 1000, 700)
+2025-12-13 19:24:23,300 - src.gui.main_window - DEBUG - Showing interface
+2025-12-13 19:24:23,308 - src.gui.main_window - DEBUG - Interface shown
+2025-12-13 19:24:23,308 - src.gui.main_window - DEBUG - Connecting exit signal
+2025-12-13 19:24:23,308 - src.gui.main_window - DEBUG - Exit signal connected
+2025-12-13 19:25:19,622 - __main__ - INFO - Starting Battery Simulator application
+2025-12-13 19:25:19,823 - src.gui.main_window - DEBUG - MainWindow.__init__() called
+2025-12-13 19:25:19,823 - src.gui.main_window - DEBUG - MainWindow._setup_ui() called
+2025-12-13 19:25:19,831 - src.gui.main_window - DEBUG - MainWindow._create_new_project_tab() called
+2025-12-13 19:25:19,839 - src.gui.main_window - DEBUG - MainWindow._create_open_project_tab() called
+2025-12-13 19:25:19,839 - src.gui.main_window - DEBUG - MainWindow._create_project_manager() called
+2025-12-13 19:25:19,839 - src.gui.main_window - DEBUG - Creating ProjectManager with base_projects_path: C:\Users\vsharma.A123SYSTEMSEU
+2025-12-13 19:25:19,839 - src.gui.main_window - DEBUG - ProjectManager created successfully
+2025-12-13 19:25:19,906 - __main__ - INFO - Application started successfully
+2025-12-13 19:25:22,514 - src.gui.main_window - DEBUG - MainWindow.on_main_path_button_clicked() called
+2025-12-13 19:25:38,177 - src.gui.main_window - DEBUG - MainWindow.on_main_next_button_clicked() called
+2025-12-13 19:25:38,177 - src.gui.main_window - DEBUG - Project name: project188
+2025-12-13 19:25:38,177 - src.gui.main_window - DEBUG - Project path: C:/Users/vsharma.A123SYSTEMSEU/Documents/BatterySimulator/project
+2025-12-13 19:25:38,177 - src.gui.main_window - DEBUG - Complete project path: C:/Users/vsharma.A123SYSTEMSEU/Documents/BatterySimulator/project\project188
+2025-12-13 19:25:38,177 - src.gui.main_window - INFO - Creating project: project188 with module: SPM
+2025-12-13 19:25:38,177 - src.gui.main_window - DEBUG - Calling project_manager.create_project()
+2025-12-13 19:25:38,532 - src.core.project_manager - INFO - Project created successfully: project188
+2025-12-13 19:25:38,532 - src.gui.main_window - DEBUG - Project created successfully
+2025-12-13 19:25:38,532 - src.gui.main_window - DEBUG - Hiding main window
+2025-12-13 19:25:38,541 - src.gui.main_window - DEBUG - Getting interface type
+2025-12-13 19:25:38,541 - src.gui.main_window - DEBUG - MainWindow._get_interface_type() called with module: SPM
+2025-12-13 19:25:38,541 - src.gui.main_window - DEBUG - MainWindow._get_interface_type() returning: carbon
+2025-12-13 19:25:38,541 - src.gui.main_window - DEBUG - Interface type: carbon
+2025-12-13 19:25:38,541 - src.gui.main_window - DEBUG - Getting interface factory
+2025-12-13 19:25:38,541 - src.gui.main_window - DEBUG - MainWindow._get_interface_factory() called
+2025-12-13 19:25:38,541 - src.gui.main_window - DEBUG - InterfaceFactory imported successfully
+2025-12-13 19:25:38,549 - src.gui.main_window - DEBUG - Creating interface with type: carbon, parent: <src.gui.main_window.MainWindow object at 0x000001BA2803BCF0>, ui_config: UIConfig(mode=auto_detect, prefer_ui_files=True, fallback_enabled=True, ui_base_path=None)
+2025-12-13 19:25:38,549 - src.gui.interface_factory - INFO - Creating interface: carbon with mode: auto_detect
+2025-12-13 19:25:38,549 - src.gui.interface_factory - DEBUG - Trying Enhanced UI loading (auto) for carbon
+2025-12-13 19:25:38,557 - src.gui.interface_factory - DEBUG - Trying Basic UI loading for carbon
+2025-12-13 19:25:38,568 - src.gui.interface_factory - DEBUG - Trying Hand-coded widgets for carbon
+2025-12-13 19:25:38,568 - src.gui.interface_factory - DEBUG - Creating hand-coded interface: carbon
+2025-12-13 19:25:38,608 - src.gui.interfaces.carbon_interface - DEBUG - === CARBON INTERFACE WIDGET DIAGNOSIS ===
+2025-12-13 19:25:38,658 - src.gui.interfaces.carbon_interface - DEBUG - All QLineEdit-like attributes:
+2025-12-13 19:25:38,658 - src.gui.interfaces.carbon_interface - DEBUG -   delta_t_edit: <class 'PyQt6.QtWidgets.QDoubleSpinBox'> = <PyQt6.QtWidgets.QDoubleSpinBox object at 0x000001BA29F87750>
+2025-12-13 19:25:38,658 - src.gui.interfaces.carbon_interface - DEBUG -   end_time_edit: <class 'PyQt6.QtWidgets.QDoubleSpinBox'> = <PyQt6.QtWidgets.QDoubleSpinBox object at 0x000001BA29F876B0>
+2025-12-13 19:25:38,658 - src.gui.interfaces.carbon_interface - DEBUG -   height_edit: <class 'PyQt6.QtWidgets.QLineEdit'> = <PyQt6.QtWidgets.QLineEdit object at 0x000001BA29F3D950>
+2025-12-13 19:25:38,658 - src.gui.interfaces.carbon_interface - DEBUG -   initial_cs_edit: <class 'PyQt6.QtWidgets.QLineEdit'> = <PyQt6.QtWidgets.QLineEdit object at 0x000001BA29F85F90>
+2025-12-13 19:25:38,658 - src.gui.interfaces.carbon_interface - DEBUG -   length_edit: <class 'PyQt6.QtWidgets.QLineEdit'> = <PyQt6.QtWidgets.QLineEdit object at 0x000001BA29F3D090>
+2025-12-13 19:25:38,658 - src.gui.interfaces.carbon_interface - DEBUG -   param_edits: <class 'dict'> = {'DS_value': <PyQt6.QtWidgets.QLineEdit object at 0x000001BA29F5FBB0>, 'CS_max': <PyQt6.QtWidgets.QLineEdit object at 0x000001BA29F5FE30>, 'kReact': <PyQt6.QtWidgets.QLineEdit object at 0x000001BA29F840F0>, 'R': <PyQt6.QtWidgets.QLineEdit object at 0x000001BA29F84370>, 'F': <PyQt6.QtWidgets.QLineEdit object at 0x000001BA29F845F0>, 'Ce': <PyQt6.QtWidgets.QLineEdit object at 0x000001BA29F84870>, 'alphaA': <PyQt6.QtWidgets.QLineEdit object at 0x000001BA29F84AF0>, 'alphaC': <PyQt6.QtWidgets.QLineEdit object at 0x000001BA29F84D70>, 'T_temp': <PyQt6.QtWidgets.QLineEdit object at 0x000001BA29F84FF0>, 'I_app': <PyQt6.QtWidgets.QLineEdit object at 0x000001BA29F85270>, 'initial_cs': <PyQt6.QtWidgets.QLineEdit object at 0x000001BA29F854F0>}
+2025-12-13 19:25:38,658 - src.gui.interfaces.carbon_interface - DEBUG -   radius_edit: <class 'PyQt6.QtWidgets.QLineEdit'> = <PyQt6.QtWidgets.QLineEdit object at 0x000001BA29F5EE90>
+2025-12-13 19:25:38,658 - src.gui.interfaces.carbon_interface - DEBUG -   tolerance_edit: <class 'PyQt6.QtWidgets.QLineEdit'> = <PyQt6.QtWidgets.QLineEdit object at 0x000001BA29F87B10>
+2025-12-13 19:25:38,658 - src.gui.interfaces.carbon_interface - DEBUG -   width_edit: <class 'PyQt6.QtWidgets.QLineEdit'> = <PyQt6.QtWidgets.QLineEdit object at 0x000001BA29F3CEB0>
+2025-12-13 19:25:38,658 - src.gui.interfaces.carbon_interface - DEBUG -   write_interval_edit: <class 'PyQt6.QtWidgets.QDoubleSpinBox'> = <PyQt6.QtWidgets.QDoubleSpinBox object at 0x000001BA29F877F0>
+2025-12-13 19:25:38,666 - src.gui.interfaces.carbon_interface - DEBUG -   x_div_edit: <class 'PyQt6.QtWidgets.QSpinBox'> = <PyQt6.QtWidgets.QSpinBox object at 0x000001BA29F5EA30>
+2025-12-13 19:25:38,667 - src.gui.interfaces.carbon_interface - DEBUG -   y_div_edit: <class 'PyQt6.QtWidgets.QSpinBox'> = <PyQt6.QtWidgets.QSpinBox object at 0x000001BA29F5EAD0>
+2025-12-13 19:25:38,667 - src.gui.interfaces.carbon_interface - DEBUG -   z_div_edit: <class 'PyQt6.QtWidgets.QSpinBox'> = <PyQt6.QtWidgets.QSpinBox object at 0x000001BA29F5EB70>
+2025-12-13 19:25:38,667 - src.gui.interfaces.carbon_interface - DEBUG - === END DIAGNOSIS ===
+2025-12-13 19:25:38,667 - src.gui.interface_factory - INFO - Successfully created interface using Hand-coded widgets
+2025-12-13 19:25:38,667 - src.gui.interface_factory - DEBUG - Cached interface: carbon_-1697468853466866805
+2025-12-13 19:25:38,667 - src.gui.interface_factory - INFO - Interface creation completed in 0.118s
+2025-12-13 19:25:38,667 - src.gui.main_window - DEBUG - Interface created: <src.gui.interfaces.carbon_interface.CarbonInterface object at 0x000001BA299542D0>
+2025-12-13 19:25:38,667 - src.gui.main_window - DEBUG - Interface type: <class 'src.gui.interfaces.carbon_interface.CarbonInterface'>
+2025-12-13 19:25:38,667 - src.gui.main_window - DEBUG - Interface parent: <src.gui.main_window.MainWindow object at 0x000001BA2803BCF0>
+2025-12-13 19:25:38,676 - src.gui.main_window - DEBUG - Interface geometry: PyQt6.QtCore.QRect(0, 0, 1000, 700)
+2025-12-13 19:25:38,676 - src.gui.main_window - DEBUG - Showing interface
+2025-12-13 19:25:38,684 - src.gui.main_window - DEBUG - Interface shown
+2025-12-13 19:25:38,686 - src.gui.main_window - DEBUG - Connecting exit signal
+2025-12-13 19:25:38,686 - src.gui.main_window - DEBUG - Exit signal connected
+2025-12-13 20:00:45,022 - __main__ - INFO - Starting Battery Simulator application
+2025-12-13 20:00:45,196 - src.gui.main_window - DEBUG - MainWindow.__init__() called
+2025-12-13 20:00:45,196 - src.gui.main_window - DEBUG - MainWindow._setup_ui() called
+2025-12-13 20:00:45,196 - src.gui.main_window - DEBUG - MainWindow._create_new_project_tab() called
+2025-12-13 20:00:45,206 - src.gui.main_window - DEBUG - MainWindow._create_open_project_tab() called
+2025-12-13 20:00:45,206 - src.gui.main_window - DEBUG - MainWindow._create_project_manager() called
+2025-12-13 20:00:45,206 - src.gui.main_window - DEBUG - Creating ProjectManager with base_projects_path: C:\Users\vsharma.A123SYSTEMSEU
+2025-12-13 20:00:45,206 - src.gui.main_window - DEBUG - ProjectManager created successfully
+2025-12-13 20:00:45,273 - __main__ - INFO - Application started successfully
+2025-12-13 20:00:48,587 - src.gui.main_window - DEBUG - MainWindow.on_main_path_button_clicked() called
+2025-12-13 20:01:05,140 - src.gui.main_window - DEBUG - MainWindow.on_main_next_button_clicked() called
+2025-12-13 20:01:05,149 - src.gui.main_window - DEBUG - Project name: project156
+2025-12-13 20:01:05,151 - src.gui.main_window - DEBUG - Project path: C:/Users/vsharma.A123SYSTEMSEU/Documents/BatterySimulator/project
+2025-12-13 20:01:05,151 - src.gui.main_window - DEBUG - Complete project path: C:/Users/vsharma.A123SYSTEMSEU/Documents/BatterySimulator/project\project156
+2025-12-13 20:01:05,151 - src.gui.main_window - INFO - Creating project: project156 with module: halfCell
+2025-12-13 20:01:05,151 - src.gui.main_window - DEBUG - Calling project_manager.create_project()
+2025-12-13 20:01:05,511 - src.core.project_manager - INFO - Project created successfully: project156
+2025-12-13 20:01:05,511 - src.gui.main_window - DEBUG - Project created successfully
+2025-12-13 20:01:05,513 - src.gui.main_window - DEBUG - Hiding main window
+2025-12-13 20:01:05,521 - src.gui.main_window - DEBUG - Getting interface type
+2025-12-13 20:01:05,521 - src.gui.main_window - DEBUG - MainWindow._get_interface_type() called with module: halfCell
+2025-12-13 20:01:05,521 - src.gui.main_window - DEBUG - MainWindow._get_interface_type() returning: halfcell
+2025-12-13 20:01:05,521 - src.gui.main_window - DEBUG - Interface type: halfcell
+2025-12-13 20:01:05,521 - src.gui.main_window - DEBUG - Getting interface factory
+2025-12-13 20:01:05,521 - src.gui.main_window - DEBUG - MainWindow._get_interface_factory() called
+2025-12-13 20:01:05,521 - src.gui.main_window - DEBUG - InterfaceFactory imported successfully
+2025-12-13 20:01:05,521 - src.gui.main_window - DEBUG - Creating interface with type: halfcell, parent: <src.gui.main_window.MainWindow object at 0x0000021209E2BBB0>, ui_config: UIConfig(mode=auto_detect, prefer_ui_files=True, fallback_enabled=True, ui_base_path=None)
+2025-12-13 20:01:05,521 - src.gui.interface_factory - INFO - Creating interface: halfcell with mode: auto_detect
+2025-12-13 20:01:05,529 - src.gui.interface_factory - DEBUG - Trying Enhanced UI loading (auto) for halfcell
+2025-12-13 20:01:05,529 - src.gui.interface_factory - DEBUG - Trying Basic UI loading for halfcell
+2025-12-13 20:01:05,529 - src.gui.interface_factory - DEBUG - Trying Hand-coded widgets for halfcell
+2025-12-13 20:01:05,537 - src.gui.interface_factory - DEBUG - Creating hand-coded interface: halfcell
+2025-12-13 20:01:05,562 - src.gui.interface_factory - INFO - Successfully created interface using Hand-coded widgets
+2025-12-13 20:01:05,562 - src.gui.interface_factory - DEBUG - Cached interface: halfcell_4348008063897395441
+2025-12-13 20:01:05,562 - src.gui.interface_factory - INFO - Interface creation completed in 0.041s
+2025-12-13 20:01:05,562 - src.gui.main_window - DEBUG - Interface created: <src.gui.interfaces.halfcell_interface.HalfCellInterface object at 0x000002120B6C4190>
+2025-12-13 20:01:05,562 - src.gui.main_window - DEBUG - Interface type: <class 'src.gui.interfaces.halfcell_interface.HalfCellInterface'>
+2025-12-13 20:01:05,562 - src.gui.main_window - DEBUG - Interface parent: <src.gui.main_window.MainWindow object at 0x0000021209E2BBB0>
+2025-12-13 20:01:05,562 - src.gui.main_window - DEBUG - Interface geometry: PyQt6.QtCore.QRect(0, 0, 1000, 700)
+2025-12-13 20:01:05,562 - src.gui.main_window - DEBUG - Showing interface
+2025-12-13 20:01:05,570 - src.gui.main_window - DEBUG - Interface shown
+2025-12-13 20:01:05,570 - src.gui.main_window - DEBUG - Connecting exit signal
+2025-12-13 20:01:05,570 - src.gui.main_window - DEBUG - Exit signal connected
+2025-12-13 20:05:57,898 - __main__ - INFO - Starting Battery Simulator application
+2025-12-13 20:05:58,281 - src.gui.main_window - DEBUG - MainWindow.__init__() called
+2025-12-13 20:05:58,289 - src.gui.main_window - DEBUG - MainWindow._setup_ui() called
+2025-12-13 20:05:58,299 - src.gui.main_window - DEBUG - MainWindow._create_new_project_tab() called
+2025-12-13 20:05:58,398 - src.gui.main_window - DEBUG - MainWindow._create_open_project_tab() called
+2025-12-13 20:05:58,402 - src.gui.main_window - DEBUG - MainWindow._create_project_manager() called
+2025-12-13 20:05:58,410 - src.gui.main_window - DEBUG - Creating ProjectManager with base_projects_path: C:\Users\vsharma.A123SYSTEMSEU
+2025-12-13 20:05:58,493 - src.gui.main_window - DEBUG - ProjectManager created successfully
+2025-12-13 20:05:58,739 - __main__ - INFO - Application started successfully
+2025-12-13 20:06:03,821 - src.gui.main_window - DEBUG - MainWindow.on_main_path_button_clicked() called
+2025-12-13 20:06:18,463 - src.gui.main_window - DEBUG - MainWindow.on_main_next_button_clicked() called
+2025-12-13 20:06:18,463 - src.gui.main_window - DEBUG - Project name: project134
+2025-12-13 20:06:18,464 - src.gui.main_window - DEBUG - Project path: C:/Users/vsharma.A123SYSTEMSEU/Documents/BatterySimulator/project
+2025-12-13 20:06:18,464 - src.gui.main_window - DEBUG - Complete project path: C:/Users/vsharma.A123SYSTEMSEU/Documents/BatterySimulator/project\project134
+2025-12-13 20:06:18,464 - src.gui.main_window - INFO - Creating project: project134 with module: SPM
+2025-12-13 20:06:18,464 - src.gui.main_window - DEBUG - Calling project_manager.create_project()
+2025-12-13 20:06:19,120 - src.core.project_manager - INFO - Project created successfully: project134
+2025-12-13 20:06:19,129 - src.gui.main_window - DEBUG - Project created successfully
+2025-12-13 20:06:19,129 - src.gui.main_window - DEBUG - Hiding main window
+2025-12-13 20:06:19,141 - src.gui.main_window - DEBUG - Getting interface type
+2025-12-13 20:06:19,142 - src.gui.main_window - DEBUG - MainWindow._get_interface_type() called with module: SPM
+2025-12-13 20:06:19,142 - src.gui.main_window - DEBUG - MainWindow._get_interface_type() returning: carbon
+2025-12-13 20:06:19,142 - src.gui.main_window - DEBUG - Interface type: carbon
+2025-12-13 20:06:19,164 - src.gui.main_window - DEBUG - Getting interface factory
+2025-12-13 20:06:19,170 - src.gui.main_window - DEBUG - MainWindow._get_interface_factory() called
+2025-12-13 20:06:19,175 - src.gui.main_window - DEBUG - InterfaceFactory imported successfully
+2025-12-13 20:06:19,200 - src.gui.main_window - DEBUG - Creating interface with type: carbon, parent: <src.gui.main_window.MainWindow object at 0x0000028EFA19D9F0>, ui_config: UIConfig(mode=auto_detect, prefer_ui_files=True, fallback_enabled=True, ui_base_path=None)
+2025-12-13 20:06:19,207 - src.gui.interface_factory - INFO - Creating interface: carbon with mode: auto_detect
+2025-12-13 20:06:19,210 - src.gui.interface_factory - DEBUG - Trying Enhanced UI loading (auto) for carbon
+2025-12-13 20:06:19,211 - src.gui.interface_factory - DEBUG - Trying Basic UI loading for carbon
+2025-12-13 20:06:19,211 - src.gui.interface_factory - DEBUG - Trying Hand-coded widgets for carbon
+2025-12-13 20:06:19,211 - src.gui.interface_factory - DEBUG - Creating hand-coded interface: carbon
+2025-12-13 20:06:19,314 - src.gui.interfaces.carbon_interface - DEBUG - === CARBON INTERFACE WIDGET DIAGNOSIS ===
+2025-12-13 20:06:19,446 - src.gui.interfaces.carbon_interface - DEBUG - All QLineEdit-like attributes:
+2025-12-13 20:06:19,457 - src.gui.interfaces.carbon_interface - DEBUG -   delta_t_edit: <class 'PyQt6.QtWidgets.QDoubleSpinBox'> = <PyQt6.QtWidgets.QDoubleSpinBox object at 0x0000028EFA227ED0>
+2025-12-13 20:06:19,458 - src.gui.interfaces.carbon_interface - DEBUG -   end_time_edit: <class 'PyQt6.QtWidgets.QDoubleSpinBox'> = <PyQt6.QtWidgets.QDoubleSpinBox object at 0x0000028EFA227E30>
+2025-12-13 20:06:19,460 - src.gui.interfaces.carbon_interface - DEBUG -   height_edit: <class 'PyQt6.QtWidgets.QLineEdit'> = <PyQt6.QtWidgets.QLineEdit object at 0x0000028EFA1FEC10>
+2025-12-13 20:06:19,462 - src.gui.interfaces.carbon_interface - DEBUG -   initial_cs_edit: <class 'PyQt6.QtWidgets.QLineEdit'> = <PyQt6.QtWidgets.QLineEdit object at 0x0000028EFA226710>
+2025-12-13 20:06:19,464 - src.gui.interfaces.carbon_interface - DEBUG -   length_edit: <class 'PyQt6.QtWidgets.QLineEdit'> = <PyQt6.QtWidgets.QLineEdit object at 0x0000028EFA1FEAD0>
+2025-12-13 20:06:19,466 - src.gui.interfaces.carbon_interface - DEBUG -   param_edits: <class 'dict'> = {'DS_value': <PyQt6.QtWidgets.QLineEdit object at 0x0000028EFA224370>, 'CS_max': <PyQt6.QtWidgets.QLineEdit object at 0x0000028EFA2245F0>, 'kReact': <PyQt6.QtWidgets.QLineEdit object at 0x0000028EFA224870>, 'R': <PyQt6.QtWidgets.QLineEdit object at 0x0000028EFA224AF0>, 'F': <PyQt6.QtWidgets.QLineEdit object at 0x0000028EFA224D70>, 'Ce': <PyQt6.QtWidgets.QLineEdit object at 0x0000028EFA224FF0>, 'alphaA': <PyQt6.QtWidgets.QLineEdit object at 0x0000028EFA225270>, 'alphaC': <PyQt6.QtWidgets.QLineEdit object at 0x0000028EFA2254F0>, 'T_temp': <PyQt6.QtWidgets.QLineEdit object at 0x0000028EFA225770>, 'I_app': <PyQt6.QtWidgets.QLineEdit object at 0x0000028EFA2259F0>, 'initial_cs': <PyQt6.QtWidgets.QLineEdit object at 0x0000028EFA225C70>}
+2025-12-13 20:06:19,467 - src.gui.interfaces.carbon_interface - DEBUG -   radius_edit: <class 'PyQt6.QtWidgets.QLineEdit'> = <PyQt6.QtWidgets.QLineEdit object at 0x0000028EFA1FF610>
+2025-12-13 20:06:19,468 - src.gui.interfaces.carbon_interface - DEBUG -   tolerance_edit: <class 'PyQt6.QtWidgets.QLineEdit'> = <PyQt6.QtWidgets.QLineEdit object at 0x0000028EFA22C2D0>
+2025-12-13 20:06:19,469 - src.gui.interfaces.carbon_interface - DEBUG -   width_edit: <class 'PyQt6.QtWidgets.QLineEdit'> = <PyQt6.QtWidgets.QLineEdit object at 0x0000028EFA1FEB70>
+2025-12-13 20:06:19,470 - src.gui.interfaces.carbon_interface - DEBUG -   write_interval_edit: <class 'PyQt6.QtWidgets.QDoubleSpinBox'> = <PyQt6.QtWidgets.QDoubleSpinBox object at 0x0000028EFA227F70>
+2025-12-13 20:06:19,472 - src.gui.interfaces.carbon_interface - DEBUG -   x_div_edit: <class 'PyQt6.QtWidgets.QSpinBox'> = <PyQt6.QtWidgets.QSpinBox object at 0x0000028EFA1FF1B0>
+2025-12-13 20:06:19,473 - src.gui.interfaces.carbon_interface - DEBUG -   y_div_edit: <class 'PyQt6.QtWidgets.QSpinBox'> = <PyQt6.QtWidgets.QSpinBox object at 0x0000028EFA1FF250>
+2025-12-13 20:06:19,474 - src.gui.interfaces.carbon_interface - DEBUG -   z_div_edit: <class 'PyQt6.QtWidgets.QSpinBox'> = <PyQt6.QtWidgets.QSpinBox object at 0x0000028EFA1FF2F0>
+2025-12-13 20:06:19,474 - src.gui.interfaces.carbon_interface - DEBUG - === END DIAGNOSIS ===
+2025-12-13 20:06:19,475 - src.gui.interface_factory - INFO - Successfully created interface using Hand-coded widgets
+2025-12-13 20:06:19,475 - src.gui.interface_factory - DEBUG - Cached interface: carbon_3168451932135998450
+2025-12-13 20:06:19,483 - src.gui.interface_factory - INFO - Interface creation completed in 0.276s
+2025-12-13 20:06:19,483 - src.gui.main_window - DEBUG - Interface created: <src.gui.interfaces.carbon_interface.CarbonInterface object at 0x0000028EFA1CE170>
+2025-12-13 20:06:19,484 - src.gui.main_window - DEBUG - Interface type: <class 'src.gui.interfaces.carbon_interface.CarbonInterface'>
+2025-12-13 20:06:19,485 - src.gui.main_window - DEBUG - Interface parent: <src.gui.main_window.MainWindow object at 0x0000028EFA19D9F0>
+2025-12-13 20:06:19,485 - src.gui.main_window - DEBUG - Interface geometry: PyQt6.QtCore.QRect(0, 0, 1000, 700)
+2025-12-13 20:06:19,486 - src.gui.main_window - DEBUG - Showing interface
+2025-12-13 20:06:19,495 - src.gui.main_window - DEBUG - Interface shown
+2025-12-13 20:06:19,496 - src.gui.main_window - DEBUG - Connecting exit signal
+2025-12-13 20:06:19,497 - src.gui.main_window - DEBUG - Exit signal connected
+2025-12-13 21:22:25,197 - __main__ - INFO - Starting Battery Simulator application
+2025-12-13 21:22:25,257 - src.gui.main_window - DEBUG - MainWindow.__init__() called
+2025-12-13 21:22:25,257 - src.gui.main_window - DEBUG - MainWindow._setup_ui() called
+2025-12-13 21:22:25,257 - src.gui.main_window - DEBUG - MainWindow._create_new_project_tab() called
+2025-12-13 21:22:25,268 - src.gui.main_window - DEBUG - MainWindow._create_open_project_tab() called
+2025-12-13 21:22:25,268 - src.gui.main_window - DEBUG - MainWindow._create_project_manager() called
+2025-12-13 21:22:25,268 - src.gui.main_window - DEBUG - Creating ProjectManager with base_projects_path: C:\Users\vsharma.A123SYSTEMSEU
+2025-12-13 21:22:25,268 - src.gui.main_window - DEBUG - ProjectManager created successfully
+2025-12-13 21:22:25,357 - __main__ - INFO - Application started successfully
+2025-12-13 21:22:27,377 - src.gui.main_window - DEBUG - MainWindow.on_main_path_button_clicked() called
+2025-12-13 21:23:06,665 - src.gui.main_window - DEBUG - MainWindow.on_main_next_button_clicked() called
+2025-12-13 21:23:06,669 - src.gui.main_window - DEBUG - Project name: project1
+2025-12-13 21:23:06,669 - src.gui.main_window - DEBUG - Project path: C:/Users/vsharma.A123SYSTEMSEU/Documents/BatterySimulator/project/project156
+2025-12-13 21:23:06,669 - src.gui.main_window - DEBUG - Complete project path: C:/Users/vsharma.A123SYSTEMSEU/Documents/BatterySimulator/project/project156\project1
+2025-12-13 21:23:06,669 - src.gui.main_window - INFO - Creating project: project1 with module: SPM
+2025-12-13 21:23:06,669 - src.gui.main_window - DEBUG - Calling project_manager.create_project()
+2025-12-13 21:23:06,972 - src.core.project_manager - INFO - Project created successfully: project1
+2025-12-13 21:23:06,972 - src.gui.main_window - DEBUG - Project created successfully
+2025-12-13 21:23:06,972 - src.gui.main_window - DEBUG - Hiding main window
+2025-12-13 21:23:06,972 - src.gui.main_window - DEBUG - Getting interface type
+2025-12-13 21:23:06,972 - src.gui.main_window - DEBUG - MainWindow._get_interface_type() called with module: SPM
+2025-12-13 21:23:06,972 - src.gui.main_window - DEBUG - MainWindow._get_interface_type() returning: carbon
+2025-12-13 21:23:06,972 - src.gui.main_window - DEBUG - Interface type: carbon
+2025-12-13 21:23:06,972 - src.gui.main_window - DEBUG - Getting interface factory
+2025-12-13 21:23:06,980 - src.gui.main_window - DEBUG - MainWindow._get_interface_factory() called
+2025-12-13 21:23:06,980 - src.gui.main_window - DEBUG - InterfaceFactory imported successfully
+2025-12-13 21:23:06,980 - src.gui.main_window - DEBUG - Creating interface with type: carbon, parent: <src.gui.main_window.MainWindow object at 0x0000022AB09CD9F0>, ui_config: UIConfig(mode=auto_detect, prefer_ui_files=True, fallback_enabled=True, ui_base_path=None)
+2025-12-13 21:23:06,980 - src.gui.interface_factory - INFO - Creating interface: carbon with mode: auto_detect
+2025-12-13 21:23:06,980 - src.gui.interface_factory - DEBUG - Trying Enhanced UI loading (auto) for carbon
+2025-12-13 21:23:06,980 - src.gui.interface_factory - DEBUG - Trying Basic UI loading for carbon
+2025-12-13 21:23:06,980 - src.gui.interface_factory - DEBUG - Trying Hand-coded widgets for carbon
+2025-12-13 21:23:06,980 - src.gui.interface_factory - DEBUG - Creating hand-coded interface: carbon
+2025-12-13 21:23:06,990 - src.gui.interface_factory - ERROR - Failed to create CarbonInterface: invalid syntax (carbon_interface.py, line 585)
+2025-12-13 21:23:06,990 - src.gui.interface_factory - ERROR - Failed to create carbon interface. Last error: None
+2025-12-13 21:23:06,990 - src.gui.main_window - ERROR - Failed to create project: Failed to create carbon interface. Last error: None
+Traceback (most recent call last):
+  File "C:\Users\vsharma.A123SYSTEMSEU\Documents\BatterySimulator\BatteryOpenFoamSimulator\Battery_OpenFoam_Simulator\src\gui\main_window.py", line 346, in on_main_next_button_clicked
+    self.current_interface = interface_factory.create_interface(
+                             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\vsharma.A123SYSTEMSEU\Documents\BatterySimulator\BatteryOpenFoamSimulator\Battery_OpenFoam_Simulator\src\gui\interface_factory.py", line 78, in create_interface
+    interface = cls._create_interface_with_fallback(
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\vsharma.A123SYSTEMSEU\Documents\BatterySimulator\BatteryOpenFoamSimulator\Battery_OpenFoam_Simulator\src\gui\interface_factory.py", line 167, in _create_interface_with_fallback
+    raise InterfaceCreationError(error_msg)
+src.gui.interface_factory.InterfaceCreationError: Failed to create carbon interface. Last error: None
+2025-12-14 01:05:37,848 - __main__ - INFO - Starting Battery Simulator application
+2025-12-14 01:05:38,072 - src.gui.main_window - DEBUG - MainWindow.__init__() called
+2025-12-14 01:05:38,072 - src.gui.main_window - DEBUG - MainWindow._setup_ui() called
+2025-12-14 01:05:38,072 - src.gui.main_window - DEBUG - MainWindow._create_new_project_tab() called
+2025-12-14 01:05:38,079 - src.gui.main_window - DEBUG - MainWindow._create_open_project_tab() called
+2025-12-14 01:05:38,079 - src.gui.main_window - DEBUG - MainWindow._create_project_manager() called
+2025-12-14 01:05:38,079 - src.gui.main_window - DEBUG - Creating ProjectManager with base_projects_path: C:\Users\vsharma.A123SYSTEMSEU
+2025-12-14 01:05:38,085 - src.gui.main_window - DEBUG - ProjectManager created successfully
+2025-12-14 01:05:38,195 - __main__ - INFO - Application started successfully
+2025-12-14 01:05:42,135 - src.gui.main_window - DEBUG - MainWindow.on_main_path_button_clicked() called
+2025-12-14 01:06:04,569 - src.gui.main_window - DEBUG - MainWindow.on_main_next_button_clicked() called
+2025-12-14 01:06:04,569 - src.gui.main_window - DEBUG - Project name: project112
+2025-12-14 01:06:04,569 - src.gui.main_window - DEBUG - Project path: C:/Users/vsharma.A123SYSTEMSEU/Documents/BatterySimulator/project
+2025-12-14 01:06:04,569 - src.gui.main_window - DEBUG - Complete project path: C:/Users/vsharma.A123SYSTEMSEU/Documents/BatterySimulator/project\project112
+2025-12-14 01:06:04,569 - src.gui.main_window - INFO - Creating project: project112 with module: SPM
+2025-12-14 01:06:04,569 - src.gui.main_window - DEBUG - Calling project_manager.create_project()
+2025-12-14 01:06:04,963 - src.core.project_manager - INFO - Project created successfully: project112
+2025-12-14 01:06:04,963 - src.gui.main_window - DEBUG - Project created successfully
+2025-12-14 01:06:04,963 - src.gui.main_window - DEBUG - Hiding main window
+2025-12-14 01:06:04,978 - src.gui.main_window - DEBUG - Getting interface type
+2025-12-14 01:06:04,978 - src.gui.main_window - DEBUG - MainWindow._get_interface_type() called with module: SPM
+2025-12-14 01:06:04,978 - src.gui.main_window - DEBUG - MainWindow._get_interface_type() returning: carbon
+2025-12-14 01:06:04,978 - src.gui.main_window - DEBUG - Interface type: carbon
+2025-12-14 01:06:04,978 - src.gui.main_window - DEBUG - Getting interface factory
+2025-12-14 01:06:04,978 - src.gui.main_window - DEBUG - MainWindow._get_interface_factory() called
+2025-12-14 01:06:04,978 - src.gui.main_window - DEBUG - InterfaceFactory imported successfully
+2025-12-14 01:06:04,978 - src.gui.main_window - DEBUG - Creating interface with type: carbon, parent: <src.gui.main_window.MainWindow object at 0x0000027FA70DFBB0>, ui_config: UIConfig(mode=auto_detect, prefer_ui_files=True, fallback_enabled=True, ui_base_path=None)
+2025-12-14 01:06:04,978 - src.gui.interface_factory - INFO - Creating interface: carbon with mode: auto_detect
+2025-12-14 01:06:04,978 - src.gui.interface_factory - DEBUG - Trying Enhanced UI loading (auto) for carbon
+2025-12-14 01:06:04,978 - src.gui.interface_factory - DEBUG - Trying Basic UI loading for carbon
+2025-12-14 01:06:04,983 - src.gui.interface_factory - DEBUG - Trying Hand-coded widgets for carbon
+2025-12-14 01:06:04,984 - src.gui.interface_factory - DEBUG - Creating hand-coded interface: carbon
+2025-12-14 01:06:05,073 - src.gui.interfaces.carbon_interface - DEBUG - CarbonInterface.__init__() called
+2025-12-14 01:06:05,123 - src.gui.interfaces.carbon_interface - DEBUG - === CARBON INTERFACE WIDGET DIAGNOSIS ===
+2025-12-14 01:06:05,183 - src.gui.interfaces.carbon_interface - DEBUG - All QLineEdit-like attributes:
+2025-12-14 01:06:05,183 - src.gui.interfaces.carbon_interface - DEBUG -   delta_t_edit: <class 'PyQt6.QtWidgets.QDoubleSpinBox'> = <PyQt6.QtWidgets.QDoubleSpinBox object at 0x0000027FA9000E10>
+2025-12-14 01:06:05,183 - src.gui.interfaces.carbon_interface - DEBUG -   end_time_edit: <class 'PyQt6.QtWidgets.QDoubleSpinBox'> = <PyQt6.QtWidgets.QDoubleSpinBox object at 0x0000027FA9000D70>
+2025-12-14 01:06:05,183 - src.gui.interfaces.carbon_interface - DEBUG -   height_edit: <class 'PyQt6.QtWidgets.QLineEdit'> = <PyQt6.QtWidgets.QLineEdit object at 0x0000027FA900FB10>
+2025-12-14 01:06:05,183 - src.gui.interfaces.carbon_interface - DEBUG -   initial_cs_edit: <class 'PyQt6.QtWidgets.QLineEdit'> = <PyQt6.QtWidgets.QLineEdit object at 0x0000027FA9007610>
+2025-12-14 01:06:05,183 - src.gui.interfaces.carbon_interface - DEBUG -   length_edit: <class 'PyQt6.QtWidgets.QLineEdit'> = <PyQt6.QtWidgets.QLineEdit object at 0x0000027FA900F9D0>
+2025-12-14 01:06:05,183 - src.gui.interfaces.carbon_interface - DEBUG -   param_edits: <class 'dict'> = {'DS_value': <PyQt6.QtWidgets.QLineEdit object at 0x0000027FA9005270>, 'CS_max': <PyQt6.QtWidgets.QLineEdit object at 0x0000027FA90054F0>, 'kReact': <PyQt6.QtWidgets.QLineEdit object at 0x0000027FA9005770>, 'R': <PyQt6.QtWidgets.QLineEdit object at 0x0000027FA90059F0>, 'F': <PyQt6.QtWidgets.QLineEdit object at 0x0000027FA9005C70>, 'Ce': <PyQt6.QtWidgets.QLineEdit object at 0x0000027FA9005EF0>, 'alphaA': <PyQt6.QtWidgets.QLineEdit object at 0x0000027FA9006170>, 'alphaC': <PyQt6.QtWidgets.QLineEdit object at 0x0000027FA90063F0>, 'T_temp': <PyQt6.QtWidgets.QLineEdit object at 0x0000027FA9006670>, 'I_app': <PyQt6.QtWidgets.QLineEdit object at 0x0000027FA90068F0>, 'initial_cs': <PyQt6.QtWidgets.QLineEdit object at 0x0000027FA9006B70>}
+2025-12-14 01:06:05,188 - src.gui.interfaces.carbon_interface - DEBUG -   radius_edit: <class 'PyQt6.QtWidgets.QLineEdit'> = <PyQt6.QtWidgets.QLineEdit object at 0x0000027FA9004550>
+2025-12-14 01:06:05,188 - src.gui.interfaces.carbon_interface - DEBUG -   tolerance_edit: <class 'PyQt6.QtWidgets.QLineEdit'> = <PyQt6.QtWidgets.QLineEdit object at 0x0000027FA90011D0>
+2025-12-14 01:06:05,188 - src.gui.interfaces.carbon_interface - DEBUG -   width_edit: <class 'PyQt6.QtWidgets.QLineEdit'> = <PyQt6.QtWidgets.QLineEdit object at 0x0000027FA900FA70>
+2025-12-14 01:06:05,188 - src.gui.interfaces.carbon_interface - DEBUG -   write_interval_edit: <class 'PyQt6.QtWidgets.QDoubleSpinBox'> = <PyQt6.QtWidgets.QDoubleSpinBox object at 0x0000027FA9000EB0>
+2025-12-14 01:06:05,188 - src.gui.interfaces.carbon_interface - DEBUG -   x_div_edit: <class 'PyQt6.QtWidgets.QSpinBox'> = <PyQt6.QtWidgets.QSpinBox object at 0x0000027FA90040F0>
+2025-12-14 01:06:05,188 - src.gui.interfaces.carbon_interface - DEBUG -   y_div_edit: <class 'PyQt6.QtWidgets.QSpinBox'> = <PyQt6.QtWidgets.QSpinBox object at 0x0000027FA9004190>
+2025-12-14 01:06:05,188 - src.gui.interfaces.carbon_interface - DEBUG -   z_div_edit: <class 'PyQt6.QtWidgets.QSpinBox'> = <PyQt6.QtWidgets.QSpinBox object at 0x0000027FA9004230>
+2025-12-14 01:06:05,188 - src.gui.interfaces.carbon_interface - DEBUG - === END DIAGNOSIS ===
+2025-12-14 01:06:05,188 - src.gui.interfaces.carbon_interface - DEBUG - Connecting Carbon interface signals...
+2025-12-14 01:06:05,188 - src.gui.interfaces.carbon_interface - DEBUG - Connected length_edit.textChanged
+2025-12-14 01:06:05,188 - src.gui.interfaces.carbon_interface - DEBUG - Connected width_edit.textChanged
+2025-12-14 01:06:05,188 - src.gui.interfaces.carbon_interface - DEBUG - Connected height_edit.textChanged
+2025-12-14 01:06:05,188 - src.gui.interfaces.carbon_interface - DEBUG - Connected radius_edit.textChanged
+2025-12-14 01:06:05,188 - src.gui.interfaces.carbon_interface - DEBUG - Connected unit_combo.currentTextChanged
+2025-12-14 01:06:05,188 - src.gui.interfaces.carbon_interface - DEBUG - Connected x_div_edit.valueChanged
+2025-12-14 01:06:05,188 - src.gui.interfaces.carbon_interface - DEBUG - Connected y_div_edit.valueChanged
+2025-12-14 01:06:05,188 - src.gui.interfaces.carbon_interface - DEBUG - Connected z_div_edit.valueChanged
+2025-12-14 01:06:05,188 - src.gui.interfaces.carbon_interface - DEBUG - Connected change_geometry_button.clicked
+2025-12-14 01:06:05,188 - src.gui.interfaces.carbon_interface - DEBUG - Connected run_geometry_button.clicked
+2025-12-14 01:06:05,191 - src.gui.interfaces.carbon_interface - DEBUG - Connected view_geometry_button.clicked
+2025-12-14 01:06:05,191 - src.gui.interfaces.carbon_interface - DEBUG - Connected DS_value parameter change
+2025-12-14 01:06:05,191 - src.gui.interfaces.carbon_interface - DEBUG - Connected CS_max parameter change
+2025-12-14 01:06:05,191 - src.gui.interfaces.carbon_interface - DEBUG - Connected kReact parameter change
+2025-12-14 01:06:05,191 - src.gui.interfaces.carbon_interface - DEBUG - Connected R parameter change
+2025-12-14 01:06:05,191 - src.gui.interfaces.carbon_interface - DEBUG - Connected F parameter change
+2025-12-14 01:06:05,191 - src.gui.interfaces.carbon_interface - DEBUG - Connected Ce parameter change
+2025-12-14 01:06:05,191 - src.gui.interfaces.carbon_interface - DEBUG - Connected alphaA parameter change
+2025-12-14 01:06:05,191 - src.gui.interfaces.carbon_interface - DEBUG - Connected alphaC parameter change
+2025-12-14 01:06:05,191 - src.gui.interfaces.carbon_interface - DEBUG - Connected T_temp parameter change
+2025-12-14 01:06:05,191 - src.gui.interfaces.carbon_interface - DEBUG - Connected I_app parameter change
+2025-12-14 01:06:05,191 - src.gui.interfaces.carbon_interface - DEBUG - Connected initial_cs parameter change
+2025-12-14 01:06:05,193 - src.gui.interfaces.carbon_interface - DEBUG - Connected material_carbon.toggled
+2025-12-14 01:06:05,193 - src.gui.interfaces.carbon_interface - DEBUG - Connected material_silicon.toggled
+2025-12-14 01:06:05,193 - src.gui.interfaces.carbon_interface - DEBUG - Connected change_constants_button.clicked
+2025-12-14 01:06:05,193 - src.gui.interfaces.carbon_interface - DEBUG - Connected run_constants_button.clicked
+2025-12-14 01:06:05,193 - src.gui.interfaces.carbon_interface - DEBUG - Connected help_constants_button.clicked
+2025-12-14 01:06:05,193 - src.gui.interfaces.carbon_interface - DEBUG - Connected initial_cs_edit.textChanged
+2025-12-14 01:06:05,193 - src.gui.interfaces.carbon_interface - DEBUG - Connected change_boundary_button.clicked
+2025-12-14 01:06:05,193 - src.gui.interfaces.carbon_interface - DEBUG - Connected run_boundary_button.clicked
+2025-12-14 01:06:05,193 - src.gui.interfaces.carbon_interface - DEBUG - Connected ddtschemes_combo.currentTextChanged
+2025-12-14 01:06:05,193 - src.gui.interfaces.carbon_interface - DEBUG - Connected gradschemes_combo.currentTextChanged
+2025-12-14 01:06:05,193 - src.gui.interfaces.carbon_interface - DEBUG - Connected divschemes_combo.currentTextChanged
+2025-12-14 01:06:05,193 - src.gui.interfaces.carbon_interface - DEBUG - Connected laplacianschemes_combo.currentTextChanged
+2025-12-14 01:06:05,193 - src.gui.interfaces.carbon_interface - DEBUG - Connected interpolationschemes_combo.currentTextChanged
+2025-12-14 01:06:05,193 - src.gui.interfaces.carbon_interface - DEBUG - Connected change_functions_button.clicked
+2025-12-14 01:06:05,197 - src.gui.interfaces.carbon_interface - DEBUG - Connected run_functions_button.clicked
+2025-12-14 01:06:05,197 - src.gui.interfaces.carbon_interface - DEBUG - Connected end_time_edit.valueChanged
+2025-12-14 01:06:05,197 - src.gui.interfaces.carbon_interface - DEBUG - Connected delta_t_edit.valueChanged
+2025-12-14 01:06:05,197 - src.gui.interfaces.carbon_interface - DEBUG - Connected write_interval_edit.valueChanged
+2025-12-14 01:06:05,197 - src.gui.interfaces.carbon_interface - DEBUG - Connected tolerance_edit.textChanged
+2025-12-14 01:06:05,197 - src.gui.interfaces.carbon_interface - DEBUG - Connected change_control_button.clicked
+2025-12-14 01:06:05,197 - src.gui.interfaces.carbon_interface - DEBUG - Connected run_button.clicked
+2025-12-14 01:06:05,197 - src.gui.interfaces.carbon_interface - DEBUG - Connected pause_button.clicked
+2025-12-14 01:06:05,197 - src.gui.interfaces.carbon_interface - DEBUG - Connected stop_button.clicked
+2025-12-14 01:06:05,197 - src.gui.interfaces.carbon_interface - DEBUG - Connected command_input.returnPressed
+2025-12-14 01:06:05,197 - src.gui.interfaces.carbon_interface - DEBUG - Connected command_button.clicked
+2025-12-14 01:06:05,197 - src.gui.interfaces.carbon_interface - DEBUG - All Carbon interface signals connected successfully
+2025-12-14 01:06:05,197 - src.gui.interface_factory - INFO - Successfully created interface using Hand-coded widgets
+2025-12-14 01:06:05,197 - src.gui.interface_factory - DEBUG - Cached interface: carbon_5108785805450633555
+2025-12-14 01:06:05,197 - src.gui.interface_factory - INFO - Interface creation completed in 0.219s
+2025-12-14 01:06:05,197 - src.gui.main_window - DEBUG - Interface created: <src.gui.interfaces.carbon_interface.CarbonInterface object at 0x0000027FA8F7C7D0>
+2025-12-14 01:06:05,197 - src.gui.main_window - DEBUG - Interface type: <class 'src.gui.interfaces.carbon_interface.CarbonInterface'>
+2025-12-14 01:06:05,197 - src.gui.main_window - DEBUG - Interface parent: <src.gui.main_window.MainWindow object at 0x0000027FA70DFBB0>
+2025-12-14 01:06:05,197 - src.gui.main_window - DEBUG - Interface geometry: PyQt6.QtCore.QRect(0, 0, 1000, 700)
+2025-12-14 01:06:05,201 - src.gui.main_window - DEBUG - Showing interface
+2025-12-14 01:06:05,205 - src.gui.main_window - DEBUG - Interface shown
+2025-12-14 01:06:05,205 - src.gui.main_window - DEBUG - Connecting exit signal
+2025-12-14 01:06:05,205 - src.gui.main_window - DEBUG - Exit signal connected

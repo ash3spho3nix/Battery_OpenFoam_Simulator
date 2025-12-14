@@ -14,7 +14,7 @@ from typing import Optional, Dict, Any, List
 from PyQt6.QtCore import QObject, pyqtSignal
 
 from .process_controller import ProcessController
-from src.core.constants import SOLVER_NAMES, ERROR_MESSAGES, SUCCESS_MESSAGES
+from ..core.constants import SOLVER_NAMES, ERROR_MESSAGES, SUCCESS_MESSAGES
 
 
 class OpenFOAMSolverManager(QObject):

@@ -10,10 +10,15 @@ import sys
 import os
 import logging
 from pathlib import Path
+import io
+
+# Fix console encoding for Windows
+sys.stdout = io.TextIOWrapper(sys.stdout.buffer, encoding='utf-8', errors='replace')
+sys.stderr = io.TextIOWrapper(sys.stderr.buffer, encoding='utf-8', errors='replace')
 
 # Add the src directory to the Python path
 src_dir = Path(__file__).parent
-sys.path.insert(0, str(src_dir))
+sys.path.insert(0, str(src_dir.parent))  # Add parent directory (project root)
 
 # Set up logging
 logging.basicConfig(
@@ -36,8 +41,8 @@ def main():
         from PyQt6.QtWidgets import QApplication
         
         # Import the main window
-        from gui.main_window import MainWindow
-        from gui.ui_config import UIConfig
+        from src.gui.main_window import MainWindow
+        from src.gui.ui_config import UIConfig
         
         # Create application
         app = QApplication(sys.argv)

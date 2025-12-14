@@ -30,12 +30,12 @@ lib64/
 # -----------------------------
 # KiloCode (DO NOT COMMIT)
 # -----------------------------
-.kilocode/
-.kilocode/*
+#.kilocode/
+#.kilocode/*
 .kilocodemodes
 .kilocodemodes/*
-.kilocode/workflows/
-.kilocode/rules/
+#.kilocode/workflows/
+#.kilocode/rules/
 .kilocode/profiles/
 .kilocode/logs/
 .kilocode/cache/
@@ -44,7 +44,7 @@ kilocodes_summary
 kilocodes_implementation
 
 src/dev_docs/
-dev_docs/
+#dev_docs/
 test_projects/
 # -----------------------------
 # Continue (DO NOT COMMIT)

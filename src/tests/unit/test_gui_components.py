@@ -21,8 +21,8 @@ from PyQt6.QtCore import Qt, pyqtSignal
 from src.gui.ui_loader import UILoader
 from src.gui.ui_loader_enhanced import UILoaderEnhanced, UIValidationError
 from src.gui.ui_config import UIConfig, UILoadingMode
-from src.gui.interface_factory import InterfaceFactory
-from src.gui.interface_factory_enhanced import InterfaceFactoryEnhanced, InterfaceCreationError
+
+from src.gui.interface_factory import InterfaceFactory, InterfaceCreationError
 from src.gui.interfaces.base_interface import BaseInterface
 
 
@@ -455,7 +455,7 @@ class TestInterfaceFactory:
         assert InterfaceFactory.interface_exists("nonexistent") is False
 
 
-class TestInterfaceFactoryEnhanced:
+class TestInterfaceFactory:
     """Test suite for enhanced InterfaceFactory class."""
     
     def test_create_interface_with_fallback_success(self, qt_app):
@@ -468,7 +468,7 @@ class TestInterfaceFactoryEnhanced:
             mock_instance = Mock()
             mock_carbon.return_value = mock_instance
             
-            interface = InterfaceFactoryEnhanced.create_interface("carbon", ui_config=config)
+            interface = InterfaceFactory.create_interface("carbon", ui_config=config)
             
             assert interface == mock_instance
     
@@ -482,7 +482,7 @@ class TestInterfaceFactoryEnhanced:
             with patch('src.gui.ui_loader.UILoader.ui_file_exists', return_value=False):
                 with patch('src.gui.interfaces.carbon_interface.CarbonInterface', side_effect=ImportError("Module not found")):
                     with pytest.raises(InterfaceCreationError):
-                        InterfaceFactoryEnhanced.create_interface("carbon", ui_config=config)
+                        InterfaceFactory.create_interface("carbon", ui_config=config)
     
     def test_create_interface_ui_enhanced_success(self, qt_app, temp_dir, sample_ui_content):
         """Test interface creation using enhanced UI loading."""
@@ -494,7 +494,7 @@ class TestInterfaceFactoryEnhanced:
         config.set_mode(UILoadingMode.UI_FILES)
         config.set_ui_base_path(temp_dir)
         
-        interface = InterfaceFactoryEnhanced.create_interface("carbon", ui_config=config)
+        interface = InterfaceFactory.create_interface("carbon", ui_config=config)
         
         assert interface is not None
     
@@ -508,14 +508,14 @@ class TestInterfaceFactoryEnhanced:
             mock_instance = Mock()
             mock_carbon.return_value = mock_instance
             
-            interface = InterfaceFactoryEnhanced.create_interface("carbon", ui_config=config)
+            interface = InterfaceFactory.create_interface("carbon", ui_config=config)
             
             assert interface == mock_instance
     
     def test_interface_caching(self, qt_app):
         """Test interface caching functionality."""
         # Clear cache
-        InterfaceFactoryEnhanced.clear_cache()
+        InterfaceFactory.clear_cache()
         
         config = UIConfig()
         config.set_mode(UILoadingMode.HAND_CODED)
@@ -526,8 +526,8 @@ class TestInterfaceFactoryEnhanced:
             mock_carbon.return_value = mock_instance
             
             # Create interface twice
-            interface1 = InterfaceFactoryEnhanced.create_interface("carbon", ui_config=config, use_cache=True)
-            interface2 = InterfaceFactoryEnhanced.create_interface("carbon", ui_config=config, use_cache=True)
+            interface1 = InterfaceFactory.create_interface("carbon", ui_config=config, use_cache=True)
+            interface2 = InterfaceFactory.create_interface("carbon", ui_config=config, use_cache=True)
             
             # Should only create once due to caching
             assert mock_carbon.call_count == 1
@@ -536,7 +536,7 @@ class TestInterfaceFactoryEnhanced:
     def test_creation_statistics(self, qt_app):
         """Test creation statistics tracking."""
         # Reset statistics
-        InterfaceFactoryEnhanced._creation_stats = {'success': 0, 'fallbacks': 0, 'failures': 0}
+        InterfaceFactory._creation_stats = {'success': 0, 'fallbacks': 0, 'failures': 0}
         
         config = UIConfig()
         config.set_mode(UILoadingMode.HAND_CODED)
@@ -546,9 +546,9 @@ class TestInterfaceFactoryEnhanced:
             mock_instance = Mock()
             mock_carbon.return_value = mock_instance
             
-            InterfaceFactoryEnhanced.create_interface("carbon", ui_config=config)
+            InterfaceFactory.create_interface("carbon", ui_config=config)
             
-            stats = InterfaceFactoryEnhanced.get_creation_stats()
+            stats = InterfaceFactory.get_creation_stats()
             assert stats['success'] > 0
     
     def test_diagnose_interface_creation(self, qt_app, temp_dir):
@@ -558,7 +558,7 @@ class TestInterfaceFactoryEnhanced:
         config.set_ui_base_path(temp_dir)
         
         # Run diagnosis
-        diagnosis = InterfaceFactoryEnhanced.diagnose_interface_creation("carbon", config)
+        diagnosis = InterfaceFactory.diagnose_interface_creation("carbon", config)
         
         # Check diagnosis structure
         assert 'interface_type' in diagnosis
@@ -582,7 +582,7 @@ class TestInterfaceFactoryEnhanced:
             mock_carbon.return_value = mock_instance
             
             # Should fall back to hand-coded when UI loading fails
-            interface = InterfaceFactoryEnhanced.create_interface("carbon", ui_config=config)
+            interface = InterfaceFactory.create_interface("carbon", ui_config=config)
             
             assert interface == mock_instance
 
@@ -722,7 +722,7 @@ class TestIntegration:
                     mock_instance = Mock()
                     mock_carbon.return_value = mock_instance
                     
-                    interface = InterfaceFactoryEnhanced.create_interface("carbon", ui_config=config)
+                    interface = InterfaceFactory.create_interface("carbon", ui_config=config)
                     
                     assert interface == mock_instance
     
@@ -758,8 +758,8 @@ class TestIntegration:
         
         # Should successfully load UI files
         with patch('src.gui.ui_loader_enhanced.UILoaderEnhanced.validate_ui_integrity', return_value=True):
-            interface = InterfaceFactoryEnhanced.create_interface("carbon", ui_config=config)
+            interface = InterfaceFactory.create_interface("carbon", ui_config=config)
             assert interface is not None
             
-            window = InterfaceFactoryEnhanced.create_main_window(ui_config=config)
+            window = InterfaceFactory.create_main_window(ui_config=config)
             assert window is not None

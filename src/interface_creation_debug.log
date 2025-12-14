@@ -1,0 +1,186 @@
+2025-12-13 20:15:00,369 - __main__ - INFO - Starting interface creation diagnostics...
+2025-12-13 20:15:00,369 - __main__ - INFO - 
+==================================================
+2025-12-13 20:15:00,369 - __main__ - INFO - Running test: Imports
+2025-12-13 20:15:00,369 - __main__ - INFO - ==================================================
+2025-12-13 20:15:00,369 - __main__ - INFO - Testing imports...
+2025-12-13 20:15:00,475 - __main__ - INFO - Test Imports: FAILED
+2025-12-13 20:15:00,475 - __main__ - INFO - 
+==================================================
+2025-12-13 20:15:00,475 - __main__ - INFO - Running test: UI Configuration
+2025-12-13 20:15:00,475 - __main__ - INFO - ==================================================
+2025-12-13 20:15:00,475 - __main__ - INFO - Testing UI configuration...
+2025-12-13 20:15:00,479 - __main__ - INFO - Test UI Configuration: FAILED
+2025-12-13 20:15:00,479 - __main__ - INFO - 
+==================================================
+2025-12-13 20:15:00,479 - __main__ - INFO - Running test: Interface Factory
+2025-12-13 20:15:00,479 - __main__ - INFO - ==================================================
+2025-12-13 20:15:00,479 - __main__ - INFO - Testing InterfaceFactory...
+2025-12-13 20:15:00,487 - __main__ - INFO - Test Interface Factory: FAILED
+2025-12-13 20:15:00,487 - __main__ - INFO - 
+==================================================
+2025-12-13 20:15:00,487 - __main__ - INFO - Running test: Project Manager
+2025-12-13 20:15:00,487 - __main__ - INFO - ==================================================
+2025-12-13 20:15:00,487 - __main__ - INFO - Testing ProjectManager creation...
+2025-12-13 20:15:00,495 - __main__ - INFO - Test Project Manager: FAILED
+2025-12-13 20:15:00,495 - __main__ - INFO - 
+==================================================
+2025-12-13 20:15:00,495 - __main__ - INFO - Running test: Carbon Interface Creation
+2025-12-13 20:15:00,495 - __main__ - INFO - ==================================================
+2025-12-13 20:15:00,495 - __main__ - INFO - Testing CarbonInterface creation...
+2025-12-13 20:15:00,503 - __main__ - INFO - Test Carbon Interface Creation: FAILED
+2025-12-13 20:15:00,503 - __main__ - INFO - 
+==================================================
+2025-12-13 20:15:00,503 - __main__ - INFO - DIAGNOSTIC SUMMARY
+2025-12-13 20:15:00,503 - __main__ - INFO - ==================================================
+2025-12-13 20:15:00,503 - __main__ - INFO - Imports: FAILED
+2025-12-13 20:15:00,503 - __main__ - INFO - UI Configuration: FAILED
+2025-12-13 20:15:00,503 - __main__ - INFO - Interface Factory: FAILED
+2025-12-13 20:15:00,503 - __main__ - INFO - Project Manager: FAILED
+2025-12-13 20:15:00,503 - __main__ - INFO - Carbon Interface Creation: FAILED
+2025-12-13 20:15:00,503 - __main__ - INFO - 
+Overall: 0/5 tests passed
+2025-12-13 20:16:53,382 - __main__ - INFO - Starting interface creation diagnostics...
+2025-12-13 20:16:53,382 - __main__ - INFO - 
+==================================================
+2025-12-13 20:16:53,382 - __main__ - INFO - Running test: Imports
+2025-12-13 20:16:53,382 - __main__ - INFO - ==================================================
+2025-12-13 20:16:53,382 - __main__ - INFO - Testing imports...
+2025-12-13 20:16:53,434 - __main__ - INFO - OK - PyQt6 imported successfully
+2025-12-13 20:16:53,682 - __main__ - INFO - OK - UIConfig imported successfully
+2025-12-13 20:16:53,682 - __main__ - INFO - OK - InterfaceFactory imported successfully
+2025-12-13 20:16:53,706 - __main__ - ERROR - ERROR - CarbonInterface import failed: invalid syntax (carbon_interface.py, line 585)
+2025-12-13 20:16:53,706 - __main__ - INFO - Test Imports: FAILED
+2025-12-13 20:16:53,706 - __main__ - INFO - 
+==================================================
+2025-12-13 20:16:53,706 - __main__ - INFO - Running test: UI Configuration
+2025-12-13 20:16:53,706 - __main__ - INFO - ==================================================
+2025-12-13 20:16:53,706 - __main__ - INFO - Testing UI configuration...
+2025-12-13 20:16:53,706 - __main__ - INFO - OK - UIConfig created: UIConfig(mode=auto_detect, prefer_ui_files=True, fallback_enabled=True, ui_base_path=None)
+2025-12-13 20:16:53,706 - __main__ - INFO -   Mode: UILoadingMode.AUTO_DETECT
+2025-12-13 20:16:53,706 - __main__ - INFO -   Should load UI files: True
+2025-12-13 20:16:53,706 - __main__ - INFO -   Should fallback: True
+2025-12-13 20:16:53,706 - __main__ - INFO - Test UI Configuration: PASSED
+2025-12-13 20:16:53,706 - __main__ - INFO - 
+==================================================
+2025-12-13 20:16:53,706 - __main__ - INFO - Running test: Interface Factory
+2025-12-13 20:16:53,706 - __main__ - INFO - ==================================================
+2025-12-13 20:16:53,706 - __main__ - INFO - Testing InterfaceFactory...
+2025-12-13 20:16:53,706 - __main__ - INFO - Running interface creation diagnosis...
+2025-12-13 20:16:53,722 - src.gui.interface_factory - INFO - Creating interface: carbon with mode: auto_detect
+2025-12-13 20:16:53,722 - src.gui.interface_factory - DEBUG - Trying Enhanced UI loading (auto) for carbon
+2025-12-13 20:16:53,722 - src.gui.interface_factory - DEBUG - Trying Basic UI loading for carbon
+2025-12-13 20:16:53,722 - src.gui.interface_factory - DEBUG - Trying Hand-coded widgets for carbon
+2025-12-13 20:16:53,722 - src.gui.interface_factory - DEBUG - Creating hand-coded interface: carbon
+2025-12-13 20:16:53,738 - src.gui.interface_factory - ERROR - Failed to create CarbonInterface: invalid syntax (carbon_interface.py, line 585)
+2025-12-13 20:16:53,738 - src.gui.interface_factory - ERROR - Failed to create carbon interface. Last error: None
+2025-12-13 20:16:53,738 - __main__ - INFO - Diagnosis results: {'interface_type': 'carbon', 'config': {'mode': 'auto_detect', 'prefer_ui_files': True, 'fallback_to_hand_coded': True, 'ui_base_path': None}, 'issues': ['UI files not found in expected location', 'Hand-coded interface import failed', 'No working interface creation method found', 'Interface creation failed: Failed to create carbon interface. Last error: None'], 'recommendations': ['Check that UI files exist in resources/ui directory', 'Check that interface modules are properly installed', 'Check application configuration and dependencies'], 'test_results': {'ui_files_available': {'enhanced': {'error': "cannot import name 'UILoader' from 'src.gui.ui_loader' (c:\\Users\\vsharma.A123SYSTEMSEU\\Documents\\BatterySimulator\\BatteryOpenFoamSimulator\\Battery_OpenFoam_Simulator\\src\\gui\\ui_loader.py)"}, 'basic': {'error': "cannot import name 'UILoader' from 'src.gui.ui_loader' (c:\\Users\\vsharma.A123SYSTEMSEU\\Documents\\BatterySimulator\\BatteryOpenFoamSimulator\\Battery_OpenFoam_Simulator\\src\\gui\\ui_loader.py)"}}, 'hand_coded_works': {'import_success': False, 'creation_success': False, 'error': 'Import failed: invalid syntax (carbon_interface.py, line 585)'}, 'enhanced_ui_works': {'success': False, 'error': "cannot import name 'UILoader' from 'src.gui.ui_loader' (c:\\Users\\vsharma.A123SYSTEMSEU\\Documents\\BatterySimulator\\BatteryOpenFoamSimulator\\Battery_OpenFoam_Simulator\\src\\gui\\ui_loader.py)"}, 'basic_ui_works': {'success': False, 'error': "cannot import name 'UILoader' from 'src.gui.ui_loader' (c:\\Users\\vsharma.A123SYSTEMSEU\\Documents\\BatterySimulator\\BatteryOpenFoamSimulator\\Battery_OpenFoam_Simulator\\src\\gui\\ui_loader.py)"}}, 'success': False}
+2025-12-13 20:16:53,738 - __main__ - INFO - Test Interface Factory: PASSED
+2025-12-13 20:16:53,738 - __main__ - INFO - 
+==================================================
+2025-12-13 20:16:53,738 - __main__ - INFO - Running test: Project Manager
+2025-12-13 20:16:53,738 - __main__ - INFO - ==================================================
+2025-12-13 20:16:53,738 - __main__ - INFO - Testing ProjectManager creation...
+2025-12-13 20:16:53,738 - __main__ - INFO - Creating ProjectManager with path: C:\Users\vsharma.A123SYSTEMSEU
+2025-12-13 20:16:53,742 - __main__ - INFO - OK - ProjectManager created successfully
+2025-12-13 20:16:53,742 - __main__ - INFO - Test Project Manager: PASSED
+2025-12-13 20:16:53,742 - __main__ - INFO - 
+==================================================
+2025-12-13 20:16:53,742 - __main__ - INFO - Running test: Carbon Interface Creation
+2025-12-13 20:16:53,742 - __main__ - INFO - ==================================================
+2025-12-13 20:16:53,742 - __main__ - INFO - Testing CarbonInterface creation...
+2025-12-13 20:16:53,758 - __main__ - ERROR - ERROR - CarbonInterface creation failed: invalid syntax (carbon_interface.py, line 585)
+Traceback (most recent call last):
+  File "c:\Users\vsharma.A123SYSTEMSEU\Documents\BatterySimulator\BatteryOpenFoamSimulator\Battery_OpenFoam_Simulator\src\debug_interface_creation.py", line 136, in test_carbon_interface_creation
+    from src.gui.interfaces.carbon_interface import CarbonInterface
+  File "c:\Users\vsharma.A123SYSTEMSEU\Documents\BatterySimulator\BatteryOpenFoamSimulator\Battery_OpenFoam_Simulator\src\gui\interfaces\__init__.py", line 13, in <module>
+    from .carbon_interface import CarbonInterface
+  File "c:\Users\vsharma.A123SYSTEMSEU\Documents\BatterySimulator\BatteryOpenFoamSimulator\Battery_OpenFoam_Simulator\src\gui\interfaces\carbon_interface.py", line 585
+    585 |         return default_value
+                  ^^^^^^
+SyntaxError: invalid syntax
+2025-12-13 20:16:53,762 - __main__ - INFO - Test Carbon Interface Creation: FAILED
+2025-12-13 20:16:53,762 - __main__ - INFO - 
+==================================================
+2025-12-13 20:16:53,762 - __main__ - INFO - DIAGNOSTIC SUMMARY
+2025-12-13 20:16:53,762 - __main__ - INFO - ==================================================
+2025-12-13 20:16:53,762 - __main__ - INFO - Imports: FAILED
+2025-12-13 20:16:53,762 - __main__ - INFO - UI Configuration: PASSED
+2025-12-13 20:16:53,762 - __main__ - INFO - Interface Factory: PASSED
+2025-12-13 20:16:53,762 - __main__ - INFO - Project Manager: PASSED
+2025-12-13 20:16:53,762 - __main__ - INFO - Carbon Interface Creation: FAILED
+2025-12-13 20:16:53,762 - __main__ - INFO - 
+Overall: 3/5 tests passed
+2025-12-13 20:16:53,762 - __main__ - ERROR - ERROR - Some tests failed. Check the logs above for details.
+2025-12-13 20:26:20,800 - __main__ - INFO - Starting interface creation diagnostics...
+2025-12-13 20:26:20,800 - __main__ - INFO - 
+==================================================
+2025-12-13 20:26:20,800 - __main__ - INFO - Running test: Imports
+2025-12-13 20:26:20,800 - __main__ - INFO - ==================================================
+2025-12-13 20:26:20,800 - __main__ - INFO - Testing imports...
+2025-12-13 20:26:20,853 - __main__ - INFO - OK - PyQt6 imported successfully
+2025-12-13 20:26:20,981 - __main__ - INFO - OK - UIConfig imported successfully
+2025-12-13 20:26:20,981 - __main__ - INFO - OK - InterfaceFactory imported successfully
+2025-12-13 20:26:20,997 - __main__ - ERROR - ERROR - CarbonInterface import failed: invalid syntax (carbon_interface.py, line 585)
+2025-12-13 20:26:20,997 - __main__ - INFO - Test Imports: FAILED
+2025-12-13 20:26:20,997 - __main__ - INFO - 
+==================================================
+2025-12-13 20:26:20,997 - __main__ - INFO - Running test: UI Configuration
+2025-12-13 20:26:20,997 - __main__ - INFO - ==================================================
+2025-12-13 20:26:20,997 - __main__ - INFO - Testing UI configuration...
+2025-12-13 20:26:20,997 - __main__ - INFO - OK - UIConfig created: UIConfig(mode=auto_detect, prefer_ui_files=True, fallback_enabled=True, ui_base_path=None)
+2025-12-13 20:26:20,997 - __main__ - INFO -   Mode: UILoadingMode.AUTO_DETECT
+2025-12-13 20:26:20,997 - __main__ - INFO -   Should load UI files: True
+2025-12-13 20:26:20,997 - __main__ - INFO -   Should fallback: True
+2025-12-13 20:26:20,997 - __main__ - INFO - Test UI Configuration: PASSED
+2025-12-13 20:26:20,997 - __main__ - INFO - 
+==================================================
+2025-12-13 20:26:20,997 - __main__ - INFO - Running test: Interface Factory
+2025-12-13 20:26:20,997 - __main__ - INFO - ==================================================
+2025-12-13 20:26:20,997 - __main__ - INFO - Testing InterfaceFactory...
+2025-12-13 20:26:20,997 - __main__ - INFO - Running interface creation diagnosis...
+2025-12-13 20:26:21,013 - src.gui.interface_factory - INFO - Creating interface: carbon with mode: auto_detect
+2025-12-13 20:26:21,013 - src.gui.interface_factory - DEBUG - Trying Enhanced UI loading (auto) for carbon
+2025-12-13 20:26:21,013 - src.gui.interface_factory - DEBUG - Trying Basic UI loading for carbon
+2025-12-13 20:26:21,013 - src.gui.interface_factory - DEBUG - Trying Hand-coded widgets for carbon
+2025-12-13 20:26:21,013 - src.gui.interface_factory - DEBUG - Creating hand-coded interface: carbon
+2025-12-13 20:26:21,025 - src.gui.interface_factory - ERROR - Failed to create CarbonInterface: invalid syntax (carbon_interface.py, line 585)
+2025-12-13 20:26:21,025 - src.gui.interface_factory - ERROR - Failed to create carbon interface. Last error: None
+2025-12-13 20:26:21,025 - __main__ - INFO - Diagnosis results: {'interface_type': 'carbon', 'config': {'mode': 'auto_detect', 'prefer_ui_files': True, 'fallback_to_hand_coded': True, 'ui_base_path': None}, 'issues': ['UI files not found in expected location', 'Hand-coded interface import failed', 'No working interface creation method found', 'Interface creation failed: Failed to create carbon interface. Last error: None'], 'recommendations': ['Check that UI files exist in resources/ui directory', 'Check that interface modules are properly installed', 'Check application configuration and dependencies'], 'test_results': {'ui_files_available': {'enhanced': {'error': "cannot import name 'UILoader' from 'src.gui.ui_loader' (c:\\Users\\vsharma.A123SYSTEMSEU\\Documents\\BatterySimulator\\BatteryOpenFoamSimulator\\Battery_OpenFoam_Simulator\\src\\gui\\ui_loader.py)"}, 'basic': {'error': "cannot import name 'UILoader' from 'src.gui.ui_loader' (c:\\Users\\vsharma.A123SYSTEMSEU\\Documents\\BatterySimulator\\BatteryOpenFoamSimulator\\Battery_OpenFoam_Simulator\\src\\gui\\ui_loader.py)"}}, 'hand_coded_works': {'import_success': False, 'creation_success': False, 'error': 'Import failed: invalid syntax (carbon_interface.py, line 585)'}, 'enhanced_ui_works': {'success': False, 'error': "cannot import name 'UILoader' from 'src.gui.ui_loader' (c:\\Users\\vsharma.A123SYSTEMSEU\\Documents\\BatterySimulator\\BatteryOpenFoamSimulator\\Battery_OpenFoam_Simulator\\src\\gui\\ui_loader.py)"}, 'basic_ui_works': {'success': False, 'error': "cannot import name 'UILoader' from 'src.gui.ui_loader' (c:\\Users\\vsharma.A123SYSTEMSEU\\Documents\\BatterySimulator\\BatteryOpenFoamSimulator\\Battery_OpenFoam_Simulator\\src\\gui\\ui_loader.py)"}}, 'success': False}
+2025-12-13 20:26:21,025 - __main__ - INFO - Test Interface Factory: PASSED
+2025-12-13 20:26:21,025 - __main__ - INFO - 
+==================================================
+2025-12-13 20:26:21,025 - __main__ - INFO - Running test: Project Manager
+2025-12-13 20:26:21,025 - __main__ - INFO - ==================================================
+2025-12-13 20:26:21,025 - __main__ - INFO - Testing ProjectManager creation...
+2025-12-13 20:26:21,025 - __main__ - INFO - Creating ProjectManager with path: C:\Users\vsharma.A123SYSTEMSEU
+2025-12-13 20:26:21,025 - __main__ - INFO - OK - ProjectManager created successfully
+2025-12-13 20:26:21,025 - __main__ - INFO - Test Project Manager: PASSED
+2025-12-13 20:26:21,025 - __main__ - INFO - 
+==================================================
+2025-12-13 20:26:21,025 - __main__ - INFO - Running test: Carbon Interface Creation
+2025-12-13 20:26:21,025 - __main__ - INFO - ==================================================
+2025-12-13 20:26:21,025 - __main__ - INFO - Testing CarbonInterface creation...
+2025-12-13 20:26:21,037 - __main__ - ERROR - ERROR - CarbonInterface creation failed: invalid syntax (carbon_interface.py, line 585)
+Traceback (most recent call last):
+  File "c:\Users\vsharma.A123SYSTEMSEU\Documents\BatterySimulator\BatteryOpenFoamSimulator\Battery_OpenFoam_Simulator\src\debug_interface_creation.py", line 136, in test_carbon_interface_creation
+    from src.gui.interfaces.carbon_interface import CarbonInterface
+  File "c:\Users\vsharma.A123SYSTEMSEU\Documents\BatterySimulator\BatteryOpenFoamSimulator\Battery_OpenFoam_Simulator\src\gui\interfaces\__init__.py", line 13, in <module>
+    from .carbon_interface import CarbonInterface
+  File "c:\Users\vsharma.A123SYSTEMSEU\Documents\BatterySimulator\BatteryOpenFoamSimulator\Battery_OpenFoam_Simulator\src\gui\interfaces\carbon_interface.py", line 585
+    585 |         return default_value
+                  ^^^^^^
+SyntaxError: invalid syntax
+2025-12-13 20:26:21,041 - __main__ - INFO - Test Carbon Interface Creation: FAILED
+2025-12-13 20:26:21,041 - __main__ - INFO - 
+==================================================
+2025-12-13 20:26:21,041 - __main__ - INFO - DIAGNOSTIC SUMMARY
+2025-12-13 20:26:21,041 - __main__ - INFO - ==================================================
+2025-12-13 20:26:21,041 - __main__ - INFO - Imports: FAILED
+2025-12-13 20:26:21,041 - __main__ - INFO - UI Configuration: PASSED
+2025-12-13 20:26:21,041 - __main__ - INFO - Interface Factory: PASSED
+2025-12-13 20:26:21,041 - __main__ - INFO - Project Manager: PASSED
+2025-12-13 20:26:21,041 - __main__ - INFO - Carbon Interface Creation: FAILED
+2025-12-13 20:26:21,041 - __main__ - INFO - 
+Overall: 3/5 tests passed
+2025-12-13 20:26:21,041 - __main__ - ERROR - ERROR - Some tests failed. Check the logs above for details.

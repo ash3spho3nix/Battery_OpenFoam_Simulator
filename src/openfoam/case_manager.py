@@ -12,8 +12,8 @@ from pathlib import Path
 from typing import Optional, Dict, Any, List
 from PyQt6.QtCore import QObject, pyqtSignal
 
-from src.utils.parameter_parser import ParameterManager
-from src.core.constants import PARAMETER_FILES
+from ..utils.parameter_parser import ParameterManager
+from ..core.constants import PARAMETER_FILES
 
 
 class OpenFOAMCaseManager(QObject):

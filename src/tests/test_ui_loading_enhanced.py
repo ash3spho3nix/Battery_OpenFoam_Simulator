@@ -2,7 +2,7 @@
 Comprehensive test suite for enhanced UI loading system.
 
 This module provides extensive testing for the enhanced UI loading components,
-including UILoaderEnhanced, InterfaceFactoryEnhanced, and UIConfig.
+including UILoaderEnhanced, InterfaceFactory, and UIConfig.
 Tests cover all loading modes, fallback mechanisms, error handling, and
 performance scenarios.
 """
@@ -24,8 +24,10 @@ from PyQt6.QtCore import Qt
 
 # Import test modules
 from src.gui.ui_loader_enhanced import UILoaderEnhanced, UIValidationError
-from src.gui.interface_factory_enhanced import InterfaceFactoryEnhanced, InterfaceCreationError
+from src.gui.interface_factory import InterfaceFactory, InterfaceCreationError
 from src.gui.ui_config import UIConfig, UILoadingMode
+
+# Note: InterfaceFactoryEnhanced does not exist - use InterfaceFactory
 
 
 # Global test fixtures
@@ -227,8 +229,8 @@ class TestUILoaderEnhanced:
         assert UILoaderEnhanced.ui_file_exists("invalid", temp_ui_dir) is False
 
 
-class TestInterfaceFactoryEnhanced:
-    """Test suite for InterfaceFactoryEnhanced class."""
+class TestInterfaceFactory:
+    """Test suite for InterfaceFactory class."""
     
     def test_create_interface_with_ui_files_mode(self, qt_app, temp_ui_dir):
         """Test interface creation in UI_FILES mode."""
@@ -240,7 +242,7 @@ class TestInterfaceFactoryEnhanced:
         # This should attempt UI loading first, then fall back to hand-coded
         # Since we don't have actual UI files, it should fall back to hand-coded
         with pytest.raises(InterfaceCreationError):
-            InterfaceFactoryEnhanced.create_interface("carbon", ui_config=config)
+            InterfaceFactory.create_interface("carbon", ui_config=config)
     
     def test_create_interface_with_hand_coded_mode(self, qt_app):
         """Test interface creation in HAND_CODED mode."""
@@ -275,15 +277,15 @@ class TestInterfaceFactoryEnhanced:
     def test_interface_caching(self, qt_app):
         """Test interface caching functionality."""
         # Clear cache before test
-        InterfaceFactoryEnhanced.clear_cache()
+        InterfaceFactory._interface_cache = {}
         
         config = UIConfig()
         config.set_mode(UILoadingMode.HAND_CODED)
         
         # Create interface twice
         try:
-            interface1 = InterfaceFactoryEnhanced.create_interface("carbon", ui_config=config, use_cache=True)
-            interface2 = InterfaceFactoryEnhanced.create_interface("carbon", ui_config=config, use_cache=True)
+            interface1 = InterfaceFactory.create_interface("carbon", ui_config=config, use_cache=True)
+            interface2 = InterfaceFactory.create_interface("carbon", ui_config=config, use_cache=True)
             
             # Should return the same cached instance
             # Note: This depends on the caching implementation
@@ -295,14 +297,14 @@ class TestInterfaceFactoryEnhanced:
     def test_creation_statistics(self, qt_app):
         """Test interface creation statistics tracking."""
         # Reset statistics
-        InterfaceFactoryEnhanced._creation_stats = {'success': 0, 'fallbacks': 0, 'failures': 0}
+        InterfaceFactory._creation_stats = {'success': 0, 'fallbacks': 0, 'failures': 0}
         
         config = UIConfig()
         config.set_mode(UILoadingMode.HAND_CODED)
         
         try:
-            InterfaceFactoryEnhanced.create_interface("carbon", ui_config=config)
-            stats = InterfaceFactoryEnhanced.get_creation_stats()
+            InterfaceFactory.create_interface("carbon", ui_config=config)
+            stats = InterfaceFactory._creation_stats
             assert stats['success'] > 0
         except InterfaceCreationError:
             # If creation fails, should increment failures
@@ -505,7 +507,7 @@ class TestErrorHandlingAndRecovery:
         # Mock missing interface module
         with patch('importlib.import_module', side_effect=ImportError("Module not found")):
             with pytest.raises(InterfaceCreationError):
-                InterfaceFactoryEnhanced.create_interface("nonexistent", ui_config=config)
+                InterfaceFactory.create_interface("nonexistent", ui_config=config)
     
     def test_file_permission_errors(self, qt_app, temp_ui_dir, sample_ui_content):
         """Test handling file permission errors."""

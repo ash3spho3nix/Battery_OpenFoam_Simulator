@@ -73,53 +73,60 @@ class ProjectManager:
     BACKUP_EXTENSION = ".backup"
     VALID_PROJECT_NAME_PATTERN = r'^[a-zA-Z0-9_]+$'
      
-    def __init__(self, base_projects_path: Union[str, Path]):
+    def __init__(self, base_projects_path: Union[str, Path], templates_path: Union[str, Path] = None):
         """
         Initialize the enhanced project manager.
-         
+        
         Args:
             base_projects_path: Base path for projects
+            templates_path: Path to templates directory (default: src/resources/templates)
         """
         self.base_projects_path = Path(base_projects_path)
         self.base_projects_path.mkdir(parents=True, exist_ok=True)
+        
+        # Set templates path - default to src/resources/templates
+        if templates_path is None:
+            templates_path = Path(__file__).parent.parent / "resources" / "templates"
+        self.templates_path = Path(templates_path)
         self._cache = {}
-         
+        
     def create_project(
         self, 
         project_path: Union[str, Path], 
         project_name: str, 
-        template_path: Union[str, Path],
+        template_name: Union[str, Path],
         parameters: Optional[Dict[str, Any]] = None,
         validate_template: bool = True
     ) -> bool:
         """
         Create a new project with advanced validation and metadata.
-         
+        
         Args:
             project_path: Base path where the project will be created
             project_name: Name of the project
-            template_path: Path to the template directory
+            template_name: Name of the template (will look in templates_path) or full path
             parameters: Project parameters for substitution
             validate_template: Whether to validate the template
-             
+            
         Returns:
             bool: True if successful, False otherwise
         """
         try:
+            # Resolve template path
+            template_path = self._resolve_template_path(template_name)
+            
             # Validate project name
             if not self._validate_project_name(project_name):
                 raise ProjectValidationError(f"Invalid project name: {project_name}")
-                 
+                
             # Check if project already exists
             project_path = Path(project_path) / project_name
             if project_path.exists():
                 raise ProjectValidationError(f"Project already exists: {project_path}")
-                 
+                
             # Validate template if requested
             if validate_template:
-                self._validate_template_path(template_path)
-                 
-            # Create project directory
+                self._validate_template_path(template_path)            # Create project directory
             project_path.mkdir(parents=True, exist_ok=True)
              
             # Copy template files
@@ -171,28 +178,61 @@ class ProjectManager:
             return False
              
         return True
-         
+        
+    def _resolve_template_path(self, template_name: Union[str, Path]) -> Path:
+        """
+        Resolve template path from template name.
+        
+        If template_name is a simple name (no path separators), look in self.templates_path.
+        Otherwise, treat it as a full path.
+        
+        Args:
+            template_name: Template name or full path
+            
+        Returns:
+            Path: Resolved template path
+        """
+        template_name = str(template_name)
+        
+        # If it's a full path (absolute or contains path separators), use it as-is
+        if Path(template_name).is_absolute() or ('\\' in template_name and template_name[1:2] != ':'):
+            return Path(template_name)
+        
+        # Check if it's a Windows absolute path (like C:\ or D:\)
+        if len(template_name) > 1 and template_name[1] == ':':
+            return Path(template_name)
+        
+        # Otherwise, look in templates_path
+        resolved_path = self.templates_path / template_name
+        return resolved_path
+        
     def _validate_template_path(self, template_path: Union[str, Path]) -> bool:
         """Validate template directory structure."""
         template_path = Path(template_path)
         if not template_path.exists():
             raise ProjectValidationError(f"Template path does not exist: {template_path}")
-             
+            
         if not template_path.is_dir():
             raise ProjectValidationError(f"Template path is not a directory: {template_path}")
-             
-        # Check for critical directories
-        critical_dirs = ['Make', 'system', 'constant']
-        missing_dirs = []
-        for critical_dir in critical_dirs:
-            if not (template_path / critical_dir).exists():
-                missing_dirs.append(critical_dir)
-                 
-        if missing_dirs:
-            raise ProjectValidationError(f"Template missing critical directories: {missing_dirs}")
-             
+            
+        # Check for critical directories recursively (they might be in subdirectories)
+        critical_dirs = ['system', 'constant']
+        has_critical_dirs = False
+        
+        for root, dirs, files in os.walk(template_path):
+            for critical_dir in critical_dirs:
+                if critical_dir in dirs:
+                    has_critical_dirs = True
+                    break
+            if has_critical_dirs:
+                break
+        
+        # If no critical directories found, just warn but don't fail
+        if not has_critical_dirs:
+            logger.warning(f"Template {template_path.name} does not contain standard OpenFOAM directories (system, constant)")
+            
         return True
-         
+        
     def _copy_template_files(self, source: Path, destination: Path):
         """Copy template files with proper handling."""
         # Use shutil.copytree with preserve_permissions=True

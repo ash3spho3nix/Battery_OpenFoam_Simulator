@@ -5,10 +5,12 @@ Contains helper classes and functions for file operations,
 parameter parsing, and other utility functions.
 """
 
-from .file_operations import TemplateManager
+from .file_operations import TemplateManager, FileBackupManager,PathValidator
 from .parameter_parser import ParameterManager
 
 __all__ = [
     'TemplateManager',
-    'ParameterManager'
+    'ParameterManager',
+    'FileBackupManager',
+    'PathValidator'
 ]

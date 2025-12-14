@@ -1,5 +1,5 @@
 """
-Process controller for OpenFOAM solver execution.
+Process controller for OpenFOAM solver execution - Enhanced for Windows MSYS2.
 
 This module provides the ProcessController class, which manages subprocess
 execution for OpenFOAM solvers with real-time output streaming.
@@ -8,17 +8,18 @@ execution for OpenFOAM solvers with real-time output streaming.
 import subprocess
 import threading
 import time
+import logging
 from typing import Optional
 from PyQt6.QtCore import QObject, pyqtSignal
-from src.core.constants import PROCESS_TIMEOUT
 
+logger = logging.getLogger(__name__)
 
 class ProcessController(QObject):
     """
     Controller for managing OpenFOAM solver processes.
     
     Provides real-time output streaming, process control, and error handling
-    similar to QProcess in the C++ implementation.
+    for OpenFOAM commands executed through MSYS2 on Windows.
     """
     
     # Signals for process events
@@ -28,230 +29,134 @@ class ProcessController(QObject):
     process_finished = pyqtSignal(int)  # exit code
     
     def __init__(self, parent=None):
-        """
-        Initialize the process controller.
-        
-        Args:
-            parent: Parent QObject
-        """
+        """Initialize the process controller."""
         super().__init__(parent)
         
         self.process = None
-        self.stdout_thread = None
-        self.stderr_thread = None
         self.monitor_thread = None
         self._paused = False
         self._running = False
         self.output_buffer = []
         self.error_buffer = []
         
+        # Get MSYS2 executor
+        from src.openfoam.msys2_executor import get_executor
+        self.executor = get_executor()
+        
     def start_process(self, command: str, working_dir: str = None):
-        """
-        Start a subprocess with the given command.
+        """Start a subprocess with the given command using MSYS2 executor.
         
         Args:
-            command: Command to execute
-            working_dir: Working directory for the process
+            command: OpenFOAM command to execute
+            working_dir: Working directory (Windows path)
         """
         if self._running:
+            logger.warning("Process already running, terminating before restart")
             self.terminate_process()
+            time.sleep(0.5)  # Give time for cleanup
             
         try:
-            # Start the process
-            self.process = subprocess.Popen(
-                command,
-                stdout=subprocess.PIPE,
-                stderr=subprocess.PIPE,
-                universal_newlines=True,
-                bufsize=1,
-                cwd=working_dir,
-                shell=True
-            )
+            logger.info(f"Starting process: {command}")
+            logger.info(f"Working directory: {working_dir}")
+            
+            # Verify MSYS2 is available
+            if not self.executor.verify_msys2():
+                error_msg = "OpenFOAM-MSYS2 not found or not working. Please ensure OpenFOAM-MSYS2.bat is in PATH."
+                logger.error(error_msg)
+                self.error_received.emit(error_msg)
+                return
+            
+            # Clear buffers
+            self.output_buffer.clear()
+            self.error_buffer.clear()
+            
+            # Create output callbacks
+            def output_callback(line):
+                self.output_received.emit(line)
+                self.output_buffer.append(line)
+                if len(self.output_buffer) > 1000:
+                    self.output_buffer.pop(0)
+                
+            def error_callback(line):
+                self.error_received.emit(line)
+                self.error_buffer.append(line)
+                if len(self.error_buffer) > 1000:
+                    self.error_buffer.pop(0)
             
             self._running = True
             self._paused = False
             self.process_started.emit()
             
-            # Start output monitoring threads
-            self._start_output_monitoring()
+            # Start in separate thread to avoid blocking UI
+            def run_command():
+                try:
+                    return_code = self.executor.execute_command_with_callback(
+                        command, working_dir, output_callback, error_callback
+                    )
+                    logger.info(f"Process finished with return code: {return_code}")
+                    self._running = False
+                    self.process_finished.emit(return_code)
+                except Exception as e:
+                    logger.error(f"Process execution failed: {e}")
+                    error_callback(f"Process execution failed: {str(e)}")
+                    self._running = False
+                    self.process_finished.emit(-1)
+                    
+            self.monitor_thread = threading.Thread(target=run_command, daemon=True)
+            self.monitor_thread.start()
+            logger.info("Process thread started")
             
         except Exception as e:
-            self.error_received.emit(f"Failed to start process: {str(e)}")
+            error_msg = f"Failed to start process: {str(e)}"
+            logger.error(error_msg)
+            self.error_received.emit(error_msg)
+            self._running = False
             
-    def _start_output_monitoring(self):
-        """
-        Start threads to monitor process output.
-        """
-        # Thread for reading stdout
-        self.stdout_thread = threading.Thread(
-            target=self._read_stream, 
-            args=(self.process.stdout, False)
-        )
-        self.stdout_thread.daemon = True
-        self.stdout_thread.start()
-        
-        # Thread for reading stderr
-        self.stderr_thread = threading.Thread(
-            target=self._read_stream, 
-            args=(self.process.stderr, True)
-        )
-        self.stderr_thread.daemon = True
-        self.stderr_thread.start()
-        
-        # Thread for monitoring process completion
-        self.monitor_thread = threading.Thread(target=self._monitor_process)
-        self.monitor_thread.daemon = True
-        self.monitor_thread.start()
-        
-    def _read_stream(self, stream, is_error: bool):
-        """
-        Read from a process stream and emit signals.
-        
-        Args:
-            stream: Stream to read from
-            is_error: True if this is stderr, False for stdout
-        """
-        try:
-            for line in iter(stream.readline, ''):
-                if line:
-                    line_stripped = line.rstrip()
-                    if is_error:
-                        self.error_received.emit(line_stripped)
-                        self.error_buffer.append(line_stripped)
-                    else:
-                        self.output_received.emit(line_stripped)
-                        self.output_buffer.append(line_stripped)
-                        
-        except Exception as e:
-            if self._running:
-                error_msg = f"Error reading stream: {str(e)}"
-                self.error_received.emit(error_msg)
-                self.error_buffer.append(error_msg)
+    def terminate_process(self):
+        """Terminate the running process."""
+        if self._running:
+            logger.info("Terminating process")
+            try:
+                if self.process:
+                    self.process.terminate()
+                    try:
+                        self.process.wait(timeout=5)
+                    except subprocess.TimeoutExpired:
+                        logger.warning("Process did not terminate, killing")
+                        self.process.kill()
+            except Exception as e:
+                logger.error(f"Error terminating process: {e}")
                 
-    def _monitor_process(self):
-        """
-        Monitor process completion and emit finished signal.
-        """
-        try:
-            # Wait for process to complete
-            exit_code = self.process.wait()
             self._running = False
             self._paused = False
-            self.process_finished.emit(exit_code)
+            logger.info("Process terminated")
             
-        except Exception as e:
-            if self._running:
-                error_msg = f"Error monitoring process: {str(e)}"
-                self.error_received.emit(error_msg)
-                self.error_buffer.append(error_msg)
-                
-    def terminate_process(self):
-        """
-        Terminate the running process.
-        """
-        if self.process and self.process.poll() is None:
-            try:
-                self.process.terminate()
-                # Wait for process to terminate with timeout
-                self.process.wait(timeout=5)
-            except subprocess.TimeoutExpired:
-                # Force kill if it doesn't terminate gracefully
-                self.process.kill()
-                self.process.wait()
-            except Exception as e:
-                self.error_received.emit(f"Error terminating process: {str(e)}")
-                
-        self._running = False
-        self._paused = False
-        
-    def is_running(self) -> bool:
-        """
-        Check if a process is currently running.
-        
-        Returns:
-            bool: True if process is running
-        """
+    def pause_process(self):
+        """Pause the running process (not fully supported on Windows)."""
+        if self._running and not self._paused:
+            logger.info("Pausing process (limited support on Windows)")
+            self._paused = True
+            # Note: SIGSTOP/SIGCONT not available on Windows
+            # This is a placeholder for future implementation
+            
+    def resume_process(self):
+        """Resume the paused process (not fully supported on Windows)."""
+        if self._running and self._paused:
+            logger.info("Resuming process")
+            self._paused = False
+            
+    def is_running(self):
+        """Check if process is running."""
         return self._running
         
-    def is_paused(self) -> bool:
-        """
-        Check if the process is currently paused.
-        
-        Returns:
-            bool: True if process is paused
-        """
+    def is_paused(self):
+        """Check if process is paused."""
         return self._paused
         
-    def get_exit_code(self) -> Optional[int]:
-        """
-        Get the exit code of the last process.
+    def get_output_buffer(self):
+        """Get buffered output."""
+        return list(self.output_buffer)
         
-        Returns:
-            int or None: Exit code if process has finished
-        """
-        if self.process:
-            return self.process.returncode
-        return None
-        
-    def send_signal(self, signal_num: int):
-        """
-        Send a signal to the running process.
-        
-        Args:
-            signal_num: Signal number to send
-        """
-        if self.process and self._running:
-            try:
-                self.process.send_signal(signal_num)
-            except Exception as e:
-                self.error_received.emit(f"Error sending signal: {str(e)}")
-                
-    def write_to_stdin(self, data: str):
-        """
-        Write data to the process stdin.
-        
-        Args:
-            data: Data to write
-        """
-        if self.process and self._running:
-            try:
-                self.process.stdin.write(data + '\n')
-                self.process.stdin.flush()
-            except Exception as e:
-                self.error_received.emit(f"Error writing to stdin: {str(e)}")
-                
-    def get_output_buffer(self) -> list:
-        """
-        Get the output buffer containing all received output.
-        
-        Returns:
-            list: List of output lines
-        """
-        return self.output_buffer.copy()
-        
-    def get_error_buffer(self) -> list:
-        """
-        Get the error buffer containing all received errors.
-        
-        Returns:
-            list: List of error lines
-        """
-        return self.error_buffer.copy()
-        
-    def clear_buffers(self):
-        """
-        Clear the output and error buffers.
-        """
-        self.output_buffer.clear()
-        self.error_buffer.clear()
-        
-    def cleanup(self):
-        """
-        Clean up resources.
-        """
-        self.terminate_process()
-        if self.process:
-            self.process = None
-        self._running = False
-        self._paused = False
-        self.clear_buffers()
+    def get_error_buffer(self):
+        """Get buffered errors."""
+        return list(self.error_buffer)

@@ -29,11 +29,11 @@ from .gui.ui_loader import UiLoader
 
 # Import OpenFOAM integration
 from .openfoam.process_controller import ProcessController
-from .openfoam.solver_manager import SolverManager
+from .openfoam.solver_manager import OpenFOAMSolverManager
 
 # Import utilities
-from .utils.file_operations import FileOperations
-from .utils.parameter_parser import ParameterParser
+from .utils.file_operations import TemplateManager
+from .utils.parameter_parser import ParameterManager
 
 # Version information
 __version__ = "1.0.0"
@@ -46,7 +46,7 @@ __all__ = [
     'InterfaceFactory',
     'UiLoader',
     'ProcessController',
-    'SolverManager',
-    'FileOperations',
-    'ParameterParser'
+    'OpenFOAMSolverManager',
+    'TemplateManager',
+    'ParameterManager',
 ]
