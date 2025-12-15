@@ -1,44 +1,32 @@
 """
 Main window implementation for Battery Simulator.
- 
-This module contains the MainWindow class, which is the Python equivalent
-of the C++ MainWindow class. It manages the overall application state,
-project creation, and navigation between different interfaces.
-Supports both .ui file loading and hand-coded widget approaches.
+
+This module contains the MainWindow class, which loads the main application
+window from mainwindow.ui and connects its signals to the appropriate handlers.
 """
- 
+
 import os
 import sys
 from pathlib import Path
 from typing import Optional, Dict, Any
-from PyQt6.QtWidgets import (
-    QMainWindow, QWidget, QTabWidget, QVBoxLayout, QHBoxLayout, 
-    QLabel, QPushButton, QMessageBox, QFileDialog, QLineEdit, 
-    QRadioButton, QFrame, QTextBrowser
-)
+from PyQt6.QtWidgets import QMainWindow, QWidget, QFileDialog, QMessageBox
 import logging
- 
+
+from src.utils.exception_handler import safe_slot
+
 # Set up logging
 logger = logging.getLogger(__name__)
- 
-from ..core.constants import (
-    APP_NAME, APP_VERSION, SUPPORTED_MODULES, DEFAULT_PROJECT_PATH,
-    ERROR_MESSAGES, SUCCESS_MESSAGES, WARNING_MESSAGES
-)
- 
- 
+
+from ..core.constants import APP_NAME, APP_VERSION
+
+
 class MainWindow(QMainWindow):
     """
     Main application window for Battery Simulator.
     
-    This class is the Python equivalent of the C++ MainWindow class.
-    It manages project creation, opening, and navigation between interfaces.
-    Supports both .ui file loading and hand-coded widget approaches.
+    This class loads the main window from mainwindow.ui and implements
+    all the logic for project creation and management.
     """
-    
-    # Class variables to store project state (equivalent to C++ static members)
-    project_path: Optional[str] = None
-    project_name: Optional[str] = None
     
     def __init__(self, parent: Optional[QWidget] = None, ui_config: Optional['UIConfig'] = None):
         """
@@ -46,34 +34,36 @@ class MainWindow(QMainWindow):
         
         Args:
             parent: Parent widget
-            ui_config: UI configuration for loading mode
+            ui_config: UI configuration for loading mode (must be UI_FILES)
         """
         logger.debug("MainWindow.__init__() called")
         super().__init__(parent)
         
         # Store UI configuration
         self.ui_config = ui_config or self._get_ui_config()
+
+        # Initialize properties
+        self.project_path: Optional[str] = None
+        self.project_name: Optional[str] = None
+        self.current_interface: Optional[QWidget] = None
+        self.project_manager = None # This should be initialized if needed
+        
+        # Validate that we're in UI_FILES mode
+        if self.ui_config.mode.value != 'ui_files':
+            error_msg = f"MainWindow requires UI_FILES mode, but got {self.ui_config.mode.value}"
+            logger.error(error_msg)
+            raise ValueError(error_msg)
         
         # Set window properties
         self.setWindowTitle(APP_NAME)
         self.setMinimumSize(800, 640)
         self.setMaximumSize(800, 640)
         
-        # Initialize project state
-        self.project_path = None
-        self.project_name = None
-        
-        # Initialize interfaces
-        self.carbon_interface = None
-        self.halfcell_interface = None
-        self.fullcell_interface = None
-        self.current_interface = None
-        
-        # Initialize UI
-        self._setup_ui()
-        
-        # Initialize project manager WITH required parameter
-        self.project_manager = self._create_project_manager()
+        # Load UI directly from mainwindow.ui
+        self._load_main_window_ui()
+
+        # Connect UI signals to handlers
+        self._connect_signals()
         
     def _get_ui_config(self):
         """Lazy import of UIConfig to avoid circular imports."""
@@ -82,445 +72,244 @@ class MainWindow(QMainWindow):
         logger.debug("UIConfig imported successfully")
         return UIConfig()
         
-    def _create_project_manager(self):
-        """Create ProjectManager with required base_projects_path parameter."""
-        logger.debug("MainWindow._create_project_manager() called")
+    def _load_main_window_ui(self):
+        """Load the main window UI directly from mainwindow.ui."""
+        logger.debug("MainWindow._load_main_window_ui() called")
+        
+        # Import UiLoader
+        from ..gui.ui_loader import UiLoader
+        
+        # Load mainwindow.ui
         try:
-            # Use DEFAULT_PROJECT_PATH as the base projects path
-            from ..core.project_manager import ProjectManager
-            base_projects_path = Path(DEFAULT_PROJECT_PATH)
-            logger.debug(f"Creating ProjectManager with base_projects_path: {base_projects_path}")
-            project_manager = ProjectManager(base_projects_path)
-            logger.debug("ProjectManager created successfully")
-            return project_manager
+            # loadUi populates the 'self' instance with the UI from the file.
+            # It also sets the central widget defined in the .ui file automatically.
+            UiLoader.load_ui("mainwindow", self)
+            logger.debug("Successfully loaded mainwindow.ui into MainWindow instance")
         except Exception as e:
-            logger.error(f"Failed to create ProjectManager: {e}", exc_info=True)
-            # Create a mock project manager or handle gracefully
-            QMessageBox.critical(
-                self, "Error", 
-                f"Failed to initialize project manager: {str(e)}\n\n"
-                "The application may not function correctly."
-            )
-            # Return None and handle gracefully in the rest of the code
-            return None
+            logger.error(f"Error loading mainwindow.ui: {e}", exc_info=True)
+            raise
+
+    def _connect_signals(self):
+        """Connect all UI signals to their corresponding slots."""
+        logger.debug("Connecting MainWindow signals")
+        # New Project Tab
+        self.main_path_button.clicked.connect(self._on_choose_path_clicked)
+        self.main_next_button.clicked.connect(self._on_next_button_clicked)
         
-    def _setup_ui(self):
-        """
-        Set up the main application UI.
-        
-        Creates the tabbed interface with "New" and "Open" tabs,
-        similar to the C++ implementation.
-        """
-        logger.debug("MainWindow._setup_ui() called")
-        # Create central widget
-        central_widget = QWidget()
-        self.setCentralWidget(central_widget)
-        
-        # Create main layout
-        main_layout = QVBoxLayout(central_widget)
-        
-        # Create tab widget
-        self.tab_widget = QTabWidget()
-        self.tab_widget.setCurrentIndex(0)
-        
-        # Create tabs
-        self._create_new_project_tab()
-        self._create_open_project_tab()
-        
-        main_layout.addWidget(self.tab_widget)
-        
-    def _create_new_project_tab(self):
-        """
-        Create the "New" project tab.
-        
-        Contains project creation interface with module selection.
-        """
-        logger.debug("MainWindow._create_new_project_tab() called")
-        new_tab = QWidget()
-        layout = QVBoxLayout()
-        
-        # Title label
-        title_label = QLabel("Create a new project")
-        title_label.setStyleSheet("font-size: 14px; font-weight: bold;")
-        layout.addWidget(title_label)
-        
-        # Path selection
-        path_layout = QHBoxLayout()
-        self.main_path_label = QLabel("Choose a folder to save your project files")
-        self.main_path_button = QPushButton("Choose")
-        self.main_path_button.clicked.connect(self.on_main_path_button_clicked)
-        
-        path_layout.addWidget(self.main_path_label)
-        path_layout.addWidget(self.main_path_button)
-        layout.addLayout(path_layout)
-        
-        # Project name
-        name_layout = QHBoxLayout()
-        name_label = QLabel("Enter your project name")
-        self.pro_name_editline = QLineEdit("project1")
-        self.main_name_hint = QPushButton("?")
-        self.main_name_hint.clicked.connect(self.on_main_name_hint_clicked)
-        
-        name_layout.addWidget(name_label)
-        name_layout.addWidget(self.pro_name_editline)
-        name_layout.addWidget(self.main_name_hint)
-        layout.addLayout(name_layout)
-        
-        # Module selection
-        module_label = QLabel("Select a module")
-        layout.addWidget(module_label)
-        
-        # Radio buttons for modules
-        self.carbon_button = QRadioButton("Single Particle Model")
-        self.halfcell_button = QRadioButton("P2D Model (Half Cell)")
-        self.fullcell_button = QRadioButton("P2D Model (Full Cell)")
-        
-        # Set default selection
-        self.carbon_button.setChecked(True)
-        
-        layout.addWidget(self.carbon_button)
-        layout.addWidget(self.halfcell_button)
-        layout.addWidget(self.fullcell_button)
-        
-        # Next button
-        self.main_next_button = QPushButton("Next")
-        self.main_next_button.setEnabled(False)
-        self.main_next_button.clicked.connect(self.on_main_next_button_clicked)
-        
-        layout.addWidget(self.main_next_button)
-        layout.addStretch()
-        
-        new_tab.setLayout(layout)
-        self.tab_widget.addTab(new_tab, "New")
-        
-    def _create_open_project_tab(self):
-        """
-        Create the "Open" project tab.
-        
-        Contains project opening interface with recent projects.
-        """
-        logger.debug("MainWindow._create_open_project_tab() called")
-        open_tab = QWidget()
-        layout = QVBoxLayout()
-        
-        # Title label
-        title_label = QLabel("Open a project")
-        title_label.setStyleSheet("font-size: 14px; font-weight: bold;")
-        layout.addWidget(title_label)
-        
-        # Path selection
-        path_layout = QHBoxLayout()
-        path_label = QLabel("Choose a project folder to open")
-        self.main_path_label_2 = QLabel("Please choose...")
-        self.main_path_button_2 = QPushButton("Choose")
-        self.main_path_button_2.clicked.connect(self.on_main_path_button_2_clicked)
-        
-        path_layout.addWidget(path_label)
-        path_layout.addWidget(self.main_path_label_2)
-        path_layout.addWidget(self.main_path_button_2)
-        layout.addLayout(path_layout)
-        
-        # Recent projects
-        recent_label = QLabel("Open the last used project")
-        layout.addWidget(recent_label)
-        
-        self.recent_path_label = QLabel("Last used...")
-        self.recent_path_button = QPushButton("Open")
-        self.recent_path_button.clicked.connect(self.on_recent_path_button_clicked)
-        
-        recent_layout = QHBoxLayout()
-        recent_layout.addWidget(self.recent_path_label)
-        recent_layout.addWidget(self.recent_path_button)
-        layout.addLayout(recent_layout)
-        
-        # Next button
-        self.main_next_button_2 = QPushButton("Next")
-        self.main_next_button_2.setEnabled(False)
-        self.main_next_button_2.clicked.connect(self.on_main_next_button_2_clicked)
-        
-        layout.addWidget(self.main_next_button_2)
-        layout.addStretch()
-        
-        open_tab.setLayout(layout)
-        self.tab_widget.addTab(open_tab, "Open")
-        
-    def on_main_path_button_clicked(self):
-        """
-        Handle path selection for new project.
-        
-        Opens file dialog to select project directory.
-        """
-        logger.debug("MainWindow.on_main_path_button_clicked() called")
-        project_path = QFileDialog.getExistingDirectory(
-            self, "Choose a position", DEFAULT_PROJECT_PATH
+        # Enable 'Next' button only when path and name are set
+        self.pro_name_editline.textChanged.connect(self._update_next_button_state)
+#        self.main_path_label.textChanged.connect(self._update_next_button_state)
+
+        # Open Project Tab
+        self.main_path_button_2.clicked.connect(self._on_open_project_clicked)
+
+    def _update_next_button_state(self):
+        """Enable or disable the 'Next' button based on input."""
+        has_name = bool(self.pro_name_editline.text().strip())
+        has_path = self.project_path is not None
+        self.main_next_button.setEnabled(has_name and has_path)
+
+    @safe_slot
+    def _on_choose_path_clicked(self,_=False):
+        """Handle path selection button click."""
+        folder = QFileDialog.getExistingDirectory(
+            self,
+            "Select Project Directory",
+            str(Path.home()),
+            QFileDialog.Option.ShowDirsOnly
         )
         
-        if project_path:
-            self.project_path = project_path
-            self.main_path_label.setText(project_path)
-            
-            # Enable next button if path is valid
-            if self.main_path_label.text():
-                self.main_next_button.setEnabled(True)
-                self.main_next_button_2.setEnabled(False)
-            else:
-                self.main_next_button.setEnabled(False)
-                
-    def on_main_next_button_clicked(self):
-        """
-        Handle new project creation.
+        if folder:
+            self.project_path = folder
+            self.main_path_label.setText(folder)
+            logger.info(f"Selected project path: {folder}")
+            self._update_next_button_state()
+
+    @safe_slot
+    def _on_next_button_clicked(self,_=False):
+        """Handle project creation 'Next' button click."""
+        # Get project name
+        project_name = self.pro_name_editline.text().strip()
         
-        Validates input and creates new project with selected module.
-        Uses interface factory to create appropriate interface.
-        """
-        logger.debug("MainWindow.on_main_next_button_clicked() called")
-        logger.debug(f"Project name: {self.pro_name_editline.text().strip()}")
-        logger.debug(f"Project path: {self.project_path}")
-        
-        self.project_name = self.pro_name_editline.text().strip()
-        
-        if not self.project_name:
-            logger.warning("Project name is empty")
-            QMessageBox.information(self, "Hint", ERROR_MESSAGES["invalid_name"])
+        if not project_name:
+            QMessageBox.warning(self, "Warning", "Please enter a project name")
             return
             
         if not self.project_path:
-            logger.warning("Project path is empty")
-            QMessageBox.information(self, "Hint", ERROR_MESSAGES["invalid_path"])
+            QMessageBox.warning(self, "Warning", "Please select a project path")
             return
             
-        # Check if project manager is available
-        if self.project_manager is None:
-            logger.error("Project manager is not available")
-            QMessageBox.critical(self, "Error", "Project manager is not available. Cannot create project.")
+        # Get selected module
+        selected_module = None
+        if hasattr(self, 'carbon_button') and self.carbon_button.isChecked():
+            selected_module = "SPM"
+        elif hasattr(self, 'halfCell_button') and self.halfCell_button.isChecked():
+            selected_module = "halfCell"
+        elif hasattr(self, 'fullCell_button') and self.fullCell_button.isChecked():
+            selected_module = "fullCell"
+            
+        if not selected_module:
+            QMessageBox.warning(self, "Warning", "Please select a simulation module")
             return
             
-        # Create complete project path
-        complete_project_path = os.path.join(self.project_path, self.project_name)
-        logger.debug(f"Complete project path: {complete_project_path}")
-        
-        # Check if project already exists
-        if os.path.exists(complete_project_path):
-            logger.warning(f"Project already exists: {complete_project_path}")
-            QMessageBox.warning(
-                self, "BatteryFOAM", 
-                ERROR_MESSAGES["name_exists"]
-            )
-            return
-            
-        # Determine selected module
-        if self.carbon_button.isChecked():
-            module = "SPM"
-        elif self.halfcell_button.isChecked():
-            module = "halfCell"
-        elif self.fullcell_button.isChecked():
-            module = "fullCell"
-        else:
-            logger.warning("No module selected")
-            QMessageBox.warning(self, "Error", "Please select a module")
-            return
-            
-        logger.info(f"Creating project: {self.project_name} with module: {module}")
-            
+        # Create project
+        self._create_project(project_name, selected_module)
+
+    @safe_slot    
+    def _create_project(self, project_name, module_type):
+        """Create a new project and open its interface."""
         try:
-            # Create project
-            logger.debug("Calling project_manager.create_project()")
-            self.project_manager.create_project(
-                self.project_path, self.project_name, module
-            )
-            logger.debug("Project created successfully")
+            logger.info(f"Creating project: {project_name}, module: {module_type}")
             
-            # Hide main window and show appropriate interface
-            logger.debug("Hiding main window")
-            self.hide()
+            # Create project directory
+            project_full_path = Path(self.project_path) / project_name
             
-            # Use interface factory to create the appropriate interface
-            logger.debug("Getting interface type")
-            interface_type = self._get_interface_type(module)
-            logger.debug(f"Interface type: {interface_type}")
-            
-            logger.debug("Getting interface factory")
-            interface_factory = self._get_interface_factory()
-            
-            logger.debug(f"Creating interface with type: {interface_type}, parent: {self}, ui_config: {self.ui_config}")
-            self.current_interface = interface_factory.create_interface(
-                interface_type, self, self.ui_config
-            )
-            logger.debug(f"Interface created: {self.current_interface}")
-            
-            if self.current_interface:
-                logger.debug(f"Interface type: {type(self.current_interface)}")
-                logger.debug(f"Interface parent: {self.current_interface.parent()}")
-                logger.debug(f"Interface geometry: {self.current_interface.geometry()}")
+            if project_full_path.exists():
+                reply = QMessageBox.question(
+                    self,
+                    "Project Exists",
+                    f"Project '{project_name}' already exists. Overwrite?",
+                    QMessageBox.StandardButton.Yes | QMessageBox.StandardButton.No
+                )
                 
-                logger.debug("Showing interface")
-                self.current_interface.show()
-                logger.debug("Interface shown")
+                if reply == QMessageBox.StandardButton.No:
+                    return
+                    
+            # Use project manager to create project
+            if self.project_manager:
+                success = self.project_manager.create_project(
+                    project_name=project_name,
+                    template_name=module_type,
+                    project_path=str(project_full_path.parent)
+                )
                 
-                # Connect exit signal if available
-                if hasattr(self.current_interface, 'exit_signal'):
-                    logger.debug("Connecting exit signal")
-                    self.current_interface.exit_signal.connect(self.show)
-                    logger.debug("Exit signal connected")
-                else:
-                    logger.debug("No exit signal available")
+                if not success:
+                    raise Exception("Project creation failed")
             else:
-                logger.error("Interface creation returned None!")
+                # Fallback: manual project creation
+                self._create_project_manual(project_full_path, module_type)
                 
+            # Store project info
+            self.project_name = project_name
+            MainWindow.project_path = str(project_full_path)
+            MainWindow.project_name = project_name
+            
+            # Open appropriate interface
+            self._open_interface(module_type, str(project_full_path), project_name)
+            
+            QMessageBox.information(self, "Success", "Project created successfully")
+            
         except Exception as e:
-            logger.error(f"Failed to create project: {e}", exc_info=True)
+            logger.error(f"Project creation failed: {e}", exc_info=True)
             QMessageBox.critical(self, "Error", f"Failed to create project: {str(e)}")
-            
-    def on_main_name_hint_clicked(self):
-        """
-        Show project name constraints hint.
-        """
-        logger.debug("MainWindow.on_main_name_hint_clicked() called")
-        QMessageBox.information(
-            self, "Hint", 
-            "Only supports upper&lower case letter, number and underscore\n"
-            "Once confirmed, do not change the name arbitrarily"
-        )
+
+    def _create_project_manual(self, project_path, module_type):
+        """Manual project creation as fallback."""
+        import shutil
         
-    def on_main_path_button_2_clicked(self):
-        """
-        Handle path selection for opening existing project.
-        """
-        logger.debug("MainWindow.on_main_path_button_2_clicked() called")
-        project_path = QFileDialog.getExistingDirectory(
-            self, "Choose a project", DEFAULT_PROJECT_PATH
-        )
+        # Get template path
+        from src.core.constants import TEMPLATES_PATH
+        template_path = Path(TEMPLATES_PATH) / module_type
         
-        if project_path:
-            self.project_path = project_path
-            self.main_path_label_2.setText(project_path)
+        if not template_path.exists():
+            raise Exception(f"Template not found: {template_path}")
             
-            # Extract project name from path
-            self.project_name = os.path.basename(project_path)
-            
-            # Update recent path
-            self.recent_path_label.setText(os.path.join(self.project_path, self.project_name))
-            
-            # Enable next button
-            self.main_next_button.setEnabled(False)
-            self.main_next_button_2.setEnabled(True)
-            
-    def on_recent_path_button_clicked(self):
-        """
-        Open the most recently used project.
-        """
-        logger.debug("MainWindow.on_recent_path_button_clicked() called")
-        recent_file_path = Path(__file__).parent.parent / "resources" / "most_recent_file"
+        # Create project directory
+        project_path.mkdir(parents=True, exist_ok=True)
         
-        if recent_file_path.exists():
-            with open(recent_file_path, 'r') as f:
-                recent_path = f.read().strip()
+        # Copy template
+        for item in template_path.iterdir():
+            if item.is_dir():
+                shutil.copytree(item, project_path / item.name, dirs_exist_ok=True)
+            else:
+                shutil.copy2(item, project_path / item.name)
                 
-            if recent_path:
-                self.recent_path_label.setText(recent_path)
-                
-                # Extract project name and path
-                self.project_name = os.path.basename(recent_path)
-                self.project_path = os.path.dirname(recent_path)
-                
-                self.main_next_button.setEnabled(False)
-                self.main_next_button_2.setEnabled(True)
-                
-    def on_main_next_button_2_clicked(self):
-        """
-        Handle opening existing project.
-        Uses interface factory to create appropriate interface.
-        """
-        logger.debug("MainWindow.on_main_next_button_2_clicked() called")
-        if not self.project_path or not self.project_name:
-            logger.warning("Project path or name is empty")
-            QMessageBox.information(self, "Hint", ERROR_MESSAGES["invalid_path"])
-            return
-            
-        # Check if project manager is available
-        if self.project_manager is None:
-            logger.error("Project manager is not available")
-            QMessageBox.critical(self, "Error", "Project manager is not available. Cannot open project.")
-            return
-            
-        # Save recent project
-        logger.debug("Saving recent project")
-        recent_file_path = Path(__file__).parent.parent / "resources" / "most_recent_file"
-        recent_file_path.parent.mkdir(parents=True, exist_ok=True)
+        logger.info(f"Project created manually at {project_path}")
+
+    def _open_interface(self, module_type, project_path, project_name):
+        """Open the appropriate interface for the module type."""
+        # This method is now part of MainWindow, but the logic to create
+        # specific interface instances (CarbonInterface, etc.) is still valid.
+        # The imports are kept inside the method to avoid circular dependencies.
+        from src.gui.interface_factory import InterfaceFactory
         
-        with open(recent_file_path, 'w') as f:
-            f.write(os.path.join(self.project_path, self.project_name))
-            
-        # Determine which module to open
-        logger.debug("Detecting module type")
-        project_dir = os.path.join(self.project_path, self.project_name)
-        
-        if os.path.exists(os.path.join(project_dir, "SPMFoam")):
-            module = "SPM"
-        elif os.path.exists(os.path.join(project_dir, "halfCellFoam")):
-            module = "halfCell"
-        elif os.path.exists(os.path.join(project_dir, "fullCellFoam")):
-            module = "fullCell"
-        else:
-            logger.warning("Invalid project structure")
-            QMessageBox.information(self, "Hint", "The folder you chose is invalid.")
-            return
-            
-        logger.info(f"Opening project: {self.project_name} with module: {module}")
-            
-        # Hide main window and show appropriate interface
-        logger.debug("Hiding main window")
-        self.hide()
-        
-        # Use interface factory to create the appropriate interface
-        logger.debug("Creating interface for existing project")
-        interface_type = self._get_interface_type(module)
-        interface_factory = self._get_interface_factory()
-        self.current_interface = interface_factory.create_interface(
-            interface_type, self, self.ui_config
-        )
-        
-        if self.current_interface:
-            logger.debug(f"Interface created: {self.current_interface}")
-            logger.debug(f"Interface type: {type(self.current_interface)}")
-            
-            logger.debug("Showing interface")
-            self.current_interface.show()
-            
-            # Connect exit signal if available
-            if hasattr(self.current_interface, 'exit_signal'):
-                logger.debug("Connecting exit signal")
-                self.current_interface.exit_signal.connect(self.show)
-                
-            # Clear labels
-            self.recent_path_label.clear()
-            self.main_path_label_2.clear()
-        else:
-            logger.error("Interface creation for existing project returned None!")
-            
-    def _get_interface_type(self, module: str) -> str:
-        """
-        Get the interface type for a module.
-        
-        Args:
-            module: Module name (SPM, halfCell, fullCell)
-            
-        Returns:
-            str: Corresponding interface type
-        """
-        logger.debug(f"MainWindow._get_interface_type() called with module: {module}")
         interface_map = {
             "SPM": "carbon",
-            "halfCell": "halfcell", 
+            "carbon": "carbon",
+            "halfCell": "halfcell",
             "fullCell": "fullcell"
         }
-        result = interface_map.get(module, "carbon")
-        logger.debug(f"MainWindow._get_interface_type() returning: {result}")
-        return result
+        interface_type = interface_map.get(module_type)
+        if not interface_type:
+            raise ValueError(f"Unknown module type: {module_type}")
+
+        # Use the factory to create the interface
+        self.current_interface = InterfaceFactory.create_interface(interface_type, parent=self, ui_config=self.ui_config)
         
-    def _get_interface_factory(self):
-        """Lazy import of InterfaceFactory to avoid circular imports."""
-        logger.debug("MainWindow._get_interface_factory() called")
-        from ..gui.interface_factory import InterfaceFactory
-        logger.debug("InterfaceFactory imported successfully")
-        return InterfaceFactory
+        # Show interface and hide main window
+        self.current_interface.show()
+        self.hide()
+
+        # Connect the exit signal from the new interface
+        if hasattr(self.current_interface, 'exit_signal'):
+            self.current_interface.exit_signal.connect(self._on_interface_exit)
+
+    @safe_slot
+    def _on_open_project_clicked(self, _=False):
+        """Handle 'Open' project button click."""
+        folder = QFileDialog.getExistingDirectory(
+            self,
+            "Select Project Folder",
+            str(Path.home()),
+            QFileDialog.Option.ShowDirsOnly
+        )
+
+        if not folder:
+            return
+
+        # Detect module type from project structure
+        project_path = Path(folder)
+        module_type = self._detect_project_type(project_path)
+
+        if not module_type:
+            QMessageBox.warning(
+                self,
+                "Invalid Project",
+                "Could not detect project type. Please select a valid project folder."
+            )
+            return
+
+        # Open interface
+        self._open_interface(module_type, str(project_path), project_path.name)
+
+    def _detect_project_type(self, project_path: Path) -> Optional[str]:
+        """Detect project type from directory structure."""
+        # This is a simplified check. A more robust implementation might
+        # look for specific file contents or a project metadata file.
+
+        # Check for SPM
+        if (project_path / "SPMFoam").exists() or (project_path / "Case" / "constant" / "ele").exists():
+            return "SPM"
+
+        # Check for HalfCell
+        if (project_path / "halfCellFoam").exists() or (project_path / "Case" / "constant" / "WE").exists():
+            return "halfCell"
+
+        # Check for FullCell
+        if (project_path / "fullCellFoam").exists() or (project_path / "Case" / "constant" / "anode").exists():
+            return "fullCell"
+
+        return None
+
+    @safe_slot
+    def _on_interface_exit(self):
+        """Handle interface exit signal to show the main window again."""
+        logger.info("Interface exit signal received, returning to main window.")
+        # Hide current interface
+        if self.current_interface:
+            self.current_interface.close()  # Use close() to ensure proper cleanup
+            self.current_interface = None
+
+        # Show main window
+        self.show()
+        logger.info("Returned to main window")
