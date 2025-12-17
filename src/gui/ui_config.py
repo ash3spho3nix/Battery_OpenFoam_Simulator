@@ -14,14 +14,9 @@ class UILoadingMode(Enum):
     """
     UI loading modes for the Battery Simulator.
     
-    Defines different ways the application can load its user interface:
-    - AUTO_DETECT: Try .ui files first, fallback to hand-coded widgets
-    - UI_FILES: Force .ui file loading
-    - HAND_CODED: Force hand-coded widgets
+    Only UI_FILES mode is supported - load from .ui files directly.
     """
-    AUTO_DETECT = "auto_detect"     # Try .ui files, fallback to hand-coded
     UI_FILES = "ui_files"           # Load from .ui files
-    HAND_CODED = "hand_coded"       # Use hand-coded widgets
 
 
 class UIConfig:
@@ -36,7 +31,7 @@ class UIConfig:
         """
         Initialize UI configuration with default settings.
         """
-        self.mode = UILoadingMode.AUTO_DETECT  # Default to auto-detect
+        self.mode = UILoadingMode.UI_FILES  # Force UI files mode
         self.ui_base_path: Optional[str] = None
     
     @classmethod
@@ -86,18 +81,18 @@ class UIConfig:
         Determine if the application should try loading from .ui files.
         
         Returns:
-            bool: True if .ui files should be used
+            bool: Always True - only .ui files are supported
         """
-        return self.mode in (UILoadingMode.AUTO_DETECT, UILoadingMode.UI_FILES)
+        return True
     
     def should_load_hand_coded(self) -> bool:
         """
         Determine if the application should use hand-coded widgets.
         
         Returns:
-            bool: True if hand-coded widgets should be used
+            bool: Always False - hand-coded widgets not supported
         """
-        return self.mode in (UILoadingMode.AUTO_DETECT, UILoadingMode.HAND_CODED)
+        return False
     
     def get_ui_base_path(self) -> Optional[str]:
         """
@@ -146,7 +141,7 @@ class UIConfig:
             try:
                 config.mode = UILoadingMode(config_dict['mode'])
             except ValueError:
-                config.mode = UILoadingMode.AUTO_DETECT  # Default to auto-detect
+                config.mode = UILoadingMode.UI_FILES  # Force UI files mode
         
         if 'ui_base_path' in config_dict:
             config.ui_base_path = config_dict['ui_base_path']

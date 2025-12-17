@@ -110,52 +110,60 @@ class MainWindow(QMainWindow):
         self.main_next_button.setEnabled(has_name and has_path)
 
     @safe_slot
-    def _on_choose_path_clicked(self,_=False):
-        """Handle path selection button click."""
-        folder = QFileDialog.getExistingDirectory(
-            self,
-            "Select Project Directory",
-            str(Path.home()),
-            QFileDialog.Option.ShowDirsOnly
-        )
-        
-        if folder:
-            self.project_path = folder
-            self.main_path_label.setText(folder)
-            logger.info(f"Selected project path: {folder}")
-            self._update_next_button_state()
+    def _on_choose_path_clicked(self, _=False):
+        """Handle path selection button click with exception handling."""
+        try:
+            folder = QFileDialog.getExistingDirectory(
+                self,
+                "Select Project Directory",
+                str(Path.home()),
+                QFileDialog.Option.ShowDirsOnly
+            )
+            
+            if folder:
+                self.project_path = folder
+                self.main_path_label.setText(folder)
+                logger.info(f"Selected project path: {folder}")
+                self._update_next_button_state()
+        except Exception as e:
+            logger.error(f"Error selecting project path: {e}", exc_info=True)
+            QMessageBox.critical(self, "Error", f"Failed to select path: {str(e)}")
 
     @safe_slot
-    def _on_next_button_clicked(self,_=False):
-        """Handle project creation 'Next' button click."""
-        # Get project name
-        project_name = self.pro_name_editline.text().strip()
-        
-        if not project_name:
-            QMessageBox.warning(self, "Warning", "Please enter a project name")
-            return
+    def _on_next_button_clicked(self, _=False):
+        """Handle project creation 'Next' button click with validation."""
+        try:
+            # Get project name
+            project_name = self.pro_name_editline.text().strip()
             
-        if not self.project_path:
-            QMessageBox.warning(self, "Warning", "Please select a project path")
-            return
-            
-        # Get selected module
-        selected_module = None
-        if hasattr(self, 'carbon_button') and self.carbon_button.isChecked():
-            selected_module = "SPM"
-        elif hasattr(self, 'halfCell_button') and self.halfCell_button.isChecked():
-            selected_module = "halfCell"
-        elif hasattr(self, 'fullCell_button') and self.fullCell_button.isChecked():
-            selected_module = "fullCell"
-            
-        if not selected_module:
-            QMessageBox.warning(self, "Warning", "Please select a simulation module")
-            return
-            
-        # Create project
-        self._create_project(project_name, selected_module)
+            if not project_name:
+                QMessageBox.warning(self, "Warning", "Please enter a project name")
+                return
+                
+            if not self.project_path:
+                QMessageBox.warning(self, "Warning", "Please select a project path")
+                return
+                
+            # Get selected module
+            selected_module = None
+            if hasattr(self, 'carbon_button') and self.carbon_button.isChecked():
+                selected_module = "SPM"
+            elif hasattr(self, 'halfCell_button') and self.halfCell_button.isChecked():
+                selected_module = "halfCell"
+            elif hasattr(self, 'fullCell_button') and self.fullCell_button.isChecked():
+                selected_module = "fullCell"
+                
+            if not selected_module:
+                QMessageBox.warning(self, "Warning", "Please select a simulation module")
+                return
+                
+            # Create project
+            self._create_project(project_name, selected_module)
+        except Exception as e:
+            logger.error(f"Error in next button click: {e}", exc_info=True)
+            QMessageBox.critical(self, "Error", f"Failed to create project: {str(e)}")
 
-    @safe_slot    
+    @safe_slot
     def _create_project(self, project_name, module_type):
         """Create a new project and open its interface."""
         try:
@@ -191,8 +199,7 @@ class MainWindow(QMainWindow):
                 
             # Store project info
             self.project_name = project_name
-            MainWindow.project_path = str(project_full_path)
-            MainWindow.project_name = project_name
+            self.project_path = str(project_full_path)
             
             # Open appropriate interface
             self._open_interface(module_type, str(project_full_path), project_name)
@@ -256,31 +263,35 @@ class MainWindow(QMainWindow):
 
     @safe_slot
     def _on_open_project_clicked(self, _=False):
-        """Handle 'Open' project button click."""
-        folder = QFileDialog.getExistingDirectory(
-            self,
-            "Select Project Folder",
-            str(Path.home()),
-            QFileDialog.Option.ShowDirsOnly
-        )
-
-        if not folder:
-            return
-
-        # Detect module type from project structure
-        project_path = Path(folder)
-        module_type = self._detect_project_type(project_path)
-
-        if not module_type:
-            QMessageBox.warning(
+        """Handle 'Open' project button click with exception handling."""
+        try:
+            folder = QFileDialog.getExistingDirectory(
                 self,
-                "Invalid Project",
-                "Could not detect project type. Please select a valid project folder."
+                "Select Project Folder",
+                str(Path.home()),
+                QFileDialog.Option.ShowDirsOnly
             )
-            return
 
-        # Open interface
-        self._open_interface(module_type, str(project_path), project_path.name)
+            if not folder:
+                return
+
+            # Detect module type from project structure
+            project_path = Path(folder)
+            module_type = self._detect_project_type(project_path)
+
+            if not module_type:
+                QMessageBox.warning(
+                    self,
+                    "Invalid Project",
+                    "Could not detect project type. Please select a valid project folder."
+                )
+                return
+
+            # Open interface
+            self._open_interface(module_type, str(project_path), project_path.name)
+        except Exception as e:
+            logger.error(f"Error opening project: {e}", exc_info=True)
+            QMessageBox.critical(self, "Error", f"Failed to open project: {str(e)}")
 
     def _detect_project_type(self, project_path: Path) -> Optional[str]:
         """Detect project type from directory structure."""
@@ -304,12 +315,18 @@ class MainWindow(QMainWindow):
     @safe_slot
     def _on_interface_exit(self):
         """Handle interface exit signal to show the main window again."""
-        logger.info("Interface exit signal received, returning to main window.")
-        # Hide current interface
-        if self.current_interface:
-            self.current_interface.close()  # Use close() to ensure proper cleanup
-            self.current_interface = None
+        try:
+            logger.info("Interface exit signal received, returning to main window.")
+            # Hide current interface
+            if self.current_interface:
+                self.current_interface.close()  # Use close() to ensure proper cleanup
+                self.current_interface = None
 
-        # Show main window
-        self.show()
-        logger.info("Returned to main window")
+            # Show main window
+            self.show()
+            logger.info("Returned to main window")
+        except Exception as e:
+            logger.error(f"Error handling interface exit: {e}", exc_info=True)
+            QMessageBox.critical(self, "Error", f"Failed to return to main window: {str(e)}")
+            # Still try to show the main window even if cleanup failed
+            self.show()

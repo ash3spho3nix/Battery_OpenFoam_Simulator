@@ -12,9 +12,7 @@ import logging
 from pathlib import Path
 from typing import Optional, Dict, Any, List
 from PyQt6.QtWidgets import (
-    QWidget, QVBoxLayout, QHBoxLayout, QLabel, QPushButton, QMessageBox,
-    QTabWidget, QTextEdit, QLineEdit, QComboBox, QRadioButton, QGroupBox,
-    QCheckBox, QSpinBox, QDoubleSpinBox, QFileDialog, QScrollArea
+    QDialog, QWidget, QVBoxLayout, QHBoxLayout, QLabel, QPushButton, QMessageBox, QGroupBox
 )
 from PyQt6.QtCore import Qt, pyqtSignal, QTimer
 from PyQt6.QtGui import QIcon, QPixmap
@@ -25,14 +23,10 @@ from src.openfoam.process_controller import ProcessController
 from src.openfoam.solver_manager import OpenFOAMSolverManager
 from src.utils.parameter_parser import ParameterManager
 from src.utils.file_operations import TemplateManager
-from src.core.constants import (
-    ERROR_MESSAGES, SUCCESS_MESSAGES, WARNING_MESSAGES,
-    PARAMETER_FILES, DEFAULT_PARAMETERS, SCHEME_OPTIONS,
-    UI_WIDGET_NAMES, UI_DEFAULT_VALUES
-)
+# Constants will be imported lazily inside functions to avoid circular imports
 
 
-class CarbonInterface(BaseInterface):
+class CarbonInterface(QDialog):
     """
     Interface for Single Particle Model (SPM) simulations.
     
@@ -41,8 +35,8 @@ class CarbonInterface(BaseInterface):
     """
     
     def __init__(
-        self, 
-        parent: Optional[QWidget] = None, 
+        self,
+        parent: Optional[QWidget] = None,
         ui_config: Optional['UIConfig'] = None
     ):
         """
@@ -55,9 +49,32 @@ class CarbonInterface(BaseInterface):
         logger = logging.getLogger(__name__)
         logger.debug("CarbonInterface.__init__() called")
         
-        super().__init__(parent, ui_config)
+        super().__init__(parent)
+        self.ui_config = ui_config
         self.interface_type = "carbon"
         self.setWindowTitle("BatteryFOAM - SPM Interface")
+        
+        # Load UI file
+        self._load_ui()
+        
+        # Initialize core components with lazy imports
+        self.process_controller = self._get_process_controller()
+        self.solver_manager = None
+        self.parameter_manager = None  # Initialize as None, will be set after project_path
+        self.template_manager = self._get_template_manager()
+        
+        # Interface state
+        self.project_path = None
+        self.project_name = None
+        self.case_path = None
+        self.solver_path = None
+        
+        # Process state
+        self.simulation_running = False
+        self.simulation_paused = False
+        
+        # Connect signals
+        self._connect_signals()
         
         # Add diagnostic logging to check widget availability
         self._diagnose_widget_availability()
@@ -65,6 +82,122 @@ class CarbonInterface(BaseInterface):
         # Connect all signals after widget creation
         self._connect_all_signals()
         
+    def _load_ui(self):
+        """Load the UI file for Carbon interface."""
+        from src.gui.ui_loader import UiLoader
+        import os
+        
+        logger = logging.getLogger(__name__)
+        
+        try:
+            # Load the UI file using our custom loader
+            ui_widget = UiLoader.load_ui("carboninterface", self)
+            
+            # The UI loader loads the UI directly into the dialog
+            # No need to set layout as the UI is already loaded
+            
+            logger.info("Successfully loaded Carbon interface UI")
+            
+        except Exception as e:
+            logger.error(f"Failed to load UI: {e}")
+            # Fall back to basic UI
+            self._create_fallback_ui()
+    
+    def _create_fallback_ui(self):
+        """Create a basic fallback UI if .ui file loading fails."""
+        logger = logging.getLogger(__name__)
+        logger.warning("Creating fallback UI for Carbon interface")
+        
+        # Create basic layout
+        layout = QVBoxLayout(self)
+        
+        # Add basic widgets
+        label = QLabel("Carbon Interface (Fallback Mode)")
+        layout.addWidget(label)
+        
+        # Add close button
+        close_button = QPushButton("Close")
+        close_button.clicked.connect(self.close)
+        layout.addWidget(close_button)
+    
+    def _get_process_controller(self):
+        """Lazy import of ProcessController to avoid circular imports."""
+        from src.openfoam.process_controller import ProcessController
+        return ProcessController()
+        
+    def _get_template_manager(self):
+        """Lazy import of TemplateManager to avoid circular imports."""
+        from src.utils.file_operations import TemplateManager
+        templates_path = str(self._get_templates_path())
+        return TemplateManager(templates_path)
+        
+    def _get_templates_path(self) -> str:
+        """Get the path to OpenFOAM templates."""
+        from src.core.constants import TEMPLATES_PATH
+        return str(TEMPLATES_PATH)
+        
+    def _connect_signals(self):
+        """Connect process controller signals to handlers."""
+        if self.process_controller:
+            self.process_controller.output_received.connect(self._on_process_output)
+            self.process_controller.error_received.connect(self._on_process_error)
+            self.process_controller.process_started.connect(self._on_process_started)
+            self.process_controller.process_finished.connect(self._on_process_finished)
+        
+    def _on_process_output(self, output: str):
+        """Handle process output."""
+        if hasattr(self, 'terminal_output_window') and self.terminal_output_window:
+            self.terminal_output_window.append(output)
+            
+            # Limit output to prevent memory issues (manual limit for QTextEdit)
+            cursor = self.terminal_output_window.textCursor()
+            block_count = cursor.blockNumber() + 1
+            if block_count > 1000:
+                # Remove old content to keep memory usage reasonable
+                self.terminal_output_window.clear()
+                self.terminal_output_window.append("... Output truncated to prevent memory issues ...")
+                self.terminal_output_window.append(output)
+        
+    def _on_process_error(self, error: str):
+        """Handle process errors."""
+        if hasattr(self, 'terminal_output_window') and self.terminal_output_window:
+            self.terminal_output_window.append(f"ERROR: {error}")
+        
+    def _on_process_started(self):
+        """Handle process start."""
+        self.simulation_running = True
+        self.simulation_paused = False
+        self.simulation_started.emit()
+        self._update_control_buttons()
+        
+    def _on_process_finished(self, exit_code: int):
+        """Handle process completion."""
+        self.simulation_running = False
+        self.simulation_stopped.emit()
+        self._update_control_buttons()
+        if exit_code == 0:
+            if hasattr(self, 'terminal_output_window') and self.terminal_output_window:
+                self.terminal_output_window.append("Simulation completed successfully.")
+        else:
+            if hasattr(self, 'terminal_output_window') and self.terminal_output_window:
+                self.terminal_output_window.append(f"Simulation failed with exit code: {exit_code}")
+        
+    def _update_control_buttons(self):
+        """Update control button states based on simulation status."""
+        if hasattr(self, 'run_button') and self.run_button:
+            if self.simulation_running:
+                self.run_button.setEnabled(False)
+                if hasattr(self, 'pause_run_button') and self.pause_run_button:
+                    self.pause_run_button.setEnabled(True)
+                if hasattr(self, 'view_result_button') and self.view_result_button:
+                    self.view_result_button.setEnabled(False)
+            else:
+                self.run_button.setEnabled(True)
+                if hasattr(self, 'pause_run_button') and self.pause_run_button:
+                    self.pause_run_button.setEnabled(False)
+                if hasattr(self, 'view_result_button') and self.view_result_button:
+                    self.view_result_button.setEnabled(True)
+    
     def _connect_all_signals(self):
         """Connect all signal-slot connections for Carbon interface."""
         logger = logging.getLogger(__name__)
@@ -100,38 +233,38 @@ class CarbonInterface(BaseInterface):
         logger = logging.getLogger(__name__)
         
         # Connect geometry parameter changes
-        if hasattr(self, 'length_edit'):
-            self.length_edit.textChanged.connect(self._on_geometry_parameter_changed)
-            logger.debug("Connected length_edit.textChanged")
+        if hasattr(self, 'length_lineEdit'):
+            self.length_lineEdit.textChanged.connect(self._on_geometry_parameter_changed)
+            logger.debug("Connected length_lineEdit.textChanged")
         
-        if hasattr(self, 'width_edit'):
-            self.width_edit.textChanged.connect(self._on_geometry_parameter_changed)
-            logger.debug("Connected width_edit.textChanged")
+        if hasattr(self, 'width_lineEdit'):
+            self.width_lineEdit.textChanged.connect(self._on_geometry_parameter_changed)
+            logger.debug("Connected width_lineEdit.textChanged")
         
-        if hasattr(self, 'height_edit'):
-            self.height_edit.textChanged.connect(self._on_geometry_parameter_changed)
-            logger.debug("Connected height_edit.textChanged")
+        if hasattr(self, 'height_lineEdit'):
+            self.height_lineEdit.textChanged.connect(self._on_geometry_parameter_changed)
+            logger.debug("Connected height_lineEdit.textChanged")
         
-        if hasattr(self, 'radius_edit'):
-            self.radius_edit.textChanged.connect(self._on_geometry_parameter_changed)
-            logger.debug("Connected radius_edit.textChanged")
+        if hasattr(self, 'radius_lineEdit'):
+            self.radius_lineEdit.textChanged.connect(self._on_geometry_parameter_changed)
+            logger.debug("Connected radius_lineEdit.textChanged")
         
-        if hasattr(self, 'unit_combo'):
-            self.unit_combo.currentTextChanged.connect(self._on_unit_changed)
-            logger.debug("Connected unit_combo.currentTextChanged")
+        if hasattr(self, 'unit_select_box'):
+            self.unit_select_box.currentTextChanged.connect(self._on_unit_changed)
+            logger.debug("Connected unit_select_box.currentTextChanged")
         
-        # Connect division spin boxes
-        if hasattr(self, 'x_div_edit'):
-            self.x_div_edit.valueChanged.connect(self._on_geometry_parameter_changed)
-            logger.debug("Connected x_div_edit.valueChanged")
+        # Connect division line edits
+        if hasattr(self, 'x_divide_lineEdit'):
+            self.x_divide_lineEdit.textChanged.connect(self._on_geometry_parameter_changed)
+            logger.debug("Connected x_divide_lineEdit.textChanged")
         
-        if hasattr(self, 'y_div_edit'):
-            self.y_div_edit.valueChanged.connect(self._on_geometry_parameter_changed)
-            logger.debug("Connected y_div_edit.valueChanged")
+        if hasattr(self, 'y_divide_lineEdit'):
+            self.y_divide_lineEdit.textChanged.connect(self._on_geometry_parameter_changed)
+            logger.debug("Connected y_divide_lineEdit.textChanged")
         
-        if hasattr(self, 'z_div_edit'):
-            self.z_div_edit.valueChanged.connect(self._on_geometry_parameter_changed)
-            logger.debug("Connected z_div_edit.valueChanged")
+        if hasattr(self, 'z_divide_lineEdit'):
+            self.z_divide_lineEdit.textChanged.connect(self._on_geometry_parameter_changed)
+            logger.debug("Connected z_divide_lineEdit.textChanged")
         
         # Connect geometry buttons
         if hasattr(self, 'change_geometry_button'):
@@ -381,10 +514,10 @@ class CarbonInterface(BaseInterface):
         errors = []
         
         try:
-            length = float(self.length_edit.text())
-            width = float(self.width_edit.text())
-            height = float(self.height_edit.text())
-            radius = float(self.radius_edit.text())
+            length = float(self.length_lineEdit.text())
+            width = float(self.width_lineEdit.text())
+            height = float(self.height_lineEdit.text())
+            radius = float(self.radius_lineEdit.text())
             
             # Check positive values
             if length <= 0:
@@ -402,9 +535,9 @@ class CarbonInterface(BaseInterface):
                 errors.append("Radius must be smaller than half of length, width, and height")
             
             # Check division constraints
-            x_div = self.x_div_edit.value()
-            y_div = self.y_div_edit.value()
-            z_div = self.z_div_edit.value()
+            x_div = self.x_divide_lineEdit.value()
+            y_div = self.y_divide_lineEdit.value()
+            z_div = self.z_divide_lineEdit.value()
             
             if x_div <= 0 or y_div <= 0 or z_div <= 0:
                 errors.append("Division values must be positive")
@@ -537,34 +670,26 @@ class CarbonInterface(BaseInterface):
         
         logger.debug("=== CARBON INTERFACE WIDGET DIAGNOSIS ===")
         
-        # Check if we're using .ui file or hand-coded widgets
+        # Check if we're using .ui file widgets
         if hasattr(self, 'length_lineEdit'):
             logger.debug("✓ Found length_lineEdit (from .ui file)")
-        elif hasattr(self, 'length_edit'):
-            logger.debug("✓ Found length_edit (from hand-coded)")
         else:
-            logger.error("✗ Neither length_lineEdit nor length_edit found!")
+            logger.error("✗ length_lineEdit not found!")
             
         if hasattr(self, 'width_lineEdit'):
             logger.debug("✓ Found width_lineEdit (from .ui file)")
-        elif hasattr(self, 'width_edit'):
-            logger.debug("✓ Found width_edit (from hand-coded)")
         else:
-            logger.error("✗ Neither width_lineEdit nor width_edit found!")
+            logger.error("✗ width_lineEdit not found!")
             
         if hasattr(self, 'height_lineEdit'):
             logger.debug("✓ Found height_lineEdit (from .ui file)")
-        elif hasattr(self, 'height_edit'):
-            logger.debug("✓ Found height_edit (from hand-coded)")
         else:
-            logger.error("✗ Neither height_lineEdit nor height_edit found!")
+            logger.error("✗ height_lineEdit not found!")
             
         if hasattr(self, 'unit_select_box'):
             logger.debug("✓ Found unit_select_box (from .ui file)")
-        elif hasattr(self, 'unit_combo'):
-            logger.debug("✓ Found unit_combo (from hand-coded)")
         else:
-            logger.error("✗ Neither unit_select_box nor unit_combo found!")
+            logger.error("✗ unit_select_box not found!")
             
         # Check tab widget
         if hasattr(self, 'tabWidget'):
@@ -572,10 +697,10 @@ class CarbonInterface(BaseInterface):
         else:
             logger.error("✗ tabWidget not found!")
             
-        # List all attributes that contain 'lineEdit' or 'edit'
+        # List all attributes that contain 'lineEdit'
         logger.debug("All QLineEdit-like attributes:")
         for attr_name in dir(self):
-            if 'lineEdit' in attr_name.lower() or 'edit' in attr_name.lower():
+            if 'lineedit' in attr_name.lower():
                 attr_value = getattr(self, attr_name, None)
                 logger.debug(f"  {attr_name}: {type(attr_value)} = {attr_value}")
                 
@@ -685,7 +810,7 @@ vertices
 
 blocks
 (
-    hex (0 1 2 3 4 5 6 7) ({self.x_div_edit.value()} {self.y_div_edit.value()} {self.z_div_edit.value()}) simpleGrading (1 1 1)
+    hex (0 1 2 3 4 5 6 7) ({self.x_divide_lineEdit.value()} {self.y_divide_lineEdit.value()} {self.z_divide_lineEdit.value()}) simpleGrading (1 1 1)
 );
 
 edges
@@ -806,11 +931,11 @@ LiProperties
             # Update fvSchemes
             fv_schemes_path = os.path.join(self.case_path, "system", "fvSchemes")
             
-            ddt_scheme = self.ddtschemes_combo.currentText()
-            grad_scheme = self.gradschemes_combo.currentText()
-            div_scheme = self.divschemes_combo.currentText()
-            laplacian_scheme = self.laplacianschemes_combo.currentText()
-            interpolation_scheme = self.interpolationschemes_combo.currentText()
+            ddt_scheme = self.derivative_comboBox.currentText()
+            grad_scheme = self.gardient_comboBox.currentText()
+            div_scheme = self.divergence_comboBox.currentText()
+            laplacian_scheme = self.laplacian_comboBox.currentText()
+            interpolation_scheme = self.interpolation_comboBox.currentText()
             
             content = f"""/*--------------------------------*- C++ -*----------------------------------*\\
 =========                 |
@@ -917,10 +1042,10 @@ PIMPLE
             # Update controlDict
             control_dict_path = os.path.join(self.case_path, "system", "controlDict")
             
-            end_time = float(self.end_time_edit.value())
-            delta_t = float(self.delta_t_edit.value())
-            write_interval = float(self.write_interval_edit.value())
-            tolerance = float(self.tolerance_edit.text())
+            end_time = float(self.endtime_lineEdit.text())
+            delta_t = float(self.timestep_lineEdit.text())
+            write_interval = float(self.interval_lineEdit.text())
+            tolerance = float(self.tolerance_lineEdit.text())
             
             content = f"""/*--------------------------------*- C++ -*----------------------------------*\\
 =========                 |
