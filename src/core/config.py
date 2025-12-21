@@ -52,6 +52,54 @@ class ApplicationConfig:
         return str(Path(self.templates_path))
 
 
+class ConfigManager:
+    """
+    Configuration manager for application settings.
+    
+    Provides centralized access to application configuration and constants
+    without causing circular imports.
+    """
+    
+    def __init__(self):
+        self.app_config = ApplicationConfig()
+    
+    def get_app_name(self) -> str:
+        """Get application name."""
+        return self.app_config.app_name
+    
+    def get_app_version(self) -> str:
+        """Get application version."""
+        return self.app_config.app_version
+    
+    def get_default_project_path(self) -> str:
+        """Get default project path."""
+        return self.app_config.resolved_default_path
+    
+    def get_ui_files_path(self) -> str:
+        """Get UI files path."""
+        return self.app_config.ui_files_path_resolved
+    
+    def get_templates_path(self) -> str:
+        """Get templates path."""
+        return self.app_config.templates_path_resolved
+    
+    def get_supported_modules(self) -> Dict[str, str]:
+        """Get supported simulation modules."""
+        return SUPPORTED_MODULES.copy()
+    
+    def get_solver_name(self, module: str) -> str:
+        """Get solver name for a module."""
+        return SOLVER_NAMES.get(module, "")
+    
+    def get_parameter_file(self, file_type: str) -> str:
+        """Get parameter file path for a type."""
+        return PARAMETER_FILES.get(file_type, "")
+    
+    def get_default_parameter(self, param_name: str) -> Any:
+        """Get default value for a parameter."""
+        return DEFAULT_PARAMETERS.get(param_name)
+
+
 # Application metadata
 APP_NAME = "BatteryFOAM"
 APP_VERSION = "1.0.0"
@@ -308,3 +356,15 @@ UI_DEFAULT_VALUES = {
         "interpolation_index": 0  # linear
     }
 }
+
+
+# Global configuration manager instance
+_config_manager = None
+
+
+def get_config_manager() -> ConfigManager:
+    """Get the global configuration manager instance."""
+    global _config_manager
+    if _config_manager is None:
+        _config_manager = ConfigManager()
+    return _config_manager

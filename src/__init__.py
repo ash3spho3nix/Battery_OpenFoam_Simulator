@@ -1,9 +1,8 @@
 """
-Battery Simulator - Python Migration
+Battery Simulator Python Package.
 
-This package contains the Python implementation of the Battery Simulator application,
-migrated from C++/Qt. The application provides a GUI interface for creating and running
-battery simulations using OpenFOAM solvers.
+This package provides a GUI interface for creating and running battery simulations
+using OpenFOAM solvers, migrated from C++/Qt.
 
 Package Structure:
 - core/     : Core application logic and project management
@@ -14,14 +13,18 @@ Package Structure:
 
 Key Classes:
 - MainWindow: Main application window and project management
-- ProjectManager: Handles project creation and management
+- EnhancedProjectManager: Handles project creation and management
 - InterfaceFactory: Creates simulation interfaces
+- UiLoader: Loads UI files at runtime
 - ProcessController: Manages OpenFOAM process execution
+- OpenFOAMSolverManager: Manages OpenFOAM solver operations
+- TemplateManager: Manages project templates
+- ParameterManager: Manages simulation parameters
 """
 
 # Import core modules
 from .gui.main_window import MainWindow
-from .core.project_manager import ProjectManager
+from .core.project_manager_enhanced import EnhancedProjectManager as ProjectManager
 
 # Import GUI components
 from .gui.interface_factory import InterfaceFactory
@@ -35,6 +38,11 @@ from .openfoam.solver_manager import OpenFOAMSolverManager
 from .utils.file_operations import TemplateManager
 from .utils.parameter_parser import ParameterManager
 
+# Create aliases for backward compatibility
+SolverManager = OpenFOAMSolverManager
+FileOperations = TemplateManager
+ParameterParser = ParameterManager
+
 # Version information
 __version__ = "1.0.0"
 __author__ = "Battery Simulator Team"
@@ -47,6 +55,9 @@ __all__ = [
     'UiLoader',
     'ProcessController',
     'OpenFOAMSolverManager',
+    'SolverManager',  # Alias for backward compatibility
     'TemplateManager',
+    'FileOperations',  # Alias for backward compatibility
     'ParameterManager',
+    'ParameterParser',  # Alias for backward compatibility
 ]

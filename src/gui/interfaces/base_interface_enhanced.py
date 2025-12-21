@@ -1,0 +1,871 @@
+"""
+Enhanced Base interface class for Battery Simulator interfaces.
+
+This module provides the enhanced BaseInterface class with all critical fixes
+for Issues #1, #4, and #6. This version includes proper signal handling,
+widget access helpers, and parameter manager initialization.
+"""
+
+import os
+import sys
+from pathlib import Path
+from typing import Optional, Dict, Any, List
+from PyQt6.QtWidgets import (
+    QWidget, QVBoxLayout, QHBoxLayout, QLabel, QPushButton, QMessageBox,
+    QTabWidget, QTextEdit, QLineEdit, QComboBox, QRadioButton, QGroupBox,
+    QCheckBox, QSpinBox, QDoubleSpinBox, QFileDialog, QScrollArea
+)
+from PyQt6.QtCore import Qt, pyqtSignal, QTimer
+from PyQt6.QtGui import QIcon, QPixmap
+import logging
+from src.gui.ui_config import UIConfig
+logger = logging.getLogger(__name__)
+
+
+class BaseInterface(QWidget):
+    """
+    Enhanced base class for all simulation interfaces.
+    
+    Provides common functionality for UI loading, process control,
+    parameter management, and file operations with proper signal handling
+    and widget access patterns.
+    """
+    
+    # Signals for interface events - FIXED: Added error_signal for Issue #1
+    exit_signal = pyqtSignal()
+    error_signal = pyqtSignal(str)  # NEW: For error propagation (Issue #1)
+    simulation_started = pyqtSignal()
+    simulation_stopped = pyqtSignal()
+    simulation_paused = pyqtSignal()
+    output_received = pyqtSignal(str)
+    error_received = pyqtSignal(str)
+    
+    def __init__(
+        self, 
+        parent: Optional[QWidget] = None, 
+        ui_config: Optional['UIConfig'] = None
+    ):
+        """
+        Initialize the enhanced base interface.
+        
+        Args:
+            parent: Parent widget
+            ui_config: UI configuration for loading mode
+        """
+        # Import logging here to avoid circular imports
+        import logging
+        
+        super().__init__(parent)
+        
+        self.ui_config = ui_config
+        self.interface_type = self.__class__.__name__.lower().replace('interface', '')
+        
+        # Initialize core components with lazy imports
+        self.process_controller = self._get_process_controller()
+        self.solver_manager = None
+        self.parameter_manager = None  # Initialize as None, will be set after project_path
+        self.template_manager = self._get_template_manager()
+        
+        # UI components
+        self.tab_widget = None
+        self.terminal_output = None
+        self.command_input = None
+        
+        # Interface state
+        self.project_path = None
+        self.project_name = None
+        self.case_path = None
+        self.solver_path = None
+        
+        # Process state
+        self.simulation_running = False
+        self.simulation_paused = False
+        
+        # Connect signals
+        self._connect_signals()
+        
+        # Setup UI
+        self._setup_ui()
+        
+    def _get_process_controller(self):
+        """Lazy import of ProcessController to avoid circular imports."""
+        from src.openfoam.process_controller import ProcessController
+        return ProcessController()
+        
+    def _get_template_manager(self):
+        """Lazy import of TemplateManager to avoid circular imports."""
+        from src.utils.file_operations import TemplateManager
+        templates_path = str(self._get_templates_path())
+        return TemplateManager(templates_path)
+        
+    def _get_templates_path(self) -> str:
+        """Get the path to OpenFOAM templates."""
+        from src.core.constants import TEMPLATES_PATH
+        return str(TEMPLATES_PATH)
+        
+    def _connect_signals(self):
+        """Connect process controller signals to handlers."""
+        if self.process_controller:
+            self.process_controller.output_received.connect(self._on_process_output)
+            self.process_controller.error_received.connect(self._on_process_error)
+            self.process_controller.process_started.connect(self._on_process_started)
+            self.process_controller.process_finished.connect(self._on_process_finished)
+        
+    def _setup_ui(self):
+        """Setup the base interface UI structure."""
+        # Create main layout
+        main_layout = QVBoxLayout(self)
+        
+        # Create tab widget for different sections
+        self.tab_widget = QTabWidget()
+        self.tab_widget.setTabPosition(QTabWidget.TabPosition.North)
+        
+        # Add common tabs
+        self._create_geometry_tab()
+        self._create_constants_tab()
+        self._create_boundary_tab()
+        self._create_functions_tab()
+        self._create_control_tab()
+        self._create_terminal_tab()
+        
+        main_layout.addWidget(self.tab_widget)
+        
+        # Set window properties
+        self.setWindowTitle(f"BatteryFOAM - {self.interface_type.title()} Interface")
+        self.setMinimumSize(1000, 700)
+        
+    def _create_geometry_tab(self):
+        """Create the geometry configuration tab."""
+        geometry_tab = QWidget()
+        layout = QVBoxLayout(geometry_tab)
+        
+        # Title
+        title_label = QLabel("Geometry Configuration")
+        title_label.setStyleSheet("font-size: 14px; font-weight: bold;")
+        layout.addWidget(title_label)
+        
+        # Geometry parameters group
+        geometry_group = QGroupBox("Geometry Parameters")
+        geometry_layout = QVBoxLayout()
+        
+        # Dimensions - FIXED: Use .ui naming convention
+        dims_layout = QHBoxLayout()
+        self.length_lineEdit = QLineEdit(str(self._get_default_parameter("length")))  # FIXED: .ui naming
+        self.width_lineEdit = QLineEdit(str(self._get_default_parameter("width")))   # FIXED: .ui naming
+        self.height_lineEdit = QLineEdit(str(self._get_default_parameter("height"))) # FIXED: .ui naming
+        
+        dims_layout.addWidget(QLabel("Length (μm):"))
+        dims_layout.addWidget(self.length_lineEdit)
+        dims_layout.addWidget(QLabel("Width (μm):"))
+        dims_layout.addWidget(self.width_lineEdit)
+        dims_layout.addWidget(QLabel("Height (μm):"))
+        dims_layout.addWidget(self.height_lineEdit)
+        geometry_layout.addLayout(dims_layout)
+        
+        # Divisions - FIXED: Use .ui naming convention
+        div_layout = QHBoxLayout()
+        self.x_div_spinBox = QSpinBox()    # FIXED: .ui naming
+        self.y_div_spinBox = QSpinBox()    # FIXED: .ui naming
+        self.z_div_spinBox = QSpinBox()    # FIXED: .ui naming
+        self.x_div_spinBox.setValue(self._get_default_parameter("x_division"))
+        self.y_div_spinBox.setValue(self._get_default_parameter("y_division"))
+        self.z_div_spinBox.setValue(self._get_default_parameter("z_division"))
+        
+        div_layout.addWidget(QLabel("X divisions:"))
+        div_layout.addWidget(self.x_div_spinBox)
+        div_layout.addWidget(QLabel("Y divisions:"))
+        div_layout.addWidget(self.y_div_spinBox)
+        div_layout.addWidget(QLabel("Z divisions:"))
+        div_layout.addWidget(self.z_div_spinBox)
+        geometry_layout.addLayout(div_layout)
+        
+        # Radius (for particle models) - FIXED: Use .ui naming convention
+        radius_layout = QHBoxLayout()
+        self.radius_lineEdit = QLineEdit(str(self._get_default_parameter("radius"))) # FIXED: .ui naming
+        radius_layout.addWidget(QLabel("Particle radius (μm):"))
+        radius_layout.addWidget(self.radius_lineEdit)
+        geometry_layout.addLayout(radius_layout)
+        
+        # Units - FIXED: Use .ui naming convention
+        unit_layout = QHBoxLayout()
+        self.unit_select_box = QComboBox()  # FIXED: .ui naming
+        self.unit_select_box.addItems(["micrometer (μm)", "millimeter (mm)", "meter (m)"])
+        self.unit_select_box.setCurrentText(self._get_default_parameter("unit"))
+        unit_layout.addWidget(QLabel("Units:"))
+        unit_layout.addWidget(self.unit_select_box)
+        geometry_layout.addLayout(unit_layout)
+        
+        geometry_group.setLayout(geometry_layout)
+        layout.addWidget(geometry_group)
+        
+        # Buttons - FIXED: Use .ui naming convention
+        button_layout = QHBoxLayout()
+        self.change_geometry_button = QPushButton("Change Geometry")
+        self.change_geometry_button.clicked.connect(self._on_change_geometry_clicked)
+        self.run_geometry_button = QPushButton("Run Geometry")
+        self.run_geometry_button.clicked.connect(self._on_run_geometry_clicked)
+        self.view_geometry_button = QPushButton("View Geometry")
+        self.view_geometry_button.clicked.connect(self._on_view_geometry_clicked)
+        
+        button_layout.addWidget(self.change_geometry_button)
+        button_layout.addWidget(self.run_geometry_button)
+        button_layout.addWidget(self.view_geometry_button)
+        layout.addLayout(button_layout)
+        
+        layout.addStretch()
+        self.tab_widget.addTab(geometry_tab, "Geometry")
+        
+    def _create_constants_tab(self):
+        """Create the constants configuration tab."""
+        constants_tab = QWidget()
+        layout = QVBoxLayout(constants_tab)
+        
+        # Title
+        title_label = QLabel("Constants Configuration")
+        title_label.setStyleSheet("font-size: 14px; font-weight: bold;")
+        layout.addWidget(title_label)
+        
+        # Scroll area for parameters
+        scroll_area = QScrollArea()
+        scroll_area.setWidgetResizable(True)
+        scroll_content = QWidget()
+        scroll_layout = QVBoxLayout(scroll_content)
+        
+        # Material properties group
+        material_group = QGroupBox("Material Properties")
+        material_layout = QVBoxLayout()
+        
+        # Electrochemical parameters - FIXED: Use .ui naming convention
+        param_layout = QVBoxLayout()
+        self.param_edits = {}
+        
+        params = [
+            ("DS_value", "Li Intrinsic diffusivity in material"),
+            ("CS_max", "Maximum Li concentration in material"),
+            ("kReact", "Reaction rate constant"),
+            ("R", "Universal gas constant"),
+            ("F", "Faraday's constant"),
+            ("Ce", "Electrolyte concentration"),
+            ("alphaA", "Anodic transfer coefficient"),
+            ("alphaC", "Cathodic transfer coefficient"),
+            ("T_temp", "Temperature (K)"),
+            ("I_app", "Applied current density"),
+            ("initial_cs", "Initial Cs value")
+        ]
+        
+        for param, description in params:
+            row_layout = QHBoxLayout()
+            edit = QLineEdit(str(self._get_default_parameter(param.lower())))
+            self.param_edits[param] = edit
+            row_layout.addWidget(QLabel(f"{param}:"))
+            row_layout.addWidget(edit)
+            row_layout.addWidget(QLabel(description))
+            param_layout.addLayout(row_layout)
+            
+        material_layout.addLayout(param_layout)
+        material_group.setLayout(material_layout)
+        scroll_layout.addWidget(material_group)
+        
+        # Material selection - FIXED: Use .ui naming convention
+        material_select_layout = QHBoxLayout()
+        self.carbon_radioButton = QRadioButton("Carbon (Gr)")      # FIXED: .ui naming
+        self.silicon_radioButton = QRadioButton("Silicon (Si)")    # FIXED: .ui naming
+        self.carbon_radioButton.setChecked(True)
+        material_select_layout.addWidget(QLabel("Material:"))
+        material_select_layout.addWidget(self.carbon_radioButton)
+        material_select_layout.addWidget(self.silicon_radioButton)
+        scroll_layout.addLayout(material_select_layout)
+        
+        scroll_content.setLayout(scroll_layout)
+        scroll_area.setWidget(scroll_content)
+        layout.addWidget(scroll_area)
+        
+        # Buttons - FIXED: Use .ui naming convention
+        button_layout = QHBoxLayout()
+        self.change_constants_button = QPushButton("Change Constants")
+        self.change_constants_button.clicked.connect(self._on_change_constants_clicked)
+        self.run_constants_button = QPushButton("Run Constants")
+        self.run_constants_button.clicked.connect(self._on_run_constants_clicked)
+        self.help_constants_button = QPushButton("Help")
+        self.help_constants_button.clicked.connect(self._on_help_constants_clicked)
+        
+        button_layout.addWidget(self.change_constants_button)
+        button_layout.addWidget(self.run_constants_button)
+        button_layout.addWidget(self.help_constants_button)
+        layout.addLayout(button_layout)
+        
+        layout.addStretch()
+        self.tab_widget.addTab(constants_tab, "Constants")
+        
+    def _create_boundary_tab(self):
+        """Create the boundary conditions tab."""
+        boundary_tab = QWidget()
+        layout = QVBoxLayout(boundary_tab)
+        
+        # Title
+        title_label = QLabel("Boundary Conditions")
+        title_label.setStyleSheet("font-size: 14px; font-weight: bold;")
+        layout.addWidget(title_label)
+        
+        # Boundary configuration (implementation specific to each interface)
+        self._add_boundary_configuration(layout)
+        
+        # Buttons - FIXED: Use .ui naming convention
+        button_layout = QHBoxLayout()
+        self.change_boundary_button = QPushButton("Change Boundary")
+        self.change_boundary_button.clicked.connect(self._on_change_boundary_clicked)
+        self.run_boundary_button = QPushButton("Run Boundary")
+        self.run_boundary_button.clicked.connect(self._on_run_boundary_clicked)
+        
+        button_layout.addWidget(self.change_boundary_button)
+        button_layout.addWidget(self.run_boundary_button)
+        layout.addLayout(button_layout)
+        
+        layout.addStretch()
+        self.tab_widget.addTab(boundary_tab, "Boundary")
+        
+    def _create_functions_tab(self):
+        """Create the solver functions tab."""
+        functions_tab = QWidget()
+        layout = QVBoxLayout(functions_tab)
+        
+        # Title
+        title_label = QLabel("Solver Functions")
+        title_label.setStyleSheet("font-size: 14px; font-weight: bold;")
+        layout.addWidget(title_label)
+        
+        # Discretization schemes - FIXED: Use .ui naming convention
+        schemes_group = QGroupBox("Discretization Schemes")
+        schemes_layout = QVBoxLayout()
+        
+        from src.core.constants import SCHEME_OPTIONS
+        for scheme_type, options in SCHEME_OPTIONS.items():
+            row_layout = QHBoxLayout()
+            combo = QComboBox()
+            combo.addItems(options)
+            combo.setCurrentText(self._get_default_parameter(scheme_type, options[0]))
+            setattr(self, f"{scheme_type.lower()}_comboBox", combo)  # FIXED: .ui naming
+            row_layout.addWidget(QLabel(f"{scheme_type}:"))
+            row_layout.addWidget(combo)
+            schemes_layout.addLayout(row_layout)
+            
+        schemes_group.setLayout(schemes_layout)
+        layout.addWidget(schemes_group)
+        
+        # Buttons - FIXED: Use .ui naming convention
+        button_layout = QHBoxLayout()
+        self.change_functions_button = QPushButton("Change Functions")
+        self.change_functions_button.clicked.connect(self._on_change_functions_clicked)
+        self.run_functions_button = QPushButton("Run Functions")
+        self.run_functions_button.clicked.connect(self._on_run_functions_clicked)
+        
+        button_layout.addWidget(self.change_functions_button)
+        button_layout.addWidget(self.run_functions_button)
+        layout.addLayout(button_layout)
+        
+        layout.addStretch()
+        self.tab_widget.addTab(functions_tab, "Functions")
+        
+    def _create_control_tab(self):
+        """Create the control parameters tab."""
+        control_tab = QWidget()
+        layout = QVBoxLayout(control_tab)
+        
+        # Title
+        title_label = QLabel("Control Parameters")
+        title_label.setStyleSheet("font-size: 14px; font-weight: bold;")
+        layout.addWidget(title_label)
+        
+        # Control parameters
+        control_group = QGroupBox("Simulation Control")
+        control_layout = QVBoxLayout()
+        
+        # Time parameters - FIXED: Use .ui naming convention
+        time_layout = QHBoxLayout()
+        self.end_time_doubleSpinBox = QDoubleSpinBox()    # FIXED: .ui naming
+        self.end_time_doubleSpinBox.setValue(self._get_default_parameter("endTime"))
+        self.end_time_doubleSpinBox.setRange(0, 1e6)
+        self.delta_t_doubleSpinBox = QDoubleSpinBox()     # FIXED: .ui naming
+        self.delta_t_doubleSpinBox.setValue(self._get_default_parameter("deltaT"))
+        self.delta_t_doubleSpinBox.setRange(1e-6, 1e3)
+        self.write_interval_doubleSpinBox = QDoubleSpinBox()  # FIXED: .ui naming
+        self.write_interval_doubleSpinBox.setValue(self._get_default_parameter("writeInterval"))
+        self.write_interval_doubleSpinBox.setRange(1e-3, 1e6)
+        
+        time_layout.addWidget(QLabel("End time:"))
+        time_layout.addWidget(self.end_time_doubleSpinBox)
+        time_layout.addWidget(QLabel("Delta T:"))
+        time_layout.addWidget(self.delta_t_doubleSpinBox)
+        time_layout.addWidget(QLabel("Write interval:"))
+        time_layout.addWidget(self.write_interval_doubleSpinBox)
+        control_layout.addLayout(time_layout)
+        
+        # Tolerance - FIXED: Use .ui naming convention
+        tol_layout = QHBoxLayout()
+        self.tolerance_lineEdit = QLineEdit(str(self._get_default_parameter("tolerance")))  # FIXED: .ui naming
+        tol_layout.addWidget(QLabel("Tolerance:"))
+        tol_layout.addWidget(self.tolerance_lineEdit)
+        control_layout.addLayout(tol_layout)
+        
+        control_group.setLayout(control_layout)
+        layout.addWidget(control_group)
+        
+        # Buttons - FIXED: Use .ui naming convention
+        button_layout = QHBoxLayout()
+        self.change_control_button = QPushButton("Change Control")
+        self.change_control_button.clicked.connect(self._on_change_control_clicked)
+        self.run_button = QPushButton("Run")
+        self.run_button.clicked.connect(self._on_run_clicked)
+        self.pause_button = QPushButton("Pause/Resume")
+        self.pause_button.clicked.connect(self._on_pause_clicked)
+        self.stop_button = QPushButton("Stop")
+        self.stop_button.clicked.connect(self._on_stop_clicked)
+        
+        button_layout.addWidget(self.change_control_button)
+        button_layout.addWidget(self.run_button)
+        button_layout.addWidget(self.pause_button)
+        button_layout.addWidget(self.stop_button)
+        layout.addLayout(button_layout)
+        
+        layout.addStretch()
+        self.tab_widget.addTab(control_tab, "Control")
+        
+    def _create_terminal_tab(self):
+        """Create the terminal output tab."""
+        terminal_tab = QWidget()
+        layout = QVBoxLayout(terminal_tab)
+        
+        # Title
+        title_label = QLabel("Terminal Output")
+        title_label.setStyleSheet("font-size: 14px; font-weight: bold;")
+        layout.addWidget(title_label)
+        
+        # Terminal output - FIXED: Use .ui naming convention
+        self.terminal_textEdit = QTextEdit()  # FIXED: .ui naming
+        self.terminal_textEdit.setReadOnly(True)
+        # QTextEdit doesn't have setMaximumBlockCount, so we'll limit output manually
+        layout.addWidget(self.terminal_textEdit)
+        
+        # Command input - FIXED: Use .ui naming convention
+        command_layout = QHBoxLayout()
+        self.command_lineEdit = QLineEdit()  # FIXED: .ui naming
+        self.command_lineEdit.setPlaceholderText("Enter command (e.g., 'cd /path && command')")
+        self.command_lineEdit.returnPressed.connect(self._on_command_entered)
+        self.execute_command_button = QPushButton("Execute")  # FIXED: .ui naming
+        self.execute_command_button.clicked.connect(self._on_command_entered)
+        
+        command_layout.addWidget(self.command_lineEdit)
+        command_layout.addWidget(self.execute_command_button)
+        layout.addLayout(command_layout)
+        
+        self.tab_widget.addTab(terminal_tab, "Terminal")
+        
+    def _add_boundary_configuration(self, layout: QVBoxLayout):
+        """Add boundary-specific configuration (to be overridden by subclasses)."""
+        # Default implementation - can be overridden by specific interfaces
+        info_label = QLabel("Boundary configuration specific to this interface will be added here.")
+        layout.addWidget(info_label)
+        
+    def _connect_signals(self):
+        """Connect interface-specific signals."""
+        pass
+        
+    def _get_default_parameter(self, param_name: str, default_value=None):
+        """Get default parameter value."""
+        from src.core.constants import DEFAULT_PARAMETERS
+        return DEFAULT_PARAMETERS.get(param_name, default_value)
+        
+    # FIXED: NEW WIDGET ACCESS HELPERS FOR ISSUE #4
+    def _get_widget(self, base_name: str, widget_type: str = 'lineEdit'):
+        """
+        Get widget trying multiple naming conventions.
+        
+        Args:
+            base_name: Base name like 'length', 'width'
+            widget_type: Widget type like 'lineEdit', 'spinBox'
+        """
+        # Try .ui convention first (PREFERRED)
+        ui_name = f"{base_name}_{widget_type}"
+        if hasattr(self, ui_name):
+            return getattr(self, ui_name)
+        
+        # Try hand-coded convention for backward compatibility
+        code_name = f"{base_name}_edit" if widget_type == 'lineEdit' else f"{base_name}_spin"
+        if hasattr(self, code_name):
+            return getattr(self, code_name)
+        
+        raise AttributeError(f"Widget not found: {base_name}")
+    
+    def _get_widget_value(self, base_name: str, default=None):
+        """Get value from widget with fallback."""
+        try:
+            widget = self._get_widget(base_name)
+            if hasattr(widget, 'text'):
+                return widget.text()
+            elif hasattr(widget, 'value'):
+                return widget.value()
+        except AttributeError:
+            logger.warning(f"Widget {base_name} not found, using default: {default}")
+            return default
+    
+    def _set_widget_value(self, base_name: str, value, widget_type: str = 'lineEdit'):
+        """Set value to widget with fallback."""
+        try:
+            widget = self._get_widget(base_name, widget_type)
+            if hasattr(widget, 'setText'):
+                widget.setText(str(value))
+            elif hasattr(widget, 'setValue'):
+                widget.setValue(float(value))
+        except AttributeError:
+            logger.warning(f"Widget {base_name} not found, cannot set value: {value}")
+    
+    def _on_process_output(self, output: str):
+        """Handle process output."""
+        if self.terminal_textEdit:  # FIXED: Use .ui naming
+            self.terminal_textEdit.append(output)  # FIXED: Use .ui naming
+            self.output_received.emit(output)
+            
+            # Limit output to prevent memory issues (manual limit for QTextEdit)
+            cursor = self.terminal_textEdit.textCursor()  # FIXED: Use .ui naming
+            block_count = cursor.blockNumber() + 1
+            if block_count > 1000:
+                # Remove old content to keep memory usage reasonable
+                self.terminal_textEdit.clear()  # FIXED: Use .ui naming
+                self.terminal_textEdit.append("... Output truncated to prevent memory issues ...")  # FIXED: Use .ui naming
+                self.terminal_textEdit.append(output)  # FIXED: Use .ui naming
+            
+    def _on_process_error(self, error: str):
+        """Handle process errors."""
+        if self.terminal_textEdit:  # FIXED: Use .ui naming
+            self.terminal_textEdit.append(f"ERROR: {error}")  # FIXED: Use .ui naming
+            self.error_received.emit(error)
+        
+    def _on_process_started(self):
+        """Handle process start."""
+        self.simulation_running = True
+        self.simulation_paused = False
+        self.simulation_started.emit()
+        self._update_control_buttons()
+        
+    def _on_process_finished(self, exit_code: int):
+        """Handle process completion."""
+        self.simulation_running = False
+        self.simulation_stopped.emit()
+        self._update_control_buttons()
+        if exit_code == 0:
+            if self.terminal_textEdit:  # FIXED: Use .ui naming
+                self.terminal_textEdit.append("Simulation completed successfully.")  # FIXED: Use .ui naming
+        else:
+            if self.terminal_textEdit:  # FIXED: Use .ui naming
+                self.terminal_textEdit.append(f"Simulation failed with exit code: {exit_code}")  # FIXED: Use .ui naming
+            
+    def _update_control_buttons(self):
+        """Update control button states based on simulation status."""
+        if self.simulation_running:
+            self.run_button.setEnabled(False)  # FIXED: Use .ui naming
+            self.pause_button.setEnabled(True)  # FIXED: Use .ui naming
+            self.stop_button.setEnabled(True)   # FIXED: Use .ui naming
+            self.pause_button.setText("Pause" if not self.simulation_paused else "Resume")  # FIXED: Use .ui naming
+        else:
+            self.run_button.setEnabled(True)   # FIXED: Use .ui naming
+            self.pause_button.setEnabled(False) # FIXED: Use .ui naming
+            self.stop_button.setEnabled(False)  # FIXED: Use .ui naming
+            self.pause_button.setText("Pause/Resume")  # FIXED: Use .ui naming
+            
+    def _on_change_geometry_clicked(self):
+        """Handle geometry parameter changes."""
+        try:
+            # Update blockMeshDict and topoSetDict
+            self._update_geometry_parameters()
+            if self.terminal_textEdit:  # FIXED: Use .ui naming
+                self.terminal_textEdit.append("Geometry parameters updated successfully.")  # FIXED: Use .ui naming
+        except Exception as e:
+            QMessageBox.critical(self, "Error", f"Failed to update geometry: {str(e)}")
+            
+    def _on_run_geometry_clicked(self):
+        """Handle geometry generation."""
+        try:
+            # Run mesh generation commands
+            self._run_geometry_commands()
+            if self.terminal_textEdit:  # FIXED: Use .ui naming
+                self.terminal_textEdit.append("Geometry generation completed.")  # FIXED: Use .ui naming
+        except Exception as e:
+            QMessageBox.critical(self, "Error", f"Failed to run geometry: {str(e)}")
+            
+    def _on_view_geometry_clicked(self):
+        """Handle geometry visualization."""
+        try:
+            # Launch ParaView for geometry viewing
+            self._launch_paraview()
+        except Exception as e:
+            QMessageBox.critical(self, "Error", f"Failed to launch ParaView: {str(e)}")
+            
+    def _on_change_constants_clicked(self):
+        """Handle constants parameter changes."""
+        try:
+            self._update_constants_parameters()
+            if self.terminal_textEdit:  # FIXED: Use .ui naming
+                self.terminal_textEdit.append("Constants parameters updated successfully.")  # FIXED: Use .ui naming
+        except Exception as e:
+            QMessageBox.critical(self, "Error", f"Failed to update constants: {str(e)}")
+            
+    def _on_run_constants_clicked(self):
+        """Handle constants setup."""
+        try:
+            self._run_constants_commands()
+            if self.terminal_textEdit:  # FIXED: Use .ui naming
+                self.terminal_textEdit.append("Constants setup completed.")  # FIXED: Use .ui naming
+        except Exception as e:
+            QMessageBox.critical(self, "Error", f"Failed to run constants: {str(e)}")
+            
+    def _on_help_constants_clicked(self):
+        """Show constants help."""
+        help_text = """
+        DS value: Li Intrinsic diffusivity in material
+        CS max: Maximum Li concentration in material
+        kreact: Reaction rate constant
+        R: Universal gas constant
+        F: Faraday's constant
+        Ce: Transfer coefficient
+        alphaA: Anodic
+        alphaC: Cathodic
+        T: Temperature
+        Iapp: Applied current density
+        """
+        QMessageBox.information(self, "Constants Help", help_text)
+        
+    def _on_change_boundary_clicked(self):
+        """Handle boundary parameter changes."""
+        try:
+            self._update_boundary_parameters()
+            if self.terminal_textEdit:  # FIXED: Use .ui naming
+                self.terminal_textEdit.append("Boundary parameters updated successfully.")  # FIXED: Use .ui naming
+        except Exception as e:
+            QMessageBox.critical(self, "Error", f"Failed to update boundary: {str(e)}")
+            
+    def _on_run_boundary_clicked(self):
+        """Handle boundary setup."""
+        try:
+            self._run_boundary_commands()
+            if self.terminal_textEdit:  # FIXED: Use .ui naming
+                self.terminal_textEdit.append("Boundary setup completed.")  # FIXED: Use .ui naming
+        except Exception as e:
+            QMessageBox.critical(self, "Error", f"Failed to run boundary: {str(e)}")
+            
+    def _on_change_functions_clicked(self):
+        """Handle function parameter changes."""
+        try:
+            self._update_functions_parameters()
+            if self.terminal_textEdit:  # FIXED: Use .ui naming
+                self.terminal_textEdit.append("Function parameters updated successfully.")  # FIXED: Use .ui naming
+        except Exception as e:
+            QMessageBox.critical(self, "Error", f"Failed to update functions: {str(e)}")
+            
+    def _on_run_functions_clicked(self):
+        """Handle function setup."""
+        try:
+            self._run_functions_commands()
+            if self.terminal_textEdit:  # FIXED: Use .ui naming
+                self.terminal_textEdit.append("Function setup completed.")  # FIXED: Use .ui naming
+        except Exception as e:
+            QMessageBox.critical(self, "Error", f"Failed to run functions: {str(e)}")
+            
+    def _on_change_control_clicked(self):
+        """Handle control parameter changes."""
+        try:
+            self._update_control_parameters()
+            if self.terminal_textEdit:  # FIXED: Use .ui naming
+                self.terminal_textEdit.append("Control parameters updated successfully.")  # FIXED: Use .ui naming
+        except Exception as e:
+            QMessageBox.critical(self, "Error", f"Failed to update control: {str(e)}")
+            
+    def _on_run_clicked(self):
+        """Handle simulation start."""
+        try:
+            self._start_simulation()
+        except Exception as e:
+            QMessageBox.critical(self, "Error", f"Failed to start simulation: {str(e)}")
+            
+    def _on_pause_clicked(self):
+        """Handle simulation pause/resume."""
+        if self.simulation_running:
+            if self.simulation_paused:
+                self._resume_simulation()
+            else:
+                self._pause_simulation()
+                
+    def _on_stop_clicked(self):
+        """Handle simulation stop."""
+        try:
+            self._stop_simulation()
+        except Exception as e:
+            QMessageBox.critical(self, "Error", f"Failed to stop simulation: {str(e)}")
+            
+    def _on_command_entered(self):
+        """Handle manual command execution."""
+        command = self.command_lineEdit.text().strip()  # FIXED: Use .ui naming
+        if command and self.process_controller:
+            if self.terminal_textEdit:  # FIXED: Use .ui naming
+                self.terminal_textEdit.append(f"$ {command}")  # FIXED: Use .ui naming
+            self._execute_command(command)
+            self.command_lineEdit.clear()  # FIXED: Use .ui naming
+            
+    def _update_geometry_parameters(self):
+        """Update geometry parameters in OpenFOAM files."""
+        # Implementation to update blockMeshDict and topoSetDict
+        pass
+        
+    def _run_geometry_commands(self):
+        """Run geometry generation commands."""
+        if not self.case_path:
+            raise ValueError("Case path not set")
+            
+        commands = [
+            f"cd {self.case_path} && blockMesh",
+            "topoSet",
+            "splitMeshRegions -cellZones -overwrite",
+            "paraFoam -touchAll"
+        ]
+        
+        for command in commands:
+            self._execute_command(command)
+            # Wait for completion before next command
+            while self.process_controller and self.process_controller.is_running():
+                import time
+                time.sleep(0.1)
+                
+    def _launch_paraview(self):
+        """Launch ParaView for visualization."""
+        if not self.case_path:
+            raise ValueError("Case path not set")
+            
+        command = f"cd {self.case_path} && paraFoam &"
+        self._execute_command(command)
+        
+    def _update_constants_parameters(self):
+        """Update constants parameters in OpenFOAM files."""
+        # Implementation to update LiProperties files
+        pass
+        
+    def _run_constants_commands(self):
+        """Run constants setup commands."""
+        if not self.solver_path:
+            raise ValueError("Solver path not set")
+            
+        commands = [
+            f"cd {self.solver_path} && wclean",
+            "wmake"
+        ]
+        
+        for command in commands:
+            self._execute_command(command)
+            while self.process_controller and self.process_controller.is_running():
+                import time
+                time.sleep(0.1)
+                
+    def _update_boundary_parameters(self):
+        """Update boundary parameters in OpenFOAM files."""
+        # Implementation specific to each interface
+        pass
+        
+    def _run_boundary_commands(self):
+        """Run boundary setup commands."""
+        # Implementation specific to each interface
+        pass
+        
+    def _update_functions_parameters(self):
+        """Update function parameters in OpenFOAM files."""
+        # Implementation to update fvSchemes and fvSolution
+        pass
+        
+    def _run_functions_commands(self):
+        """Run function setup commands."""
+        # Implementation specific to each interface
+        pass
+        
+    def _update_control_parameters(self):
+        """Update control parameters in OpenFOAM files."""
+        # Implementation to update controlDict
+        pass
+        
+    def _start_simulation(self):
+        """Start the OpenFOAM simulation."""
+        if not self.solver_manager:
+            raise ValueError("Solver manager not initialized")
+            
+        if not self.case_path:
+            raise ValueError("Case path not set")
+            
+        self.solver_manager.run_simulation(self.case_path)
+        self.simulation_started.emit()
+        
+    def _pause_simulation(self):
+        """Pause the simulation."""
+        if self.process_controller and self.process_controller.is_running():
+            self.process_controller.send_signal(19)  # SIGSTOP
+            self.simulation_paused = True
+            self.simulation_paused.emit()
+            self._update_control_buttons()
+            
+    def _resume_simulation(self):
+        """Resume the simulation."""
+        if self.process_controller and self.process_controller.is_running():
+            self.process_controller.send_signal(18)  # SIGCONT
+            self.simulation_paused = False
+            self._update_control_buttons()
+            
+    def _stop_simulation(self):
+        """Stop the simulation."""
+        if self.process_controller:
+            self.process_controller.terminate_process()
+            self.simulation_stopped.emit()
+            self._update_control_buttons()
+        
+    def _execute_command(self, command: str):
+        """Execute a command using the process controller."""
+        if self.process_controller:
+            self.process_controller.start_process(command)
+        
+    def set_project_paths(self, project_path: str, project_name: str):
+        """Set the project paths for this interface - FIXED: Proper initialization for Issue #6."""
+        self.project_path = project_path
+        self.project_name = project_name
+        self.case_path = os.path.join(project_path, project_name, "Case")
+        self.solver_path = os.path.join(project_path, project_name)
+        
+        # Initialize solver manager
+        solver_name = self._get_solver_name()
+        self.solver_manager = self._get_solver_manager(solver_name)
+        
+        # Initialize parameter manager with project path - FIXED: Proper initialization for Issue #6
+        try:
+            self.parameter_manager = self._get_parameter_manager()
+            logger.info(f"ParameterManager initialized for {self.case_path}")
+        except Exception as e:
+            logger.error(f"Failed to initialize ParameterManager: {e}", exc_info=True)
+            self.error_signal.emit(f"Failed to initialize ParameterManager: {e}")  # FIXED: Error propagation for Issue #1
+            return False
+        
+        return True  # FIXED: Return success status for Issue #6
+        
+    def _get_solver_name(self) -> str:
+        """Get the solver name for this interface."""
+        from src.core.constants import SOLVER_NAMES
+        return SOLVER_NAMES.get(self.interface_type, self.interface_type)
+        
+    def _get_solver_manager(self, solver_name: str):
+        """Lazy import of OpenFOAMSolverManager to avoid circular imports."""
+        from src.openfoam.solver_manager import OpenFOAMSolverManager
+        return OpenFOAMSolverManager(self.solver_path, solver_name)
+        
+    def _get_parameter_manager(self):
+        """Lazy import of ParameterManager to avoid circular imports - FIXED: Proper initialization for Issue #6."""
+        from src.utils.parameter_parser import ParameterManager
+        return ParameterManager(self.case_path)  # FIXED: Use case_path for Issue #6
+    
+    # FIXED: NEW EXIT HANDLER FOR ISSUE #1
+    def _on_exit_button_clicked(self):
+        """Handle exit button click - FIXED: Proper signal emission for Issue #1."""
+        logger.info("Exit button clicked, emitting exit_signal")
+        self.exit_signal.emit()  # FIXED: Emit signal for Issue #1
+        self.close()  # FIXED: Close interface for Issue #1

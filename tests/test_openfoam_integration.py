@@ -17,9 +17,9 @@ from unittest.mock import Mock, patch, MagicMock
 # Add src to Python path for testing
 sys.path.insert(0, str(Path(__file__).parent.parent / 'src'))
 
-from openfoam.process_controller import ProcessController
-from openfoam.solver_manager import OpenFOAMSolverManager
-from openfoam.case_manager import OpenFOAMCaseManager
+from src.openfoam.process_controller import ProcessController
+from src.openfoam.solver_manager import OpenFOAMSolverManager
+from src.openfoam.case_manager import OpenFOAMCaseManager
 from PyQt6.QtCore import QObject, pyqtSignal
 
 

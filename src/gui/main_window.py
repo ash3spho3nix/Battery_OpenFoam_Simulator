@@ -1,3 +1,4 @@
+#!/usr/bin/env python3
 """
 Main window implementation for Battery Simulator.
 
@@ -7,10 +8,13 @@ window from mainwindow.ui and connects its signals to the appropriate handlers.
 
 import os
 import sys
+import logging
 from pathlib import Path
 from typing import Optional, Dict, Any
 from PyQt6.QtWidgets import QMainWindow, QWidget, QFileDialog, QMessageBox
-import logging
+from PyQt6.QtCore import pyqtSignal, pyqtSlot
+
+from src.gui.ui_config import UIConfig
 
 from src.utils.exception_handler import safe_slot
 
@@ -34,36 +38,40 @@ class MainWindow(QMainWindow):
         
         Args:
             parent: Parent widget
-            ui_config: UI configuration for loading mode (must be UI_FILES)
+            ui_config: UI configuration for loading mode (supports all modes)
         """
         logger.debug("MainWindow.__init__() called")
         super().__init__(parent)
         
         # Store UI configuration
         self.ui_config = ui_config or self._get_ui_config()
-
+        
         # Initialize properties
         self.project_path: Optional[str] = None
         self.project_name: Optional[str] = None
         self.current_interface: Optional[QWidget] = None
-        self.project_manager = None # This should be initialized if needed
         
-        # Validate that we're in UI_FILES mode
-        if self.ui_config.mode.value != 'ui_files':
-            error_msg = f"MainWindow requires UI_FILES mode, but got {self.ui_config.mode.value}"
-            logger.error(error_msg)
-            raise ValueError(error_msg)
+        # Initialize ProjectManager for project creation
+        try:
+            from src.core.project_manager_enhanced import EnhancedProjectManager
+            self.project_manager = EnhancedProjectManager()
+            logger.info("Enhanced ProjectManager initialized successfully")
+        except Exception as e:
+            logger.error(f"Failed to initialize ProjectManager: {e}")
+            self.project_manager = None
         
         # Set window properties
         self.setWindowTitle(APP_NAME)
         self.setMinimumSize(800, 640)
         self.setMaximumSize(800, 640)
         
-        # Load UI directly from mainwindow.ui
+        # Load UI based on configuration
         self._load_main_window_ui()
-
+        
         # Connect UI signals to handlers
         self._connect_signals()
+        
+        logger.info("MainWindow initialized successfully")
         
     def _get_ui_config(self):
         """Lazy import of UIConfig to avoid circular imports."""
@@ -73,45 +81,107 @@ class MainWindow(QMainWindow):
         return UIConfig()
         
     def _load_main_window_ui(self):
-        """Load the main window UI directly from mainwindow.ui."""
-        logger.debug("MainWindow._load_main_window_ui() called")
+        """Load the main window UI based on configuration mode."""
+        logger.debug(f"Loading MainWindow UI with mode: {self.ui_config.mode.name}")
         
-        # Import UiLoader
-        from ..gui.ui_loader import UiLoader
-        
-        # Load mainwindow.ui
         try:
-            # loadUi populates the 'self' instance with the UI from the file.
-            # It also sets the central widget defined in the .ui file automatically.
-            UiLoader.load_ui("mainwindow", self)
-            logger.debug("Successfully loaded mainwindow.ui into MainWindow instance")
+            if self.ui_config.mode.name == 'UI_FILES':
+                # Load from .ui file
+                from ..gui.ui_loader_enhanced import EnhancedUiLoader
+                EnhancedUiLoader.load_ui("mainwindow", self)
+                logger.debug("Successfully loaded mainwindow.ui")
+            elif self.ui_config.mode.name == 'HAND_CODED':
+                # Create hand-coded UI
+                self._create_hand_coded_ui()
+                logger.debug("Successfully created hand-coded UI")
+            else:  # AUTO_DETECT
+                # Try .ui file first, fallback to hand-coded
+                try:
+                    from ..gui.ui_loader_enhanced import EnhancedUiLoader
+                    EnhancedUiLoader.load_ui("mainwindow", self)
+                    logger.debug("Successfully loaded mainwindow.ui (AUTO_DETECT)")
+                except Exception as e:
+                    logger.warning(f"Failed to load .ui file, falling back to hand-coded: {e}")
+                    self._create_hand_coded_ui()
         except Exception as e:
-            logger.error(f"Error loading mainwindow.ui: {e}", exc_info=True)
+            logger.error(f"Error loading main window UI: {e}", exc_info=True)
             raise
+
+    def _create_hand_coded_ui(self):
+        """Create hand-coded UI as fallback."""
+        logger.debug("Creating hand-coded MainWindow UI")
+        
+        # This is a placeholder for hand-coded UI creation
+        # In a real implementation, this would create all widgets programmatically
+        from PyQt6.QtWidgets import QWidget, QVBoxLayout, QLabel, QPushButton
+        
+        central_widget = QWidget()
+        layout = QVBoxLayout()
+        
+        # Add basic widgets
+        title_label = QLabel("Battery Simulator - Main Window")
+        layout.addWidget(title_label)
+        
+        # Store references to widgets that will be accessed later
+        self.pro_name_editline = None  # Will be set when needed
+        self.main_path_label = None    # Will be set when needed
+        self.main_path_button = None   # Will be set when needed
+        self.main_next_button = None   # Will be set when needed
+        
+        central_widget.setLayout(layout)
+        self.setCentralWidget(central_widget)
+        
+        logger.debug("Hand-coded MainWindow UI created")
 
     def _connect_signals(self):
         """Connect all UI signals to their corresponding slots."""
         logger.debug("Connecting MainWindow signals")
-        # New Project Tab
-        self.main_path_button.clicked.connect(self._on_choose_path_clicked)
-        self.main_next_button.clicked.connect(self._on_next_button_clicked)
         
-        # Enable 'Next' button only when path and name are set
-        self.pro_name_editline.textChanged.connect(self._update_next_button_state)
-#        self.main_path_label.textChanged.connect(self._update_next_button_state)
-
-        # Open Project Tab
-        self.main_path_button_2.clicked.connect(self._on_open_project_clicked)
+        try:
+            # New Project Tab
+            if hasattr(self, 'main_path_button') and self.main_path_button:
+                self.main_path_button.clicked.connect(self._on_choose_path_clicked)
+            else:
+                logger.warning("main_path_button not found, cannot connect signal")
+                
+            if hasattr(self, 'main_next_button') and self.main_next_button:
+                self.main_next_button.clicked.connect(self._on_next_button_clicked)
+            else:
+                logger.warning("main_next_button not found, cannot connect signal")
+            
+            # Enable 'Next' button only when path and name are set
+            if hasattr(self, 'pro_name_editline') and self.pro_name_editline:
+                self.pro_name_editline.textChanged.connect(self._update_next_button_state)
+            else:
+                logger.warning("pro_name_editline not found, cannot connect signal")
+                
+            # Open Project Tab
+            if hasattr(self, 'main_path_button_2') and self.main_path_button_2:
+                self.main_path_button_2.clicked.connect(self._on_open_project_clicked)
+            else:
+                logger.warning("main_path_button_2 not found, cannot connect signal")
+                
+        except Exception as e:
+            logger.error(f"Error connecting signals: {e}", exc_info=True)
+            raise
 
     def _update_next_button_state(self):
         """Enable or disable the 'Next' button based on input."""
-        has_name = bool(self.pro_name_editline.text().strip())
-        has_path = self.project_path is not None
-        self.main_next_button.setEnabled(has_name and has_path)
+        try:
+            has_name = bool(self.pro_name_editline.text().strip())
+            has_path = self.project_path is not None
+            if hasattr(self, 'main_next_button') and self.main_next_button:
+                self.main_next_button.setEnabled(has_name and has_path)
+        except Exception as e:
+            logger.error(f"Error updating next button state: {e}")
 
     @safe_slot
     def _on_choose_path_clicked(self, _=False):
+<<<<<<< Updated upstream
         """Handle path selection button click with exception handling."""
+=======
+        """Handle path selection button click."""
+>>>>>>> Stashed changes
         try:
             folder = QFileDialog.getExistingDirectory(
                 self,
@@ -122,6 +192,7 @@ class MainWindow(QMainWindow):
             
             if folder:
                 self.project_path = folder
+<<<<<<< Updated upstream
                 self.main_path_label.setText(folder)
                 logger.info(f"Selected project path: {folder}")
                 self._update_next_button_state()
@@ -132,6 +203,19 @@ class MainWindow(QMainWindow):
     @safe_slot
     def _on_next_button_clicked(self, _=False):
         """Handle project creation 'Next' button click with validation."""
+=======
+                if hasattr(self, 'main_path_label') and self.main_path_label:
+                    self.main_path_label.setText(folder)
+                logger.info(f"Selected project path: {folder}")
+                self._update_next_button_state()
+        except Exception as e:
+            logger.error(f"Error in choose path clicked: {e}", exc_info=True)
+            QMessageBox.critical(self, "Error", f"Failed to choose path: {e}")
+
+    @safe_slot
+    def _on_next_button_clicked(self, _=False):
+        """Handle project creation 'Next' button click."""
+>>>>>>> Stashed changes
         try:
             # Get project name
             project_name = self.pro_name_editline.text().strip()
@@ -160,8 +244,13 @@ class MainWindow(QMainWindow):
             # Create project
             self._create_project(project_name, selected_module)
         except Exception as e:
+<<<<<<< Updated upstream
             logger.error(f"Error in next button click: {e}", exc_info=True)
             QMessageBox.critical(self, "Error", f"Failed to create project: {str(e)}")
+=======
+            logger.error(f"Error in next button clicked: {e}", exc_info=True)
+            QMessageBox.critical(self, "Error", f"Failed to create project: {e}")
+>>>>>>> Stashed changes
 
     @safe_slot
     def _create_project(self, project_name, module_type):
@@ -235,35 +324,53 @@ class MainWindow(QMainWindow):
 
     def _open_interface(self, module_type, project_path, project_name):
         """Open the appropriate interface for the module type."""
-        # This method is now part of MainWindow, but the logic to create
-        # specific interface instances (CarbonInterface, etc.) is still valid.
-        # The imports are kept inside the method to avoid circular dependencies.
-        from src.gui.interface_factory import InterfaceFactory
-        
-        interface_map = {
-            "SPM": "carbon",
-            "carbon": "carbon",
-            "halfCell": "halfcell",
-            "fullCell": "fullcell"
-        }
-        interface_type = interface_map.get(module_type)
-        if not interface_type:
-            raise ValueError(f"Unknown module type: {module_type}")
-
-        # Use the factory to create the interface
-        self.current_interface = InterfaceFactory.create_interface(interface_type, parent=self, ui_config=self.ui_config)
-        
-        # Show interface and hide main window
-        self.current_interface.show()
-        self.hide()
-
-        # Connect the exit signal from the new interface
-        if hasattr(self.current_interface, 'exit_signal'):
-            self.current_interface.exit_signal.connect(self._on_interface_exit)
+        try:
+            logger.info(f"Opening interface for module: {module_type}")
+            
+            # Create interface based on module type
+            if module_type == "SPM" or module_type == "carbon":
+                from src.gui.interfaces.carbon_interface import CarbonInterface
+                interface = CarbonInterface(self, self.ui_config)
+                self.carbon_interface = interface
+                
+            elif module_type == "halfCell":
+                from src.gui.interfaces.halfcell_interface import HalfCellInterface
+                interface = HalfCellInterface(self, self.ui_config)
+                self.halfcell_interface = interface
+                
+            elif module_type == "fullCell":
+                from src.gui.interfaces.fullcell_interface import FullCellInterface
+                interface = FullCellInterface(self, self.ui_config)
+                self.fullcell_interface = interface
+            else:
+                raise ValueError(f"Unknown module type: {module_type}")
+                
+            # Set project paths
+            interface.set_project_paths(project_path, project_name)
+            
+            # Store current interface
+            self.current_interface = interface
+            
+            # Show interface
+            interface.show()
+            self.hide()
+            
+            # Connect back signal
+            interface.exit_signal.connect(self._on_interface_exit)
+            
+            logger.info("Interface opened successfully")
+            
+        except Exception as e:
+            logger.error(f"Failed to open interface: {e}")
+            raise
 
     @safe_slot
     def _on_open_project_clicked(self, _=False):
+<<<<<<< Updated upstream
         """Handle 'Open' project button click with exception handling."""
+=======
+        """Handle 'Open' project button click."""
+>>>>>>> Stashed changes
         try:
             folder = QFileDialog.getExistingDirectory(
                 self,
@@ -291,7 +398,11 @@ class MainWindow(QMainWindow):
             self._open_interface(module_type, str(project_path), project_path.name)
         except Exception as e:
             logger.error(f"Error opening project: {e}", exc_info=True)
+<<<<<<< Updated upstream
             QMessageBox.critical(self, "Error", f"Failed to open project: {str(e)}")
+=======
+            QMessageBox.critical(self, "Error", f"Failed to open project: {e}")
+>>>>>>> Stashed changes
 
     def _detect_project_type(self, project_path: Path) -> Optional[str]:
         """Detect project type from directory structure."""
@@ -317,6 +428,10 @@ class MainWindow(QMainWindow):
         """Handle interface exit signal to show the main window again."""
         try:
             logger.info("Interface exit signal received, returning to main window.")
+<<<<<<< Updated upstream
+=======
+            
+>>>>>>> Stashed changes
             # Hide current interface
             if self.current_interface:
                 self.current_interface.close()  # Use close() to ensure proper cleanup
@@ -327,6 +442,54 @@ class MainWindow(QMainWindow):
             logger.info("Returned to main window")
         except Exception as e:
             logger.error(f"Error handling interface exit: {e}", exc_info=True)
+<<<<<<< Updated upstream
             QMessageBox.critical(self, "Error", f"Failed to return to main window: {str(e)}")
             # Still try to show the main window even if cleanup failed
             self.show()
+=======
+            QMessageBox.critical(self, "Error", f"Failed to return to main window: {e}")
+
+    @safe_slot
+    def _on_interface_error(self, error_message: str):
+        """Handle interface error signal."""
+        try:
+            logger.error(f"Interface error: {error_message}")
+            QMessageBox.critical(self, "Interface Error", error_message)
+        except Exception as e:
+            logger.error(f"Error handling interface error: {e}")
+
+    def closeEvent(self, event):
+        """Handle window close event."""
+        try:
+            logger.info("MainWindow close event triggered")
+            
+            # Clean up current interface
+            if self.current_interface:
+                try:
+                    # Disconnect signals
+                    if hasattr(self.current_interface, 'exit_signal'):
+                        self.current_interface.exit_signal.disconnect(self._on_interface_exit)
+                    if hasattr(self.current_interface, 'error_signal'):
+                        self.current_interface.error_signal.disconnect(self._on_interface_error)
+                    
+                    # Close interface
+                    self.current_interface.close()
+                    self.current_interface = None
+                except Exception as e:
+                    logger.warning(f"Error cleaning up interface: {e}")
+            
+            # Accept the close event
+            event.accept()
+            logger.info("MainWindow closed successfully")
+            
+        except Exception as e:
+            logger.error(f"Error in closeEvent: {e}", exc_info=True)
+            event.accept()  # Still close the window even if cleanup fails
+
+    def get_project_info(self) -> Dict[str, Optional[str]]:
+        """Get current project information."""
+        return {
+            'project_path': self.project_path,
+            'project_name': self.project_name
+        }
+>>>>>>> Stashed changes

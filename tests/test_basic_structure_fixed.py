@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Fixed basic structure test for Battery Simulator.
+Test script for basic structure and imports.
 This script tests the basic imports and structure of the application
 to ensure all components can be loaded without circular import issues.
 """
@@ -27,8 +27,8 @@ def test_imports():
         from src.core.constants import APP_NAME, APP_VERSION
         logger.info(f"✓ Core constants imported: {APP_NAME} v{APP_VERSION}")
         
-        from src.core.project_manager import ProjectManager
-        logger.info("✓ ProjectManager imported")
+        from src.core.project_manager_enhanced import EnhancedProjectManager
+        logger.info("✓ EnhancedProjectManager imported")
         
         # Test GUI imports
         from src.gui.ui_config import UIConfig, UILoadingMode
@@ -128,11 +128,11 @@ def test_project_manager():
     logger.info("Testing project manager...")
     
     try:
-        from src.core.project_manager import ProjectManager
+        from src.core.project_manager_enhanced import EnhancedProjectManager
         
         # Create project manager with default path
-        pm = ProjectManager(base_projects_path=os.path.join(os.getcwd(), "test_projects"))
-        logger.info("✓ ProjectManager created")
+        pm = EnhancedProjectManager(base_projects_path=os.path.join(os.getcwd(), "test_projects"))
+        logger.info("✓ EnhancedProjectManager created")
         
         # Test basic functionality
         logger.info("✓ Project manager tests passed!")

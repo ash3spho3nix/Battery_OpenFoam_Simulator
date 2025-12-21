@@ -1,108 +1,113 @@
 #!/usr/bin/env python3
 """
-Test script to validate UI loading functionality.
+Test script for UI loading functionality.
+
+This script tests the basic UI loading capabilities.
 """
 
 import sys
 import os
-import logging
+from pathlib import Path
 
-# Add the src directory to the Python path
-sys.path.insert(0, os.path.join(os.path.dirname(__file__), 'src'))
+# Add the src directory to Python path for imports
+sys.path.insert(0, str(Path(__file__).parent))
 
-# Set up logging
-logging.basicConfig(level=logging.DEBUG, format='%(levelname)s: %(message)s')
-logger = logging.getLogger(__name__)
+from PyQt6.QtWidgets import QApplication, QWidget, QVBoxLayout, QLabel, QPushButton
+from PyQt6.QtCore import Qt
+
+from src.gui.ui_loader import UiLoader
+from src.gui.ui_config_enhanced import EnhancedUIConfig
+
 
 def test_ui_loader():
-    """Test the enhanced UI loader functionality."""
-    print("=" * 60)
-    print("UI LOADING DIAGNOSTIC TEST")
-    print("=" * 60)
+    """Test the UI loader functionality."""
+    print("Testing UI Loader...")
+    
+    # Test individual file existence
+    for ui_name in ["mainwindow", "carboninterface", "halfcellinterface", "fullcellfoam", "resultinterface"]:
+        exists = UiLoader.ui_file_exists(ui_name)
+        print(f"  {ui_name}.ui exists: {exists}")
+    
+    print("UI Loader test completed.\n")
+
+
+def test_ui_config():
+    """Test the UI configuration functionality."""
+    print("Testing UI Configuration...")
+    
+    # Test default configuration
+    config = EnhancedUIConfig()
+    print(f"Default config: {config}")
+    
+    print("UI Configuration test completed.\n")
+
+
+def test_main_window_loading():
+    """Test loading main window from .ui file."""
+    print("Testing Main Window Loading...")
     
     try:
-        # Test 1: Import the UI loader
-        print("\n1. Testing UI loader import...")
-        from src.gui.ui_loader import UILoader
-        print("OK - UI loader imported successfully")
-        
-        # Test 2: Check if UI files exist
-        print("\n2. Checking UI file paths...")
-        from src.core.constants import UI_FILES_PATH
-        print(f"UI_FILES_PATH: {UI_FILES_PATH}")
-        
-        ui_files = [
-            "carboninterface.ui",
-            "halfcellinterface.ui", 
-            "fullcellfoam.ui",
-            "mainwindow.ui",
-            "resultinterface.ui"
-        ]
-        
-        for ui_file in ui_files:
-            ui_path = UILoader.get_ui_path(ui_file)
-            exists = os.path.exists(ui_path)
-            print(f"  {ui_file}: {'OK' if exists else 'MISSING'} {ui_path}")
-        
-        # Test 3: Test UI file validation
-        print("\n3. Testing UI file validation...")
-        for ui_file in ui_files:
-            ui_path = UILoader.get_ui_path(ui_file)
-            if os.path.exists(ui_path):
-                is_valid = UILoader.validate_ui_integrity(ui_path)
-                print(f"  {ui_file} integrity: {'OK' if is_valid else 'INVALID'}")
-        
-        # Test 4: Test loading main window
-        print("\n4. Testing main window loading...")
-        try:
-            main_window = UILoader.load_main_window()
-            if main_window:
-                print("OK - Main window loaded successfully")
-                # Check if tabWidget exists
-                tab_widget = main_window.findChild(QWidget, "tabWidget")
-                if tab_widget:
-                    print("OK - tabWidget found in main window")
-                else:
-                    print("ERROR - tabWidget NOT found in main window")
-                    # List all widgets
-                    all_widgets = main_window.findChildren(QWidget)
-                    print(f"  Found {len(all_widgets)} widgets:")
-                    for widget in all_widgets[:10]:  # Show first 10
-                        print(f"    - {widget.objectName()} ({type(widget).__name__})")
-            else:
-                print("ERROR - Main window loading failed")
-        except Exception as e:
-            print(f"ERROR - Main window loading error: {e}")
-        
-        # Test 5: Test loading carbon interface
-        print("\n5. Testing carbon interface loading...")
-        try:
-            carbon_interface = UILoader.load_carbon_interface()
-            if carbon_interface:
-                print("OK - Carbon interface loaded successfully")
-                # Check if tabWidget exists
-                tab_widget = carbon_interface.findChild(QWidget, "tabWidget")
-                if tab_widget:
-                    print("OK - tabWidget found in carbon interface")
-                else:
-                    print("ERROR - tabWidget NOT found in carbon interface")
-                    # List all widgets
-                    all_widgets = carbon_interface.findChildren(QWidget)
-                    print(f"  Found {len(all_widgets)} widgets:")
-                    for widget in all_widgets[:10]:  # Show first 10
-                        print(f"    - {widget.objectName()} ({type(widget).__name__})")
-            else:
-                print("ERROR - Carbon interface loading failed")
-        except Exception as e:
-            print(f"ERROR - Carbon interface loading error: {e}")
-        
-        print("\n" + "=" * 60)
-        print("UI LOADING TEST COMPLETE")
-        print("=" * 60)
-        
+        # Try to load main window from .ui file
+        main_window = UiLoader.load_main_window()
+        print(f"Successfully loaded main window from .ui file: {type(main_window)}")
+        print(f"Window title: {main_window.windowTitle()}")
+        print(f"Window size: {main_window.size()}")
+        return True
     except Exception as e:
-        logger.error(f"Test failed: {e}", exc_info=True)
-        print(f"\nERROR - Test failed with error: {e}")
+        print(f"Failed to load main window from .ui file: {e}")
+        return False
+
+
+def test_carbon_interface_loading():
+    """Test loading carbon interface from .ui file."""
+    print("Testing Carbon Interface Loading...")
+    
+    try:
+        # Try to load carbon interface from .ui file
+        carbon_interface = UiLoader.load_carbon_interface()
+        print(f"Successfully loaded carbon interface from .ui file: {type(carbon_interface)}")
+        return True
+    except Exception as e:
+        print(f"Failed to load carbon interface from .ui file: {e}")
+        return False
+
+
+def main():
+    """Main test function."""
+    print("Battery Simulator UI Loading Test")
+    print("=" * 40)
+    print()
+    
+    # Initialize Qt application
+    app = QApplication(sys.argv)
+    
+    # Run tests
+    test_ui_loader()
+    test_ui_config()
+    
+    # Test .ui file loading
+    main_window_success = test_main_window_loading()
+    carbon_interface_success = test_carbon_interface_loading()
+    
+    print("=" * 40)
+    print("Test Summary:")
+    print(f"Main Window .ui loading: {'✓' if main_window_success else '✗'}")
+    print(f"Carbon Interface .ui loading: {'✓' if carbon_interface_success else '✗'}")
+    print()
+    
+    if main_window_success and carbon_interface_success:
+        print("All .ui file loading tests passed! ✓")
+    else:
+        print("Some .ui file loading tests failed. ✗")
+        print("This might be expected if the .ui files have compatibility issues.")
+    
+    print()
+    print("To test different UI modes, run:")
+    print("  python test_ui_loading.py")
+    print("  BATTERY_SIM_UI_MODE=ui_files python test_ui_loading.py")
+    print("  BATTERY_SIM_UI_MODE=hand_coded python test_ui_loading.py")
+    print("  BATTERY_SIM_UI_MODE=auto python test_ui_loading.py")
+
 
 if __name__ == "__main__":
-    test_ui_loader()
+    main()

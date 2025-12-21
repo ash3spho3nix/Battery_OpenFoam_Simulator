@@ -1,0 +1,19 @@
+{
+  "exit_code": 1,
+  "duration": 5.364513874053955,
+  "timestamp": 1766053414.107778,
+  "config": {
+    "pytest_args": [],
+    "coverage_enabled": false,
+    "performance_enabled": false,
+    "ci_mode": false,
+    "verbose": false,
+    "parallel": false,
+    "markers": [
+      "unit"
+    ],
+    "exclude_markers": [],
+    "coverage_html": false,
+    "coverage_xml": false
+  }
+}

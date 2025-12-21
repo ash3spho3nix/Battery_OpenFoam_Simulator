@@ -9,6 +9,7 @@ parameter management, and file operations.
 
 import os
 import sys
+import logging
 from pathlib import Path
 from typing import Optional, Dict, Any, List
 from PyQt6.QtWidgets import (
@@ -640,6 +641,55 @@ class BaseInterface(QWidget):
             self._start_simulation()
         except Exception as e:
             QMessageBox.critical(self, "Error", f"Failed to start simulation: {str(e)}")
+    
+    def _start_simulation(self):
+        """Start the OpenFOAM simulation using ProcessController."""
+        try:
+            # Validate that managers are initialized
+            if not self.solver_manager:
+                raise ValueError("Solver manager not initialized. Please set project paths first.")
+            
+            if not self.case_path:
+                raise ValueError("Case path not set. Please set project paths first.")
+            
+            # Build the command for OpenFOAM solver
+            solver_command = self._build_solver_command()
+            
+            # Start process using ProcessController
+            if self.process_controller:
+                self.process_controller.start_process(solver_command, self.case_path)
+                self.simulation_started.emit()
+                if self.terminal_output:
+                    self.terminal_output.append(f"Starting simulation: {solver_command}")
+            else:
+                raise ValueError("Process controller not available")
+                
+        except Exception as e:
+            logger.error(f"Failed to start simulation: {e}")
+            error_msg = f"Failed to start simulation: {str(e)}"
+            if hasattr(self, 'error_received') and self.error_received:
+                self.error_received.emit(error_msg)
+            if hasattr(self, 'terminal_output') and self.terminal_output:
+                self.terminal_output.append(f"ERROR: {error_msg}")
+            QMessageBox.critical(self, "Error", error_msg)
+    
+    def _build_solver_command(self) -> str:
+        """Build the solver execution command."""
+        try:
+            solver_name = self._get_solver_name()
+            
+            # Build command based on platform
+            if sys.platform == 'win32':
+                # Windows: Use MSYS2/Cygwin path format
+                unix_case_path = self.case_path.replace('\\', '/').replace('C:', '/c')
+                return f"cd {unix_case_path} && {solver_name}"
+            else:
+                # Linux/macOS: Use native path format
+                return f"cd {self.case_path} && {solver_name}"
+                
+        except Exception as e:
+            logger.error(f"Failed to build solver command: {e}")
+            raise ValueError(f"Failed to build solver command: {str(e)}")
             
     def _on_pause_clicked(self):
         """Handle simulation pause/resume."""
@@ -742,17 +792,6 @@ class BaseInterface(QWidget):
         """Update control parameters in OpenFOAM files."""
         # Implementation to update controlDict
         pass
-        
-    def _start_simulation(self):
-        """Start the OpenFOAM simulation."""
-        if not self.solver_manager:
-            raise ValueError("Solver manager not initialized")
-            
-        if not self.case_path:
-            raise ValueError("Case path not set")
-            
-        self.solver_manager.run_simulation(self.case_path)
-        self.simulation_started.emit()
         
     def _pause_simulation(self):
         """Pause the simulation."""

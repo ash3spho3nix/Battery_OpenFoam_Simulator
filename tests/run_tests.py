@@ -31,10 +31,12 @@ from pathlib import Path
 from typing import List, Dict, Any, Optional
 import logging
 
-# Add src to Python path
+# Correct path setup
 SCRIPT_DIR = Path(__file__).parent.absolute()
-SRC_DIR = SCRIPT_DIR / "src"
-sys.path.insert(0, str(SRC_DIR))
+PROJECT_ROOT = SCRIPT_DIR.parent
+SRC_DIR = PROJECT_ROOT / "src"
+TESTS_DIR = SCRIPT_DIR
+sys.path.insert(0, str(PROJECT_ROOT))
 
 # Import test utilities
 try:
@@ -50,10 +52,10 @@ class TestRunner:
     """Comprehensive test runner for Battery Simulator."""
     
     def __init__(self):
-        self.project_root = SCRIPT_DIR
-        self.src_dir = self.project_root / "src"
-        self.tests_dir = self.project_root / "src" / "tests"
-        self.reports_dir = self.project_root / "test_reports"
+        self.project_root = PROJECT_ROOT
+        self.src_dir = SRC_DIR
+        self.tests_dir = TESTS_DIR
+        self.reports_dir = self.tests_dir / "test_reports"
         self.coverage_file = self.project_root / ".coverage"
         
         # Ensure reports directory exists

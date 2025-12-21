@@ -14,7 +14,6 @@ from typing import Optional, Dict, Any, List
 from PyQt6.QtCore import QObject, pyqtSignal
 
 from .process_controller import ProcessController
-from ..core.constants import SOLVER_NAMES, ERROR_MESSAGES, SUCCESS_MESSAGES
 
 
 class OpenFOAMSolverManager(QObject):
@@ -84,7 +83,7 @@ class OpenFOAMSolverManager(QObject):
             exit_code = self.process_controller.get_exit_code()
             
             if exit_code == 0:
-                self.solver_output.emit(SUCCESS_MESSAGES["solver_built"])
+                self.solver_output.emit("Solver built successfully")
                 return True
             else:
                 self.solver_error.emit(f"Solver compilation failed with exit code: {exit_code}")

@@ -42,9 +42,9 @@ lib64/
 .kilocodesmodes
 kilocodes_summary
 kilocodes_implementation
-
+#src/SourceCode_reference/
 src/dev_docs/
-#dev_docs/
+dev_docs/
 test_projects/
 # -----------------------------
 # Continue (DO NOT COMMIT)

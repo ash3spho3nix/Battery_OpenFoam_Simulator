@@ -1,9 +1,13 @@
+#!/usr/bin/env python3
 """
-Enhanced Interface Factory for Battery Simulator with Direct UI Loading.
+Interface Factory for Battery Simulator with Multi-Mode UI Loading Support.
 
-This module provides an InterfaceFactory that loads interfaces directly from .ui files
-without any fallback to hand-coded widgets. It provides robust error handling and
-user-friendly error messages when .ui files are missing or corrupted.
+This module provides an InterfaceFactory that supports all three UI loading modes:
+- AUTO_DETECT: Try .ui files, fallback to hand-coded
+- UI_FILES: Force .ui file loading
+- HAND_CODED: Force hand-coded widgets
+
+It provides robust error handling, caching, and proper interface lifecycle management.
 """
 
 import sys
@@ -11,8 +15,7 @@ import logging
 import traceback
 from typing import Optional, Dict, Any, List, Type, Union
 from PyQt6.QtWidgets import QWidget, QMessageBox, QApplication
-from PyQt6.QtCore import Qt, QTimer
-import os
+from PyQt6.QtCore import pyqtSignal, pyqtSlot
 
 logger = logging.getLogger(__name__)
 
@@ -24,12 +27,13 @@ class InterfaceCreationError(Exception):
 
 class InterfaceFactory:
     """
-    Interface factory for direct .ui file loading without fallback.
+    Interface factory for multi-mode UI loading with robust error handling.
     
-    This factory provides direct loading of interfaces from .ui files with:
+    This factory provides:
+    - Support for all three UI loading modes (AUTO_DETECT, UI_FILES, HAND_CODED)
     - Robust error handling and user-friendly messages
-    - Performance monitoring and caching
-    - Comprehensive error handling and recovery
+    - Interface caching for performance
+    - Proper signal/slot management
     - Integration with UI loading system
     """
     
@@ -46,12 +50,12 @@ class InterfaceFactory:
         use_cache: bool = True
     ) -> QWidget:
         """
-        Create an interface by loading directly from .ui files.
+        Create an interface with support for all UI loading modes.
         
         Args:
             interface_type: Type of interface (carbon, halfcell, fullcell, result)
             parent: Parent widget
-            ui_config: UI configuration (must be UI_FILES mode)
+            ui_config: UI configuration (supports all modes)
             use_cache: Whether to use cached interfaces
             
         Returns:
@@ -64,19 +68,7 @@ class InterfaceFactory:
         
         # Get or create UI configuration
         ui_config = ui_config or cls._get_default_ui_config()
-        logger.info(f"Creating interface: {interface_type} with mode: {ui_config.mode.value}")
-        
-        # Validate that we're in UI_FILES mode
-        if ui_config.mode.value != 'ui_files':
-            error_msg = f"InterfaceFactory requires UI_FILES mode, but got {ui_config.mode.value}"
-            logger.error(error_msg)
-            QMessageBox.critical(
-                parent, 
-                "Configuration Error", 
-                f"Application configuration error: {error_msg}\n\n"
-                "Please ensure the application is configured to use .ui files only."
-            )
-            raise InterfaceCreationError(error_msg)
+        logger.info(f"Creating interface: {interface_type} with mode: {ui_config.mode.name}")
         
         # Check cache if enabled
         if use_cache:
@@ -85,8 +77,8 @@ class InterfaceFactory:
                 logger.info(f"Using cached interface for {interface_type}")
                 return cached
         
-        # Create interface with direct .ui loading
-        interface = cls._create_interface_from_ui(
+        # Create interface based on UI mode
+        interface = cls._create_interface_by_mode(
             interface_type, parent, ui_config
         )
         
@@ -104,6 +96,34 @@ class InterfaceFactory:
         return interface
     
     @classmethod
+    def _create_interface_by_mode(
+        cls,
+        interface_type: str,
+        parent: Optional[QWidget],
+        ui_config: 'UIConfig'
+    ) -> QWidget:
+        """
+        Create interface based on the specified UI mode.
+        
+        Args:
+            interface_type: Type of interface
+            parent: Parent widget
+            ui_config: UI configuration
+            
+        Returns:
+            QWidget: The created interface
+            
+        Raises:
+            InterfaceCreationError: If interface creation fails
+        """
+        if ui_config.mode.name == 'UI_FILES':
+            return cls._create_interface_from_ui(interface_type, parent, ui_config)
+        elif ui_config.mode.name == 'HAND_CODED':
+            return cls._create_interface_hand_coded(interface_type, parent, ui_config)
+        else:  # AUTO_DETECT
+            return cls._create_interface_auto_detect(interface_type, parent, ui_config)
+    
+    @classmethod
     def _create_interface_from_ui(
         cls,
         interface_type: str,
@@ -111,7 +131,7 @@ class InterfaceFactory:
         ui_config: 'UIConfig'
     ) -> QWidget:
         """
-        Create interface by loading directly from .ui file.
+        Create interface by loading from .ui file.
         
         Args:
             interface_type: Type of interface
@@ -168,6 +188,106 @@ class InterfaceFactory:
             )
             cls._update_creation_stats('failures')
             raise InterfaceCreationError(error_msg)
+    
+    @classmethod
+    def _create_interface_hand_coded(
+        cls,
+        interface_type: str,
+        parent: Optional[QWidget],
+        ui_config: 'UIConfig'
+    ) -> QWidget:
+        """
+        Create interface using hand-coded widgets.
+        
+        Args:
+            interface_type: Type of interface
+            parent: Parent widget
+            ui_config: UI configuration
+            
+        Returns:
+            QWidget: The created interface
+            
+        Raises:
+            InterfaceCreationError: If hand-coded creation fails
+        """
+        try:
+            # Import the appropriate interface class
+            if interface_type == "carbon":
+                from src.gui.interfaces.carbon_interface import CarbonInterface
+                interface = CarbonInterface(parent=parent, ui_config=ui_config)
+            elif interface_type == "halfcell":
+                from src.gui.interfaces.halfcell_interface import HalfCellInterface
+                interface = HalfCellInterface(parent=parent, ui_config=ui_config)
+            elif interface_type == "fullcell":
+                from src.gui.interfaces.fullcell_interface import FullCellInterface
+                interface = FullCellInterface(parent=parent, ui_config=ui_config)
+            elif interface_type == "result":
+                from src.gui.interfaces.result_interface import ResultInterface
+                interface = ResultInterface(parent=parent, ui_config=ui_config)
+            else:
+                raise ValueError(f"Unknown interface type: {interface_type}")
+            
+            logger.info(f"Successfully created hand-coded interface: {interface_type}")
+            return interface
+            
+        except Exception as e:
+            error_msg = f"Failed to create hand-coded interface {interface_type}: {e}"
+            logger.error(error_msg)
+            QMessageBox.critical(
+                parent,
+                "Interface Creation Error",
+                f"Failed to create the interface.\n\n"
+                f"Interface: {interface_type}\n"
+                f"Error: {str(e)}\n\n"
+                "Please check the application files and try again."
+            )
+            cls._update_creation_stats('failures')
+            raise InterfaceCreationError(error_msg)
+    
+    @classmethod
+    def _create_interface_auto_detect(
+        cls,
+        interface_type: str,
+        parent: Optional[QWidget],
+        ui_config: 'UIConfig'
+    ) -> QWidget:
+        """
+        Create interface using auto-detect mode (try .ui first, fallback to hand-coded).
+        
+        Args:
+            interface_type: Type of interface
+            parent: Parent widget
+            ui_config: UI configuration
+            
+        Returns:
+            QWidget: The created interface
+            
+        Raises:
+            InterfaceCreationError: If both .ui and hand-coded creation fail
+        """
+        # Try .ui file first
+        try:
+            return cls._create_interface_from_ui(interface_type, parent, ui_config)
+        except InterfaceCreationError as e:
+            logger.warning(f"UI file loading failed, falling back to hand-coded: {e}")
+            
+            # Fallback to hand-coded
+            try:
+                return cls._create_interface_hand_coded(interface_type, parent, ui_config)
+            except InterfaceCreationError as e2:
+                error_msg = f"Both UI file and hand-coded creation failed for {interface_type}: {e2}"
+                logger.error(error_msg)
+                QMessageBox.critical(
+                    parent,
+                    "Interface Creation Error",
+                    f"Failed to create the interface using both methods.\n\n"
+                    f"Interface: {interface_type}\n"
+                    f"UI Error: {e}\n"
+                    f"Hand-coded Error: {e2}\n\n"
+                    "Please check the application files and try again."
+                )
+                cls._update_creation_stats('failures')
+                raise InterfaceCreationError(error_msg)
     
     @staticmethod
     def _get_ui_name(interface_type: str) -> str:
@@ -282,6 +402,9 @@ class InterfaceFactory:
             # Test UI file availability
             diagnosis['test_results']['ui_files_available'] = cls._test_ui_files(interface_type, ui_config)
             
+            # Test hand-coded interface creation
+            diagnosis['test_results']['hand_coded_available'] = cls._test_hand_coded(interface_type, ui_config)
+            
             # Analyze results and provide recommendations
             cls._analyze_diagnosis_results(diagnosis)
             
@@ -306,13 +429,51 @@ class InterfaceFactory:
         
         try:
             # Test UI loader
-            from src.gui.ui_loader import UILoader
+            from src.gui.ui_loader import UiLoader
             ui_name = cls._get_ui_name(interface_type)
-            ui_path = UILoader.get_ui_path(ui_name, ui_config.get_ui_base_path() if ui_config else None)
+            ui_path = UiLoader.get_ui_path(ui_name, ui_config.get_ui_base_path() if ui_config else None)
             
             results['file_exists'] = os.path.exists(ui_path)
-            results['integrity_valid'] = UILoader.validate_ui_integrity(ui_path) if results['file_exists'] else False
+            results['integrity_valid'] = UiLoader.validate_ui_integrity(ui_path) if results['file_exists'] else False
             results['path'] = ui_path
+            
+        except Exception as e:
+            results['error'] = str(e)
+        
+        return results
+    
+    @classmethod
+    def _test_hand_coded(cls, interface_type: str, ui_config: Optional['UIConfig']) -> Dict[str, Any]:
+        """Test hand-coded interface creation."""
+        results = {'import_successful': False, 'creation_successful': False}
+        
+        try:
+            # Test import
+            if interface_type == "carbon":
+                from src.gui.interfaces.carbon_interface import CarbonInterface
+            elif interface_type == "halfcell":
+                from src.gui.interfaces.halfcell_interface import HalfCellInterface
+            elif interface_type == "fullcell":
+                from src.gui.interfaces.fullcell_interface import FullCellInterface
+            elif interface_type == "result":
+                from src.gui.interfaces.result_interface import ResultInterface
+            else:
+                results['error'] = f"Unknown interface type: {interface_type}"
+                return results
+            
+            results['import_successful'] = True
+            
+            # Test creation (without parent to avoid UI issues)
+            if interface_type == "carbon":
+                interface = CarbonInterface(parent=None, ui_config=ui_config)
+            elif interface_type == "halfcell":
+                interface = HalfCellInterface(parent=None, ui_config=ui_config)
+            elif interface_type == "fullcell":
+                interface = FullCellInterface(parent=None, ui_config=ui_config)
+            elif interface_type == "result":
+                interface = ResultInterface(parent=None, ui_config=ui_config)
+            
+            results['creation_successful'] = True
             
         except Exception as e:
             results['error'] = str(e)
@@ -325,18 +486,78 @@ class InterfaceFactory:
         test_results = diagnosis['test_results']
         
         # Check for common issues
-        if not test_results.get('ui_files_available', {}).get('file_exists', False):
+        ui_available = test_results.get('ui_files_available', {}).get('file_exists', False)
+        hand_coded_available = test_results.get('hand_coded_available', {}).get('creation_successful', False)
+        
+        if not ui_available and not hand_coded_available:
+            diagnosis['issues'].append("No valid interface creation method available")
+            diagnosis['recommendations'].append("Check that either UI files or interface classes exist")
+        
+        if not ui_available:
             diagnosis['issues'].append("UI files not found in expected location")
             diagnosis['recommendations'].append("Check that UI files exist in resources/ui directory")
         
-        # Provide specific recommendations based on test results
-        if test_results.get('ui_files_available', {}).get('integrity_valid', False):
-            diagnosis['recommendations'].append("Use UI_FILES loading mode for best results")
-        else:
-            diagnosis['issues'].append("UI file integrity check failed")
-            diagnosis['recommendations'].append("Check that UI files are valid and not corrupted")
+        if not hand_coded_available:
+            diagnosis['issues'].append("Hand-coded interface creation failed")
+            diagnosis['recommendations'].append("Check that interface classes are properly implemented")
+        
+        # Provide specific recommendations based on available options
+        if ui_available and hand_coded_available:
+            diagnosis['recommendations'].append("Both UI files and hand-coded interfaces available")
+            diagnosis['recommendations'].append("Use AUTO_DETECT mode for best compatibility")
+        elif ui_available:
+            diagnosis['recommendations'].append("Use UI_FILES mode for best results")
+        elif hand_coded_available:
+            diagnosis['recommendations'].append("Use HAND_CODED mode")
         
         if not diagnosis['issues']:
             diagnosis['recommendations'].append("No issues detected - interface should load successfully")
         else:
             diagnosis['recommendations'].append("Check application configuration and dependencies")
+    
+    @classmethod
+    def create_interface_with_validation(
+        cls,
+        interface_type: str,
+        parent: Optional[QWidget] = None,
+        ui_config: Optional['UIConfig'] = None,
+        project_path: Optional[str] = None,
+        project_name: Optional[str] = None
+    ) -> QWidget:
+        """
+        Create interface with validation and proper initialization.
+        
+        Args:
+            interface_type: Type of interface
+            parent: Parent widget
+            ui_config: UI configuration
+            project_path: Project path for initialization
+            project_name: Project name for initialization
+            
+        Returns:
+            QWidget: The created and validated interface
+            
+        Raises:
+            InterfaceCreationError: If interface creation or validation fails
+        """
+        try:
+            # Create interface
+            interface = cls.create_interface(interface_type, parent, ui_config)
+            
+            # Set project paths if provided
+            if project_path and project_name and hasattr(interface, 'set_project_paths'):
+                success = interface.set_project_paths(project_path, project_name)
+                if not success:
+                    raise InterfaceCreationError("Failed to set project paths")
+            
+            # Validate interface
+            if hasattr(interface, 'validate_interface'):
+                if not interface.validate_interface():
+                    raise InterfaceCreationError("Interface validation failed")
+            
+            logger.info(f"Interface {interface_type} created and validated successfully")
+            return interface
+            
+        except Exception as e:
+            logger.error(f"Interface creation with validation failed: {e}", exc_info=True)
+            raise InterfaceCreationError(f"Interface creation with validation failed: {e}")

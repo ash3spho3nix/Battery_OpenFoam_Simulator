@@ -1,0 +1,280 @@
+2025-12-18 13:39:19,878 - src.gui.ui_config_enhanced.EnhancedUIConfig - INFO - Initializing EnhancedUIConfig
+2025-12-18 13:39:21,063 - gui.ui_config_enhanced.EnhancedUIConfig - INFO - Initializing EnhancedUIConfig
+2025-12-18 13:41:48,229 - src.gui.ui_config_enhanced.EnhancedUIConfig - INFO - Initializing EnhancedUIConfig
+2025-12-18 13:41:48,278 - src.gui.ui_config_enhanced.EnhancedUIConfig - INFO - Initializing EnhancedUIConfig
+2025-12-18 13:41:48,279 - src.gui.ui_config_enhanced.EnhancedUIConfig - INFO - Initializing EnhancedUIConfig
+2025-12-18 13:41:48,280 - src.gui.ui_config_enhanced.EnhancedUIConfig - DEBUG - Merged mode from environment: UILoadingMode.AUTO_DETECT
+2025-12-18 13:41:48,280 - src.gui.ui_config_enhanced.EnhancedUIConfig - DEBUG - Merged fallback_enabled from environment: True
+2025-12-18 13:41:48,280 - src.gui.ui_config_enhanced.EnhancedUIConfig - DEBUG - Merged fallback_strategy from environment: FallbackStrategy.GRACEFUL
+2025-12-18 13:41:48,280 - src.gui.ui_config_enhanced.EnhancedUIConfig - DEBUG - Merged cache_enabled from environment: True
+2025-12-18 13:41:48,281 - src.gui.ui_config_enhanced.EnhancedUIConfig - DEBUG - Merged cache_ttl from environment: 300
+2025-12-18 13:41:48,281 - src.gui.ui_config_enhanced.EnhancedUIConfig - DEBUG - Merged validate_ui_files from environment: True
+2025-12-18 13:41:48,281 - src.gui.ui_config_enhanced.EnhancedUIConfig - DEBUG - Merged validate_widgets from environment: True
+2025-12-18 13:41:48,281 - src.gui.ui_config_enhanced.EnhancedUIConfig - DEBUG - Merged log_level from environment: INFO
+2025-12-18 13:41:48,281 - src.gui.ui_config_enhanced.EnhancedUIConfig - DEBUG - Merged max_retries from environment: 3
+2025-12-18 13:41:48,281 - src.gui.ui_config_enhanced.EnhancedUIConfig - DEBUG - Merged timeout_seconds from environment: 30
+2025-12-18 13:41:48,281 - src.gui.ui_config_enhanced.EnhancedUIConfig - DEBUG - Merged enable_profiling from environment: False
+2025-12-18 13:41:48,281 - src.gui.ui_config_enhanced.EnhancedUIConfig - INFO - Initializing EnhancedUIConfig
+2025-12-18 13:41:48,284 - src.gui.ui_config_enhanced.EnhancedUIConfig - WARNING - Unknown setting: no_fallback from command_line
+2025-12-18 13:41:48,284 - src.gui.ui_config_enhanced.EnhancedUIConfig - WARNING - Unknown setting: no_validate from command_line
+2025-12-18 13:41:48,284 - src.gui.ui_config_enhanced.EnhancedUIConfig - WARNING - Unknown setting: no_cache from command_line
+2025-12-18 13:41:48,284 - src.gui.ui_config_enhanced.EnhancedUIConfig - DEBUG - Set enable_profiling from command_line: False
+2025-12-18 13:41:48,284 - src.gui.ui_config_enhanced.EnhancedUIConfig - DEBUG - Merged mode from command_line: UILoadingMode.AUTO_DETECT
+2025-12-18 13:41:48,284 - src.gui.ui_config_enhanced.EnhancedUIConfig - DEBUG - Merged fallback_enabled from command_line: True
+2025-12-18 13:41:48,284 - src.gui.ui_config_enhanced.EnhancedUIConfig - DEBUG - Merged fallback_strategy from command_line: FallbackStrategy.GRACEFUL
+2025-12-18 13:41:48,285 - src.gui.ui_config_enhanced.EnhancedUIConfig - DEBUG - Merged cache_enabled from command_line: True
+2025-12-18 13:41:48,285 - src.gui.ui_config_enhanced.EnhancedUIConfig - DEBUG - Merged cache_ttl from command_line: 300
+2025-12-18 13:41:48,285 - src.gui.ui_config_enhanced.EnhancedUIConfig - DEBUG - Merged validate_ui_files from command_line: True
+2025-12-18 13:41:48,285 - src.gui.ui_config_enhanced.EnhancedUIConfig - DEBUG - Merged validate_widgets from command_line: True
+2025-12-18 13:41:48,285 - src.gui.ui_config_enhanced.EnhancedUIConfig - DEBUG - Merged log_level from command_line: INFO
+2025-12-18 13:41:48,285 - src.gui.ui_config_enhanced.EnhancedUIConfig - DEBUG - Merged max_retries from command_line: 3
+2025-12-18 13:41:48,285 - src.gui.ui_config_enhanced.EnhancedUIConfig - DEBUG - Merged timeout_seconds from command_line: 30
+2025-12-18 13:41:48,285 - src.gui.ui_config_enhanced.EnhancedUIConfig - DEBUG - Merged enable_profiling from command_line: False
+2025-12-18 13:41:48,285 - src.gui.ui_config_enhanced.EnhancedUIConfig - INFO - Configuration validation passed
+2025-12-18 13:43:17,083 - src.gui.ui_config_enhanced.EnhancedUIConfig - INFO - Initializing EnhancedUIConfig
+2025-12-18 13:43:18,254 - gui.ui_config_enhanced.EnhancedUIConfig - INFO - Initializing EnhancedUIConfig
+2025-12-18 13:43:30,107 - src.gui.ui_config_enhanced.EnhancedUIConfig - INFO - Initializing EnhancedUIConfig
+2025-12-18 13:43:30,152 - src.gui.ui_config_enhanced.EnhancedUIConfig - INFO - Initializing EnhancedUIConfig
+2025-12-18 13:43:30,153 - src.gui.ui_config_enhanced.EnhancedUIConfig - INFO - Initializing EnhancedUIConfig
+2025-12-18 13:43:30,153 - src.gui.ui_config_enhanced.EnhancedUIConfig - DEBUG - Merged mode from environment: UILoadingMode.AUTO_DETECT
+2025-12-18 13:43:30,153 - src.gui.ui_config_enhanced.EnhancedUIConfig - DEBUG - Merged fallback_enabled from environment: True
+2025-12-18 13:43:30,154 - src.gui.ui_config_enhanced.EnhancedUIConfig - DEBUG - Merged fallback_strategy from environment: FallbackStrategy.GRACEFUL
+2025-12-18 13:43:30,154 - src.gui.ui_config_enhanced.EnhancedUIConfig - DEBUG - Merged cache_enabled from environment: True
+2025-12-18 13:43:30,154 - src.gui.ui_config_enhanced.EnhancedUIConfig - DEBUG - Merged cache_ttl from environment: 300
+2025-12-18 13:43:30,154 - src.gui.ui_config_enhanced.EnhancedUIConfig - DEBUG - Merged validate_ui_files from environment: True
+2025-12-18 13:43:30,154 - src.gui.ui_config_enhanced.EnhancedUIConfig - DEBUG - Merged validate_widgets from environment: True
+2025-12-18 13:43:30,154 - src.gui.ui_config_enhanced.EnhancedUIConfig - DEBUG - Merged log_level from environment: INFO
+2025-12-18 13:43:30,154 - src.gui.ui_config_enhanced.EnhancedUIConfig - DEBUG - Merged max_retries from environment: 3
+2025-12-18 13:43:30,154 - src.gui.ui_config_enhanced.EnhancedUIConfig - DEBUG - Merged timeout_seconds from environment: 30
+2025-12-18 13:43:30,154 - src.gui.ui_config_enhanced.EnhancedUIConfig - DEBUG - Merged enable_profiling from environment: False
+2025-12-18 13:43:30,154 - src.gui.ui_config_enhanced.EnhancedUIConfig - INFO - Initializing EnhancedUIConfig
+2025-12-18 13:43:30,156 - src.gui.ui_config_enhanced.EnhancedUIConfig - WARNING - Unknown setting: no_fallback from command_line
+2025-12-18 13:43:30,157 - src.gui.ui_config_enhanced.EnhancedUIConfig - WARNING - Unknown setting: no_validate from command_line
+2025-12-18 13:43:30,160 - src.gui.ui_config_enhanced.EnhancedUIConfig - WARNING - Unknown setting: no_cache from command_line
+2025-12-18 13:43:30,160 - src.gui.ui_config_enhanced.EnhancedUIConfig - DEBUG - Set enable_profiling from command_line: False
+2025-12-18 13:43:30,161 - src.gui.ui_config_enhanced.EnhancedUIConfig - DEBUG - Merged mode from command_line: UILoadingMode.AUTO_DETECT
+2025-12-18 13:43:30,161 - src.gui.ui_config_enhanced.EnhancedUIConfig - DEBUG - Merged fallback_enabled from command_line: True
+2025-12-18 13:43:30,161 - src.gui.ui_config_enhanced.EnhancedUIConfig - DEBUG - Merged fallback_strategy from command_line: FallbackStrategy.GRACEFUL
+2025-12-18 13:43:30,161 - src.gui.ui_config_enhanced.EnhancedUIConfig - DEBUG - Merged cache_enabled from command_line: True
+2025-12-18 13:43:30,161 - src.gui.ui_config_enhanced.EnhancedUIConfig - DEBUG - Merged cache_ttl from command_line: 300
+2025-12-18 13:43:30,161 - src.gui.ui_config_enhanced.EnhancedUIConfig - DEBUG - Merged validate_ui_files from command_line: True
+2025-12-18 13:43:30,161 - src.gui.ui_config_enhanced.EnhancedUIConfig - DEBUG - Merged validate_widgets from command_line: True
+2025-12-18 13:43:30,161 - src.gui.ui_config_enhanced.EnhancedUIConfig - DEBUG - Merged log_level from command_line: INFO
+2025-12-18 13:43:30,161 - src.gui.ui_config_enhanced.EnhancedUIConfig - DEBUG - Merged max_retries from command_line: 3
+2025-12-18 13:43:30,161 - src.gui.ui_config_enhanced.EnhancedUIConfig - DEBUG - Merged timeout_seconds from command_line: 30
+2025-12-18 13:43:30,161 - src.gui.ui_config_enhanced.EnhancedUIConfig - DEBUG - Merged enable_profiling from command_line: False
+2025-12-18 13:43:30,161 - src.gui.ui_config_enhanced.EnhancedUIConfig - INFO - Configuration validation passed
+2025-12-18 13:45:03,992 - src.gui.ui_config_enhanced.EnhancedUIConfig - INFO - Initializing EnhancedUIConfig
+2025-12-18 13:45:04,028 - src.gui.ui_config_enhanced.EnhancedUIConfig - INFO - Initializing EnhancedUIConfig
+2025-12-18 13:45:04,028 - src.gui.ui_config_enhanced.EnhancedUIConfig - INFO - Initializing EnhancedUIConfig
+2025-12-18 13:45:04,028 - src.gui.ui_config_enhanced.EnhancedUIConfig - DEBUG - Merged mode from environment: UILoadingMode.AUTO_DETECT
+2025-12-18 13:45:04,029 - src.gui.ui_config_enhanced.EnhancedUIConfig - DEBUG - Merged fallback_enabled from environment: True
+2025-12-18 13:45:04,029 - src.gui.ui_config_enhanced.EnhancedUIConfig - DEBUG - Merged fallback_strategy from environment: FallbackStrategy.GRACEFUL
+2025-12-18 13:45:04,029 - src.gui.ui_config_enhanced.EnhancedUIConfig - DEBUG - Merged cache_enabled from environment: True
+2025-12-18 13:45:04,029 - src.gui.ui_config_enhanced.EnhancedUIConfig - DEBUG - Merged cache_ttl from environment: 300
+2025-12-18 13:45:04,029 - src.gui.ui_config_enhanced.EnhancedUIConfig - DEBUG - Merged validate_ui_files from environment: True
+2025-12-18 13:45:04,029 - src.gui.ui_config_enhanced.EnhancedUIConfig - DEBUG - Merged validate_widgets from environment: True
+2025-12-18 13:45:04,029 - src.gui.ui_config_enhanced.EnhancedUIConfig - DEBUG - Merged log_level from environment: INFO
+2025-12-18 13:45:04,029 - src.gui.ui_config_enhanced.EnhancedUIConfig - DEBUG - Merged max_retries from environment: 3
+2025-12-18 13:45:04,029 - src.gui.ui_config_enhanced.EnhancedUIConfig - DEBUG - Merged timeout_seconds from environment: 30
+2025-12-18 13:45:04,029 - src.gui.ui_config_enhanced.EnhancedUIConfig - DEBUG - Merged enable_profiling from environment: False
+2025-12-18 13:45:04,029 - src.gui.ui_config_enhanced.EnhancedUIConfig - INFO - Initializing EnhancedUIConfig
+2025-12-18 13:45:04,032 - src.gui.ui_config_enhanced.EnhancedUIConfig - WARNING - Unknown setting: no_fallback from command_line
+2025-12-18 13:45:04,032 - src.gui.ui_config_enhanced.EnhancedUIConfig - WARNING - Unknown setting: no_validate from command_line
+2025-12-18 13:45:04,032 - src.gui.ui_config_enhanced.EnhancedUIConfig - WARNING - Unknown setting: no_cache from command_line
+2025-12-18 13:45:04,032 - src.gui.ui_config_enhanced.EnhancedUIConfig - DEBUG - Set enable_profiling from command_line: False
+2025-12-18 13:45:04,032 - src.gui.ui_config_enhanced.EnhancedUIConfig - DEBUG - Merged mode from command_line: UILoadingMode.AUTO_DETECT
+2025-12-18 13:45:04,032 - src.gui.ui_config_enhanced.EnhancedUIConfig - DEBUG - Merged fallback_enabled from command_line: True
+2025-12-18 13:45:04,032 - src.gui.ui_config_enhanced.EnhancedUIConfig - DEBUG - Merged fallback_strategy from command_line: FallbackStrategy.GRACEFUL
+2025-12-18 13:45:04,032 - src.gui.ui_config_enhanced.EnhancedUIConfig - DEBUG - Merged cache_enabled from command_line: True
+2025-12-18 13:45:04,032 - src.gui.ui_config_enhanced.EnhancedUIConfig - DEBUG - Merged cache_ttl from command_line: 300
+2025-12-18 13:45:04,033 - src.gui.ui_config_enhanced.EnhancedUIConfig - DEBUG - Merged validate_ui_files from command_line: True
+2025-12-18 13:45:04,033 - src.gui.ui_config_enhanced.EnhancedUIConfig - DEBUG - Merged validate_widgets from command_line: True
+2025-12-18 13:45:04,033 - src.gui.ui_config_enhanced.EnhancedUIConfig - DEBUG - Merged log_level from command_line: INFO
+2025-12-18 13:45:04,033 - src.gui.ui_config_enhanced.EnhancedUIConfig - DEBUG - Merged max_retries from command_line: 3
+2025-12-18 13:45:04,033 - src.gui.ui_config_enhanced.EnhancedUIConfig - DEBUG - Merged timeout_seconds from command_line: 30
+2025-12-18 13:45:04,033 - src.gui.ui_config_enhanced.EnhancedUIConfig - DEBUG - Merged enable_profiling from command_line: False
+2025-12-18 13:45:04,033 - src.gui.ui_config_enhanced.EnhancedUIConfig - INFO - Configuration validation passed
+2025-12-18 13:46:01,049 - src.gui.ui_config_enhanced.EnhancedUIConfig - INFO - Initializing EnhancedUIConfig
+2025-12-18 13:46:17,586 - src.gui.ui_config_enhanced.EnhancedUIConfig - INFO - Initializing EnhancedUIConfig
+2025-12-18 13:47:00,677 - src.gui.ui_config_enhanced.EnhancedUIConfig - INFO - Initializing EnhancedUIConfig
+2025-12-18 13:47:23,597 - src.gui.ui_config_enhanced.EnhancedUIConfig - INFO - Initializing EnhancedUIConfig
+2025-12-18 13:47:23,674 - src.gui.ui_config_enhanced.EnhancedUIConfig - INFO - Initializing EnhancedUIConfig
+2025-12-18 13:47:23,675 - src.gui.ui_config_enhanced.EnhancedUIConfig - INFO - Initializing EnhancedUIConfig
+2025-12-18 13:47:23,677 - src.gui.ui_config_enhanced.EnhancedUIConfig - DEBUG - Merged mode from environment: UILoadingMode.AUTO_DETECT
+2025-12-18 13:47:23,677 - src.gui.ui_config_enhanced.EnhancedUIConfig - DEBUG - Merged fallback_enabled from environment: True
+2025-12-18 13:47:23,677 - src.gui.ui_config_enhanced.EnhancedUIConfig - DEBUG - Merged fallback_strategy from environment: FallbackStrategy.GRACEFUL
+2025-12-18 13:47:23,677 - src.gui.ui_config_enhanced.EnhancedUIConfig - DEBUG - Merged cache_enabled from environment: True
+2025-12-18 13:47:23,677 - src.gui.ui_config_enhanced.EnhancedUIConfig - DEBUG - Merged cache_ttl from environment: 300
+2025-12-18 13:47:23,677 - src.gui.ui_config_enhanced.EnhancedUIConfig - DEBUG - Merged validate_ui_files from environment: True
+2025-12-18 13:47:23,677 - src.gui.ui_config_enhanced.EnhancedUIConfig - DEBUG - Merged validate_widgets from environment: True
+2025-12-18 13:47:23,677 - src.gui.ui_config_enhanced.EnhancedUIConfig - DEBUG - Merged log_level from environment: INFO
+2025-12-18 13:47:23,677 - src.gui.ui_config_enhanced.EnhancedUIConfig - DEBUG - Merged max_retries from environment: 3
+2025-12-18 13:47:23,677 - src.gui.ui_config_enhanced.EnhancedUIConfig - DEBUG - Merged timeout_seconds from environment: 30
+2025-12-18 13:47:23,677 - src.gui.ui_config_enhanced.EnhancedUIConfig - DEBUG - Merged enable_profiling from environment: False
+2025-12-18 13:47:23,677 - src.gui.ui_config_enhanced.EnhancedUIConfig - INFO - Initializing EnhancedUIConfig
+2025-12-18 13:47:23,681 - src.gui.ui_config_enhanced.EnhancedUIConfig - WARNING - Unknown setting: no_fallback from command_line
+2025-12-18 13:47:23,681 - src.gui.ui_config_enhanced.EnhancedUIConfig - WARNING - Unknown setting: no_validate from command_line
+2025-12-18 13:47:23,682 - src.gui.ui_config_enhanced.EnhancedUIConfig - WARNING - Unknown setting: no_cache from command_line
+2025-12-18 13:47:23,682 - src.gui.ui_config_enhanced.EnhancedUIConfig - DEBUG - Set enable_profiling from command_line: False
+2025-12-18 13:47:23,682 - src.gui.ui_config_enhanced.EnhancedUIConfig - DEBUG - Merged mode from command_line: UILoadingMode.AUTO_DETECT
+2025-12-18 13:47:23,682 - src.gui.ui_config_enhanced.EnhancedUIConfig - DEBUG - Merged fallback_enabled from command_line: True
+2025-12-18 13:47:23,682 - src.gui.ui_config_enhanced.EnhancedUIConfig - DEBUG - Merged fallback_strategy from command_line: FallbackStrategy.GRACEFUL
+2025-12-18 13:47:23,682 - src.gui.ui_config_enhanced.EnhancedUIConfig - DEBUG - Merged cache_enabled from command_line: True
+2025-12-18 13:47:23,682 - src.gui.ui_config_enhanced.EnhancedUIConfig - DEBUG - Merged cache_ttl from command_line: 300
+2025-12-18 13:47:23,682 - src.gui.ui_config_enhanced.EnhancedUIConfig - DEBUG - Merged validate_ui_files from command_line: True
+2025-12-18 13:47:23,683 - src.gui.ui_config_enhanced.EnhancedUIConfig - DEBUG - Merged validate_widgets from command_line: True
+2025-12-18 13:47:23,683 - src.gui.ui_config_enhanced.EnhancedUIConfig - DEBUG - Merged log_level from command_line: INFO
+2025-12-18 13:47:23,683 - src.gui.ui_config_enhanced.EnhancedUIConfig - DEBUG - Merged max_retries from command_line: 3
+2025-12-18 13:47:23,683 - src.gui.ui_config_enhanced.EnhancedUIConfig - DEBUG - Merged timeout_seconds from command_line: 30
+2025-12-18 13:47:23,683 - src.gui.ui_config_enhanced.EnhancedUIConfig - DEBUG - Merged enable_profiling from command_line: False
+2025-12-18 13:47:23,683 - src.gui.ui_config_enhanced.EnhancedUIConfig - INFO - Configuration validation passed
+2025-12-18 13:48:15,294 - src.gui.ui_config_enhanced.EnhancedUIConfig - INFO - Initializing EnhancedUIConfig
+2025-12-18 13:48:15,356 - src.gui.ui_config_enhanced.EnhancedUIConfig - INFO - Initializing EnhancedUIConfig
+2025-12-18 13:48:15,357 - src.gui.ui_config_enhanced.EnhancedUIConfig - INFO - Initializing EnhancedUIConfig
+2025-12-18 13:48:15,359 - src.gui.ui_config_enhanced.EnhancedUIConfig - DEBUG - Merged mode from environment: UILoadingMode.AUTO_DETECT
+2025-12-18 13:48:15,359 - src.gui.ui_config_enhanced.EnhancedUIConfig - DEBUG - Merged fallback_enabled from environment: True
+2025-12-18 13:48:15,359 - src.gui.ui_config_enhanced.EnhancedUIConfig - DEBUG - Merged fallback_strategy from environment: FallbackStrategy.GRACEFUL
+2025-12-18 13:48:15,359 - src.gui.ui_config_enhanced.EnhancedUIConfig - DEBUG - Merged cache_enabled from environment: True
+2025-12-18 13:48:15,359 - src.gui.ui_config_enhanced.EnhancedUIConfig - DEBUG - Merged cache_ttl from environment: 300
+2025-12-18 13:48:15,359 - src.gui.ui_config_enhanced.EnhancedUIConfig - DEBUG - Merged validate_ui_files from environment: True
+2025-12-18 13:48:15,359 - src.gui.ui_config_enhanced.EnhancedUIConfig - DEBUG - Merged validate_widgets from environment: True
+2025-12-18 13:48:15,359 - src.gui.ui_config_enhanced.EnhancedUIConfig - DEBUG - Merged log_level from environment: INFO
+2025-12-18 13:48:15,359 - src.gui.ui_config_enhanced.EnhancedUIConfig - DEBUG - Merged max_retries from environment: 3
+2025-12-18 13:48:15,359 - src.gui.ui_config_enhanced.EnhancedUIConfig - DEBUG - Merged timeout_seconds from environment: 30
+2025-12-18 13:48:15,359 - src.gui.ui_config_enhanced.EnhancedUIConfig - DEBUG - Merged enable_profiling from environment: False
+2025-12-18 13:48:15,359 - src.gui.ui_config_enhanced.EnhancedUIConfig - INFO - Initializing EnhancedUIConfig
+2025-12-18 13:48:15,362 - src.gui.ui_config_enhanced.EnhancedUIConfig - WARNING - Unknown setting: no_fallback from command_line
+2025-12-18 13:48:15,362 - src.gui.ui_config_enhanced.EnhancedUIConfig - WARNING - Unknown setting: no_validate from command_line
+2025-12-18 13:48:15,363 - src.gui.ui_config_enhanced.EnhancedUIConfig - WARNING - Unknown setting: no_cache from command_line
+2025-12-18 13:48:15,363 - src.gui.ui_config_enhanced.EnhancedUIConfig - DEBUG - Set enable_profiling from command_line: False
+2025-12-18 13:48:15,363 - src.gui.ui_config_enhanced.EnhancedUIConfig - DEBUG - Merged mode from command_line: UILoadingMode.AUTO_DETECT
+2025-12-18 13:48:15,364 - src.gui.ui_config_enhanced.EnhancedUIConfig - DEBUG - Merged fallback_enabled from command_line: True
+2025-12-18 13:48:15,364 - src.gui.ui_config_enhanced.EnhancedUIConfig - DEBUG - Merged fallback_strategy from command_line: FallbackStrategy.GRACEFUL
+2025-12-18 13:48:15,364 - src.gui.ui_config_enhanced.EnhancedUIConfig - DEBUG - Merged cache_enabled from command_line: True
+2025-12-18 13:48:15,364 - src.gui.ui_config_enhanced.EnhancedUIConfig - DEBUG - Merged cache_ttl from command_line: 300
+2025-12-18 13:48:15,364 - src.gui.ui_config_enhanced.EnhancedUIConfig - DEBUG - Merged validate_ui_files from command_line: True
+2025-12-18 13:48:15,364 - src.gui.ui_config_enhanced.EnhancedUIConfig - DEBUG - Merged validate_widgets from command_line: True
+2025-12-18 13:48:15,364 - src.gui.ui_config_enhanced.EnhancedUIConfig - DEBUG - Merged log_level from command_line: INFO
+2025-12-18 13:48:15,364 - src.gui.ui_config_enhanced.EnhancedUIConfig - DEBUG - Merged max_retries from command_line: 3
+2025-12-18 13:48:15,364 - src.gui.ui_config_enhanced.EnhancedUIConfig - DEBUG - Merged timeout_seconds from command_line: 30
+2025-12-18 13:48:15,364 - src.gui.ui_config_enhanced.EnhancedUIConfig - DEBUG - Merged enable_profiling from command_line: False
+2025-12-18 13:48:15,364 - src.gui.ui_config_enhanced.EnhancedUIConfig - INFO - Configuration validation passed
+2025-12-18 13:48:19,534 - src.gui.ui_config_enhanced.EnhancedUIConfig - INFO - Initializing EnhancedUIConfig
+2025-12-18 13:49:05,348 - src.gui.ui_config_enhanced.EnhancedUIConfig - INFO - Initializing EnhancedUIConfig
+2025-12-18 13:50:33,027 - src.gui.ui_config_enhanced.EnhancedUIConfig - INFO - Initializing EnhancedUIConfig
+2025-12-18 13:51:23,667 - src.gui.ui_config_enhanced.EnhancedUIConfig - INFO - Initializing EnhancedUIConfig
+2025-12-18 13:51:25,350 - gui.ui_config_enhanced.EnhancedUIConfig - INFO - Initializing EnhancedUIConfig
+2025-12-18 14:08:06,190 - src.gui.ui_config_enhanced.EnhancedUIConfig - INFO - Initializing EnhancedUIConfig
+2025-12-18 14:08:06,251 - src.gui.ui_config_enhanced.EnhancedUIConfig - INFO - Initializing EnhancedUIConfig
+2025-12-18 14:08:06,252 - src.gui.ui_config_enhanced.EnhancedUIConfig - INFO - Initializing EnhancedUIConfig
+2025-12-18 14:08:06,252 - src.gui.ui_config_enhanced.EnhancedUIConfig - DEBUG - Merged mode from environment: UILoadingMode.AUTO_DETECT
+2025-12-18 14:08:06,252 - src.gui.ui_config_enhanced.EnhancedUIConfig - DEBUG - Merged fallback_enabled from environment: True
+2025-12-18 14:08:06,252 - src.gui.ui_config_enhanced.EnhancedUIConfig - DEBUG - Merged fallback_strategy from environment: FallbackStrategy.GRACEFUL
+2025-12-18 14:08:06,252 - src.gui.ui_config_enhanced.EnhancedUIConfig - DEBUG - Merged cache_enabled from environment: True
+2025-12-18 14:08:06,252 - src.gui.ui_config_enhanced.EnhancedUIConfig - DEBUG - Merged cache_ttl from environment: 300
+2025-12-18 14:08:06,252 - src.gui.ui_config_enhanced.EnhancedUIConfig - DEBUG - Merged validate_ui_files from environment: True
+2025-12-18 14:08:06,252 - src.gui.ui_config_enhanced.EnhancedUIConfig - DEBUG - Merged validate_widgets from environment: True
+2025-12-18 14:08:06,252 - src.gui.ui_config_enhanced.EnhancedUIConfig - DEBUG - Merged log_level from environment: INFO
+2025-12-18 14:08:06,252 - src.gui.ui_config_enhanced.EnhancedUIConfig - DEBUG - Merged max_retries from environment: 3
+2025-12-18 14:08:06,252 - src.gui.ui_config_enhanced.EnhancedUIConfig - DEBUG - Merged timeout_seconds from environment: 30
+2025-12-18 14:08:06,252 - src.gui.ui_config_enhanced.EnhancedUIConfig - DEBUG - Merged enable_profiling from environment: False
+2025-12-18 14:08:06,252 - src.gui.ui_config_enhanced.EnhancedUIConfig - INFO - Initializing EnhancedUIConfig
+2025-12-18 14:08:06,255 - src.gui.ui_config_enhanced.EnhancedUIConfig - WARNING - Unknown setting: no_fallback from command_line
+2025-12-18 14:08:06,256 - src.gui.ui_config_enhanced.EnhancedUIConfig - WARNING - Unknown setting: no_validate from command_line
+2025-12-18 14:08:06,256 - src.gui.ui_config_enhanced.EnhancedUIConfig - WARNING - Unknown setting: no_cache from command_line
+2025-12-18 14:08:06,256 - src.gui.ui_config_enhanced.EnhancedUIConfig - DEBUG - Set enable_profiling from command_line: False
+2025-12-18 14:08:06,256 - src.gui.ui_config_enhanced.EnhancedUIConfig - DEBUG - Merged mode from command_line: UILoadingMode.AUTO_DETECT
+2025-12-18 14:08:06,256 - src.gui.ui_config_enhanced.EnhancedUIConfig - DEBUG - Merged fallback_enabled from command_line: True
+2025-12-18 14:08:06,256 - src.gui.ui_config_enhanced.EnhancedUIConfig - DEBUG - Merged fallback_strategy from command_line: FallbackStrategy.GRACEFUL
+2025-12-18 14:08:06,256 - src.gui.ui_config_enhanced.EnhancedUIConfig - DEBUG - Merged cache_enabled from command_line: True
+2025-12-18 14:08:06,256 - src.gui.ui_config_enhanced.EnhancedUIConfig - DEBUG - Merged cache_ttl from command_line: 300
+2025-12-18 14:08:06,257 - src.gui.ui_config_enhanced.EnhancedUIConfig - DEBUG - Merged validate_ui_files from command_line: True
+2025-12-18 14:08:06,257 - src.gui.ui_config_enhanced.EnhancedUIConfig - DEBUG - Merged validate_widgets from command_line: True
+2025-12-18 14:08:06,257 - src.gui.ui_config_enhanced.EnhancedUIConfig - DEBUG - Merged log_level from command_line: INFO
+2025-12-18 14:08:06,257 - src.gui.ui_config_enhanced.EnhancedUIConfig - DEBUG - Merged max_retries from command_line: 3
+2025-12-18 14:08:06,257 - src.gui.ui_config_enhanced.EnhancedUIConfig - DEBUG - Merged timeout_seconds from command_line: 30
+2025-12-18 14:08:06,257 - src.gui.ui_config_enhanced.EnhancedUIConfig - DEBUG - Merged enable_profiling from command_line: False
+2025-12-18 14:08:06,257 - src.gui.ui_config_enhanced.EnhancedUIConfig - INFO - Configuration validation passed
+2025-12-18 14:09:33,150 - src.gui.ui_config_enhanced.EnhancedUIConfig - INFO - Initializing EnhancedUIConfig
+2025-12-18 14:09:58,280 - src.gui.ui_config_enhanced.EnhancedUIConfig - INFO - Initializing EnhancedUIConfig
+2025-12-18 14:11:41,822 - src.gui.ui_config_enhanced.EnhancedUIConfig - INFO - Initializing EnhancedUIConfig
+2025-12-18 14:12:48,531 - src.gui.ui_config_enhanced.EnhancedUIConfig - INFO - Initializing EnhancedUIConfig
+2025-12-18 14:12:49,392 - src.gui.ui_config_enhanced.EnhancedUIConfig - INFO - Initializing EnhancedUIConfig
+2025-12-18 14:12:49,420 - src.gui.ui_config_enhanced.EnhancedUIConfig - INFO - Initializing EnhancedUIConfig
+2025-12-18 14:14:52,796 - src.gui.ui_config_enhanced.EnhancedUIConfig - INFO - Initializing EnhancedUIConfig
+2025-12-18 14:14:53,463 - src.gui.ui_config_enhanced.EnhancedUIConfig - INFO - Initializing EnhancedUIConfig
+2025-12-18 14:17:50,747 - src.gui.ui_config_enhanced.EnhancedUIConfig - INFO - Initializing EnhancedUIConfig
+2025-12-18 14:17:50,792 - src.gui.ui_config_enhanced.EnhancedUIConfig - INFO - Initializing EnhancedUIConfig
+2025-12-18 14:21:19,611 - src.gui.ui_config_enhanced.EnhancedUIConfig - INFO - Initializing EnhancedUIConfig
+2025-12-18 14:21:21,221 - src.gui.ui_config_enhanced.EnhancedUIConfig - INFO - Initializing EnhancedUIConfig
+2025-12-18 14:21:21,272 - src.gui.ui_config_enhanced.EnhancedUIConfig - INFO - Initializing EnhancedUIConfig
+2025-12-18 14:21:21,273 - src.gui.ui_config_enhanced.EnhancedUIConfig - INFO - Initializing EnhancedUIConfig
+2025-12-18 14:21:21,273 - src.gui.ui_config_enhanced.EnhancedUIConfig - DEBUG - Merged mode from environment: UILoadingMode.AUTO_DETECT
+2025-12-18 14:21:21,273 - src.gui.ui_config_enhanced.EnhancedUIConfig - DEBUG - Merged fallback_enabled from environment: True
+2025-12-18 14:21:21,273 - src.gui.ui_config_enhanced.EnhancedUIConfig - DEBUG - Merged fallback_strategy from environment: FallbackStrategy.GRACEFUL
+2025-12-18 14:21:21,273 - src.gui.ui_config_enhanced.EnhancedUIConfig - DEBUG - Merged cache_enabled from environment: True
+2025-12-18 14:21:21,273 - src.gui.ui_config_enhanced.EnhancedUIConfig - DEBUG - Merged cache_ttl from environment: 300
+2025-12-18 14:21:21,273 - src.gui.ui_config_enhanced.EnhancedUIConfig - DEBUG - Merged validate_ui_files from environment: True
+2025-12-18 14:21:21,273 - src.gui.ui_config_enhanced.EnhancedUIConfig - DEBUG - Merged validate_widgets from environment: True
+2025-12-18 14:21:21,273 - src.gui.ui_config_enhanced.EnhancedUIConfig - DEBUG - Merged log_level from environment: INFO
+2025-12-18 14:21:21,273 - src.gui.ui_config_enhanced.EnhancedUIConfig - DEBUG - Merged max_retries from environment: 3
+2025-12-18 14:21:21,274 - src.gui.ui_config_enhanced.EnhancedUIConfig - DEBUG - Merged timeout_seconds from environment: 30
+2025-12-18 14:21:21,274 - src.gui.ui_config_enhanced.EnhancedUIConfig - DEBUG - Merged enable_profiling from environment: False
+2025-12-18 14:21:21,274 - src.gui.ui_config_enhanced.EnhancedUIConfig - INFO - Initializing EnhancedUIConfig
+2025-12-18 14:21:21,276 - src.gui.ui_config_enhanced.EnhancedUIConfig - WARNING - Unknown setting: no_fallback from command_line
+2025-12-18 14:21:21,277 - src.gui.ui_config_enhanced.EnhancedUIConfig - WARNING - Unknown setting: no_validate from command_line
+2025-12-18 14:21:21,277 - src.gui.ui_config_enhanced.EnhancedUIConfig - WARNING - Unknown setting: no_cache from command_line
+2025-12-18 14:21:21,277 - src.gui.ui_config_enhanced.EnhancedUIConfig - DEBUG - Set enable_profiling from command_line: False
+2025-12-18 14:21:21,277 - src.gui.ui_config_enhanced.EnhancedUIConfig - DEBUG - Merged mode from command_line: UILoadingMode.AUTO_DETECT
+2025-12-18 14:21:21,277 - src.gui.ui_config_enhanced.EnhancedUIConfig - DEBUG - Merged fallback_enabled from command_line: True
+2025-12-18 14:21:21,277 - src.gui.ui_config_enhanced.EnhancedUIConfig - DEBUG - Merged fallback_strategy from command_line: FallbackStrategy.GRACEFUL
+2025-12-18 14:21:21,277 - src.gui.ui_config_enhanced.EnhancedUIConfig - DEBUG - Merged cache_enabled from command_line: True
+2025-12-18 14:21:21,278 - src.gui.ui_config_enhanced.EnhancedUIConfig - DEBUG - Merged cache_ttl from command_line: 300
+2025-12-18 14:21:21,278 - src.gui.ui_config_enhanced.EnhancedUIConfig - DEBUG - Merged validate_ui_files from command_line: True
+2025-12-18 14:21:21,278 - src.gui.ui_config_enhanced.EnhancedUIConfig - DEBUG - Merged validate_widgets from command_line: True
+2025-12-18 14:21:21,278 - src.gui.ui_config_enhanced.EnhancedUIConfig - DEBUG - Merged log_level from command_line: INFO
+2025-12-18 14:21:21,278 - src.gui.ui_config_enhanced.EnhancedUIConfig - DEBUG - Merged max_retries from command_line: 3
+2025-12-18 14:21:21,278 - src.gui.ui_config_enhanced.EnhancedUIConfig - DEBUG - Merged timeout_seconds from command_line: 30
+2025-12-18 14:21:21,278 - src.gui.ui_config_enhanced.EnhancedUIConfig - DEBUG - Merged enable_profiling from command_line: False
+2025-12-18 14:21:21,278 - src.gui.ui_config_enhanced.EnhancedUIConfig - INFO - Configuration validation passed
+2025-12-18 14:21:59,447 - src.gui.ui_config_enhanced.EnhancedUIConfig - INFO - Initializing EnhancedUIConfig
+2025-12-18 14:23:30,862 - src.gui.ui_config_enhanced.EnhancedUIConfig - INFO - Initializing EnhancedUIConfig
+2025-12-18 14:23:31,778 - gui.ui_config_enhanced.EnhancedUIConfig - INFO - Initializing EnhancedUIConfig
+2025-12-18 14:28:06,554 - src.gui.ui_config_enhanced.EnhancedUIConfig - INFO - Initializing EnhancedUIConfig
+2025-12-18 14:28:07,295 - gui.ui_config_enhanced.EnhancedUIConfig - INFO - Initializing EnhancedUIConfig
+2025-12-18 14:31:12,250 - src.gui.ui_config_enhanced.EnhancedUIConfig - INFO - Initializing EnhancedUIConfig
+2025-12-18 14:31:12,958 - gui.ui_config_enhanced.EnhancedUIConfig - INFO - Initializing EnhancedUIConfig
+2025-12-19 13:08:08,103 - src.gui.ui_config_enhanced.EnhancedUIConfig - INFO - Initializing EnhancedUIConfig
+2025-12-19 13:08:09,126 - gui.ui_config_enhanced.EnhancedUIConfig - INFO - Initializing EnhancedUIConfig
+2025-12-19 13:08:38,948 - src.gui.ui_config_enhanced.EnhancedUIConfig - INFO - Initializing EnhancedUIConfig
+2025-12-19 13:08:38,991 - src.gui.ui_config_enhanced.EnhancedUIConfig - INFO - Initializing EnhancedUIConfig
+2025-12-19 13:08:38,991 - src.gui.ui_config_enhanced.EnhancedUIConfig - INFO - Initializing EnhancedUIConfig
+2025-12-19 13:08:38,992 - src.gui.ui_config_enhanced.EnhancedUIConfig - DEBUG - Merged mode from environment: UILoadingMode.AUTO_DETECT
+2025-12-19 13:08:38,992 - src.gui.ui_config_enhanced.EnhancedUIConfig - DEBUG - Merged fallback_enabled from environment: True
+2025-12-19 13:08:38,992 - src.gui.ui_config_enhanced.EnhancedUIConfig - DEBUG - Merged fallback_strategy from environment: FallbackStrategy.GRACEFUL
+2025-12-19 13:08:38,992 - src.gui.ui_config_enhanced.EnhancedUIConfig - DEBUG - Merged cache_enabled from environment: True
+2025-12-19 13:08:38,992 - src.gui.ui_config_enhanced.EnhancedUIConfig - DEBUG - Merged cache_ttl from environment: 300
+2025-12-19 13:08:38,992 - src.gui.ui_config_enhanced.EnhancedUIConfig - DEBUG - Merged validate_ui_files from environment: True
+2025-12-19 13:08:38,992 - src.gui.ui_config_enhanced.EnhancedUIConfig - DEBUG - Merged validate_widgets from environment: True
+2025-12-19 13:08:38,992 - src.gui.ui_config_enhanced.EnhancedUIConfig - DEBUG - Merged log_level from environment: INFO
+2025-12-19 13:08:38,992 - src.gui.ui_config_enhanced.EnhancedUIConfig - DEBUG - Merged max_retries from environment: 3
+2025-12-19 13:08:38,992 - src.gui.ui_config_enhanced.EnhancedUIConfig - DEBUG - Merged timeout_seconds from environment: 30
+2025-12-19 13:08:38,992 - src.gui.ui_config_enhanced.EnhancedUIConfig - DEBUG - Merged enable_profiling from environment: False
+2025-12-19 13:08:38,992 - src.gui.ui_config_enhanced.EnhancedUIConfig - INFO - Initializing EnhancedUIConfig
+2025-12-19 13:08:38,995 - src.gui.ui_config_enhanced.EnhancedUIConfig - WARNING - Unknown setting: no_fallback from command_line
+2025-12-19 13:08:38,995 - src.gui.ui_config_enhanced.EnhancedUIConfig - WARNING - Unknown setting: no_validate from command_line
+2025-12-19 13:08:38,995 - src.gui.ui_config_enhanced.EnhancedUIConfig - WARNING - Unknown setting: no_cache from command_line
+2025-12-19 13:08:38,996 - src.gui.ui_config_enhanced.EnhancedUIConfig - DEBUG - Set enable_profiling from command_line: False
+2025-12-19 13:08:38,996 - src.gui.ui_config_enhanced.EnhancedUIConfig - DEBUG - Merged mode from command_line: UILoadingMode.AUTO_DETECT
+2025-12-19 13:08:38,996 - src.gui.ui_config_enhanced.EnhancedUIConfig - DEBUG - Merged fallback_enabled from command_line: True
+2025-12-19 13:08:38,996 - src.gui.ui_config_enhanced.EnhancedUIConfig - DEBUG - Merged fallback_strategy from command_line: FallbackStrategy.GRACEFUL
+2025-12-19 13:08:38,996 - src.gui.ui_config_enhanced.EnhancedUIConfig - DEBUG - Merged cache_enabled from command_line: True
+2025-12-19 13:08:38,996 - src.gui.ui_config_enhanced.EnhancedUIConfig - DEBUG - Merged cache_ttl from command_line: 300
+2025-12-19 13:08:38,996 - src.gui.ui_config_enhanced.EnhancedUIConfig - DEBUG - Merged validate_ui_files from command_line: True
+2025-12-19 13:08:38,996 - src.gui.ui_config_enhanced.EnhancedUIConfig - DEBUG - Merged validate_widgets from command_line: True
+2025-12-19 13:08:38,996 - src.gui.ui_config_enhanced.EnhancedUIConfig - DEBUG - Merged log_level from command_line: INFO
+2025-12-19 13:08:38,996 - src.gui.ui_config_enhanced.EnhancedUIConfig - DEBUG - Merged max_retries from command_line: 3
+2025-12-19 13:08:38,996 - src.gui.ui_config_enhanced.EnhancedUIConfig - DEBUG - Merged timeout_seconds from command_line: 30
+2025-12-19 13:08:38,996 - src.gui.ui_config_enhanced.EnhancedUIConfig - DEBUG - Merged enable_profiling from command_line: False
+2025-12-19 13:08:38,996 - src.gui.ui_config_enhanced.EnhancedUIConfig - INFO - Configuration validation passed

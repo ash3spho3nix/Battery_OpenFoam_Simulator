@@ -9,6 +9,8 @@ matplotlib>=3.7.2
 
 # Development Tools
 pytest>=7.4.3
+pytest-qt>=4.2.0
+coverage>=7.3.2
 black>=23.7.0
 mypy>=1.5.1
 

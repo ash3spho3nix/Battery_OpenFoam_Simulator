@@ -6,8 +6,8 @@ and simulation interfaces. Also includes UI loading infrastructure.
 """
 
 # Import only the UI loader to avoid circular imports
-from .ui_loader import UiLoader
+from .ui_loader_enhanced import EnhancedUILoader
 
 __all__ = [
-    'UiLoader'
+    'EnhancedUILoader'
 ]

@@ -247,93 +247,7 @@ class TestParameterValidator(unittest.TestCase):
 
 
 class TestInterfaceValidators(unittest.TestCase):
-        # Valid parameters
-        params = {
-            'project_name': 'test_project',
-            'length': 100.0,
-            'width': 100.0,
-            'height': 100.0,
-            'radius': 50.0,
-            'unit': 'micrometer',
-            'x_division': 10,
-            'y_division': 10,
-            'z_division': 10,
-            'DS_value': 1e-14,
-            'CS_max': 30000,
-            'kReact': 1e-11,
-            'R': 8.314,
-            'F': 96485,
-            'Ce': 1000,
-            'alphaA': 0.5,
-            'alphaC': 0.5,
-            'T_temp': 298.15,
-            'I_app': 0.0,
-            'initial_cs': 0.0,
-            'endTime': 10.0,
-            'deltaT': 0.1,
-            'writeInterval': 1.0,
-            'tolerance': 1e-6,
-            'material': 'carbon'
-        }
-        
-        result = validator.validate(params)
-        self.assertTrue(result.is_valid, f"Valid parameters failed: {result.get_all_messages()}")
-        
-        # Invalid parameters - radius too large
-        invalid_params = params.copy()
-        invalid_params['radius'] = 200.0  # Too large for geometry
-        
-        result = validator.validate(invalid_params)
-        self.assertFalse(result.is_valid)
-        # Check for radius error (either validation or warning)
-        has_radius_issue = any('radius' in error.message.lower() for error in result.errors + result.warnings)
-        self.assertTrue(has_radius_issue, "Expected radius validation error/warning")
     """Test cases for interface-specific validators."""
-    def test_carbon_validator(self):
-        """Test CarbonValidator."""
-        validator = CarbonValidator('carbon')
-
-        # Valid parameters
-        params = {
-            'project_name': 'test_project',
-            'length': 100.0,
-            'width': 100.0,
-            'height': 100.0,
-            'radius': 50.0,
-            'unit': 'micrometer',
-            'x_division': 10,
-            'y_division': 10,
-            'z_division': 10,
-            'DS_value': 1e-14,
-            'CS_max': 30000,
-            'kReact': 1e-11,
-            'R': 8.314,
-            'F': 96485,
-            'Ce': 1000,
-            'alphaA': 0.5,
-            'alphaC': 0.5,
-            'T_temp': 298.15,
-            'I_app': 0.0,
-            'initial_cs': 0.0,
-            'endTime': 10.0,
-            'deltaT': 0.1,
-            'writeInterval': 1.0,
-            'tolerance': 1e-6,
-            'material': 'carbon'
-        }
-
-        result = validator.validate(params)
-        self.assertTrue(result.is_valid, f"Valid parameters failed: {result.get_all_messages()}")
-
-        # Invalid parameters - radius too large
-        invalid_params = params.copy()
-        invalid_params['radius'] = 200.0  # Too large for geometry
-
-        result = validator.validate(invalid_params)
-        self.assertFalse(result.is_valid)
-        # Check for radius error (either validation or warning)
-        has_radius_issue = any('radius' in error.message.lower() for error in result.errors + result.warnings)
-        self.assertTrue(has_radius_issue, "Expected radius validation error/warning")
     
     def test_carbon_validator(self):
         """Test CarbonValidator."""
@@ -341,20 +255,6 @@ class TestInterfaceValidators(unittest.TestCase):
         
         # Valid parameters
         params = {
-            'length': 100.0,
-            'width': 100.0,
-            'height': 100.0,
-            'radius': 50.0,
-            'unit': 'micrometer',
-            'x_division': 10,
-            'y_division': 10,
-            'z_division': 10,
-            'DS_value': 1e-14,
-            'CS_max': 30000,
-            'kReact': 1e-11,
-            'R': 8.314,
-        # Valid parameters
-        params = {
             'project_name': 'test_project',
             'length': 100.0,
             'width': 100.0,
@@ -394,22 +294,6 @@ class TestInterfaceValidators(unittest.TestCase):
         # Check for radius error (either validation or warning)
         has_radius_issue = any('radius' in error.message.lower() for error in result.errors + result.warnings)
         self.assertTrue(has_radius_issue, "Expected radius validation error/warning")
-            'F': 96485,
-            'Ce': 1000,
-            'alphaA': 0.5,
-            'alphaC': 0.5,
-            'T_temp': 298.15,
-            'I_app': 0.0,
-            'initial_cs': 0.0,
-            'endTime': 10.0,
-            'deltaT': 0.1,
-            'writeInterval': 1.0,
-            'tolerance': 1e-6,
-            'material': 'carbon'
-        }
-        
-        result = validator.validate(params)
-        self.assertTrue(result.is_valid, f"Validation failed: {result.get_all_messages()}")
     
     def test_carbon_validator_invalid_radius(self):
         """Test CarbonValidator with invalid radius."""
@@ -474,11 +358,6 @@ class TestInterfaceValidators(unittest.TestCase):
             'I_app': 0.0,
             'initial_cs': 0.0,
             'endTime': 10.0,
-        self.assertEqual(message.severity, 'error')
-        self.assertEqual(message.title, 'Parameter Type Error')
-        self.assertIn('test_field', message.message)
-        # Updated to match actual error message format
-        self.assertIn('string', message.message)  # This should now pass
             'deltaT': 0.1,
             'writeInterval': 1.0,
             'tolerance': 1e-6,
