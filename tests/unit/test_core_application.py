@@ -14,7 +14,7 @@ from unittest.mock import Mock, patch, MagicMock
 
 # Import the main application components
 from src.gui.main_window import MainWindow
-from src.core.project_manager_enhanced import EnhancedProjectManager
+from src.core.project_manager import ProjectManager
 from src.gui.ui_config import UIConfig
 
 class TestMainWindow:
@@ -140,7 +140,7 @@ class TestMainWindow:
             args = mock_msgbox.call_args[0]
             assert "invalid" in args[1].lower()
             
-    @patch('src.gui.main_window.EnhancedProjectManager')
+    @patch('src.gui.main_window.ProjectManager')
     def test_project_creation_success(self, mock_project_manager, qtbot):
         """Test successful project creation."""
         # Mock project manager
@@ -178,7 +178,7 @@ class TestMainWindow:
                     # Verify interface was created
                     mock_factory.create_interface.assert_called_once()
                     
-    @patch('src.gui.main_window.EnhancedProjectManager')
+    @patch('src.gui.main_window.ProjectManager')
     def test_project_creation_failure(self, mock_project_manager, qtbot):
         """Test project creation failure."""
         # Mock project manager to raise exception
@@ -270,7 +270,7 @@ class TestMainWindow:
             # Verify recent path was set
             assert main_window.recent_path_label.text() == self.project_path
             
-    @patch('src.gui.main_window.EnhancedProjectManager')
+    @patch('src.gui.main_window.ProjectManager')
     def test_existing_project_opening(self, mock_project_manager, qtbot):
         """Test opening existing projects."""
         # Mock project manager

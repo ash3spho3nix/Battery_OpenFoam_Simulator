@@ -18,8 +18,8 @@ from unittest.mock import Mock, MagicMock, patch
 import sys
 
 # Import test modules
-from src.gui.ui_loader_enhanced import EnhancedUILoader, UILoadingError, UIValidationError
-from src.gui.ui_config_enhanced import EnhancedUIConfig, UILoadingMode as UIMode
+from src.gui.ui_loader import UILoader, UILoadingError, UIValidationError
+from src.gui.ui_config import UIConfig, UILoadingMode as UIMode
 from src.gui.interface_factory import InterfaceFactory, InterfaceCreationError
 from src.gui.widget_naming_standardizer import WidgetNamingStandardizer
 from src.gui.interfaces.base_interface import BaseInterface
@@ -451,16 +451,16 @@ class TestUIIntegration:
     
     def test_ui_config_with_ui_loader(self):
         """Test UIConfig integration with UILoader."""
-        config = EnhancedUIConfig()
+        config = UIConfig()
         config.set_mode(UIMode.UI_FILES)
         
         # Should be able to use config with UI loader
-        ui_path = EnhancedUILoader(config)._get_ui_path("mainwindow") # Use EnhancedUILoader
+        ui_path = UILoader(config)._get_ui_path("mainwindow") # Use UILoader
         assert isinstance(ui_path, str)
     
     def test_interface_factory_with_ui_config(self, qt_app):
         """Test InterfaceFactory integration with UIConfig."""
-        config = EnhancedUIConfig()
+        config = UIConfig()
         config.set_mode(UIMode.AUTO_DETECT)
         
         # Should be able to use config with interface factory

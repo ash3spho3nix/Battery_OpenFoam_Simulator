@@ -1929,3 +1929,651 @@ AttributeError: 'MainWindow' object has no attribute '_on_open_project_clicked'
            ^^^^^^^^^^^^^^^^^^^^^^^^^^^
 TypeError: MainWindow._on_choose_path_clicked() takes 1 positional argument but 2 were given
 
+2026-01-14 15:49:33,318 - __main__ - INFO - Added src path to sys.path: c:\Users\vsharma.A123SYSTEMSEU\Documents\BatterySimulator\BatteryOpenFoamSimulator\Battery_OpenFoam_Simulator\src
+2026-01-14 15:49:33,712 - __main__ - ERROR - Failed to import required modules: No module named 'src'
+2026-01-14 15:50:09,066 - __main__ - INFO - Added src path to sys.path: c:\Users\vsharma.A123SYSTEMSEU\Documents\BatterySimulator\BatteryOpenFoamSimulator\Battery_OpenFoam_Simulator\src
+2026-01-14 15:50:09,334 - __main__ - ERROR - Failed to import required modules: No module named 'src'
+2026-01-14 15:59:35,739 - __main__ - INFO - Added src path to sys.path: c:\Users\vsharma.A123SYSTEMSEU\Documents\BatterySimulator\BatteryOpenFoamSimulator\Battery_OpenFoam_Simulator\src
+2026-01-14 15:59:35,920 - __main__ - ERROR - Failed to import required modules: No module named 'src'
+2026-01-14 15:59:51,288 - __main__ - INFO - Added src path to sys.path: C:\Users\vsharma.A123SYSTEMSEU\Documents\BatterySimulator\BatteryOpenFoamSimulator\Battery_OpenFoam_Simulator\src
+2026-01-14 15:59:51,352 - __main__ - ERROR - Failed to import required modules: No module named 'src'
+2026-01-14 16:00:00,045 - __main__ - INFO - Added src path to sys.path: C:\Users\vsharma.A123SYSTEMSEU\Documents\BatterySimulator\BatteryOpenFoamSimulator\Battery_OpenFoam_Simulator\src
+2026-01-14 16:00:00,241 - src.gui.ui_config.UIConfig - INFO - Initializing UIConfig
+2026-01-14 16:00:00,244 - __main__ - ERROR - Failed to import required modules: cannot import name 'get_ui_files_path' from 'src.core.config' (C:\Users\vsharma.A123SYSTEMSEU\Documents\BatterySimulator\BatteryOpenFoamSimulator\Battery_OpenFoam_Simulator\src\core\config.py)
+2026-01-14 16:01:08,314 - __main__ - INFO - Added src path to sys.path: c:\Users\vsharma.A123SYSTEMSEU\Documents\BatterySimulator\BatteryOpenFoamSimulator\Battery_OpenFoam_Simulator\src
+2026-01-14 16:01:08,656 - src.gui.ui_config.UIConfig - INFO - Initializing UIConfig
+2026-01-14 16:01:08,663 - __main__ - ERROR - Failed to import required modules: cannot import name 'get_ui_files_path' from 'src.core.config' (c:\Users\vsharma.A123SYSTEMSEU\Documents\BatterySimulator\BatteryOpenFoamSimulator\Battery_OpenFoam_Simulator\src\core\config.py)
+2026-01-14 16:04:41,328 - __main__ - INFO - Added src path to sys.path: c:\Users\vsharma.A123SYSTEMSEU\Documents\BatterySimulator\BatteryOpenFoamSimulator\Battery_OpenFoam_Simulator\src
+2026-01-14 16:04:41,476 - __main__ - ERROR - Failed to import required modules: No module named 'src'
+2026-01-14 16:05:18,953 - __main__ - INFO - Added src path to sys.path: c:\Users\vsharma.A123SYSTEMSEU\Documents\BatterySimulator\BatteryOpenFoamSimulator\Battery_OpenFoam_Simulator\src
+2026-01-14 16:05:19,221 - src.gui.ui_config.UIConfig - INFO - Initializing UIConfig
+2026-01-14 16:05:19,225 - __main__ - ERROR - Failed to import required modules: cannot import name 'get_ui_files_path' from 'src.core.config' (c:\Users\vsharma.A123SYSTEMSEU\Documents\BatterySimulator\BatteryOpenFoamSimulator\Battery_OpenFoam_Simulator\src\core\config.py)
+2026-01-14 16:10:48,628 - __main__ - INFO - Starting Battery Simulator application
+2026-01-14 16:10:48,801 - __main__ - ERROR - Import error: No module named 'src'
+2026-01-14 16:13:39,253 - __main__ - INFO - Starting Battery Simulator application
+2026-01-14 16:13:39,498 - src.gui.ui_config.UIConfig - INFO - Initializing UIConfig
+2026-01-14 16:13:39,504 - __main__ - ERROR - Unexpected error: MainWindow.__init__() got an unexpected keyword argument 'ui_files_path'
+2026-01-14 16:22:01,366 - __main__ - INFO - Starting Battery Simulator application
+2026-01-14 16:22:01,467 - __main__ - ERROR - Import error: No module named 'src'
+2026-01-14 16:22:42,803 - __main__ - INFO - Starting Battery Simulator application
+2026-01-14 16:22:43,099 - src.gui.ui_config.UIConfig - INFO - Initializing UIConfig
+2026-01-14 16:22:43,107 - __main__ - ERROR - Unexpected error: name 'get_config_manager' is not defined
+2026-01-14 16:23:17,050 - __main__ - INFO - Starting Battery Simulator application
+2026-01-14 16:23:17,252 - src.gui.ui_config.UIConfig - INFO - Initializing UIConfig
+2026-01-14 16:23:17,267 - src.gui.ui_config.UIConfig - INFO - Initializing UIConfig
+2026-01-14 16:23:17,267 - src.gui.ui_config.UIConfig - INFO - Updated ui_base_path from runtime: resources\ui\files
+2026-01-14 16:23:17,268 - src.gui.ui_config.UIConfig - INFO - Configuration validation passed
+2026-01-14 16:23:17,277 - src.gui.ui_config.UIConfig - INFO - Initializing UIConfig
+2026-01-14 16:23:17,285 - src.gui.ui_loader.UILoader - INFO - Starting UI loading for: mainwindow
+2026-01-14 16:23:17,286 - src.gui.main_window - ERROR - Error loading main window UI: 'UIConfig' object has no attribute 'mode'
+Traceback (most recent call last):
+  File "C:\Users\vsharma.A123SYSTEMSEU\Documents\BatterySimulator\BatteryOpenFoamSimulator\Battery_OpenFoam_Simulator\src\gui\main_window.py", line 73, in _load_main_window_ui
+    main_window_ui = self.ui_loader.load_ui("mainwindow")
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\vsharma.A123SYSTEMSEU\Documents\BatterySimulator\BatteryOpenFoamSimulator\Battery_OpenFoam_Simulator\src\gui\ui_loader.py", line 177, in load_ui
+    self.logger.info(f"Loading mode: {self.ui_config.mode.name}")
+                                      ^^^^^^^^^^^^^^^^^^^
+AttributeError: 'UIConfig' object has no attribute 'mode'
+2026-01-14 16:23:19,334 - src.gui.main_window - INFO - Main window signals connected
+2026-01-14 16:23:19,336 - src.gui.main_window - INFO - MainWindow initialized
+2026-01-14 16:23:19,519 - __main__ - INFO - Application started successfully
+2026-01-14 16:23:23,037 - src.gui.main_window - INFO - Main window close event
+2026-01-14 16:26:12,911 - __main__ - INFO - Starting Battery Simulator application
+2026-01-14 16:26:13,431 - src.gui.ui_config.UIConfig - INFO - Initializing UIConfig
+2026-01-14 16:26:13,435 - src.gui.ui_config.UIConfig - INFO - Initializing UIConfig
+2026-01-14 16:26:13,441 - src.gui.ui_config.UIConfig - INFO - Updated ui_base_path from runtime: resources\ui\files
+2026-01-14 16:26:13,442 - src.gui.ui_config.UIConfig - INFO - Configuration validation passed
+2026-01-14 16:26:13,445 - src.gui.ui_config.UIConfig - INFO - Initializing UIConfig
+2026-01-14 16:26:13,447 - src.gui.ui_loader.UILoader - INFO - Starting UI loading for: mainwindow
+2026-01-14 16:26:13,452 - src.gui.ui_loader.UILoader - INFO - Loading mode: UI_FILES
+2026-01-14 16:26:13,458 - src.gui.ui_loader.UILoader - DEBUG - UI file validation passed: C:\Users\vsharma.A123SYSTEMSEU\Documents\BatterySimulator\BatteryOpenFoamSimulator\Battery_OpenFoam_Simulator\src\resources\ui\files\mainwindow.ui
+2026-01-14 16:26:13,974 - src.gui.ui_loader.UILoader - INFO - Successfully loaded UI file: C:\Users\vsharma.A123SYSTEMSEU\Documents\BatterySimulator\BatteryOpenFoamSimulator\Battery_OpenFoam_Simulator\src\resources\ui\files\mainwindow.ui
+2026-01-14 16:26:14,000 - src.gui.ui_loader.UILoader - DEBUG - Widget count for mainwindow: 41
+2026-01-14 16:26:14,005 - src.gui.ui_loader.UILoader - DEBUG - Cached interface: mainwindow
+2026-01-14 16:26:14,012 - src.gui.ui_loader.UILoader - INFO - Successfully loaded UI: mainwindow
+2026-01-14 16:26:14,014 - src.gui.main_window - INFO - Main window UI loaded successfully
+2026-01-14 16:26:14,016 - src.gui.main_window - INFO - Main window signals connected
+2026-01-14 16:26:14,029 - src.gui.main_window - INFO - MainWindow initialized
+2026-01-14 16:26:17,367 - __main__ - INFO - Application started successfully
+2026-01-14 16:26:22,557 - src.gui.main_window - INFO - Browse path button clicked
+2026-01-14 16:26:37,557 - src.gui.main_window - INFO - Selected directory: C:/Users/vsharma.A123SYSTEMSEU/Documents/BatterySimulator/project
+2026-01-14 16:26:43,641 - src.gui.main_window - INFO - Module button clicked: carbon
+2026-01-14 16:26:56,485 - src.gui.main_window - INFO - Module button clicked: carbon
+2026-01-14 16:26:58,494 - src.gui.main_window - INFO - Module button clicked: halfCell
+2026-01-14 16:27:06,323 - src.gui.main_window - INFO - Main window close event
+2026-01-14 17:01:57,256 - __main__ - INFO - Starting Battery Simulator application
+2026-01-14 17:01:57,465 - src.gui.ui_config.UIConfig - INFO - Initializing UIConfig
+2026-01-14 17:01:57,487 - src.gui.ui_config.UIConfig - INFO - Initializing UIConfig
+2026-01-14 17:01:57,487 - src.gui.ui_config.UIConfig - INFO - Updated ui_base_path from runtime: resources\ui\files
+2026-01-14 17:01:57,488 - src.gui.ui_config.UIConfig - INFO - Configuration validation passed
+2026-01-14 17:01:57,490 - src.gui.ui_config.UIConfig - INFO - Initializing UIConfig
+2026-01-14 17:01:57,491 - src.gui.ui_loader.UILoader - INFO - Starting UI loading for: mainwindow
+2026-01-14 17:01:57,496 - src.gui.ui_loader.UILoader - INFO - Loading mode: UI_FILES
+2026-01-14 17:01:57,500 - src.gui.ui_loader.UILoader - DEBUG - UI file validation passed: C:\Users\vsharma.A123SYSTEMSEU\Documents\BatterySimulator\BatteryOpenFoamSimulator\Battery_OpenFoam_Simulator\src\resources\ui\files\mainwindow.ui
+2026-01-14 17:01:57,621 - src.gui.ui_loader.UILoader - INFO - Successfully loaded UI file: C:\Users\vsharma.A123SYSTEMSEU\Documents\BatterySimulator\BatteryOpenFoamSimulator\Battery_OpenFoam_Simulator\src\resources\ui\files\mainwindow.ui
+2026-01-14 17:01:57,629 - src.gui.ui_loader.UILoader - DEBUG - Widget count for mainwindow: 41
+2026-01-14 17:01:57,630 - src.gui.ui_loader.UILoader - DEBUG - Cached interface: mainwindow
+2026-01-14 17:01:57,640 - src.gui.ui_loader.UILoader - INFO - Successfully loaded UI: mainwindow
+2026-01-14 17:01:57,641 - src.gui.main_window - INFO - Main window UI loaded successfully
+2026-01-14 17:01:57,641 - src.gui.main_window - INFO - Main window signals connected
+2026-01-14 17:01:57,642 - src.gui.main_window - INFO - MainWindow initialized
+2026-01-14 17:01:59,061 - __main__ - INFO - Application started successfully
+2026-01-14 17:02:09,194 - src.gui.main_window - INFO - Browse path button clicked
+2026-01-14 17:02:16,666 - src.gui.main_window - INFO - Selected directory: C:/Users/vsharma.A123SYSTEMSEU/Documents/BatterySimulator/project
+2026-01-14 17:02:18,289 - src.gui.main_window - INFO - Module button clicked: carbon
+2026-01-14 17:02:22,179 - src.gui.main_window - INFO - Main window close event
+2026-01-15 09:29:49,480 - __main__ - INFO - Starting Battery Simulator application
+2026-01-15 09:29:49,714 - src.gui.ui_config.UIConfig - INFO - Initializing UIConfig
+2026-01-15 09:29:49,731 - src.gui.ui_config.UIConfig - INFO - Initializing UIConfig
+2026-01-15 09:29:49,731 - src.gui.ui_config.UIConfig - INFO - Updated ui_base_path from runtime: resources\ui\files
+2026-01-15 09:29:49,732 - src.gui.ui_config.UIConfig - INFO - Configuration validation passed
+2026-01-15 09:29:49,743 - src.gui.ui_config.UIConfig - INFO - Initializing UIConfig
+2026-01-15 09:29:49,745 - src.gui.ui_loader.UILoader - INFO - Starting UI loading for: mainwindow
+2026-01-15 09:29:49,746 - src.gui.ui_loader.UILoader - INFO - Loading mode: UI_FILES
+2026-01-15 09:29:49,751 - src.gui.ui_loader.UILoader - DEBUG - UI file validation passed: C:\Users\vsharma.A123SYSTEMSEU\Documents\BatterySimulator\BatteryOpenFoamSimulator\Battery_OpenFoam_Simulator\src\resources\ui\files\mainwindow.ui
+2026-01-15 09:29:50,124 - src.gui.ui_loader.UILoader - INFO - Successfully loaded UI file: C:\Users\vsharma.A123SYSTEMSEU\Documents\BatterySimulator\BatteryOpenFoamSimulator\Battery_OpenFoam_Simulator\src\resources\ui\files\mainwindow.ui
+2026-01-15 09:29:50,136 - src.gui.ui_loader.UILoader - DEBUG - Widget count for mainwindow: 41
+2026-01-15 09:29:50,137 - src.gui.ui_loader.UILoader - DEBUG - Cached interface: mainwindow
+2026-01-15 09:29:50,138 - src.gui.ui_loader.UILoader - INFO - Successfully loaded UI: mainwindow
+2026-01-15 09:29:50,143 - src.gui.main_window - INFO - Main window UI loaded successfully
+2026-01-15 09:29:50,148 - src.gui.main_window - INFO - Main window signals connected
+2026-01-15 09:29:50,158 - src.gui.main_window - INFO - MainWindow initialized
+2026-01-15 09:29:52,265 - __main__ - INFO - Application started successfully
+2026-01-15 09:29:57,891 - src.gui.main_window - INFO - Browse path button clicked
+2026-01-15 09:30:10,875 - src.gui.main_window - INFO - Selected directory: C:/Users/vsharma.A123SYSTEMSEU/Documents/BatterySimulator/project
+2026-01-15 09:30:13,193 - src.gui.main_window - INFO - Module button clicked: carbon
+2026-01-15 09:30:15,803 - src.gui.main_window - INFO - Main window close event
+2026-01-15 10:57:59,197 - __main__ - INFO - Starting Battery Simulator application
+2026-01-15 10:57:59,337 - __main__ - ERROR - Unexpected error: 'UIConfig' object has no attribute 'update_setting'
+2026-01-15 10:58:50,317 - __main__ - INFO - Starting Battery Simulator application
+2026-01-15 10:58:50,546 - src.utils.file_operations - INFO - TemplateManager initialized with path: C:\Users\vsharma.A123SYSTEMSEU\Documents\BatterySimulator\BatteryOpenFoamSimulator\Battery_OpenFoam_Simulator\src\resources\templates
+2026-01-15 10:58:50,546 - src.core.project_manager - INFO - ProjectManager initialized with base path: C:\Users\vsharma.A123SYSTEMSEU
+2026-01-15 10:58:50,547 - src.gui.ui_loader - INFO - UILoader initialized with path: C:\Users\vsharma.A123SYSTEMSEU\Documents\BatterySimulator\BatteryOpenFoamSimulator\Battery_OpenFoam_Simulator\src\resources\ui\files
+2026-01-15 10:58:50,547 - src.gui.ui_loader - INFO - Loading UI file: C:\Users\vsharma.A123SYSTEMSEU\Documents\BatterySimulator\BatteryOpenFoamSimulator\Battery_OpenFoam_Simulator\src\resources\ui\files\mainwindow.ui
+2026-01-15 10:58:50,741 - src.gui.ui_loader - INFO - Successfully loaded UI: mainwindow.ui
+2026-01-15 10:58:50,742 - src.gui.main_window - INFO - Main window UI loaded successfully
+2026-01-15 10:58:50,743 - src.gui.main_window - INFO - Main window signals connected
+2026-01-15 10:58:50,743 - src.gui.main_window - INFO - MainWindow initialized
+2026-01-15 10:58:53,377 - __main__ - INFO - Application started successfully
+2026-01-15 10:58:55,565 - src.gui.main_window - INFO - Browse path button clicked
+2026-01-15 10:59:03,288 - src.gui.main_window - INFO - Selected directory: C:/Users/vsharma.A123SYSTEMSEU/Documents/BatterySimulator/project
+2026-01-15 10:59:09,060 - src.gui.main_window - INFO - Module button clicked: carbon
+2026-01-15 10:59:15,039 - src.gui.main_window - INFO - Main window close event
+2026-01-15 11:14:53,467 - __main__ - INFO - Starting Battery Simulator application
+2026-01-15 11:14:53,600 - __main__ - ERROR - Import error: cannot import name 'UILoadingMode' from 'src.gui.ui_config' (C:\Users\vsharma.A123SYSTEMSEU\Documents\BatterySimulator\BatteryOpenFoamSimulator\Battery_OpenFoam_Simulator\src\gui\ui_config.py)
+2026-01-15 11:17:07,794 - __main__ - INFO - Starting Battery Simulator application
+2026-01-15 11:17:07,985 - src.utils.file_operations - INFO - TemplateManager initialized with path: C:\Users\vsharma.A123SYSTEMSEU\Documents\BatterySimulator\BatteryOpenFoamSimulator\Battery_OpenFoam_Simulator\src\resources\templates
+2026-01-15 11:17:07,986 - src.core.project_manager - INFO - ProjectManager initialized with base path: C:\Users\vsharma.A123SYSTEMSEU
+2026-01-15 11:17:07,986 - src.gui.ui_loader - INFO - UILoader initialized with path: C:\Users\vsharma.A123SYSTEMSEU\Documents\BatterySimulator\BatteryOpenFoamSimulator\Battery_OpenFoam_Simulator\src\resources\ui\files
+2026-01-15 11:17:07,987 - src.gui.ui_loader - INFO - Loading UI file: C:\Users\vsharma.A123SYSTEMSEU\Documents\BatterySimulator\BatteryOpenFoamSimulator\Battery_OpenFoam_Simulator\src\resources\ui\files\mainwindow.ui
+2026-01-15 11:17:08,051 - src.gui.ui_loader - INFO - Successfully loaded UI: mainwindow.ui
+2026-01-15 11:17:08,055 - src.gui.main_window - INFO - Main window UI loaded successfully
+2026-01-15 11:17:08,056 - src.gui.main_window - INFO - Main window signals connected
+2026-01-15 11:17:08,058 - src.gui.main_window - INFO - MainWindow initialized
+2026-01-15 11:17:08,835 - __main__ - INFO - Application started successfully
+2026-01-15 11:17:15,142 - src.gui.main_window - INFO - Browse path button clicked
+2026-01-15 11:17:28,240 - src.gui.main_window - INFO - Selected directory: C:/Users/vsharma.A123SYSTEMSEU/Documents/BatterySimulator/project
+2026-01-15 11:17:29,494 - src.gui.main_window - INFO - Module button clicked: carbon
+2026-01-15 11:17:37,526 - src.gui.main_window - INFO - Module button clicked: halfCell
+2026-01-15 11:17:40,062 - src.gui.main_window - INFO - Module button clicked: fullCell
+2026-01-15 11:17:42,760 - src.gui.main_window - INFO - Main window close event
+2026-01-15 11:20:40,601 - __main__ - INFO - Starting Battery Simulator application
+2026-01-15 11:20:40,779 - src.utils.file_operations - INFO - TemplateManager initialized with path: C:\Users\vsharma.A123SYSTEMSEU\Documents\BatterySimulator\BatteryOpenFoamSimulator\Battery_OpenFoam_Simulator\src\resources\templates
+2026-01-15 11:20:40,780 - src.core.project_manager - INFO - ProjectManager initialized with base path: C:\Users\vsharma.A123SYSTEMSEU
+2026-01-15 11:20:40,780 - src.gui.ui_loader - INFO - UILoader initialized with path: C:\Users\vsharma.A123SYSTEMSEU\Documents\BatterySimulator\BatteryOpenFoamSimulator\Battery_OpenFoam_Simulator\src\resources\ui\files
+2026-01-15 11:20:40,780 - src.gui.ui_loader - INFO - Loading UI file: C:\Users\vsharma.A123SYSTEMSEU\Documents\BatterySimulator\BatteryOpenFoamSimulator\Battery_OpenFoam_Simulator\src\resources\ui\files\mainwindow.ui
+2026-01-15 11:20:40,852 - src.gui.ui_loader - INFO - Successfully loaded UI: mainwindow.ui
+2026-01-15 11:20:40,852 - src.gui.main_window - INFO - Main window UI loaded successfully
+2026-01-15 11:20:40,853 - src.gui.main_window - INFO - Main window signals connected
+2026-01-15 11:20:40,853 - src.gui.main_window - INFO - MainWindow initialized
+2026-01-15 11:20:41,513 - __main__ - INFO - Application started successfully
+2026-01-15 11:20:43,540 - src.gui.main_window - INFO - Browse path button clicked
+2026-01-15 11:20:50,278 - src.gui.main_window - INFO - Selected directory: C:/Users/vsharma.A123SYSTEMSEU/Documents/BatterySimulator/project
+2026-01-15 11:20:54,667 - src.gui.main_window - INFO - Module selected: carbon
+2026-01-15 11:20:57,051 - src.gui.main_window - INFO - Next button clicked
+2026-01-15 11:20:57,052 - src.gui.main_window - INFO - Creating project: project156 at C:/Users/vsharma.A123SYSTEMSEU/Documents/BatterySimulator/project
+2026-01-15 11:20:57,052 - src.gui.main_window - ERROR - Error creating project: ProjectManager.create_project() got an unexpected keyword argument 'project_path'
+Traceback (most recent call last):
+  File "C:\Users\vsharma.A123SYSTEMSEU\Documents\BatterySimulator\BatteryOpenFoamSimulator\Battery_OpenFoam_Simulator\src\gui\main_window.py", line 179, in _create_project
+    success = self.project_manager.create_project(
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: ProjectManager.create_project() got an unexpected keyword argument 'project_path'
+2026-01-15 11:21:01,020 - src.gui.main_window - INFO - Module selected: halfCell
+2026-01-15 11:21:02,435 - src.gui.main_window - INFO - Next button clicked
+2026-01-15 11:21:02,436 - src.gui.main_window - INFO - Creating project: project156 at C:/Users/vsharma.A123SYSTEMSEU/Documents/BatterySimulator/project
+2026-01-15 11:21:02,436 - src.gui.main_window - ERROR - Error creating project: ProjectManager.create_project() got an unexpected keyword argument 'project_path'
+Traceback (most recent call last):
+  File "C:\Users\vsharma.A123SYSTEMSEU\Documents\BatterySimulator\BatteryOpenFoamSimulator\Battery_OpenFoam_Simulator\src\gui\main_window.py", line 179, in _create_project
+    success = self.project_manager.create_project(
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: ProjectManager.create_project() got an unexpected keyword argument 'project_path'
+2026-01-15 11:21:10,298 - src.gui.main_window - INFO - Module selected: carbon
+2026-01-15 11:21:11,155 - src.gui.main_window - INFO - Next button clicked
+2026-01-15 11:21:11,156 - src.gui.main_window - INFO - Creating project: project55 at C:/Users/vsharma.A123SYSTEMSEU/Documents/BatterySimulator/project
+2026-01-15 11:21:11,156 - src.gui.main_window - ERROR - Error creating project: ProjectManager.create_project() got an unexpected keyword argument 'project_path'
+Traceback (most recent call last):
+  File "C:\Users\vsharma.A123SYSTEMSEU\Documents\BatterySimulator\BatteryOpenFoamSimulator\Battery_OpenFoam_Simulator\src\gui\main_window.py", line 179, in _create_project
+    success = self.project_manager.create_project(
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: ProjectManager.create_project() got an unexpected keyword argument 'project_path'
+2026-01-15 11:21:16,884 - src.gui.main_window - INFO - Main window close event
+2026-01-15 11:24:59,387 - __main__ - INFO - Starting Battery Simulator application
+2026-01-15 11:24:59,460 - __main__ - ERROR - Import error: No module named 'src'
+2026-01-15 11:25:47,734 - __main__ - INFO - Starting Battery Simulator application
+2026-01-15 11:25:47,783 - __main__ - ERROR - Import error: No module named 'src'
+2026-01-15 11:26:34,748 - __main__ - INFO - Starting Battery Simulator application
+2026-01-15 11:26:34,889 - src.utils.file_operations - INFO - TemplateManager initialized with path: C:\Users\vsharma.A123SYSTEMSEU\Documents\BatterySimulator\BatteryOpenFoamSimulator\Battery_OpenFoam_Simulator\src\resources\templates
+2026-01-15 11:26:34,890 - src.core.project_manager - INFO - ProjectManager initialized with base path: C:\Users\vsharma.A123SYSTEMSEU
+2026-01-15 11:26:34,890 - src.gui.ui_loader - INFO - UILoader initialized with path: C:\Users\vsharma.A123SYSTEMSEU\Documents\BatterySimulator\BatteryOpenFoamSimulator\Battery_OpenFoam_Simulator\src\resources\ui\files
+2026-01-15 11:26:34,891 - src.gui.ui_loader - INFO - Loading UI file: C:\Users\vsharma.A123SYSTEMSEU\Documents\BatterySimulator\BatteryOpenFoamSimulator\Battery_OpenFoam_Simulator\src\resources\ui\files\mainwindow.ui
+2026-01-15 11:26:34,977 - src.gui.ui_loader - INFO - Successfully loaded UI: mainwindow.ui
+2026-01-15 11:26:34,979 - src.gui.main_window - INFO - Main window UI loaded successfully
+2026-01-15 11:26:34,979 - src.gui.main_window - INFO - Main window signals connected
+2026-01-15 11:26:34,980 - src.gui.main_window - INFO - MainWindow initialized
+2026-01-15 11:26:35,696 - __main__ - INFO - Application started successfully
+2026-01-15 11:26:38,030 - src.gui.main_window - INFO - Browse path button clicked
+2026-01-15 11:26:44,535 - src.gui.main_window - INFO - Selected directory: C:/Users/vsharma.A123SYSTEMSEU/Documents/BatterySimulator/project
+2026-01-15 11:26:51,310 - src.gui.main_window - INFO - Module selected: carbon
+2026-01-15 11:26:52,695 - src.gui.main_window - INFO - Next button clicked
+2026-01-15 11:26:52,695 - src.gui.main_window - INFO - Creating project: project65 at C:/Users/vsharma.A123SYSTEMSEU/Documents/BatterySimulator/project
+2026-01-15 11:26:52,695 - src.gui.main_window - INFO - Selected module: carbon
+2026-01-15 11:26:52,696 - src.gui.main_window - INFO - Project path exists: True
+2026-01-15 11:26:52,696 - src.gui.main_window - INFO - Project path writable: True
+2026-01-15 11:26:52,696 - src.utils.file_operations - INFO - TemplateManager initialized with path: C:\Users\vsharma.A123SYSTEMSEU\Documents\BatterySimulator\BatteryOpenFoamSimulator\Battery_OpenFoam_Simulator\src\resources\templates
+2026-01-15 11:26:52,697 - src.core.project_manager - INFO - ProjectManager initialized with base path: C:/Users/vsharma.A123SYSTEMSEU/Documents/BatterySimulator/project
+2026-01-15 11:26:52,697 - src.utils.file_operations - ERROR - Template not found: carbon at C:\Users\vsharma.A123SYSTEMSEU\Documents\BatterySimulator\BatteryOpenFoamSimulator\Battery_OpenFoam_Simulator\src\resources\templates\carbon
+2026-01-15 11:26:52,698 - src.core.project_manager - ERROR - Failed to copy template carbon
+2026-01-15 11:26:52,698 - src.gui.main_window - INFO - Project creation result: False
+2026-01-15 11:26:52,698 - src.gui.main_window - ERROR - Project creation failed
+2026-01-15 11:26:56,607 - src.gui.main_window - INFO - Module selected: halfCell
+2026-01-15 11:26:57,505 - src.gui.main_window - INFO - Next button clicked
+2026-01-15 11:26:57,506 - src.gui.main_window - INFO - Creating project: project65 at C:/Users/vsharma.A123SYSTEMSEU/Documents/BatterySimulator/project
+2026-01-15 11:26:57,506 - src.gui.main_window - INFO - Selected module: halfCell
+2026-01-15 11:26:57,507 - src.gui.main_window - INFO - Project path exists: True
+2026-01-15 11:26:57,508 - src.gui.main_window - INFO - Project path writable: True
+2026-01-15 11:26:57,509 - src.utils.file_operations - INFO - TemplateManager initialized with path: C:\Users\vsharma.A123SYSTEMSEU\Documents\BatterySimulator\BatteryOpenFoamSimulator\Battery_OpenFoam_Simulator\src\resources\templates
+2026-01-15 11:26:57,509 - src.core.project_manager - INFO - ProjectManager initialized with base path: C:/Users/vsharma.A123SYSTEMSEU/Documents/BatterySimulator/project
+2026-01-15 11:26:57,685 - src.utils.file_operations - INFO - Copied template halfCell to C:\Users\vsharma.A123SYSTEMSEU\Documents\BatterySimulator\project\project65
+2026-01-15 11:26:57,686 - src.core.project_manager - INFO - Project project65 created successfully
+2026-01-15 11:26:57,686 - src.gui.main_window - INFO - Project creation result: True
+2026-01-15 11:26:57,687 - src.gui.main_window - INFO - Project created successfully
+2026-01-15 11:26:57,687 - src.gui.main_window - INFO - Opening interface: halfCell
+2026-01-15 11:26:57,687 - src.gui.main_window - ERROR - Error opening interface: argument should be a str or an os.PathLike object where __fspath__ returns a str, not 'UIConfig'
+Traceback (most recent call last):
+  File "C:\Users\vsharma.A123SYSTEMSEU\Documents\BatterySimulator\BatteryOpenFoamSimulator\Battery_OpenFoam_Simulator\src\gui\main_window.py", line 224, in _open_interface
+    factory = InterfaceFactory(self.ui_config)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\vsharma.A123SYSTEMSEU\Documents\BatterySimulator\BatteryOpenFoamSimulator\Battery_OpenFoam_Simulator\src\gui\interface_factory.py", line 68, in __init__
+    self.ui_loader = UILoader(ui_config)
+                     ^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\vsharma.A123SYSTEMSEU\Documents\BatterySimulator\BatteryOpenFoamSimulator\Battery_OpenFoam_Simulator\src\gui\ui_loader.py", line 28, in __init__
+    self.ui_base_path = Path(ui_base_path)
+                        ^^^^^^^^^^^^^^^^^^
+  File "C:\Users\vsharma.A123SYSTEMSEU\AppData\Local\anaconda3\Lib\pathlib.py", line 1162, in __init__
+    super().__init__(*args)
+  File "C:\Users\vsharma.A123SYSTEMSEU\AppData\Local\anaconda3\Lib\pathlib.py", line 373, in __init__
+    raise TypeError(
+TypeError: argument should be a str or an os.PathLike object where __fspath__ returns a str, not 'UIConfig'
+2026-01-15 11:27:05,642 - src.gui.main_window - INFO - Main window close event
+2026-01-15 11:27:58,401 - __main__ - INFO - Starting Battery Simulator application
+2026-01-15 11:27:58,482 - src.utils.file_operations - INFO - TemplateManager initialized with path: C:\Users\vsharma.A123SYSTEMSEU\Documents\BatterySimulator\BatteryOpenFoamSimulator\Battery_OpenFoam_Simulator\src\resources\templates
+2026-01-15 11:27:58,482 - src.core.project_manager - INFO - ProjectManager initialized with base path: C:\Users\vsharma.A123SYSTEMSEU
+2026-01-15 11:27:58,483 - src.gui.ui_loader - INFO - UILoader initialized with path: C:\Users\vsharma.A123SYSTEMSEU\Documents\BatterySimulator\BatteryOpenFoamSimulator\Battery_OpenFoam_Simulator\src\resources\ui\files
+2026-01-15 11:27:58,483 - src.gui.ui_loader - INFO - Loading UI file: C:\Users\vsharma.A123SYSTEMSEU\Documents\BatterySimulator\BatteryOpenFoamSimulator\Battery_OpenFoam_Simulator\src\resources\ui\files\mainwindow.ui
+2026-01-15 11:27:58,540 - src.gui.ui_loader - INFO - Successfully loaded UI: mainwindow.ui
+2026-01-15 11:27:58,541 - src.gui.main_window - INFO - Main window UI loaded successfully
+2026-01-15 11:27:58,541 - src.gui.main_window - INFO - Main window signals connected
+2026-01-15 11:27:58,542 - src.gui.main_window - INFO - MainWindow initialized
+2026-01-15 11:27:59,060 - __main__ - INFO - Application started successfully
+2026-01-15 11:28:05,438 - src.gui.main_window - INFO - Browse path button clicked
+2026-01-15 11:28:11,930 - src.gui.main_window - INFO - Selected directory: C:/Users/vsharma.A123SYSTEMSEU/Documents/BatterySimulator/project
+2026-01-15 11:28:13,079 - src.gui.main_window - INFO - Module selected: carbon
+2026-01-15 11:28:15,064 - src.gui.main_window - INFO - Next button clicked
+2026-01-15 11:28:15,064 - src.gui.main_window - INFO - Creating project: project1232 at C:/Users/vsharma.A123SYSTEMSEU/Documents/BatterySimulator/project
+2026-01-15 11:28:15,065 - src.gui.main_window - INFO - Selected module: carbon
+2026-01-15 11:28:15,065 - src.gui.main_window - INFO - Project path exists: True
+2026-01-15 11:28:15,065 - src.gui.main_window - INFO - Project path writable: True
+2026-01-15 11:28:15,066 - src.utils.file_operations - INFO - TemplateManager initialized with path: C:\Users\vsharma.A123SYSTEMSEU\Documents\BatterySimulator\BatteryOpenFoamSimulator\Battery_OpenFoam_Simulator\src\resources\templates
+2026-01-15 11:28:15,066 - src.core.project_manager - INFO - ProjectManager initialized with base path: C:/Users/vsharma.A123SYSTEMSEU/Documents/BatterySimulator/project
+2026-01-15 11:28:15,066 - src.utils.file_operations - ERROR - Template not found: carbon at C:\Users\vsharma.A123SYSTEMSEU\Documents\BatterySimulator\BatteryOpenFoamSimulator\Battery_OpenFoam_Simulator\src\resources\templates\carbon
+2026-01-15 11:28:15,067 - src.core.project_manager - ERROR - Failed to copy template carbon
+2026-01-15 11:28:15,067 - src.gui.main_window - INFO - Project creation result: False
+2026-01-15 11:28:15,067 - src.gui.main_window - ERROR - Project creation failed
+2026-01-15 11:28:18,352 - src.gui.main_window - INFO - Main window close event
+2026-01-15 11:30:44,555 - __main__ - INFO - Starting Battery Simulator application
+2026-01-15 11:30:44,687 - src.utils.file_operations - INFO - TemplateManager initialized with path: C:\Users\vsharma.A123SYSTEMSEU\Documents\BatterySimulator\BatteryOpenFoamSimulator\Battery_OpenFoam_Simulator\src\resources\templates
+2026-01-15 11:30:44,688 - src.core.project_manager - INFO - ProjectManager initialized with base path: C:\Users\vsharma.A123SYSTEMSEU
+2026-01-15 11:30:44,688 - src.gui.ui_loader - INFO - UILoader initialized with path: C:\Users\vsharma.A123SYSTEMSEU\Documents\BatterySimulator\BatteryOpenFoamSimulator\Battery_OpenFoam_Simulator\src\resources\ui\files
+2026-01-15 11:30:44,689 - src.gui.ui_loader - INFO - Loading UI file: C:\Users\vsharma.A123SYSTEMSEU\Documents\BatterySimulator\BatteryOpenFoamSimulator\Battery_OpenFoam_Simulator\src\resources\ui\files\mainwindow.ui
+2026-01-15 11:30:44,772 - src.gui.ui_loader - INFO - Successfully loaded UI: mainwindow.ui
+2026-01-15 11:30:44,772 - src.gui.main_window - INFO - Main window UI loaded successfully
+2026-01-15 11:30:44,772 - src.gui.main_window - INFO - Main window signals connected
+2026-01-15 11:30:44,773 - src.gui.main_window - INFO - MainWindow initialized
+2026-01-15 11:30:45,460 - __main__ - INFO - Application started successfully
+2026-01-15 11:30:47,312 - src.gui.main_window - INFO - Browse path button clicked
+2026-01-15 11:31:11,632 - src.gui.main_window - INFO - Selected directory: C:/Users/vsharma.A123SYSTEMSEU/Documents/BatterySimulator/project
+2026-01-15 11:31:14,517 - src.gui.main_window - INFO - Module selected: carbon
+2026-01-15 11:31:15,853 - src.gui.main_window - INFO - Next button clicked
+2026-01-15 11:31:15,854 - src.gui.main_window - INFO - Creating project: project89 at C:/Users/vsharma.A123SYSTEMSEU/Documents/BatterySimulator/project
+2026-01-15 11:31:15,854 - src.gui.main_window - INFO - Selected module: carbon
+2026-01-15 11:31:15,854 - src.gui.main_window - INFO - Using template: SPM
+2026-01-15 11:31:15,855 - src.gui.main_window - INFO - Project path exists: True
+2026-01-15 11:31:15,855 - src.gui.main_window - INFO - Project path writable: True
+2026-01-15 11:31:15,856 - src.utils.file_operations - INFO - TemplateManager initialized with path: C:\Users\vsharma.A123SYSTEMSEU\Documents\BatterySimulator\BatteryOpenFoamSimulator\Battery_OpenFoam_Simulator\src\resources\templates
+2026-01-15 11:31:15,856 - src.core.project_manager - INFO - ProjectManager initialized with base path: C:/Users/vsharma.A123SYSTEMSEU/Documents/BatterySimulator/project
+2026-01-15 11:31:16,001 - src.utils.file_operations - INFO - Copied template SPM to C:\Users\vsharma.A123SYSTEMSEU\Documents\BatterySimulator\project\project89
+2026-01-15 11:31:16,003 - src.core.project_manager - INFO - Project project89 created successfully
+2026-01-15 11:31:16,003 - src.gui.main_window - INFO - Project creation result: True
+2026-01-15 11:31:16,004 - src.gui.main_window - INFO - Project created successfully
+2026-01-15 11:31:16,004 - src.gui.main_window - INFO - Opening interface: carbon
+2026-01-15 11:31:16,005 - src.gui.main_window - ERROR - Error opening interface: argument should be a str or an os.PathLike object where __fspath__ returns a str, not 'UIConfig'
+Traceback (most recent call last):
+  File "C:\Users\vsharma.A123SYSTEMSEU\Documents\BatterySimulator\BatteryOpenFoamSimulator\Battery_OpenFoam_Simulator\src\gui\main_window.py", line 234, in _open_interface
+    factory = InterfaceFactory(self.ui_config)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\vsharma.A123SYSTEMSEU\Documents\BatterySimulator\BatteryOpenFoamSimulator\Battery_OpenFoam_Simulator\src\gui\interface_factory.py", line 68, in __init__
+    self.ui_loader = UILoader(ui_config)
+                     ^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\vsharma.A123SYSTEMSEU\Documents\BatterySimulator\BatteryOpenFoamSimulator\Battery_OpenFoam_Simulator\src\gui\ui_loader.py", line 28, in __init__
+    self.ui_base_path = Path(ui_base_path)
+                        ^^^^^^^^^^^^^^^^^^
+  File "C:\Users\vsharma.A123SYSTEMSEU\AppData\Local\anaconda3\Lib\pathlib.py", line 1162, in __init__
+    super().__init__(*args)
+  File "C:\Users\vsharma.A123SYSTEMSEU\AppData\Local\anaconda3\Lib\pathlib.py", line 373, in __init__
+    raise TypeError(
+TypeError: argument should be a str or an os.PathLike object where __fspath__ returns a str, not 'UIConfig'
+2026-01-15 11:31:56,799 - src.gui.main_window - INFO - Main window close event
+2026-01-15 13:15:51,618 - __main__ - INFO - Starting Battery Simulator application
+2026-01-15 13:15:52,184 - src.utils.file_operations - INFO - TemplateManager initialized with path: C:\Users\vsharma.A123SYSTEMSEU\Documents\BatterySimulator\BatteryOpenFoamSimulator\Battery_OpenFoam_Simulator\src\resources\templates
+2026-01-15 13:15:52,190 - src.core.project_manager - INFO - ProjectManager initialized with base path: C:\Users\vsharma.A123SYSTEMSEU
+2026-01-15 13:15:52,190 - src.gui.ui_loader - INFO - UILoader initialized with path: C:\Users\vsharma.A123SYSTEMSEU\Documents\BatterySimulator\BatteryOpenFoamSimulator\Battery_OpenFoam_Simulator\src\resources\ui\files
+2026-01-15 13:15:52,191 - src.gui.ui_loader - INFO - Loading UI file: C:\Users\vsharma.A123SYSTEMSEU\Documents\BatterySimulator\BatteryOpenFoamSimulator\Battery_OpenFoam_Simulator\src\resources\ui\files\mainwindow.ui
+2026-01-15 13:15:52,581 - src.gui.ui_loader - INFO - Successfully loaded UI: mainwindow.ui
+2026-01-15 13:15:52,582 - src.gui.main_window - INFO - Main window UI loaded successfully
+2026-01-15 13:15:52,583 - src.gui.main_window - INFO - Main window signals connected
+2026-01-15 13:15:52,584 - src.gui.main_window - INFO - MainWindow initialized
+2026-01-15 13:15:54,621 - __main__ - INFO - Application started successfully
+2026-01-15 13:16:01,340 - src.gui.main_window - INFO - Module selected: carbon
+2026-01-15 13:16:02,413 - src.gui.main_window - INFO - Browse path button clicked
+2026-01-15 13:16:09,940 - src.gui.main_window - INFO - Selected directory: C:/Users/vsharma.A123SYSTEMSEU/Documents/BatterySimulator/project
+2026-01-15 13:16:11,771 - src.gui.main_window - INFO - Next button clicked
+2026-01-15 13:16:11,772 - src.gui.main_window - INFO - Creating project: project12 at C:/Users/vsharma.A123SYSTEMSEU/Documents/BatterySimulator/project
+2026-01-15 13:16:11,773 - src.gui.main_window - INFO - Selected module: carbon
+2026-01-15 13:16:11,773 - src.gui.main_window - INFO - Using template: SPM
+2026-01-15 13:16:11,773 - src.gui.main_window - INFO - Project path exists: True
+2026-01-15 13:16:11,774 - src.gui.main_window - INFO - Project path writable: True
+2026-01-15 13:16:11,774 - src.utils.file_operations - INFO - TemplateManager initialized with path: C:\Users\vsharma.A123SYSTEMSEU\Documents\BatterySimulator\BatteryOpenFoamSimulator\Battery_OpenFoam_Simulator\src\resources\templates
+2026-01-15 13:16:11,774 - src.core.project_manager - INFO - ProjectManager initialized with base path: C:/Users/vsharma.A123SYSTEMSEU/Documents/BatterySimulator/project
+2026-01-15 13:16:12,070 - src.utils.file_operations - INFO - Copied template SPM to C:\Users\vsharma.A123SYSTEMSEU\Documents\BatterySimulator\project\project12
+2026-01-15 13:16:12,072 - src.core.project_manager - INFO - Project project12 created successfully
+2026-01-15 13:16:12,073 - src.gui.main_window - INFO - Project creation result: True
+2026-01-15 13:16:12,074 - src.gui.main_window - INFO - Project created successfully
+2026-01-15 13:16:12,074 - src.gui.main_window - INFO - Opening interface: carbon
+2026-01-15 13:16:12,075 - src.gui.main_window - ERROR - Error opening interface: argument should be a str or an os.PathLike object where __fspath__ returns a str, not 'UIConfig'
+Traceback (most recent call last):
+  File "C:\Users\vsharma.A123SYSTEMSEU\Documents\BatterySimulator\BatteryOpenFoamSimulator\Battery_OpenFoam_Simulator\src\gui\main_window.py", line 234, in _open_interface
+    factory = InterfaceFactory(self.ui_config)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\vsharma.A123SYSTEMSEU\Documents\BatterySimulator\BatteryOpenFoamSimulator\Battery_OpenFoam_Simulator\src\gui\interface_factory.py", line 68, in __init__
+    self.ui_loader = UILoader(ui_config)
+                     ^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\vsharma.A123SYSTEMSEU\Documents\BatterySimulator\BatteryOpenFoamSimulator\Battery_OpenFoam_Simulator\src\gui\ui_loader.py", line 28, in __init__
+    self.ui_base_path = Path(ui_base_path)
+                        ^^^^^^^^^^^^^^^^^^
+  File "C:\Users\vsharma.A123SYSTEMSEU\AppData\Local\anaconda3\Lib\pathlib.py", line 1162, in __init__
+    super().__init__(*args)
+  File "C:\Users\vsharma.A123SYSTEMSEU\AppData\Local\anaconda3\Lib\pathlib.py", line 373, in __init__
+    raise TypeError(
+TypeError: argument should be a str or an os.PathLike object where __fspath__ returns a str, not 'UIConfig'
+2026-01-15 13:16:26,069 - src.gui.main_window - INFO - Main window close event
+2026-01-15 13:18:31,929 - __main__ - INFO - Starting Battery Simulator application
+2026-01-15 13:18:32,055 - src.utils.file_operations - INFO - TemplateManager initialized with path: C:\Users\vsharma.A123SYSTEMSEU\Documents\BatterySimulator\BatteryOpenFoamSimulator\Battery_OpenFoam_Simulator\src\resources\templates
+2026-01-15 13:18:32,055 - src.core.project_manager - INFO - ProjectManager initialized with base path: C:\Users\vsharma.A123SYSTEMSEU
+2026-01-15 13:18:32,056 - src.gui.ui_loader - INFO - UILoader initialized with path: C:\Users\vsharma.A123SYSTEMSEU\Documents\BatterySimulator\BatteryOpenFoamSimulator\Battery_OpenFoam_Simulator\src\resources\ui\files
+2026-01-15 13:18:32,057 - src.gui.ui_loader - INFO - Loading UI file: C:\Users\vsharma.A123SYSTEMSEU\Documents\BatterySimulator\BatteryOpenFoamSimulator\Battery_OpenFoam_Simulator\src\resources\ui\files\mainwindow.ui
+2026-01-15 13:18:32,123 - src.gui.ui_loader - INFO - Successfully loaded UI: mainwindow.ui
+2026-01-15 13:18:32,124 - src.gui.main_window - INFO - Main window UI loaded successfully
+2026-01-15 13:18:32,124 - src.gui.main_window - INFO - Main window signals connected
+2026-01-15 13:18:32,125 - src.gui.main_window - INFO - MainWindow initialized
+2026-01-15 13:18:33,161 - __main__ - INFO - Application started successfully
+2026-01-15 13:18:37,479 - src.gui.main_window - INFO - Browse path button clicked
+2026-01-15 13:18:44,807 - src.gui.main_window - INFO - Selected directory: C:/Users/vsharma.A123SYSTEMSEU/Documents/BatterySimulator/project
+2026-01-15 13:18:45,549 - src.gui.main_window - INFO - Module selected: carbon
+2026-01-15 13:18:46,742 - src.gui.main_window - INFO - Next button clicked
+2026-01-15 13:18:46,742 - src.gui.main_window - INFO - Creating project: project15 at C:/Users/vsharma.A123SYSTEMSEU/Documents/BatterySimulator/project
+2026-01-15 13:18:46,743 - src.gui.main_window - INFO - Selected module: carbon
+2026-01-15 13:18:46,743 - src.gui.main_window - INFO - Using template: SPM
+2026-01-15 13:18:46,743 - src.gui.main_window - INFO - Project path exists: True
+2026-01-15 13:18:46,744 - src.gui.main_window - INFO - Project path writable: True
+2026-01-15 13:18:46,744 - src.utils.file_operations - INFO - TemplateManager initialized with path: C:\Users\vsharma.A123SYSTEMSEU\Documents\BatterySimulator\BatteryOpenFoamSimulator\Battery_OpenFoam_Simulator\src\resources\templates
+2026-01-15 13:18:46,745 - src.core.project_manager - INFO - ProjectManager initialized with base path: C:/Users/vsharma.A123SYSTEMSEU/Documents/BatterySimulator/project
+2026-01-15 13:18:46,910 - src.utils.file_operations - INFO - Copied template SPM to C:\Users\vsharma.A123SYSTEMSEU\Documents\BatterySimulator\project\project15
+2026-01-15 13:18:46,912 - src.core.project_manager - INFO - Project project15 created successfully
+2026-01-15 13:18:46,914 - src.gui.main_window - INFO - Project creation result: True
+2026-01-15 13:18:46,914 - src.gui.main_window - INFO - Project created successfully
+2026-01-15 13:18:46,916 - src.gui.main_window - INFO - Opening interface: carbon
+2026-01-15 13:18:46,916 - src.gui.ui_loader - INFO - UILoader initialized with path: resources\ui\files
+2026-01-15 13:18:46,917 - src.gui.interface_factory.InterfaceFactory - INFO - Creating interface: carbon
+2026-01-15 13:18:46,918 - src.gui.interface_factory.InterfaceFactory - INFO - UI loading mode: ui_files
+2026-01-15 13:18:46,919 - src.gui.ui_loader - INFO - UILoader initialized with path: C:\Users\vsharma.A123SYSTEMSEU\Documents\BatterySimulator\BatteryOpenFoamSimulator\Battery_OpenFoam_Simulator\src\resources\ui\files
+2026-01-15 13:18:46,920 - src.gui.ui_loader - INFO - Loading UI file: C:\Users\vsharma.A123SYSTEMSEU\Documents\BatterySimulator\BatteryOpenFoamSimulator\Battery_OpenFoam_Simulator\src\resources\ui\files\carboninterface.ui
+2026-01-15 13:18:46,982 - src.gui.ui_loader - INFO - Successfully loaded UI: carboninterface.ui
+2026-01-15 13:18:46,983 - src.openfoam.process_controller - INFO - ProcessController initialized
+2026-01-15 13:18:46,984 - src.openfoam.solver_manager - INFO - OpenFOAMSolverManager initialized with case: None
+2026-01-15 13:18:47,021 - src.gui.interfaces.carbon_interface - INFO - Enhanced signals connected
+2026-01-15 13:18:47,021 - src.gui.interfaces.carbon_interface - INFO - Enhanced CarbonInterface initialized with execution capabilities
+2026-01-15 13:18:47,022 - src.gui.interface_factory.InterfaceFactory - INFO - Successfully created carbon interface
+2026-01-15 13:18:47,023 - src.gui.interface_factory.InterfaceFactory - DEBUG - Interface validation passed for carbon
+2026-01-15 13:18:47,023 - src.gui.interface_factory.InterfaceFactory - INFO - Successfully created interface: carbon
+2026-01-15 13:18:47,024 - src.openfoam.solver_manager - INFO - Case path set to: C:/Users/vsharma.A123SYSTEMSEU/Documents/BatterySimulator/project\project15\project15
+2026-01-15 13:18:47,024 - src.openfoam.solver_manager - INFO - Solver set to: SPMFoam_OF6
+2026-01-15 13:18:47,025 - src.gui.interfaces.carbon_interface - INFO - Project paths set: C:/Users/vsharma.A123SYSTEMSEU/Documents/BatterySimulator/project\project15\project15
+2026-01-15 13:18:47,069 - src.gui.main_window - INFO - Interface carbon opened successfully
+2026-01-15 13:19:01,428 - src.gui.interfaces.carbon_interface - INFO - Back button clicked
+2026-01-15 13:19:01,430 - src.gui.main_window - INFO - Interface exit signal received
+2026-01-15 13:19:02,620 - src.gui.main_window - INFO - Module selected: fullCell
+2026-01-15 13:19:03,556 - src.gui.main_window - INFO - Next button clicked
+2026-01-15 13:19:03,557 - src.gui.main_window - INFO - Creating project: project15 at C:/Users/vsharma.A123SYSTEMSEU/Documents/BatterySimulator/project
+2026-01-15 13:19:03,557 - src.gui.main_window - INFO - Selected module: fullCell
+2026-01-15 13:19:03,557 - src.gui.main_window - INFO - Using template: fullCell
+2026-01-15 13:19:03,558 - src.gui.main_window - INFO - Project path exists: True
+2026-01-15 13:19:03,558 - src.gui.main_window - INFO - Project path writable: True
+2026-01-15 13:19:03,558 - src.utils.file_operations - INFO - TemplateManager initialized with path: C:\Users\vsharma.A123SYSTEMSEU\Documents\BatterySimulator\BatteryOpenFoamSimulator\Battery_OpenFoam_Simulator\src\resources\templates
+2026-01-15 13:19:03,559 - src.core.project_manager - INFO - ProjectManager initialized with base path: C:/Users/vsharma.A123SYSTEMSEU/Documents/BatterySimulator/project
+2026-01-15 13:19:03,559 - src.core.project_manager - ERROR - Project project15 already exists
+2026-01-15 13:19:03,559 - src.gui.main_window - INFO - Project creation result: False
+2026-01-15 13:19:03,560 - src.gui.main_window - ERROR - Project creation failed
+2026-01-15 13:19:05,723 - src.gui.main_window - INFO - Module selected: halfCell
+2026-01-15 13:19:10,252 - src.gui.main_window - INFO - Next button clicked
+2026-01-15 13:19:10,253 - src.gui.main_window - INFO - Creating project: project156 at C:/Users/vsharma.A123SYSTEMSEU/Documents/BatterySimulator/project
+2026-01-15 13:19:10,253 - src.gui.main_window - INFO - Selected module: halfCell
+2026-01-15 13:19:10,253 - src.gui.main_window - INFO - Using template: halfCell
+2026-01-15 13:19:10,253 - src.gui.main_window - INFO - Project path exists: True
+2026-01-15 13:19:10,254 - src.gui.main_window - INFO - Project path writable: True
+2026-01-15 13:19:10,254 - src.utils.file_operations - INFO - TemplateManager initialized with path: C:\Users\vsharma.A123SYSTEMSEU\Documents\BatterySimulator\BatteryOpenFoamSimulator\Battery_OpenFoam_Simulator\src\resources\templates
+2026-01-15 13:19:10,255 - src.core.project_manager - INFO - ProjectManager initialized with base path: C:/Users/vsharma.A123SYSTEMSEU/Documents/BatterySimulator/project
+2026-01-15 13:19:10,255 - src.core.project_manager - ERROR - Project project156 already exists
+2026-01-15 13:19:10,255 - src.gui.main_window - INFO - Project creation result: False
+2026-01-15 13:19:10,256 - src.gui.main_window - ERROR - Project creation failed
+2026-01-15 13:19:13,204 - src.gui.main_window - INFO - Next button clicked
+2026-01-15 13:19:13,204 - src.gui.main_window - INFO - Creating project: project156 at C:/Users/vsharma.A123SYSTEMSEU/Documents/BatterySimulator/project
+2026-01-15 13:19:13,205 - src.gui.main_window - INFO - Selected module: halfCell
+2026-01-15 13:19:13,205 - src.gui.main_window - INFO - Using template: halfCell
+2026-01-15 13:19:13,205 - src.gui.main_window - INFO - Project path exists: True
+2026-01-15 13:19:13,206 - src.gui.main_window - INFO - Project path writable: True
+2026-01-15 13:19:13,206 - src.utils.file_operations - INFO - TemplateManager initialized with path: C:\Users\vsharma.A123SYSTEMSEU\Documents\BatterySimulator\BatteryOpenFoamSimulator\Battery_OpenFoam_Simulator\src\resources\templates
+2026-01-15 13:19:13,206 - src.core.project_manager - INFO - ProjectManager initialized with base path: C:/Users/vsharma.A123SYSTEMSEU/Documents/BatterySimulator/project
+2026-01-15 13:19:13,207 - src.core.project_manager - ERROR - Project project156 already exists
+2026-01-15 13:19:13,207 - src.gui.main_window - INFO - Project creation result: False
+2026-01-15 13:19:13,207 - src.gui.main_window - ERROR - Project creation failed
+2026-01-15 13:19:16,357 - src.gui.main_window - INFO - Main window close event
+2026-01-15 13:29:01,684 - __main__ - INFO - Starting Battery Simulator application
+2026-01-15 13:29:01,835 - src.utils.file_operations - INFO - TemplateManager initialized with path: C:\Users\vsharma.A123SYSTEMSEU\Documents\BatterySimulator\BatteryOpenFoamSimulator\Battery_OpenFoam_Simulator\src\resources\templates
+2026-01-15 13:29:01,836 - src.core.project_manager - INFO - ProjectManager initialized with base path: C:\Users\vsharma.A123SYSTEMSEU
+2026-01-15 13:29:01,838 - src.gui.ui_loader - INFO - UILoader initialized with path: C:\Users\vsharma.A123SYSTEMSEU\Documents\BatterySimulator\BatteryOpenFoamSimulator\Battery_OpenFoam_Simulator\src\resources\ui\files
+2026-01-15 13:29:01,839 - src.gui.ui_loader - INFO - Loading UI file: C:\Users\vsharma.A123SYSTEMSEU\Documents\BatterySimulator\BatteryOpenFoamSimulator\Battery_OpenFoam_Simulator\src\resources\ui\files\mainwindow.ui
+2026-01-15 13:29:01,910 - src.gui.ui_loader - INFO - Successfully loaded UI: mainwindow.ui
+2026-01-15 13:29:01,911 - src.gui.main_window - INFO - Main window UI loaded successfully
+2026-01-15 13:29:01,912 - src.gui.main_window - INFO - Pre-filled project path: C:\Users\vsharma.A123SYSTEMSEU
+2026-01-15 13:29:01,912 - src.gui.main_window - INFO - Main window signals connected
+2026-01-15 13:29:01,912 - src.gui.main_window - INFO - MainWindow initialized
+2026-01-15 13:29:03,215 - __main__ - INFO - Application started successfully
+2026-01-15 13:29:05,667 - src.gui.main_window - INFO - Browse path button clicked
+2026-01-15 13:29:13,916 - src.gui.main_window - INFO - Selected directory: C:/Users/vsharma.A123SYSTEMSEU/Documents/BatterySimulator/project
+2026-01-15 13:29:15,757 - src.gui.main_window - INFO - Module selected: carbon
+2026-01-15 13:29:16,765 - src.gui.main_window - INFO - Next button clicked
+2026-01-15 13:29:16,774 - src.gui.main_window - INFO - Creating project: project1 at C:/Users/vsharma.A123SYSTEMSEU/Documents/BatterySimulator/project
+2026-01-15 13:29:16,775 - src.gui.main_window - INFO - Selected module: carbon
+2026-01-15 13:29:16,775 - src.gui.main_window - INFO - Using template: SPM
+2026-01-15 13:29:16,776 - src.gui.main_window - INFO - Project path exists: True
+2026-01-15 13:29:16,776 - src.gui.main_window - INFO - Project path writable: True
+2026-01-15 13:29:16,778 - src.utils.file_operations - INFO - TemplateManager initialized with path: C:\Users\vsharma.A123SYSTEMSEU\Documents\BatterySimulator\BatteryOpenFoamSimulator\Battery_OpenFoam_Simulator\src\resources\templates
+2026-01-15 13:29:16,778 - src.core.project_manager - INFO - ProjectManager initialized with base path: C:/Users/vsharma.A123SYSTEMSEU/Documents/BatterySimulator/project
+2026-01-15 13:29:17,088 - src.utils.file_operations - INFO - Copied template SPM to C:\Users\vsharma.A123SYSTEMSEU\Documents\BatterySimulator\project\project1
+2026-01-15 13:29:17,108 - src.core.project_manager - INFO - Project project1 created successfully
+2026-01-15 13:29:17,108 - src.gui.main_window - INFO - Project creation result: True
+2026-01-15 13:29:17,109 - src.gui.main_window - INFO - Project created successfully
+2026-01-15 13:29:17,110 - src.gui.main_window - INFO - Opening interface: carbon
+2026-01-15 13:29:17,111 - src.gui.ui_loader - INFO - UILoader initialized with path: resources\ui\files
+2026-01-15 13:29:17,112 - src.gui.interface_factory.InterfaceFactory - INFO - Creating interface: carbon
+2026-01-15 13:29:17,112 - src.gui.interface_factory.InterfaceFactory - INFO - UI loading mode: ui_files
+2026-01-15 13:29:17,114 - src.gui.ui_loader - INFO - UILoader initialized with path: C:\Users\vsharma.A123SYSTEMSEU\Documents\BatterySimulator\BatteryOpenFoamSimulator\Battery_OpenFoam_Simulator\src\resources\ui\files
+2026-01-15 13:29:17,114 - src.gui.ui_loader - INFO - Loading UI file: C:\Users\vsharma.A123SYSTEMSEU\Documents\BatterySimulator\BatteryOpenFoamSimulator\Battery_OpenFoam_Simulator\src\resources\ui\files\carboninterface.ui
+2026-01-15 13:29:17,164 - src.gui.ui_loader - INFO - Successfully loaded UI: carboninterface.ui
+2026-01-15 13:29:17,167 - src.gui.interfaces.carbon_interface - INFO - Default values initialized from constants
+2026-01-15 13:29:17,168 - src.openfoam.process_controller - INFO - ProcessController initialized
+2026-01-15 13:29:17,168 - src.openfoam.solver_manager - INFO - OpenFOAMSolverManager initialized with case: None
+2026-01-15 13:29:17,199 - src.gui.interfaces.carbon_interface - INFO - Enhanced signals connected
+2026-01-15 13:29:17,200 - src.gui.interfaces.carbon_interface - INFO - Enhanced CarbonInterface initialized with execution capabilities
+2026-01-15 13:29:17,201 - src.gui.interface_factory.InterfaceFactory - INFO - Successfully created carbon interface
+2026-01-15 13:29:17,201 - src.gui.interface_factory.InterfaceFactory - DEBUG - Interface validation passed for carbon
+2026-01-15 13:29:17,202 - src.gui.interface_factory.InterfaceFactory - INFO - Successfully created interface: carbon
+2026-01-15 13:29:17,203 - src.openfoam.solver_manager - INFO - Case path set to: C:/Users/vsharma.A123SYSTEMSEU/Documents/BatterySimulator/project\project1\project1
+2026-01-15 13:29:17,203 - src.openfoam.solver_manager - INFO - Solver set to: SPMFoam_OF6
+2026-01-15 13:29:17,204 - src.gui.interfaces.carbon_interface - INFO - Project paths set: C:/Users/vsharma.A123SYSTEMSEU/Documents/BatterySimulator/project\project1\project1
+2026-01-15 13:29:17,234 - src.gui.main_window - INFO - Interface carbon opened successfully
+2026-01-15 13:29:22,836 - src.openfoam.process_controller - INFO - Starting process: cd C:/Users/vsharma.A123SYSTEMSEU/Documents/BatterySimulator/project\project1\project1 && paraFoam
+2026-01-15 13:29:59,766 - src.gui.interfaces.carbon_interface - INFO - Starting complete SPM simulation workflow
+2026-01-15 13:30:04,027 - src.gui.interfaces.carbon_interface - WARNING - Parameter validation failed
+2026-01-15 13:30:30,428 - src.openfoam.process_controller - INFO - Starting process: cd C:/Users/vsharma.A123SYSTEMSEU/Documents/BatterySimulator/project\project1\project1 && blockMesh
+2026-01-15 13:30:31,500 - src.openfoam.process_controller - INFO - Starting process: cd C:/Users/vsharma.A123SYSTEMSEU/Documents/BatterySimulator/project\project1\project1 && blockMesh
+2026-01-15 13:31:08,664 - src.gui.interfaces.carbon_interface - INFO - Starting complete SPM simulation workflow
+2026-01-15 13:31:12,117 - src.gui.interfaces.carbon_interface - INFO - Initializing execution state...
+2026-01-15 13:31:12,118 - src.gui.interfaces.carbon_interface - INFO - Execution state initialized
+2026-01-15 13:31:12,118 - src.gui.interfaces.carbon_interface - INFO - Starting complete workflow...
+2026-01-15 13:31:12,118 - src.gui.interfaces.carbon_interface - INFO - Executing blockMesh...
+2026-01-15 13:31:12,119 - src.openfoam.process_controller - INFO - Starting process: cd C:/Users/vsharma.A123SYSTEMSEU/Documents/BatterySimulator/project\project1\project1 && blockMesh
+2026-01-15 13:31:32,702 - src.gui.interfaces.carbon_interface - INFO - Toggling simulation pause/resume
+2026-01-15 13:31:38,773 - src.gui.interfaces.carbon_interface - INFO - Back button clicked
+2026-01-15 13:31:38,809 - src.gui.main_window - INFO - Interface exit signal received
+2026-01-15 13:31:40,357 - src.gui.main_window - INFO - Module selected: halfCell
+2026-01-15 13:31:42,053 - src.gui.main_window - INFO - Next button clicked
+2026-01-15 13:31:42,054 - src.gui.main_window - INFO - Creating project: project1 at C:/Users/vsharma.A123SYSTEMSEU/Documents/BatterySimulator/project
+2026-01-15 13:31:42,054 - src.gui.main_window - INFO - Selected module: halfCell
+2026-01-15 13:31:42,054 - src.gui.main_window - INFO - Using template: halfCell
+2026-01-15 13:31:42,055 - src.gui.main_window - INFO - Project path exists: True
+2026-01-15 13:31:42,055 - src.gui.main_window - INFO - Project path writable: True
+2026-01-15 13:31:42,055 - src.utils.file_operations - INFO - TemplateManager initialized with path: C:\Users\vsharma.A123SYSTEMSEU\Documents\BatterySimulator\BatteryOpenFoamSimulator\Battery_OpenFoam_Simulator\src\resources\templates
+2026-01-15 13:31:42,056 - src.core.project_manager - INFO - ProjectManager initialized with base path: C:/Users/vsharma.A123SYSTEMSEU/Documents/BatterySimulator/project
+2026-01-15 13:31:42,056 - src.core.project_manager - ERROR - Project project1 already exists
+2026-01-15 13:31:42,056 - src.gui.main_window - INFO - Project creation result: False
+2026-01-15 13:31:42,057 - src.gui.main_window - ERROR - Project creation failed
+2026-01-15 13:31:43,893 - src.gui.main_window - INFO - Module selected: fullCell
+2026-01-15 13:31:47,351 - src.gui.main_window - INFO - Main window close event
+2026-01-15 23:09:05,348 - __main__ - INFO - Starting Battery Simulator application
+2026-01-15 23:09:05,518 - src.utils.file_operations - INFO - TemplateManager initialized with path: C:\Users\vsharma.A123SYSTEMSEU\Documents\BatterySimulator\BatteryOpenFoamSimulator\Battery_OpenFoam_Simulator\src\resources\templates
+2026-01-15 23:09:05,519 - src.core.project_manager - INFO - ProjectManager initialized with base path: C:\Users\vsharma.A123SYSTEMSEU
+2026-01-15 23:09:05,522 - src.gui.ui_loader - INFO - UILoader initialized with path: C:\Users\vsharma.A123SYSTEMSEU\Documents\BatterySimulator\BatteryOpenFoamSimulator\Battery_OpenFoam_Simulator\src\resources\ui\files
+2026-01-15 23:09:05,523 - src.gui.ui_loader - INFO - Loading UI file: C:\Users\vsharma.A123SYSTEMSEU\Documents\BatterySimulator\BatteryOpenFoamSimulator\Battery_OpenFoam_Simulator\src\resources\ui\files\mainwindow.ui
+2026-01-15 23:09:05,703 - src.gui.ui_loader - INFO - Successfully loaded UI: mainwindow.ui
+2026-01-15 23:09:05,703 - src.gui.main_window - INFO - Main window UI loaded successfully
+2026-01-15 23:09:05,704 - src.gui.main_window - INFO - Pre-filled project path: C:/Users/vsharma.A123SYSTEMSEU/Documents/BatterySimulator/project
+2026-01-15 23:09:05,705 - src.gui.main_window - INFO - Main window signals connected
+2026-01-15 23:09:05,705 - src.gui.main_window - INFO - MainWindow initialized
+2026-01-15 23:09:07,183 - __main__ - INFO - Application started successfully
+2026-01-15 23:09:14,936 - src.gui.main_window - INFO - Module selected: carbon
+2026-01-15 23:09:17,507 - src.gui.main_window - INFO - Next button clicked
+2026-01-15 23:09:17,519 - src.gui.main_window - INFO - Creating project: project123 at C:/Users/vsharma.A123SYSTEMSEU/Documents/BatterySimulator/project
+2026-01-15 23:09:17,520 - src.gui.main_window - INFO - Selected module: carbon
+2026-01-15 23:09:17,520 - src.gui.main_window - INFO - Using template: SPM
+2026-01-15 23:09:17,521 - src.gui.main_window - INFO - Project path exists: True
+2026-01-15 23:09:17,521 - src.gui.main_window - INFO - Project path writable: True
+2026-01-15 23:09:17,522 - src.utils.file_operations - INFO - TemplateManager initialized with path: C:\Users\vsharma.A123SYSTEMSEU\Documents\BatterySimulator\BatteryOpenFoamSimulator\Battery_OpenFoam_Simulator\src\resources\templates
+2026-01-15 23:09:17,522 - src.core.project_manager - INFO - ProjectManager initialized with base path: C:/Users/vsharma.A123SYSTEMSEU/Documents/BatterySimulator/project
+2026-01-15 23:09:17,678 - src.utils.file_operations - INFO - Copied template SPM to C:\Users\vsharma.A123SYSTEMSEU\Documents\BatterySimulator\project\project123
+2026-01-15 23:09:17,679 - src.core.project_manager - INFO - Project project123 created successfully
+2026-01-15 23:09:17,679 - src.gui.main_window - INFO - Project creation result: True
+2026-01-15 23:09:17,680 - src.gui.main_window - INFO - Project created successfully
+2026-01-15 23:09:17,681 - src.gui.main_window - INFO - Opening interface: carbon
+2026-01-15 23:09:17,682 - src.gui.ui_loader - INFO - UILoader initialized with path: resources\ui\files
+2026-01-15 23:09:17,683 - src.gui.interface_factory.InterfaceFactory - INFO - Creating interface: carbon
+2026-01-15 23:09:17,684 - src.gui.interface_factory.InterfaceFactory - INFO - UI loading mode: ui_files
+2026-01-15 23:09:17,686 - src.gui.ui_loader - INFO - UILoader initialized with path: C:\Users\vsharma.A123SYSTEMSEU\Documents\BatterySimulator\BatteryOpenFoamSimulator\Battery_OpenFoam_Simulator\src\resources\ui\files
+2026-01-15 23:09:17,687 - src.gui.ui_loader - INFO - Loading UI file: C:\Users\vsharma.A123SYSTEMSEU\Documents\BatterySimulator\BatteryOpenFoamSimulator\Battery_OpenFoam_Simulator\src\resources\ui\files\carboninterface.ui
+2026-01-15 23:09:17,730 - src.gui.ui_loader - INFO - Successfully loaded UI: carboninterface.ui
+2026-01-15 23:09:17,732 - src.gui.interfaces.carbon_interface - INFO - Default values initialized from constants
+2026-01-15 23:09:17,732 - src.openfoam.process_controller - INFO - ProcessController initialized
+2026-01-15 23:09:17,735 - src.openfoam.process_controller - INFO - ProcessController initialized
+2026-01-15 23:09:17,736 - src.openfoam.solver_manager - INFO - OpenFOAMSolverManager initialized with case: None
+2026-01-15 23:09:17,761 - src.gui.interfaces.carbon_interface - INFO - Enhanced signals connected
+2026-01-15 23:09:17,762 - src.gui.interfaces.carbon_interface - INFO - Enhanced CarbonInterface initialized with execution capabilities
+2026-01-15 23:09:17,762 - src.gui.interface_factory.InterfaceFactory - INFO - Successfully created carbon interface
+2026-01-15 23:09:17,763 - src.gui.interface_factory.InterfaceFactory - DEBUG - Interface validation passed for carbon
+2026-01-15 23:09:17,764 - src.gui.interface_factory.InterfaceFactory - INFO - Successfully created interface: carbon
+2026-01-15 23:09:17,764 - src.openfoam.solver_manager - INFO - Case path set to: C:/Users/vsharma.A123SYSTEMSEU/Documents/BatterySimulator/project\project123\project123
+2026-01-15 23:09:17,765 - src.openfoam.solver_manager - INFO - Solver set to: SPMFoam_OF6
+2026-01-15 23:09:17,768 - src.gui.interfaces.carbon_interface - INFO - Project paths set: C:/Users/vsharma.A123SYSTEMSEU/Documents/BatterySimulator/project\project123\project123
+2026-01-15 23:09:17,796 - src.gui.main_window - INFO - Interface carbon opened successfully
+2026-01-15 23:09:48,007 - src.openfoam.process_controller - INFO - Starting process: cd C:/Users/vsharma.A123SYSTEMSEU/Documents/BatterySimulator/project\project123\project123 && blockMesh
+2026-01-15 23:10:26,136 - src.gui.interfaces.carbon_interface - INFO - Starting complete SPM simulation workflow
+2026-01-15 23:10:29,485 - src.gui.interfaces.carbon_interface - INFO - Initializing execution state...
+2026-01-15 23:10:29,485 - src.gui.interfaces.carbon_interface - INFO - Execution state initialized
+2026-01-15 23:10:29,488 - src.gui.interfaces.carbon_interface - INFO - Starting complete workflow...
+2026-01-15 23:10:29,489 - src.gui.interfaces.carbon_interface - INFO - Executing blockMesh...
+2026-01-15 23:10:29,492 - src.openfoam.msys2_executor - INFO - Executing with callbacks: cd /c/Users/vsharma.A123SYSTEMSEU/Documents/BatterySimulator/project/project123/project123 && cd C:/Users/vsharma.A123SYSTEMSEU/Documents/BatterySimulator/project\project123\project123 && blockMesh
+2026-01-15 23:10:29,594 - src.gui.interfaces.carbon_interface - ERROR - MSYS2 error: /usr/bin/bash: line 0: cd: /c/Users/vsharma.A123SYSTEMSEU/Documents/BatterySimulator/project/project123/project123: No such file or directory
+2026-01-15 23:10:29,598 - src.gui.interfaces.carbon_interface - ERROR - blockMesh failed: /usr/bin/bash: line 0: cd: /c/Users/vsharma.A123SYSTEMSEU/Documents/BatterySimulator/project/project123/project123: No such file or directory
+2026-01-15 23:10:34,611 - src.openfoam.msys2_executor - INFO - Command completed with return code: 1
+2026-01-15 23:10:34,611 - src.gui.interfaces.carbon_interface - INFO - MSYS2 command completed with exit code: 1
+2026-01-15 23:10:34,613 - src.gui.interfaces.carbon_interface - ERROR - blockMesh failed: Command failed with exit code 1
+2026-01-16 10:52:38,572 - __main__ - INFO - Starting Battery Simulator application
+2026-01-16 10:52:38,878 - src.utils.file_operations - INFO - TemplateManager initialized with path: C:\Users\vsharma.A123SYSTEMSEU\Documents\BatterySimulator\BatteryOpenFoamSimulator\Battery_OpenFoam_Simulator\src\resources\templates
+2026-01-16 10:52:38,878 - src.core.project_manager - INFO - ProjectManager initialized with base path: C:\Users\vsharma.A123SYSTEMSEU
+2026-01-16 10:52:38,881 - src.gui.ui_loader - INFO - UILoader initialized with path: C:\Users\vsharma.A123SYSTEMSEU\Documents\BatterySimulator\BatteryOpenFoamSimulator\Battery_OpenFoam_Simulator\src\resources\ui\files
+2026-01-16 10:52:38,882 - src.gui.ui_loader - INFO - Loading UI file: C:\Users\vsharma.A123SYSTEMSEU\Documents\BatterySimulator\BatteryOpenFoamSimulator\Battery_OpenFoam_Simulator\src\resources\ui\files\mainwindow.ui
+2026-01-16 10:52:38,992 - src.gui.ui_loader - INFO - Successfully loaded UI: mainwindow.ui
+2026-01-16 10:52:38,992 - src.gui.main_window - INFO - Main window UI loaded successfully
+2026-01-16 10:52:38,992 - src.gui.main_window - INFO - Pre-filled project path: C:/Users/vsharma.A123SYSTEMSEU/Documents/BatterySimulator/project
+2026-01-16 10:52:38,993 - src.gui.main_window - INFO - Main window signals connected
+2026-01-16 10:52:38,993 - src.gui.main_window - INFO - MainWindow initialized
+2026-01-16 10:52:40,063 - __main__ - INFO - Application started successfully
+2026-01-16 10:52:47,127 - src.gui.main_window - INFO - Module selected: carbon
+2026-01-16 10:52:49,233 - src.gui.main_window - INFO - Next button clicked
+2026-01-16 10:52:49,235 - src.gui.main_window - INFO - Creating project: project32 at C:/Users/vsharma.A123SYSTEMSEU/Documents/BatterySimulator/project
+2026-01-16 10:52:49,236 - src.gui.main_window - INFO - Selected module: carbon
+2026-01-16 10:52:49,236 - src.gui.main_window - INFO - Using template: SPM
+2026-01-16 10:52:49,236 - src.gui.main_window - INFO - Project path exists: True
+2026-01-16 10:52:49,237 - src.gui.main_window - INFO - Project path writable: True
+2026-01-16 10:52:49,237 - src.utils.file_operations - INFO - TemplateManager initialized with path: C:\Users\vsharma.A123SYSTEMSEU\Documents\BatterySimulator\BatteryOpenFoamSimulator\Battery_OpenFoam_Simulator\src\resources\templates
+2026-01-16 10:52:49,238 - src.core.project_manager - INFO - ProjectManager initialized with base path: C:/Users/vsharma.A123SYSTEMSEU/Documents/BatterySimulator/project
+2026-01-16 10:52:49,238 - src.core.project_manager - INFO - Using template path: SPM/SPMFoam/Case
+2026-01-16 10:52:49,341 - src.utils.file_operations - INFO - Copied template SPM/SPMFoam/Case to C:\Users\vsharma.A123SYSTEMSEU\Documents\BatterySimulator\project\project32
+2026-01-16 10:52:49,343 - src.core.project_manager - INFO - Project project32 created at C:\Users\vsharma.A123SYSTEMSEU\Documents\BatterySimulator\project\project32
+2026-01-16 10:52:49,343 - src.gui.main_window - INFO - Project creation result: True
+2026-01-16 10:52:49,344 - src.gui.main_window - INFO - Project created successfully
+2026-01-16 10:52:49,345 - src.gui.main_window - INFO - Opening interface: carbon
+2026-01-16 10:52:49,345 - src.gui.ui_loader - INFO - UILoader initialized with path: resources\ui\files
+2026-01-16 10:52:49,347 - src.gui.interface_factory.InterfaceFactory - INFO - Creating interface: carbon
+2026-01-16 10:52:49,348 - src.gui.interface_factory.InterfaceFactory - INFO - UI loading mode: ui_files
+2026-01-16 10:52:49,350 - src.gui.ui_loader - INFO - UILoader initialized with path: C:\Users\vsharma.A123SYSTEMSEU\Documents\BatterySimulator\BatteryOpenFoamSimulator\Battery_OpenFoam_Simulator\src\resources\ui\files
+2026-01-16 10:52:49,351 - src.gui.ui_loader - INFO - Loading UI file: C:\Users\vsharma.A123SYSTEMSEU\Documents\BatterySimulator\BatteryOpenFoamSimulator\Battery_OpenFoam_Simulator\src\resources\ui\files\carboninterface.ui
+2026-01-16 10:52:49,403 - src.gui.ui_loader - INFO - Successfully loaded UI: carboninterface.ui
+2026-01-16 10:52:49,404 - src.openfoam.process_controller - INFO - ProcessController initialized with MSYS2
+2026-01-16 10:52:49,405 - src.openfoam.solver_manager - INFO - SolverManager initialized: None
+2026-01-16 10:52:49,406 - src.gui.interfaces.carbon_interface - INFO - Signals connected
+2026-01-16 10:52:49,406 - src.gui.interfaces.carbon_interface - INFO - CarbonInterface initialized
+2026-01-16 10:52:49,407 - src.gui.interface_factory.InterfaceFactory - INFO - Successfully created carbon interface
+2026-01-16 10:52:49,408 - src.gui.interface_factory.InterfaceFactory - DEBUG - Interface validation passed for carbon
+2026-01-16 10:52:49,409 - src.gui.interface_factory.InterfaceFactory - INFO - Successfully created interface: carbon
+2026-01-16 10:52:49,410 - src.openfoam.solver_manager - INFO - Case path set: C:/Users/vsharma.A123SYSTEMSEU/Documents/BatterySimulator/project\project32
+2026-01-16 10:52:49,410 - src.openfoam.solver_manager - INFO - Solver set: SPMFoam
+2026-01-16 10:52:49,411 - src.gui.interfaces.carbon_interface - INFO - Project paths set: C:/Users/vsharma.A123SYSTEMSEU/Documents/BatterySimulator/project\project32
+2026-01-16 10:52:49,444 - src.gui.main_window - INFO - Interface carbon opened successfully
+2026-01-16 10:53:38,367 - src.openfoam.process_controller - INFO - Starting process: blockMesh in C:/Users/vsharma.A123SYSTEMSEU/Documents/BatterySimulator/project\project32
+2026-01-16 10:53:38,368 - src.openfoam.msys2_executor - INFO - Executing with callbacks: cd /c/Users/vsharma.A123SYSTEMSEU/Documents/BatterySimulator/project/project32 && blockMesh
+2026-01-16 10:53:39,156 - src.openfoam.msys2_executor - INFO - Command completed with return code: 127
+2026-01-16 10:53:39,157 - src.openfoam.process_controller - INFO - Process finished with exit code: 127
+2026-01-16 10:54:02,592 - src.gui.interfaces.carbon_interface - INFO - Back clicked
+2026-01-16 10:54:02,592 - src.gui.main_window - INFO - Interface exit signal received
+2026-01-16 10:54:03,721 - src.gui.main_window - INFO - Module selected: halfCell
+2026-01-16 10:54:07,193 - src.gui.main_window - INFO - Next button clicked
+2026-01-16 10:54:07,193 - src.gui.main_window - INFO - Creating project: project322 at C:/Users/vsharma.A123SYSTEMSEU/Documents/BatterySimulator/project
+2026-01-16 10:54:07,194 - src.gui.main_window - INFO - Selected module: halfCell
+2026-01-16 10:54:07,195 - src.gui.main_window - INFO - Using template: halfCell
+2026-01-16 10:54:07,196 - src.gui.main_window - INFO - Project path exists: True
+2026-01-16 10:54:07,196 - src.gui.main_window - INFO - Project path writable: True
+2026-01-16 10:54:07,197 - src.utils.file_operations - INFO - TemplateManager initialized with path: C:\Users\vsharma.A123SYSTEMSEU\Documents\BatterySimulator\BatteryOpenFoamSimulator\Battery_OpenFoam_Simulator\src\resources\templates
+2026-01-16 10:54:07,197 - src.core.project_manager - INFO - ProjectManager initialized with base path: C:/Users/vsharma.A123SYSTEMSEU/Documents/BatterySimulator/project
+2026-01-16 10:54:07,198 - src.core.project_manager - INFO - Using template path: halfCell/halfCellFoam/CC
+2026-01-16 10:54:07,276 - src.utils.file_operations - INFO - Copied template halfCell/halfCellFoam/CC to C:\Users\vsharma.A123SYSTEMSEU\Documents\BatterySimulator\project\project322
+2026-01-16 10:54:07,277 - src.core.project_manager - INFO - Project project322 created at C:\Users\vsharma.A123SYSTEMSEU\Documents\BatterySimulator\project\project322
+2026-01-16 10:54:07,278 - src.gui.main_window - INFO - Project creation result: True
+2026-01-16 10:54:07,279 - src.gui.main_window - INFO - Project created successfully
+2026-01-16 10:54:07,279 - src.gui.main_window - INFO - Opening interface: halfCell
+2026-01-16 10:54:07,280 - src.gui.ui_loader - INFO - UILoader initialized with path: resources\ui\files
+2026-01-16 10:54:07,280 - src.gui.interface_factory.InterfaceFactory - INFO - Creating interface: halfCell
+2026-01-16 10:54:07,281 - src.gui.interface_factory.InterfaceFactory - INFO - UI loading mode: ui_files
+2026-01-16 10:54:07,281 - src.gui.ui_loader - INFO - UILoader initialized with path: C:\Users\vsharma.A123SYSTEMSEU\Documents\BatterySimulator\BatteryOpenFoamSimulator\Battery_OpenFoam_Simulator\src\resources\ui\files
+2026-01-16 10:54:07,283 - src.gui.ui_loader - INFO - Loading UI file: C:\Users\vsharma.A123SYSTEMSEU\Documents\BatterySimulator\BatteryOpenFoamSimulator\Battery_OpenFoam_Simulator\src\resources\ui\files\halfcellinterface.ui
+2026-01-16 10:54:07,310 - src.gui.ui_loader - INFO - Successfully loaded UI: halfcellinterface.ui
+2026-01-16 10:54:07,311 - src.openfoam.process_controller - INFO - ProcessController initialized with MSYS2
+2026-01-16 10:54:07,311 - src.openfoam.solver_manager - INFO - SolverManager initialized: None
+2026-01-16 10:54:07,312 - src.gui.interfaces.halfcell_interface - INFO - Signals connected
+2026-01-16 10:54:07,314 - src.gui.interfaces.halfcell_interface - INFO - HalfCellInterface initialized
+2026-01-16 10:54:07,316 - src.gui.interface_factory.InterfaceFactory - INFO - Successfully created half cell interface
+2026-01-16 10:54:07,319 - src.gui.interface_factory.InterfaceFactory - DEBUG - Interface validation passed for halfCell
+2026-01-16 10:54:07,319 - src.gui.interface_factory.InterfaceFactory - INFO - Successfully created interface: halfCell
+2026-01-16 10:54:07,320 - src.openfoam.solver_manager - INFO - Case path set: C:/Users/vsharma.A123SYSTEMSEU/Documents/BatterySimulator/project\project322
+2026-01-16 10:54:07,320 - src.openfoam.solver_manager - INFO - Solver set: halfCellFoam
+2026-01-16 10:54:07,321 - src.gui.interfaces.halfcell_interface - INFO - Project paths set: C:/Users/vsharma.A123SYSTEMSEU/Documents/BatterySimulator/project\project322
+2026-01-16 10:54:07,340 - src.gui.main_window - INFO - Interface halfCell opened successfully

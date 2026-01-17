@@ -2,7 +2,7 @@
 Comprehensive test suite for enhanced UI loading system.
 
 This module provides extensive testing for the enhanced UI loading components,
-including UILoaderEnhanced, InterfaceFactory, and UIConfig.
+including UILoader, InterfaceFactory, and UIConfig.
 Tests cover all loading modes, fallback mechanisms, error handling, and
 performance scenarios.
 """
@@ -23,7 +23,7 @@ from PyQt6.QtWidgets import QApplication, QWidget
 from PyQt6.QtCore import Qt
 
 # Import test modules
-from src.gui.ui_loader_enhanced import UILoaderEnhanced, UIValidationError
+from src.gui.ui_loader_enhanced import UILoader, UIValidationError
 from src.gui.interface_factory import InterfaceFactory, InterfaceCreationError
 from src.gui.ui_config import UIConfig, UILoadingMode
 
@@ -101,8 +101,8 @@ def invalid_ui_content():
 '''
 
 
-class TestUILoaderEnhanced:
-    """Test suite for UILoaderEnhanced class."""
+class TestUILoader:
+    """Test suite for UILoader class."""
     
     def test_load_valid_ui_file(self, qt_app, temp_ui_dir, sample_ui_content):
         """Test loading a valid .ui file."""
@@ -111,7 +111,7 @@ class TestUILoaderEnhanced:
         ui_file.write_text(sample_ui_content)
         
         # Load the UI file
-        widget = UILoaderEnhanced.load_ui_file(str(ui_file))
+        widget = UILoader.load_ui_file(str(ui_file))
         
         # Verify the widget was loaded correctly
         assert widget is not None
@@ -126,55 +126,55 @@ class TestUILoaderEnhanced:
         
         # Should raise an exception when loading invalid UI
         with pytest.raises(Exception):
-            UILoaderEnhanced.load_ui_file(str(ui_file))
+            UILoader.load_ui_file(str(ui_file))
     
     def test_load_nonexistent_ui_file(self, qt_app):
         """Test loading a non-existent .ui file raises FileNotFoundError."""
         nonexistent_file = "/path/that/does/not/exist.ui"
         
         with pytest.raises(FileNotFoundError):
-            UILoaderEnhanced.load_ui_file(nonexistent_file)
+            UILoader.load_ui_file(nonexistent_file)
     
     def test_ui_integrity_validation(self, temp_ui_dir, sample_ui_content, invalid_ui_content):
         """Test UI file integrity validation."""
         # Valid UI file
         valid_ui = Path(temp_ui_dir) / "valid.ui"
         valid_ui.write_text(sample_ui_content)
-        assert UILoaderEnhanced.validate_ui_integrity(str(valid_ui)) is True
+        assert UILoader.validate_ui_integrity(str(valid_ui)) is True
         
         # Invalid UI file
         invalid_ui = Path(temp_ui_dir) / "invalid.ui"
         invalid_ui.write_text(invalid_ui_content)
-        assert UILoaderEnhanced.validate_ui_integrity(str(invalid_ui)) is False
+        assert UILoader.validate_ui_integrity(str(invalid_ui)) is False
         
         # Non-existent file
         nonexistent = "/path/that/does/not/exist.ui"
-        assert UILoaderEnhanced.validate_ui_integrity(nonexistent) is False
+        assert UILoader.validate_ui_integrity(nonexistent) is False
     
     def test_ui_structure_validation(self, temp_ui_dir, sample_ui_content, invalid_ui_content):
         """Test UI structure validation."""
         # Valid structure
         valid_ui = Path(temp_ui_dir) / "valid.ui"
         valid_ui.write_text(sample_ui_content)
-        assert UILoaderEnhanced._validate_ui_structure(str(valid_ui)) is True
+        assert UILoader._validate_ui_structure(str(valid_ui)) is True
         
         # Invalid structure
         invalid_ui = Path(temp_ui_dir) / "invalid.ui"
         invalid_ui.write_text(invalid_ui_content)
-        assert UILoaderEnhanced._validate_ui_structure(str(invalid_ui)) is False
+        assert UILoader._validate_ui_structure(str(invalid_ui)) is False
     
     def test_ui_metadata_caching(self, qt_app, temp_ui_dir, sample_ui_content):
         """Test UI metadata caching functionality."""
         # Clear cache before test
-        UILoaderEnhanced.clear_ui_cache()
+        UILoader.clear_ui_cache()
         
         # Create and load UI file
         ui_file = Path(temp_ui_dir) / "test.ui"
         ui_file.write_text(sample_ui_content)
-        widget = UILoaderEnhanced.load_ui_file(str(ui_file))
+        widget = UILoader.load_ui_file(str(ui_file))
         
         # Check that metadata was cached
-        metadata = UILoaderEnhanced.get_ui_metadata(str(ui_file))
+        metadata = UILoader.get_ui_metadata(str(ui_file))
         assert metadata is not None
         assert 'checksum' in metadata
         assert 'object_name' in metadata
@@ -187,7 +187,7 @@ class TestUILoaderEnhanced:
         ui_file.write_text(sample_ui_content)
         
         # Run diagnosis
-        diagnosis = UILoaderEnhanced.diagnose_ui_loading_issue("diagnose_test", temp_ui_dir)
+        diagnosis = UILoader.diagnose_ui_loading_issue("diagnose_test", temp_ui_dir)
         
         # Check diagnosis results
         assert diagnosis['ui_name'] == 'diagnose_test'
@@ -207,7 +207,7 @@ class TestUILoaderEnhanced:
         invalid_file.write_text("invalid content")
         
         # Get available files
-        available_files = UILoaderEnhanced.get_available_ui_files(temp_ui_dir)
+        available_files = UILoader.get_available_ui_files(temp_ui_dir)
         
         # Should only return valid UI files
         assert "test1" in available_files
@@ -221,12 +221,12 @@ class TestUILoaderEnhanced:
         ui_file.write_text(sample_ui_content)
         
         # Should return True for valid file
-        assert UILoaderEnhanced.ui_file_exists("test", temp_ui_dir) is True
+        assert UILoader.ui_file_exists("test", temp_ui_dir) is True
         
         # Should return False for invalid file
         invalid_file = Path(temp_ui_dir) / "invalid.ui"
         invalid_file.write_text("invalid content")
-        assert UILoaderEnhanced.ui_file_exists("invalid", temp_ui_dir) is False
+        assert UILoader.ui_file_exists("invalid", temp_ui_dir) is False
 
 
 class TestInterfaceFactory:
@@ -420,7 +420,7 @@ class TestPerformanceAndStress:
         start_time = time.time()
         widgets = []
         for ui_file in ui_files:
-            widget = UILoaderEnhanced.load_ui_file(ui_file)
+            widget = UILoader.load_ui_file(ui_file)
             widgets.append(widget)
         end_time = time.time()
         
@@ -432,7 +432,7 @@ class TestPerformanceAndStress:
     def test_memory_usage_with_caching(self, qt_app, temp_ui_dir, sample_ui_content):
         """Test memory usage with UI caching enabled."""
         # Clear cache
-        UILoaderEnhanced.clear_ui_cache()
+        UILoader.clear_ui_cache()
         
         # Create UI file
         ui_file = Path(temp_ui_dir) / "memory_test.ui"
@@ -440,11 +440,11 @@ class TestPerformanceAndStress:
         
         # Load same file multiple times to test caching
         for i in range(5):
-            widget = UILoaderEnhanced.load_ui_file(str(ui_file))
+            widget = UILoader.load_ui_file(str(ui_file))
             assert widget is not None
         
         # Check that metadata was cached only once
-        metadata = UILoaderEnhanced.get_ui_metadata(str(ui_file))
+        metadata = UILoader.get_ui_metadata(str(ui_file))
         assert metadata is not None
     
     def test_concurrent_ui_loading(self, qt_app, temp_ui_dir, sample_ui_content):
@@ -461,7 +461,7 @@ class TestPerformanceAndStress:
         
         def load_ui():
             try:
-                widget = UILoaderEnhanced.load_ui_file(str(ui_file))
+                widget = UILoader.load_ui_file(str(ui_file))
                 results.append(widget)
             except Exception as e:
                 errors.append(e)
@@ -518,7 +518,7 @@ class TestErrorHandlingAndRecovery:
         # This test would require actual file permission manipulation
         # which is platform-specific and may not work in all environments
         # So we'll just verify the file exists and is readable
-        assert UILoaderEnhanced.validate_ui_integrity(str(ui_file)) is True
+        assert UILoader.validate_ui_integrity(str(ui_file)) is True
 
 
 if __name__ == "__main__":

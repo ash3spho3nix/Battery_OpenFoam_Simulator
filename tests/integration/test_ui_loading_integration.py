@@ -2,7 +2,7 @@
 Integration tests for the complete UI loading system.
 
 This module tests the integration of all UI loading components:
-- EnhancedUILoader with EnhancedUIConfig
+- UILoader with UIConfig
 - Widget naming standardization
 - Fallback mechanisms
 - Error handling and recovery
@@ -22,9 +22,8 @@ from PyQt6.QtCore import Qt
 # Add src to path for testing
 sys.path.insert(0, str(Path(__file__).parent.parent.parent))
 
-from src.gui.ui_loader_enhanced import EnhancedUILoader, UILoadingError
-from src.gui.ui_config_enhanced import EnhancedUIConfig, UILoadingMode, FallbackStrategy
-from src.gui.widget_naming_standardizer import WidgetNamingStandardizer, WidgetAccessMode
+from src.gui.ui_loader import UILoader
+from src.gui.ui_config import UIConfig
 from src.gui.interface_factory import InterfaceFactory
 from src.gui.main_window import MainWindow
 
@@ -89,13 +88,13 @@ class TestUILoadingIntegration:
     def test_complete_ui_loading_workflow(self, app, temp_ui_directory):
         """Test the complete UI loading workflow from configuration to widget access."""
         # 1. Create configuration
-        config = EnhancedUIConfig.from_multiple_sources()
+        config = UIConfig.from_multiple_sources()
         config.update_setting('mode', UILoadingMode.AUTO_DETECT)
         config.update_setting('ui_base_path', temp_ui_directory)
         config.update_setting('fallback_enabled', True)
         
-        # 2. Create enhanced loader
-        loader = EnhancedUILoader(config)
+        # 2. Create loader
+        loader = UILoader(config)
         
         # 3. Load main window UI
         main_window_widget = loader.load_ui("mainwindow")
@@ -127,12 +126,12 @@ class TestUILoadingIntegration:
     def test_fallback_mechanism_integration(self, app, temp_ui_directory):
         """Test the complete fallback mechanism."""
         # Create config with auto-detect mode
-        config = EnhancedUIConfig()
+        config = UIConfig()
         config.update_setting('mode', UILoadingMode.AUTO_DETECT)
         config.update_setting('ui_base_path', temp_ui_directory)
         config.update_setting('fallback_enabled', True)
         
-        loader = EnhancedUILoader(config)
+        loader = UILoader(config)
         
         # Test successful .ui loading
         widget1 = loader.load_ui("mainwindow")
@@ -155,11 +154,11 @@ class TestUILoadingIntegration:
     def test_error_handling_integration(self, app):
         """Test comprehensive error handling."""
         # Create config with strict UI_FILES mode
-        config = EnhancedUIConfig()
+        config = UIConfig()
         config.update_setting('mode', UILoadingMode.UI_FILES)
         config.update_setting('fallback_enabled', False)
         
-        loader = EnhancedUILoader(config)
+        loader = UILoader(config)
         
         # Test that missing .ui file raises exception in UI_FILES mode
         with pytest.raises(UILoadingError):
@@ -181,13 +180,13 @@ class TestUILoadingIntegration:
         os.environ['BATTERY_SIM_UI_PATH'] = temp_ui_directory
         
         try:
-            config = EnhancedUIConfig.from_environment()
+            config = UIConfig.from_environment()
             
             assert config.settings.mode == UILoadingMode.UI_FILES
             assert config.settings.ui_base_path == temp_ui_directory
             
             # Use this config for loading
-            loader = EnhancedUILoader(config)
+            loader = UILoader(config)
             widget = loader.load_ui("mainwindow")
             
             assert widget is not None
@@ -200,10 +199,10 @@ class TestUILoadingIntegration:
     def test_widget_naming_integration(self, app, temp_ui_directory):
         """Test widget naming standardization integration."""
         # Load a widget with .ui naming convention
-        config = EnhancedUIConfig()
+        config = UIConfig()
         config.update_setting('ui_base_path', temp_ui_directory)
         
-        loader = EnhancedUILoader(config)
+        loader = UILoader(config)
         widget = loader.load_ui("carboninterface")
         
         # Test different access modes
@@ -233,11 +232,11 @@ class TestUILoadingIntegration:
     
     def test_performance_and_caching_integration(self, app, temp_ui_directory):
         """Test performance and caching mechanisms."""
-        config = EnhancedUIConfig()
+        config = UIConfig()
         config.update_setting('ui_base_path', temp_ui_directory)
         config.update_setting('cache_enabled', True)
         
-        loader = EnhancedUILoader(config)
+        loader = UILoader(config)
         
         # Load the same UI multiple times
         widget1 = loader.load_ui("mainwindow")
@@ -258,7 +257,7 @@ class TestUILoadingIntegration:
     def test_real_world_scenario(self, app, temp_ui_directory):
         """Test a real-world scenario with MainWindow and InterfaceFactory."""
         # Setup configuration
-        config = EnhancedUIConfig.from_multiple_sources()
+        config = UIConfig.from_multiple_sources()
         config.update_setting('mode', UILoadingMode.AUTO_DETECT)
         config.update_setting('ui_base_path', temp_ui_directory)
         
@@ -292,11 +291,11 @@ class TestUILoadingIntegration:
         """Test logging integration across all components."""
         with caplog.at_level(logging.DEBUG):
             # Create components with logging
-            config = EnhancedUIConfig()
+            config = UIConfig()
             config.update_setting('ui_base_path', temp_ui_directory)
             config.update_setting('log_level', 'DEBUG')
             
-            loader = EnhancedUILoader(config)
+            loader = UILoader(config)
             
             # Perform operations that should generate logs
             widget = loader.load_ui("mainwindow")
@@ -311,12 +310,12 @@ class TestUILoadingIntegration:
     
     def test_error_recovery_integration(self, app, temp_ui_directory):
         """Test error recovery mechanisms."""
-        config = EnhancedUIConfig()
+        config = UIConfig()
         config.update_setting('mode', UILoadingMode.AUTO_DETECT)
         config.update_setting('fallback_enabled', True)
         config.update_setting('fallback_strategy', FallbackStrategy.GRACEFUL)
         
-        loader = EnhancedUILoader(config)
+        loader = UILoader(config)
         
         # Test recovery from .ui file corruption
         corrupt_ui_path = Path(temp_ui_directory) / "ui" / "files" / "corrupt.ui"
@@ -341,7 +340,7 @@ class TestUILoadingIntegration:
     def test_configuration_validation_integration(self, app):
         """Test configuration validation across the system."""
         # Test invalid configuration
-        config = EnhancedUIConfig()
+        config = UIConfig()
         
         # Invalid mode should raise validation error
         with pytest.raises(Exception):  # ConfigurationValidationError
@@ -352,7 +351,7 @@ class TestUILoadingIntegration:
         config.update_setting('fallback_strategy', FallbackStrategy.GRACEFUL)
         
         # Should be able to create loader with valid config
-        loader = EnhancedUILoader(config)
+        loader = UILoader(config)
         assert loader.ui_config is config
     
     def test_multi_mode_integration(self, app, temp_ui_directory):
@@ -364,11 +363,11 @@ class TestUILoadingIntegration:
         ]
         
         for mode in modes_to_test:
-            config = EnhancedUIConfig()
+            config = UIConfig()
             config.update_setting('mode', mode)
             config.update_setting('ui_base_path', temp_ui_directory)
             
-            loader = EnhancedUILoader(config)
+            loader = UILoader(config)
             
             if mode == UILoadingMode.UI_FILES:
                 # Should successfully load existing .ui file
@@ -395,10 +394,10 @@ class TestUILoadingSystemPerformance:
     
     def test_loading_performance(self, app, temp_ui_directory):
         """Test UI loading performance."""
-        config = EnhancedUIConfig()
+        config = UIConfig()
         config.update_setting('ui_base_path', temp_ui_directory)
         
-        loader = EnhancedUILoader(config)
+        loader = UILoader(config)
         
         import time
         
@@ -420,11 +419,11 @@ class TestUILoadingSystemPerformance:
         import psutil
         import gc
         
-        config = EnhancedUIConfig()
+        config = UIConfig()
         config.update_setting('ui_base_path', temp_ui_directory)
         config.update_setting('cache_enabled', True)
         
-        loader = EnhancedUILoader(config)
+        loader = UILoader(config)
         
         # Get initial memory usage
         process = psutil.Process()
@@ -450,11 +449,11 @@ class TestUILoadingSystemPerformance:
     
     def test_cache_efficiency(self, app, temp_ui_directory):
         """Test cache efficiency and hit rates."""
-        config = EnhancedUIConfig()
+        config = UIConfig()
         config.update_setting('ui_base_path', temp_ui_directory)
         config.update_setting('cache_enabled', True)
         
-        loader = EnhancedUILoader(config)
+        loader = UILoader(config)
         
         # Load same UI multiple times
         for _ in range(5):

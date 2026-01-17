@@ -4,7 +4,7 @@ Core module for Battery Simulator.
 Contains the main application logic, project management, and constants.
 """
 
-from .project_manager_enhanced import EnhancedProjectManager
+from .project_manager import ProjectManager
 from .constants import *
 
 __all__ = [

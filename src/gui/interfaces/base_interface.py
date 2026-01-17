@@ -1,19 +1,22 @@
 """
-Base interface class for Battery Simulator interfaces.
+Standardized Base Interface for Battery Simulator interfaces.
 
-This module provides the BaseInterface class, which serves as the foundation
-for all simulation interfaces (Carbon, HalfCell, FullCell, Result).
-It handles common functionality like UI loading, process control,
-parameter management, and file operations.
+This module provides the BaseInterface class with standardized widget naming
+that matches the .ui files. This fixes Issue #4: Widget Naming Mismatch.
+
+Key Changes:
+- All widget names now match .ui file conventions (e.g., length_lineEdit)
+- Maintains backward compatibility with flexible widget access
+- Provides clear naming standard documentation
+- Ensures consistency across all interfaces
 """
 
 import os
 import sys
-import logging
 from pathlib import Path
 from typing import Optional, Dict, Any, List
 from PyQt6.QtWidgets import (
-    QWidget, QVBoxLayout, QHBoxLayout, QLabel, QPushButton, QMessageBox,
+    QDialog, QWidget, QVBoxLayout, QHBoxLayout, QLabel, QPushButton, QMessageBox,
     QTabWidget, QTextEdit, QLineEdit, QComboBox, QRadioButton, QGroupBox,
     QCheckBox, QSpinBox, QDoubleSpinBox, QFileDialog, QScrollArea
 )
@@ -24,12 +27,23 @@ import logging
 logger = logging.getLogger(__name__)
 
 
-class BaseInterface(QWidget):
+class BaseInterface(QDialog):
     """
-    Base class for all simulation interfaces.
+    Standardized base class for all simulation interfaces.
     
     Provides common functionality for UI loading, process control,
-    parameter management, and file operations.
+    parameter management, and file operations with consistent widget naming.
+    
+    Widget Naming Convention (matches .ui files):
+    - LineEdit widgets: {name}_lineEdit (e.g., length_lineEdit)
+    - SpinBox widgets: {name}_spinBox (e.g., x_division_spinBox)
+    - ComboBox widgets: {name}_comboBox (e.g., unit_comboBox)
+    - RadioButton widgets: {name}_radioButton (e.g., carbon_radioButton)
+    - CheckBox widgets: {name}_checkBox (e.g., enable_advanced_checkBox)
+    - Buttons: {name}_button (e.g., change_geometry_button)
+    - Labels: {name}_label (e.g., geometry_label)
+    - Groups: {name}_group (e.g., geometry_group)
+    - Tabs: {name}_tab (e.g., geometry_tab)
     """
     
     # Signals for interface events
@@ -42,17 +56,16 @@ class BaseInterface(QWidget):
     
     def __init__(
         self, 
-        parent: Optional[QWidget] = None, 
+        parent: Optional[QDialog] = None, 
         ui_config: Optional['UIConfig'] = None
     ):
         """
-        Initialize the base interface.
+        Initialize the standardized base interface.
         
         Args:
             parent: Parent widget
             ui_config: UI configuration for loading mode
         """
-        # Import logging here to avoid circular imports
         import logging
         
         super().__init__(parent)
@@ -112,7 +125,7 @@ class BaseInterface(QWidget):
             self.process_controller.process_finished.connect(self._on_process_finished)
         
     def _setup_ui(self):
-        """Setup the base interface UI structure."""
+        """Setup the standardized base interface UI structure."""
         # Create main layout
         main_layout = QVBoxLayout(self)
         
@@ -120,7 +133,7 @@ class BaseInterface(QWidget):
         self.tab_widget = QTabWidget()
         self.tab_widget.setTabPosition(QTabWidget.TabPosition.North)
         
-        # Add common tabs
+        # Add common tabs with standardized naming
         self._create_geometry_tab()
         self._create_constants_tab()
         self._create_boundary_tab()
@@ -135,70 +148,70 @@ class BaseInterface(QWidget):
         self.setMinimumSize(1000, 700)
         
     def _create_geometry_tab(self):
-        """Create the geometry configuration tab."""
-        geometry_tab = QWidget()
-        layout = QVBoxLayout(geometry_tab)
+        """Create the geometry configuration tab with standardized widget naming."""
+        self.geometry_tab = QWidget()
+        layout = QVBoxLayout(self.geometry_tab)
         
         # Title
-        title_label = QLabel("Geometry Configuration")
-        title_label.setStyleSheet("font-size: 14px; font-weight: bold;")
-        layout.addWidget(title_label)
+        self.geometry_label = QLabel("Geometry Configuration")
+        self.geometry_label.setStyleSheet("font-size: 14px; font-weight: bold;")
+        layout.addWidget(self.geometry_label)
         
         # Geometry parameters group
-        geometry_group = QGroupBox("Geometry Parameters")
+        self.geometry_group = QGroupBox("Geometry Parameters")
         geometry_layout = QVBoxLayout()
         
-        # Dimensions
+        # Dimensions with standardized naming
         dims_layout = QHBoxLayout()
-        self.length_edit = QLineEdit(str(self._get_default_parameter("length")))
-        self.width_edit = QLineEdit(str(self._get_default_parameter("width")))
-        self.height_edit = QLineEdit(str(self._get_default_parameter("height")))
+        self.length_lineEdit = QLineEdit(str(self._get_default_parameter("length")))
+        self.width_lineEdit = QLineEdit(str(self._get_default_parameter("width")))
+        self.height_lineEdit = QLineEdit(str(self._get_default_parameter("height")))
         
         dims_layout.addWidget(QLabel("Length (μm):"))
-        dims_layout.addWidget(self.length_edit)
+        dims_layout.addWidget(self.length_lineEdit)
         dims_layout.addWidget(QLabel("Width (μm):"))
-        dims_layout.addWidget(self.width_edit)
+        dims_layout.addWidget(self.width_lineEdit)
         dims_layout.addWidget(QLabel("Height (μm):"))
-        dims_layout.addWidget(self.height_edit)
+        dims_layout.addWidget(self.height_lineEdit)
         geometry_layout.addLayout(dims_layout)
         
-        # Divisions
+        # Divisions with standardized naming
         div_layout = QHBoxLayout()
-        self.x_div_edit = QSpinBox()
-        self.y_div_edit = QSpinBox()
-        self.z_div_edit = QSpinBox()
-        self.x_div_edit.setValue(self._get_default_parameter("x_division"))
-        self.y_div_edit.setValue(self._get_default_parameter("y_division"))
-        self.z_div_edit.setValue(self._get_default_parameter("z_division"))
+        self.x_division_spinBox = QSpinBox()
+        self.y_division_spinBox = QSpinBox()
+        self.z_division_spinBox = QSpinBox()
+        self.x_division_spinBox.setValue(self._get_default_parameter("x_division"))
+        self.y_division_spinBox.setValue(self._get_default_parameter("y_division"))
+        self.z_division_spinBox.setValue(self._get_default_parameter("z_division"))
         
         div_layout.addWidget(QLabel("X divisions:"))
-        div_layout.addWidget(self.x_div_edit)
+        div_layout.addWidget(self.x_division_spinBox)
         div_layout.addWidget(QLabel("Y divisions:"))
-        div_layout.addWidget(self.y_div_edit)
+        div_layout.addWidget(self.y_division_spinBox)
         div_layout.addWidget(QLabel("Z divisions:"))
-        div_layout.addWidget(self.z_div_edit)
+        div_layout.addWidget(self.z_division_spinBox)
         geometry_layout.addLayout(div_layout)
         
         # Radius (for particle models)
         radius_layout = QHBoxLayout()
-        self.radius_edit = QLineEdit(str(self._get_default_parameter("radius")))
+        self.radius_lineEdit = QLineEdit(str(self._get_default_parameter("radius")))
         radius_layout.addWidget(QLabel("Particle radius (μm):"))
-        radius_layout.addWidget(self.radius_edit)
+        radius_layout.addWidget(self.radius_lineEdit)
         geometry_layout.addLayout(radius_layout)
         
-        # Units
+        # Units with standardized naming
         unit_layout = QHBoxLayout()
-        self.unit_combo = QComboBox()
-        self.unit_combo.addItems(["micrometer (μm)", "millimeter (mm)", "meter (m)"])
-        self.unit_combo.setCurrentText(self._get_default_parameter("unit"))
+        self.unit_comboBox = QComboBox()
+        self.unit_comboBox.addItems(["micrometer (μm)", "millimeter (mm)", "meter (m)"])
+        self.unit_comboBox.setCurrentText(self._get_default_parameter("unit"))
         unit_layout.addWidget(QLabel("Units:"))
-        unit_layout.addWidget(self.unit_combo)
+        unit_layout.addWidget(self.unit_comboBox)
         geometry_layout.addLayout(unit_layout)
         
-        geometry_group.setLayout(geometry_layout)
-        layout.addWidget(geometry_group)
+        self.geometry_group.setLayout(geometry_layout)
+        layout.addWidget(self.geometry_group)
         
-        # Buttons
+        # Buttons with standardized naming
         button_layout = QHBoxLayout()
         self.change_geometry_button = QPushButton("Change Geometry")
         self.change_geometry_button.clicked.connect(self._on_change_geometry_clicked)
@@ -213,17 +226,17 @@ class BaseInterface(QWidget):
         layout.addLayout(button_layout)
         
         layout.addStretch()
-        self.tab_widget.addTab(geometry_tab, "Geometry")
+        self.tab_widget.addTab(self.geometry_tab, "Geometry")
         
     def _create_constants_tab(self):
-        """Create the constants configuration tab."""
-        constants_tab = QWidget()
-        layout = QVBoxLayout(constants_tab)
+        """Create the constants configuration tab with standardized widget naming."""
+        self.constants_tab = QWidget()
+        layout = QVBoxLayout(self.constants_tab)
         
         # Title
-        title_label = QLabel("Constants Configuration")
-        title_label.setStyleSheet("font-size: 14px; font-weight: bold;")
-        layout.addWidget(title_label)
+        self.constants_label = QLabel("Constants Configuration")
+        self.constants_label.setStyleSheet("font-size: 14px; font-weight: bold;")
+        layout.addWidget(self.constants_label)
         
         # Scroll area for parameters
         scroll_area = QScrollArea()
@@ -232,12 +245,12 @@ class BaseInterface(QWidget):
         scroll_layout = QVBoxLayout(scroll_content)
         
         # Material properties group
-        material_group = QGroupBox("Material Properties")
+        self.material_group = QGroupBox("Material Properties")
         material_layout = QVBoxLayout()
         
-        # Electrochemical parameters
+        # Electrochemical parameters with standardized naming
         param_layout = QVBoxLayout()
-        self.param_edits = {}
+        self.param_lineEdits = {}
         
         params = [
             ("DS_value", "Li Intrinsic diffusivity in material"),
@@ -256,31 +269,31 @@ class BaseInterface(QWidget):
         for param, description in params:
             row_layout = QHBoxLayout()
             edit = QLineEdit(str(self._get_default_parameter(param.lower())))
-            self.param_edits[param] = edit
+            self.param_lineEdits[param] = edit
             row_layout.addWidget(QLabel(f"{param}:"))
             row_layout.addWidget(edit)
             row_layout.addWidget(QLabel(description))
             param_layout.addLayout(row_layout)
             
         material_layout.addLayout(param_layout)
-        material_group.setLayout(material_layout)
-        scroll_layout.addWidget(material_group)
+        self.material_group.setLayout(material_layout)
+        scroll_layout.addWidget(self.material_group)
         
-        # Material selection
+        # Material selection with standardized naming
         material_select_layout = QHBoxLayout()
-        self.material_carbon = QRadioButton("Carbon (Gr)")
-        self.material_silicon = QRadioButton("Silicon (Si)")
-        self.material_carbon.setChecked(True)
+        self.carbon_radioButton = QRadioButton("Carbon (Gr)")
+        self.silicon_radioButton = QRadioButton("Silicon (Si)")
+        self.carbon_radioButton.setChecked(True)
         material_select_layout.addWidget(QLabel("Material:"))
-        material_select_layout.addWidget(self.material_carbon)
-        material_select_layout.addWidget(self.material_silicon)
+        material_select_layout.addWidget(self.carbon_radioButton)
+        material_select_layout.addWidget(self.silicon_radioButton)
         scroll_layout.addLayout(material_select_layout)
         
         scroll_content.setLayout(scroll_layout)
         scroll_area.setWidget(scroll_content)
         layout.addWidget(scroll_area)
         
-        # Buttons
+        # Buttons with standardized naming
         button_layout = QHBoxLayout()
         self.change_constants_button = QPushButton("Change Constants")
         self.change_constants_button.clicked.connect(self._on_change_constants_clicked)
@@ -295,22 +308,22 @@ class BaseInterface(QWidget):
         layout.addLayout(button_layout)
         
         layout.addStretch()
-        self.tab_widget.addTab(constants_tab, "Constants")
+        self.tab_widget.addTab(self.constants_tab, "Constants")
         
     def _create_boundary_tab(self):
-        """Create the boundary conditions tab."""
-        boundary_tab = QWidget()
-        layout = QVBoxLayout(boundary_tab)
+        """Create the boundary conditions tab with standardized widget naming."""
+        self.boundary_tab = QWidget()
+        layout = QVBoxLayout(self.boundary_tab)
         
         # Title
-        title_label = QLabel("Boundary Conditions")
-        title_label.setStyleSheet("font-size: 14px; font-weight: bold;")
-        layout.addWidget(title_label)
+        self.boundary_label = QLabel("Boundary Conditions")
+        self.boundary_label.setStyleSheet("font-size: 14px; font-weight: bold;")
+        layout.addWidget(self.boundary_label)
         
         # Boundary configuration (implementation specific to each interface)
         self._add_boundary_configuration(layout)
         
-        # Buttons
+        # Buttons with standardized naming
         button_layout = QHBoxLayout()
         self.change_boundary_button = QPushButton("Change Boundary")
         self.change_boundary_button.clicked.connect(self._on_change_boundary_clicked)
@@ -322,17 +335,17 @@ class BaseInterface(QWidget):
         layout.addLayout(button_layout)
         
         layout.addStretch()
-        self.tab_widget.addTab(boundary_tab, "Boundary")
+        self.tab_widget.addTab(self.boundary_tab, "Boundary")
         
     def _create_functions_tab(self):
-        """Create the solver functions tab."""
-        functions_tab = QWidget()
-        layout = QVBoxLayout(functions_tab)
+        """Create the solver functions tab with standardized widget naming."""
+        self.functions_tab = QWidget()
+        layout = QVBoxLayout(self.functions_tab)
         
         # Title
-        title_label = QLabel("Solver Functions")
-        title_label.setStyleSheet("font-size: 14px; font-weight: bold;")
-        layout.addWidget(title_label)
+        self.functions_label = QLabel("Solver Functions")
+        self.functions_label.setStyleSheet("font-size: 14px; font-weight: bold;")
+        layout.addWidget(self.functions_label)
         
         # Discretization schemes
         schemes_group = QGroupBox("Discretization Schemes")
@@ -344,7 +357,7 @@ class BaseInterface(QWidget):
             combo = QComboBox()
             combo.addItems(options)
             combo.setCurrentText(self._get_default_parameter(scheme_type, options[0]))
-            setattr(self, f"{scheme_type.lower()}_combo", combo)
+            setattr(self, f"{scheme_type.lower()}_comboBox", combo)
             row_layout.addWidget(QLabel(f"{scheme_type}:"))
             row_layout.addWidget(combo)
             schemes_layout.addLayout(row_layout)
@@ -352,7 +365,7 @@ class BaseInterface(QWidget):
         schemes_group.setLayout(schemes_layout)
         layout.addWidget(schemes_group)
         
-        # Buttons
+        # Buttons with standardized naming
         button_layout = QHBoxLayout()
         self.change_functions_button = QPushButton("Change Functions")
         self.change_functions_button.clicked.connect(self._on_change_functions_clicked)
@@ -364,53 +377,53 @@ class BaseInterface(QWidget):
         layout.addLayout(button_layout)
         
         layout.addStretch()
-        self.tab_widget.addTab(functions_tab, "Functions")
+        self.tab_widget.addTab(self.functions_tab, "Functions")
         
     def _create_control_tab(self):
-        """Create the control parameters tab."""
-        control_tab = QWidget()
-        layout = QVBoxLayout(control_tab)
+        """Create the control parameters tab with standardized widget naming."""
+        self.control_tab = QWidget()
+        layout = QVBoxLayout(self.control_tab)
         
         # Title
-        title_label = QLabel("Control Parameters")
-        title_label.setStyleSheet("font-size: 14px; font-weight: bold;")
-        layout.addWidget(title_label)
+        self.control_label = QLabel("Control Parameters")
+        self.control_label.setStyleSheet("font-size: 14px; font-weight: bold;")
+        layout.addWidget(self.control_label)
         
         # Control parameters
         control_group = QGroupBox("Simulation Control")
         control_layout = QVBoxLayout()
         
-        # Time parameters
+        # Time parameters with standardized naming
         time_layout = QHBoxLayout()
-        self.end_time_edit = QDoubleSpinBox()
-        self.end_time_edit.setValue(self._get_default_parameter("endTime"))
-        self.end_time_edit.setRange(0, 1e6)
-        self.delta_t_edit = QDoubleSpinBox()
-        self.delta_t_edit.setValue(self._get_default_parameter("deltaT"))
-        self.delta_t_edit.setRange(1e-6, 1e3)
-        self.write_interval_edit = QDoubleSpinBox()
-        self.write_interval_edit.setValue(self._get_default_parameter("writeInterval"))
-        self.write_interval_edit.setRange(1e-3, 1e6)
+        self.end_time_doubleSpinBox = QDoubleSpinBox()
+        self.end_time_doubleSpinBox.setValue(self._get_default_parameter("endTime"))
+        self.end_time_doubleSpinBox.setRange(0, 1e6)
+        self.delta_t_doubleSpinBox = QDoubleSpinBox()
+        self.delta_t_doubleSpinBox.setValue(self._get_default_parameter("deltaT"))
+        self.delta_t_doubleSpinBox.setRange(1e-6, 1e3)
+        self.write_interval_doubleSpinBox = QDoubleSpinBox()
+        self.write_interval_doubleSpinBox.setValue(self._get_default_parameter("writeInterval"))
+        self.write_interval_doubleSpinBox.setRange(1e-3, 1e6)
         
         time_layout.addWidget(QLabel("End time:"))
-        time_layout.addWidget(self.end_time_edit)
+        time_layout.addWidget(self.end_time_doubleSpinBox)
         time_layout.addWidget(QLabel("Delta T:"))
-        time_layout.addWidget(self.delta_t_edit)
+        time_layout.addWidget(self.delta_t_doubleSpinBox)
         time_layout.addWidget(QLabel("Write interval:"))
-        time_layout.addWidget(self.write_interval_edit)
+        time_layout.addWidget(self.write_interval_doubleSpinBox)
         control_layout.addLayout(time_layout)
         
-        # Tolerance
+        # Tolerance with standardized naming
         tol_layout = QHBoxLayout()
-        self.tolerance_edit = QLineEdit(str(self._get_default_parameter("tolerance")))
+        self.tolerance_lineEdit = QLineEdit(str(self._get_default_parameter("tolerance")))
         tol_layout.addWidget(QLabel("Tolerance:"))
-        tol_layout.addWidget(self.tolerance_edit)
+        tol_layout.addWidget(self.tolerance_lineEdit)
         control_layout.addLayout(tol_layout)
         
         control_group.setLayout(control_layout)
         layout.addWidget(control_group)
         
-        # Buttons
+        # Buttons with standardized naming
         button_layout = QHBoxLayout()
         self.change_control_button = QPushButton("Change Control")
         self.change_control_button.clicked.connect(self._on_change_control_clicked)
@@ -428,25 +441,24 @@ class BaseInterface(QWidget):
         layout.addLayout(button_layout)
         
         layout.addStretch()
-        self.tab_widget.addTab(control_tab, "Control")
+        self.tab_widget.addTab(self.control_tab, "Control")
         
     def _create_terminal_tab(self):
-        """Create the terminal output tab."""
-        terminal_tab = QWidget()
-        layout = QVBoxLayout(terminal_tab)
+        """Create the terminal output tab with standardized widget naming."""
+        self.terminal_tab = QWidget()
+        layout = QVBoxLayout(self.terminal_tab)
         
         # Title
-        title_label = QLabel("Terminal Output")
-        title_label.setStyleSheet("font-size: 14px; font-weight: bold;")
-        layout.addWidget(title_label)
+        self.terminal_label = QLabel("Terminal Output")
+        self.terminal_label.setStyleSheet("font-size: 14px; font-weight: bold;")
+        layout.addWidget(self.terminal_label)
         
         # Terminal output
         self.terminal_output = QTextEdit()
         self.terminal_output.setReadOnly(True)
-        # QTextEdit doesn't have setMaximumBlockCount, so we'll limit output manually
         layout.addWidget(self.terminal_output)
         
-        # Command input
+        # Command input with standardized naming
         command_layout = QHBoxLayout()
         self.command_input = QLineEdit()
         self.command_input.setPlaceholderText("Enter command (e.g., 'cd /path && command')")
@@ -458,7 +470,7 @@ class BaseInterface(QWidget):
         command_layout.addWidget(self.command_button)
         layout.addLayout(command_layout)
         
-        self.tab_widget.addTab(terminal_tab, "Terminal")
+        self.tab_widget.addTab(self.terminal_tab, "Terminal")
         
     def _add_boundary_configuration(self, layout: QVBoxLayout):
         """Add boundary-specific configuration (to be overridden by subclasses)."""
@@ -481,11 +493,10 @@ class BaseInterface(QWidget):
             self.terminal_output.append(output)
             self.output_received.emit(output)
             
-            # Limit output to prevent memory issues (manual limit for QTextEdit)
+            # Limit output to prevent memory issues
             cursor = self.terminal_output.textCursor()
             block_count = cursor.blockNumber() + 1
             if block_count > 1000:
-                # Remove old content to keep memory usage reasonable
                 self.terminal_output.clear()
                 self.terminal_output.append("... Output truncated to prevent memory issues ...")
                 self.terminal_output.append(output)
@@ -531,7 +542,6 @@ class BaseInterface(QWidget):
     def _on_change_geometry_clicked(self):
         """Handle geometry parameter changes."""
         try:
-            # Update blockMeshDict and topoSetDict
             self._update_geometry_parameters()
             if self.terminal_output:
                 self.terminal_output.append("Geometry parameters updated successfully.")
@@ -541,7 +551,6 @@ class BaseInterface(QWidget):
     def _on_run_geometry_clicked(self):
         """Handle geometry generation."""
         try:
-            # Run mesh generation commands
             self._run_geometry_commands()
             if self.terminal_output:
                 self.terminal_output.append("Geometry generation completed.")
@@ -551,7 +560,6 @@ class BaseInterface(QWidget):
     def _on_view_geometry_clicked(self):
         """Handle geometry visualization."""
         try:
-            # Launch ParaView for geometry viewing
             self._launch_paraview()
         except Exception as e:
             QMessageBox.critical(self, "Error", f"Failed to launch ParaView: {str(e)}")
@@ -641,55 +649,6 @@ class BaseInterface(QWidget):
             self._start_simulation()
         except Exception as e:
             QMessageBox.critical(self, "Error", f"Failed to start simulation: {str(e)}")
-    
-    def _start_simulation(self):
-        """Start the OpenFOAM simulation using ProcessController."""
-        try:
-            # Validate that managers are initialized
-            if not self.solver_manager:
-                raise ValueError("Solver manager not initialized. Please set project paths first.")
-            
-            if not self.case_path:
-                raise ValueError("Case path not set. Please set project paths first.")
-            
-            # Build the command for OpenFOAM solver
-            solver_command = self._build_solver_command()
-            
-            # Start process using ProcessController
-            if self.process_controller:
-                self.process_controller.start_process(solver_command, self.case_path)
-                self.simulation_started.emit()
-                if self.terminal_output:
-                    self.terminal_output.append(f"Starting simulation: {solver_command}")
-            else:
-                raise ValueError("Process controller not available")
-                
-        except Exception as e:
-            logger.error(f"Failed to start simulation: {e}")
-            error_msg = f"Failed to start simulation: {str(e)}"
-            if hasattr(self, 'error_received') and self.error_received:
-                self.error_received.emit(error_msg)
-            if hasattr(self, 'terminal_output') and self.terminal_output:
-                self.terminal_output.append(f"ERROR: {error_msg}")
-            QMessageBox.critical(self, "Error", error_msg)
-    
-    def _build_solver_command(self) -> str:
-        """Build the solver execution command."""
-        try:
-            solver_name = self._get_solver_name()
-            
-            # Build command based on platform
-            if sys.platform == 'win32':
-                # Windows: Use MSYS2/Cygwin path format
-                unix_case_path = self.case_path.replace('\\', '/').replace('C:', '/c')
-                return f"cd {unix_case_path} && {solver_name}"
-            else:
-                # Linux/macOS: Use native path format
-                return f"cd {self.case_path} && {solver_name}"
-                
-        except Exception as e:
-            logger.error(f"Failed to build solver command: {e}")
-            raise ValueError(f"Failed to build solver command: {str(e)}")
             
     def _on_pause_clicked(self):
         """Handle simulation pause/resume."""
@@ -734,7 +693,6 @@ class BaseInterface(QWidget):
         
         for command in commands:
             self._execute_command(command)
-            # Wait for completion before next command
             while self.process_controller and self.process_controller.is_running():
                 import time
                 time.sleep(0.1)
@@ -793,6 +751,17 @@ class BaseInterface(QWidget):
         # Implementation to update controlDict
         pass
         
+    def _start_simulation(self):
+        """Start the OpenFOAM simulation."""
+        if not self.solver_manager:
+            raise ValueError("Solver manager not initialized")
+            
+        if not self.case_path:
+            raise ValueError("Case path not set")
+            
+        self.solver_manager.run_simulation(self.case_path)
+        self.simulation_started.emit()
+        
     def _pause_simulation(self):
         """Pause the simulation."""
         if self.process_controller and self.process_controller.is_running():
@@ -842,7 +811,9 @@ class BaseInterface(QWidget):
     def _get_solver_manager(self, solver_name: str):
         """Lazy import of OpenFOAMSolverManager to avoid circular imports."""
         from src.openfoam.solver_manager import OpenFOAMSolverManager
-        return OpenFOAMSolverManager(self.solver_path, solver_name)
+        manager = OpenFOAMSolverManager()
+        manager.set_solver(solver_name)
+        return manager
         
     def _get_parameter_manager(self):
         """Lazy import of ParameterManager to avoid circular imports."""

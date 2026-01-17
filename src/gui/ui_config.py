@@ -1,168 +1,49 @@
 """
-UI Configuration for Battery Simulator - Full UI Loading Support.
+Simple UI Configuration.
 
-This module provides configuration classes for UI loading modes,
-allowing users to choose between .ui file loading and hand-coded
-widget approaches. Supports all three loading modes.
+Stores UI file paths and settings.
+Hardcoded to use existing .ui files only.
 """
 
-from enum import Enum
-from typing import Optional
+import logging
+from pathlib import Path
 
-
-class UILoadingMode(Enum):
-    """
-    UI loading modes for the Battery Simulator.
-    
-    Only UI_FILES mode is supported - load from .ui files directly.
-    """
-    UI_FILES = "ui_files"           # Load from .ui files
+logger = logging.getLogger(__name__)
 
 
 class UIConfig:
     """
-    Configuration for UI loading behavior.
-    
-    This class manages the configuration settings for how the application
-    should load its user interface. Supports all three loading modes.
+    Simple UI configuration holder.
+    Hardcoded to use .ui files only.
     """
     
-    def __init__(self):
+    def __init__(self, ui_base_path: str = None):
         """
-        Initialize UI configuration with default settings.
-        """
-        self.mode = UILoadingMode.UI_FILES  # Force UI files mode
-        self.ui_base_path: Optional[str] = None
-    
-    @classmethod
-    def from_environment(cls) -> 'UIConfig':
-        """
-        Create configuration from environment variables.
-        
-        This method reads environment variables to configure the UI loading
-        behavior, allowing users to override the default settings.
-        
-        Environment Variables:
-            - BATTERY_SIM_UI_PATH: Custom path to .ui files
-        
-        Returns:
-            UIConfig: Configured instance
-        """
-        config = cls()
-        
-        # Check custom UI path
-        import os
-        custom_path = os.environ.get("BATTERY_SIM_UI_PATH")
-        if custom_path:
-            config.ui_base_path = custom_path
-            
-        return config
-    
-    @classmethod
-    def from_command_line(cls, args) -> 'UIConfig':
-        """
-        Create configuration from command line arguments.
+        Initialize UI configuration.
         
         Args:
-            args: Parsed command line arguments
-            
-        Returns:
-            UIConfig: Configured instance
+            ui_base_path: Base path for .ui files
         """
-        config = cls()
+        if ui_base_path:
+            self.ui_base_path = Path(ui_base_path)
+        else:
+            # Default: src/resources/ui/files/
+            self.ui_base_path = Path(__file__).parent.parent / "resources" / "ui" / "files"
         
-        if hasattr(args, 'ui_path') and args.ui_path:
-            config.ui_base_path = args.ui_path
-            
-        return config
+        # Hardcoded to use .ui files only
+        self.mode = "ui_files"
     
-    def should_load_ui_files(self) -> bool:
-        """
-        Determine if the application should try loading from .ui files.
-        
-        Returns:
-            bool: Always True - only .ui files are supported
-        """
-        return True
+    def get_ui_path(self) -> str:
+        """Get the UI base path as string."""
+        return str(self.ui_base_path)
     
-    def should_load_hand_coded(self) -> bool:
-        """
-        Determine if the application should use hand-coded widgets.
-        
-        Returns:
-            bool: Always False - hand-coded widgets not supported
-        """
-        return False
+    def update_ui_path(self, new_path: str):
+        """Update the UI base path."""
+        self.ui_base_path = Path(new_path)
     
-    def get_ui_base_path(self) -> Optional[str]:
-        """
-        Get the base path for .ui files.
-        
-        Returns:
-            str or None: Base path if set, None for default
-        """
-        return self.ui_base_path
-    
-    def set_ui_base_path(self, path: Optional[str]):
-        """
-        Set the custom base path for .ui files.
-        
-        Args:
-            path: Custom path or None for default
-        """
-        self.ui_base_path = path
-    
-    def to_dict(self) -> dict:
-        """
-        Convert configuration to dictionary.
-        
-        Returns:
-            dict: Configuration as dictionary
-        """
-        return {
-            'mode': self.mode.value,
-            'ui_base_path': self.ui_base_path
-        }
-    
-    @classmethod
-    def from_dict(cls, config_dict: dict) -> 'UIConfig':
-        """
-        Create configuration from dictionary.
-        
-        Args:
-            config_dict: Configuration dictionary
-            
-        Returns:
-            UIConfig: Configured instance
-        """
-        config = cls()
-        
-        if 'mode' in config_dict:
-            try:
-                config.mode = UILoadingMode(config_dict['mode'])
-            except ValueError:
-                config.mode = UILoadingMode.UI_FILES  # Force UI files mode
-        
-        if 'ui_base_path' in config_dict:
-            config.ui_base_path = config_dict['ui_base_path']
-            
-        return config
-    
-    def __str__(self) -> str:
-        """
-        String representation of the configuration.
-        
-        Returns:
-            str: Human-readable configuration description
-        """
-        return (f"UIConfig(mode={self.mode.value}, "
-                f"ui_base_path={self.ui_base_path})")
-    
-    def __repr__(self) -> str:
-        """
-        Detailed string representation of the configuration.
-        
-        Returns:
-            str: Detailed configuration description
-        """
-        return self.__str__()
+    def update_setting(self, key: str, value: str):
+        """Update a configuration setting."""
+        if key == 'ui_base_path':
+            self.update_ui_path(value)
+        else:
+            logger.warning(f"Unknown setting: {key}")

@@ -19,7 +19,7 @@ from PyQt6.QtWidgets import QApplication, QWidget, QPushButton, QLineEdit
 from PyQt6.QtCore import Qt, pyqtSignal
 
 from src.gui.ui_loader import UILoader
-from src.gui.ui_loader_enhanced import UILoaderEnhanced, UIValidationError
+from src.gui.ui_loader_enhanced import UILoader, UIValidationError
 from src.gui.ui_config import UIConfig, UILoadingMode
 
 from src.gui.interface_factory import InterfaceFactory, InterfaceCreationError
@@ -132,7 +132,7 @@ class TestUILoaderEnhanced:
         ui_file = Path(temp_dir) / "test.ui"
         ui_file.write_text(sample_ui_content)
         
-        widget = UILoaderEnhanced.load_ui_file(str(ui_file))
+        widget = UILoader.load_ui_file(str(ui_file))
         
         assert widget is not None
         assert widget.objectName() == "TestWidget"
@@ -159,48 +159,48 @@ class TestUILoaderEnhanced:
         
         # Should raise exception for invalid XML
         with pytest.raises(Exception):
-            UILoaderEnhanced.load_ui_file(str(ui_file))
+            UILoader.load_ui_file(str(ui_file))
     
     def test_ui_integrity_validation(self, temp_dir, sample_ui_content):
         """Test UI file integrity validation."""
         # Valid UI file
         valid_ui = Path(temp_dir) / "valid.ui"
         valid_ui.write_text(sample_ui_content)
-        assert UILoaderEnhanced.validate_ui_integrity(str(valid_ui)) is True
+        assert UILoader.validate_ui_integrity(str(valid_ui)) is True
         
         # Invalid UI file
         invalid_ui = Path(temp_dir) / "invalid.ui"
         invalid_ui.write_text("invalid xml content")
-        assert UILoaderEnhanced.validate_ui_integrity(str(invalid_ui)) is False
+        assert UILoader.validate_ui_integrity(str(invalid_ui)) is False
         
         # Non-existent file
         nonexistent = "/path/that/does/not/exist.ui"
-        assert UILoaderEnhanced.validate_ui_integrity(nonexistent) is False
+        assert UILoader.validate_ui_integrity(nonexistent) is False
     
     def test_ui_structure_validation(self, temp_dir, sample_ui_content):
         """Test UI structure validation."""
         # Valid structure
         valid_ui = Path(temp_dir) / "valid.ui"
         valid_ui.write_text(sample_ui_content)
-        assert UILoaderEnhanced._validate_ui_structure(str(valid_ui)) is True
+        assert UILoader._validate_ui_structure(str(valid_ui)) is True
         
         # Invalid structure
         invalid_ui = Path(temp_dir) / "invalid.ui"
         invalid_ui.write_text("invalid content")
-        assert UILoaderEnhanced._validate_ui_structure(str(invalid_ui)) is False
+        assert UILoader._validate_ui_structure(str(invalid_ui)) is False
     
     def test_ui_metadata_caching(self, qt_app, temp_dir, sample_ui_content):
         """Test UI metadata caching."""
         # Clear cache
-        UILoaderEnhanced.clear_ui_cache()
+        UILoader.clear_ui_cache()
         
         # Create and load UI file
         ui_file = Path(temp_dir) / "test.ui"
         ui_file.write_text(sample_ui_content)
-        widget = UILoaderEnhanced.load_ui_file(str(ui_file))
+        widget = UILoader.load_ui_file(str(ui_file))
         
         # Check that metadata was cached
-        metadata = UILoaderEnhanced.get_ui_metadata(str(ui_file))
+        metadata = UILoader.get_ui_metadata(str(ui_file))
         assert metadata is not None
         assert 'checksum' in metadata
         assert 'object_name' in metadata
@@ -213,7 +213,7 @@ class TestUILoaderEnhanced:
         ui_file.write_text(sample_ui_content)
         
         # Run diagnosis
-        diagnosis = UILoaderEnhanced.diagnose_ui_loading_issue("diagnose_test", temp_dir)
+        diagnosis = UILoader.diagnose_ui_loading_issue("diagnose_test", temp_dir)
         
         # Check diagnosis results
         assert diagnosis['ui_name'] == 'diagnose_test'
@@ -233,7 +233,7 @@ class TestUILoaderEnhanced:
         invalid_file.write_text("invalid content")
         
         # Get available files
-        available_files = UILoaderEnhanced.get_available_ui_files(temp_dir)
+        available_files = UILoader.get_available_ui_files(temp_dir)
         
         # Should only return valid UI files
         assert "test1" in available_files
@@ -247,12 +247,12 @@ class TestUILoaderEnhanced:
         ui_file.write_text(sample_ui_content)
         
         # Should return True for valid file
-        assert UILoaderEnhanced.ui_file_exists("test", temp_dir) is True
+        assert UILoader.ui_file_exists("test", temp_dir) is True
         
         # Should return False for invalid file
         invalid_file = Path(temp_dir) / "invalid.ui"
         invalid_file.write_text("invalid content")
-        assert UILoaderEnhanced.ui_file_exists("invalid", temp_dir) is False
+        assert UILoader.ui_file_exists("invalid", temp_dir) is False
 
 
 class TestUIConfig:
@@ -455,7 +455,7 @@ class TestInterfaceFactory:
         assert InterfaceFactory.interface_exists("nonexistent") is False
 
 
-class TestInterfaceFactory:
+class TestInterfaceFactoryEnhanced:
     """Test suite for enhanced InterfaceFactory class."""
     
     def test_create_interface_with_fallback_success(self, qt_app):
@@ -478,7 +478,7 @@ class TestInterfaceFactory:
         config.set_mode(UILoadingMode.AUTO_DETECT)
         
         # Mock all creation methods to fail
-        with patch('src.gui.ui_loader_enhanced.UILoaderEnhanced.validate_ui_integrity', return_value=False):
+        with patch('src.gui.ui_loader_enhanced.UILoader.validate_ui_integrity', return_value=False):
             with patch('src.gui.ui_loader.UILoader.ui_file_exists', return_value=False):
                 with patch('src.gui.interfaces.carbon_interface.CarbonInterface', side_effect=ImportError("Module not found")):
                     with pytest.raises(InterfaceCreationError):
@@ -716,7 +716,7 @@ class TestIntegration:
         config.set_mode(UILoadingMode.AUTO_DETECT)
         
         # Should attempt UI loading first, then fall back
-        with patch('src.gui.ui_loader_enhanced.UILoaderEnhanced.validate_ui_integrity', return_value=False):
+        with patch('src.gui.ui_loader_enhanced.UILoader.validate_ui_integrity', return_value=False):
             with patch('src.gui.ui_loader.UILoader.ui_file_exists', return_value=False):
                 with patch('src.gui.interfaces.carbon_interface.CarbonInterface') as mock_carbon:
                     mock_instance = Mock()
@@ -737,7 +737,7 @@ class TestIntegration:
         config.set_ui_base_path(temp_dir)
         
         # Test that UIConfig settings are respected
-        assert UILoaderEnhanced.ui_file_exists("test", temp_dir) is True
+        assert UILoader.ui_file_exists("test", temp_dir) is True
         
         # Test with different mode
         config.set_mode(UILoadingMode.HAND_CODED)
@@ -757,7 +757,7 @@ class TestIntegration:
         config.set_ui_base_path(temp_dir)
         
         # Should successfully load UI files
-        with patch('src.gui.ui_loader_enhanced.UILoaderEnhanced.validate_ui_integrity', return_value=True):
+        with patch('src.gui.ui_loader_enhanced.UILoader.validate_ui_integrity', return_value=True):
             interface = InterfaceFactory.create_interface("carbon", ui_config=config)
             assert interface is not None
             

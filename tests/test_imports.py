@@ -32,7 +32,7 @@ def test_core_imports():
         
         # Test project manager import
         logger.info("  - Testing project manager...")
-        from src.core.project_manager_enhanced import EnhancedProjectManager
+        from src.core.project_manager import ProjectManager
         logger.info("    ✓ ProjectManager imported successfully")
         
         # Test UI config import

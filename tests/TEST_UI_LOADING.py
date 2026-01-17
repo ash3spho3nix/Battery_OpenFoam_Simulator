@@ -15,8 +15,8 @@ sys.path.insert(0, str(Path(__file__).parent))
 from PyQt6.QtWidgets import QApplication, QWidget, QVBoxLayout, QLabel, QPushButton
 from PyQt6.QtCore import Qt
 
-from src.gui.ui_loader import UiLoader
-from src.gui.ui_config_enhanced import EnhancedUIConfig
+from src.gui.ui_loader import UILoader
+from src.gui.ui_config import UIConfig
 
 
 def test_ui_loader():
@@ -25,7 +25,7 @@ def test_ui_loader():
     
     # Test individual file existence
     for ui_name in ["mainwindow", "carboninterface", "halfcellinterface", "fullcellfoam", "resultinterface"]:
-        exists = UiLoader.ui_file_exists(ui_name)
+        exists = UILoader.ui_file_exists(ui_name)
         print(f"  {ui_name}.ui exists: {exists}")
     
     print("UI Loader test completed.\n")
@@ -36,7 +36,7 @@ def test_ui_config():
     print("Testing UI Configuration...")
     
     # Test default configuration
-    config = EnhancedUIConfig()
+    config = UIConfig()
     print(f"Default config: {config}")
     
     print("UI Configuration test completed.\n")
@@ -48,7 +48,7 @@ def test_main_window_loading():
     
     try:
         # Try to load main window from .ui file
-        main_window = UiLoader.load_main_window()
+        main_window = UILoader.load_main_window()
         print(f"Successfully loaded main window from .ui file: {type(main_window)}")
         print(f"Window title: {main_window.windowTitle()}")
         print(f"Window size: {main_window.size()}")
@@ -64,7 +64,7 @@ def test_carbon_interface_loading():
     
     try:
         # Try to load carbon interface from .ui file
-        carbon_interface = UiLoader.load_carbon_interface()
+        carbon_interface = UILoader.load_carbon_interface()
         print(f"Successfully loaded carbon interface from .ui file: {type(carbon_interface)}")
         return True
     except Exception as e:

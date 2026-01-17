@@ -308,5 +308,53 @@ UI_DEFAULT_VALUES = {
         "divergence_index": 0,  # bounded Gauss upwind
         "laplacian_index": 0,  # Gauss linear uncorrected
         "interpolation_index": 0  # linear
+    },
+    "halfcell_interface": {
+        "unit_index": 0,  # micrometer(um)
+        "length": "100",
+        "width": "100", 
+        "height": "100",
+        "length2": "100",
+        "x_divide": "20",
+        "y_divide": "20",
+        "z_divide": "20",
+        "x2_divide": "20",
+        "CeWE": "1000",
+        "Cesp": "1000",
+        "fWE": "0.5",
+        "maxWE": "30000",
+        "R": "8.314",
+        "brugg": "1.5",
+        "D0Ce": "1e-10",
+        "faisWE": "0.5",
+        "tNo": "0.5"
+    },
+    "fullcell_interface": {
+        "unit_index": 0,  # micrometer(um)
+        "length": "100",
+        "width": "100",
+        "height": "100", 
+        "length2": "100",
+        "length3": "100",
+        "x_divide": "20",
+        "y_divide": "20",
+        "z_divide": "20",
+        "x2_divide": "20",
+        "x3_divide": "20",
+        "csmaxa": "30000",
+        "csmaxc": "30000",
+        "kreacta": "1e-11",
+        "kreactc": "1e-11",
+        "alphaca": "0.5",
+        "alphaaa": "0.5",
+        "alphacc": "0.5",
+        "alphaac": "0.5",
+        "porcea": "0.3",
+        "porcec": "0.3",
+        "f": "96485",
+        "R": "8.314",
+        "brugg": "1.5",
+        "D0Ce": "1e-10",
+        "tNo": "0.5"
     }
 }

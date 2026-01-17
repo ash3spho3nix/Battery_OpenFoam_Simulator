@@ -9,6 +9,8 @@ from enum import Enum
 from dataclasses import dataclass
 from typing import Dict, Any, List
 from pathlib import Path
+import json
+import os
 
 
 class SimulationModule(Enum):
@@ -33,7 +35,7 @@ class ApplicationConfig:
     app_name: str = "BatteryFOAM"
     app_version: str = "1.0.0"
     default_project_path: str = "~"
-    ui_files_path: str = "resources/ui"
+    ui_files_path: str = "resources/ui/files"
     templates_path: str = "resources/templates"
     
     @property
@@ -358,8 +360,89 @@ UI_DEFAULT_VALUES = {
 }
 
 
+class UserConfig:
+    """
+    User configuration manager for persistent settings.
+    
+    Handles saving and loading user preferences like project paths,
+    recent projects, and custom parameter defaults.
+    """
+    
+    def __init__(self):
+        self.config_dir = Path.home() / ".batteryfoam"
+        self.config_file = self.config_dir / "user_config.json"
+        self._ensure_config_dir()
+        self._config = self._load_config()
+    
+    def _ensure_config_dir(self):
+        """Ensure the configuration directory exists."""
+        self.config_dir.mkdir(exist_ok=True)
+    
+    def _load_config(self) -> Dict[str, Any]:
+        """Load configuration from file."""
+        if self.config_file.exists():
+            try:
+                with open(self.config_file, 'r', encoding='utf-8') as f:
+                    return json.load(f)
+            except (json.JSONDecodeError, IOError) as e:
+                print(f"Warning: Could not load user config: {e}")
+                return self._get_default_config()
+        return self._get_default_config()
+    
+    def _get_default_config(self) -> Dict[str, Any]:
+        """Get default configuration."""
+        return {
+            "last_project_path": str(Path.home()),
+            "recent_projects": [],
+            "custom_defaults": {}
+        }
+    
+    def save_config(self):
+        """Save configuration to file."""
+        try:
+            with open(self.config_file, 'w', encoding='utf-8') as f:
+                json.dump(self._config, f, indent=2, ensure_ascii=False)
+        except IOError as e:
+            print(f"Warning: Could not save user config: {e}")
+    
+    def get_last_project_path(self) -> str:
+        """Get the last used project path."""
+        return self._config.get("last_project_path", str(Path.home()))
+    
+    def set_last_project_path(self, path: str):
+        """Set the last used project path."""
+        self._config["last_project_path"] = path
+        self.save_config()
+    
+    def get_recent_projects(self) -> List[str]:
+        """Get list of recent projects."""
+        return self._config.get("recent_projects", [])
+    
+    def add_recent_project(self, project_path: str):
+        """Add a project to recent projects list."""
+        recent = self._config.get("recent_projects", [])
+        if project_path in recent:
+            recent.remove(project_path)
+        recent.insert(0, project_path)
+        # Keep only the most recent MAX_RECENT_PROJECTS
+        self._config["recent_projects"] = recent[:MAX_RECENT_PROJECTS]
+        self.save_config()
+    
+    def get_custom_default(self, key: str) -> Any:
+        """Get a custom default value."""
+        return self._config.get("custom_defaults", {}).get(key)
+    
+    def set_custom_default(self, key: str, value: Any):
+        """Set a custom default value."""
+        if "custom_defaults" not in self._config:
+            self._config["custom_defaults"] = {}
+        self._config["custom_defaults"][key] = value
+        self.save_config()
+
+
 # Global configuration manager instance
 _config_manager = None
+_user_config = None
 
 
 def get_config_manager() -> ConfigManager:
@@ -368,3 +451,11 @@ def get_config_manager() -> ConfigManager:
     if _config_manager is None:
         _config_manager = ConfigManager()
     return _config_manager
+
+
+def get_user_config() -> UserConfig:
+    """Get the global user configuration instance."""
+    global _user_config
+    if _user_config is None:
+        _user_config = UserConfig()
+    return _user_config

@@ -6,7 +6,7 @@ Use parameter_manager_enhanced.py instead.
 """
 
 # Import the enhanced version for compatibility
-from .parameter_manager_enhanced import (
+from .parameter_manager import (
     ParameterManager,
     ParameterValidationError,
     OpenFOAMParseError,

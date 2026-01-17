@@ -1,0 +1,14 @@
+{
+    "simulation_type": "spm",
+    "parameters": {
+        "length": 150.0,
+        "width": 150.0,
+        "height": 150.0,
+        "end_time": 20.0,
+        "time_step": 0.1
+    },
+    "solver_settings": {
+        "tolerance": 1e-7,
+        "max_iterations": 1000
+    }
+}

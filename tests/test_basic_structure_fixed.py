@@ -27,8 +27,8 @@ def test_imports():
         from src.core.constants import APP_NAME, APP_VERSION
         logger.info(f"✓ Core constants imported: {APP_NAME} v{APP_VERSION}")
         
-        from src.core.project_manager_enhanced import EnhancedProjectManager
-        logger.info("✓ EnhancedProjectManager imported")
+        from src.core.project_manager import ProjectManager
+        logger.info("✓ ProjectManager imported")
         
         # Test GUI imports
         from src.gui.ui_config import UIConfig, UILoadingMode
@@ -37,7 +37,7 @@ def test_imports():
         from src.gui.ui_loader import UILoader
         logger.info("✓ UILoader imported")
         
-        from src.gui.ui_loader_enhanced import UILoaderEnhanced
+        from src.gui.ui_loader import UILoaderEnhanced
         logger.info("✓ UILoaderEnhanced imported")
         
         from src.gui.interface_factory import InterfaceFactory
@@ -128,11 +128,11 @@ def test_project_manager():
     logger.info("Testing project manager...")
     
     try:
-        from src.core.project_manager_enhanced import EnhancedProjectManager
+        from src.core.project_manager import ProjectManager
         
         # Create project manager with default path
-        pm = EnhancedProjectManager(base_projects_path=os.path.join(os.getcwd(), "test_projects"))
-        logger.info("✓ EnhancedProjectManager created")
+        pm = ProjectManager(base_projects_path=os.path.join(os.getcwd(), "test_projects"))
+        logger.info("✓ ProjectManager created")
         
         # Test basic functionality
         logger.info("✓ Project manager tests passed!")

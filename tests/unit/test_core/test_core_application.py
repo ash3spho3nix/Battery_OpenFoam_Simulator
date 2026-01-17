@@ -17,7 +17,7 @@ from unittest.mock import Mock, MagicMock, patch
 import sys
 
 # Import test modules
-from src.core.project_manager_enhanced import EnhancedProjectManager, ProjectValidationError
+from src.core.project_manager import ProjectManager, ProjectValidationError
 from src.core.constants import (
     APP_NAME, APP_VERSION, SUPPORTED_MODULES, SOLVER_NAMES,
     PARAMETER_FILES, DEFAULT_PARAMETERS, ERROR_MESSAGES
@@ -25,18 +25,18 @@ from src.core.constants import (
 from src.core.config import ConfigManager
 
 
-class TestEnhancedProjectManager:
-    """Test suite for EnhancedProjectManager class."""
+class TestProjectManager:
+    """Test suite for ProjectManager class."""
     
     def test_project_manager_initialization(self):
         """Test ProjectManager initialization with default parameters."""
-        pm = EnhancedProjectManager(base_projects_path=tempfile.mkdtemp())
+        pm = ProjectManager(base_projects_path=tempfile.mkdtemp())
         assert pm.base_projects_path.is_dir()
     
     def test_create_project_success(self, temp_dir, mock_templates):
         """Test successful project creation."""
         with patch('src.core.constants.TEMPLATES_PATH', mock_templates):
-            pm = EnhancedProjectManager(base_projects_path=temp_dir)
+            pm = ProjectManager(base_projects_path=temp_dir)
             
             result = pm.create_project_safe(
                 project_name="TestProject",
@@ -57,7 +57,7 @@ class TestEnhancedProjectManager:
     
     def test_create_project_invalid_inputs(self, temp_dir):
         """Test project creation with invalid inputs."""
-        pm = EnhancedProjectManager(base_projects_path=temp_dir)
+        pm = ProjectManager(base_projects_path=temp_dir)
         
         # Empty project name
         with pytest.raises(ProjectValidationError):
@@ -66,7 +66,7 @@ class TestEnhancedProjectManager:
     def test_create_project_existing_directory(self, temp_dir, mock_templates):
         """Test project creation when directory already exists."""
         with patch('src.core.constants.TEMPLATES_PATH', mock_templates):
-            pm = EnhancedProjectManager(base_projects_path=temp_dir)
+            pm = ProjectManager(base_projects_path=temp_dir)
             
             # Create project first time
             result1 = pm.create_project_safe("TestProject", "SPM", temp_dir, create_backup=False)
@@ -78,7 +78,7 @@ class TestEnhancedProjectManager:
     
     def test_create_project_missing_template(self, temp_dir):
         """Test project creation when template is missing."""
-        pm = EnhancedProjectManager(base_projects_path=temp_dir)
+        pm = ProjectManager(base_projects_path=temp_dir)
         
         with pytest.raises(ProjectValidationError):
             pm.create_project_safe("TestProject", "NonExistentTemplate", temp_dir, create_backup=False)
@@ -241,7 +241,7 @@ class TestApplicationIntegration:
         config = ConfigManager()
         config.set('projects_path', str(temp_dir)) # Ensure it's a string for ConfigManager
         
-        pm = EnhancedProjectManager(base_projects_path=config.get('projects_path'))
+        pm = ProjectManager(base_projects_path=config.get('projects_path'))
         assert pm.base_projects_path == Path(temp_dir)
     
     def test_error_handling_with_recovery_manager(self, temp_dir):

@@ -12,7 +12,7 @@ src_dir = Path(__file__).parent / "src"
 sys.path.insert(0, str(src_dir))
 
 # Import just the UI loader directly
-from src.gui.ui_loader import UiLoader
+from src.gui.ui_loader import UILoader
 
 def test_ui_loader():
     """Test the UI loader."""

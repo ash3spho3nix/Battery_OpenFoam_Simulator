@@ -1,0 +1,25 @@
+2026-01-14 15:14:48,813 - src.gui.ui_loader.UILoader - INFO - Starting UI loading for: mainwindow
+2026-01-14 15:18:32,068 - src.gui.ui_loader.UILoader - INFO - Starting UI loading for: mainwindow
+2026-01-14 15:21:22,299 - src.gui.ui_loader.UILoader - INFO - Starting UI loading for: mainwindow
+2026-01-14 16:23:17,285 - src.gui.ui_loader.UILoader - INFO - Starting UI loading for: mainwindow
+2026-01-14 16:26:13,447 - src.gui.ui_loader.UILoader - INFO - Starting UI loading for: mainwindow
+2026-01-14 16:26:13,452 - src.gui.ui_loader.UILoader - INFO - Loading mode: UI_FILES
+2026-01-14 16:26:13,458 - src.gui.ui_loader.UILoader - DEBUG - UI file validation passed: C:\Users\vsharma.A123SYSTEMSEU\Documents\BatterySimulator\BatteryOpenFoamSimulator\Battery_OpenFoam_Simulator\src\resources\ui\files\mainwindow.ui
+2026-01-14 16:26:13,974 - src.gui.ui_loader.UILoader - INFO - Successfully loaded UI file: C:\Users\vsharma.A123SYSTEMSEU\Documents\BatterySimulator\BatteryOpenFoamSimulator\Battery_OpenFoam_Simulator\src\resources\ui\files\mainwindow.ui
+2026-01-14 16:26:14,000 - src.gui.ui_loader.UILoader - DEBUG - Widget count for mainwindow: 41
+2026-01-14 16:26:14,005 - src.gui.ui_loader.UILoader - DEBUG - Cached interface: mainwindow
+2026-01-14 16:26:14,012 - src.gui.ui_loader.UILoader - INFO - Successfully loaded UI: mainwindow
+2026-01-14 17:01:57,491 - src.gui.ui_loader.UILoader - INFO - Starting UI loading for: mainwindow
+2026-01-14 17:01:57,496 - src.gui.ui_loader.UILoader - INFO - Loading mode: UI_FILES
+2026-01-14 17:01:57,500 - src.gui.ui_loader.UILoader - DEBUG - UI file validation passed: C:\Users\vsharma.A123SYSTEMSEU\Documents\BatterySimulator\BatteryOpenFoamSimulator\Battery_OpenFoam_Simulator\src\resources\ui\files\mainwindow.ui
+2026-01-14 17:01:57,621 - src.gui.ui_loader.UILoader - INFO - Successfully loaded UI file: C:\Users\vsharma.A123SYSTEMSEU\Documents\BatterySimulator\BatteryOpenFoamSimulator\Battery_OpenFoam_Simulator\src\resources\ui\files\mainwindow.ui
+2026-01-14 17:01:57,629 - src.gui.ui_loader.UILoader - DEBUG - Widget count for mainwindow: 41
+2026-01-14 17:01:57,630 - src.gui.ui_loader.UILoader - DEBUG - Cached interface: mainwindow
+2026-01-14 17:01:57,640 - src.gui.ui_loader.UILoader - INFO - Successfully loaded UI: mainwindow
+2026-01-15 09:29:49,745 - src.gui.ui_loader.UILoader - INFO - Starting UI loading for: mainwindow
+2026-01-15 09:29:49,746 - src.gui.ui_loader.UILoader - INFO - Loading mode: UI_FILES
+2026-01-15 09:29:49,751 - src.gui.ui_loader.UILoader - DEBUG - UI file validation passed: C:\Users\vsharma.A123SYSTEMSEU\Documents\BatterySimulator\BatteryOpenFoamSimulator\Battery_OpenFoam_Simulator\src\resources\ui\files\mainwindow.ui
+2026-01-15 09:29:50,124 - src.gui.ui_loader.UILoader - INFO - Successfully loaded UI file: C:\Users\vsharma.A123SYSTEMSEU\Documents\BatterySimulator\BatteryOpenFoamSimulator\Battery_OpenFoam_Simulator\src\resources\ui\files\mainwindow.ui
+2026-01-15 09:29:50,136 - src.gui.ui_loader.UILoader - DEBUG - Widget count for mainwindow: 41
+2026-01-15 09:29:50,137 - src.gui.ui_loader.UILoader - DEBUG - Cached interface: mainwindow
+2026-01-15 09:29:50,138 - src.gui.ui_loader.UILoader - INFO - Successfully loaded UI: mainwindow

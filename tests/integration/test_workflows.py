@@ -16,7 +16,7 @@ from unittest.mock import Mock, patch, MagicMock
 sys.path.insert(0, str(Path(__file__).parent.parent))
 
 # Import test modules
-from src.core.project_manager_enhanced import EnhancedProjectManager
+from src.core.project_manager import ProjectManager
 from src.gui.main_window import MainWindow
 from src.gui.ui_config import UIConfig
 from src.gui.interfaces.base_interface import BaseInterface
@@ -38,7 +38,7 @@ class TestIntegrationWorkflows:
     def test_complete_project_lifecycle(self, qtbot):
         """Test complete project lifecycle from creation to cleanup."""
         # 1. Create project
-        pm = EnhancedProjectManager(self.temp_dir)
+        pm = ProjectManager(self.temp_dir)
         result = pm.create_project_safe(
             self.temp_dir,
             self.project_name,
@@ -105,7 +105,7 @@ class TestIntegrationWorkflows:
         
         print("✓ MainWindow workflow test passed")
     
-    @patch('src.gui.main_window.EnhancedProjectManager')
+    @patch('src.gui.main_window.ProjectManager')
     @patch('src.gui.main_window.InterfaceFactory')
     def test_project_creation_workflow(self, mock_factory, mock_pm, qtbot):
         """Test complete project creation workflow."""
@@ -182,7 +182,7 @@ class TestIntegrationWorkflows:
         
         print("✓ Interface creation and navigation test passed")
     
-    @patch('src.gui.main_window.EnhancedProjectManager')
+    @patch('src.gui.main_window.ProjectManager')
     def test_existing_project_opening(self, mock_pm, qtbot):
         """Test opening existing projects."""
         # Setup project structure
@@ -253,7 +253,7 @@ class TestIntegrationWorkflows:
         
         print("✓ Error handling workflow test passed")
     
-    @patch('src.gui.main_window.EnhancedProjectManager')
+    @patch('src.gui.main_window.ProjectManager')
     def test_project_creation_failure_handling(self, mock_pm, qtbot):
         """Test handling of project creation failures."""
         # Setup mock to raise exception
@@ -309,7 +309,7 @@ class TestIntegrationWorkflows:
     
     def test_project_validation_workflow(self, qtbot):
         """Test project validation workflow."""
-        pm = EnhancedProjectManager(self.temp_dir)
+        pm = ProjectManager(self.temp_dir)
         
         # Test valid project
         result = pm.create_project_safe(

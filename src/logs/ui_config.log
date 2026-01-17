@@ -278,3 +278,233 @@
 2025-12-19 13:08:38,996 - src.gui.ui_config_enhanced.EnhancedUIConfig - DEBUG - Merged timeout_seconds from command_line: 30
 2025-12-19 13:08:38,996 - src.gui.ui_config_enhanced.EnhancedUIConfig - DEBUG - Merged enable_profiling from command_line: False
 2025-12-19 13:08:38,996 - src.gui.ui_config_enhanced.EnhancedUIConfig - INFO - Configuration validation passed
+2026-01-13 16:58:31,333 - src.gui.ui_config.EnhancedUIConfig - INFO - Initializing EnhancedUIConfig
+2026-01-13 16:58:56,298 - src.gui.ui_config.EnhancedUIConfig - INFO - Initializing EnhancedUIConfig
+2026-01-13 17:07:47,961 - src.gui.ui_config.EnhancedUIConfig - INFO - Initializing EnhancedUIConfig
+2026-01-13 17:10:36,233 - src.gui.ui_config.UIConfig - INFO - Initializing UIConfig
+2026-01-13 17:46:10,516 - src.gui.ui_config.UIConfig - INFO - Initializing UIConfig
+2026-01-13 17:46:54,653 - src.gui.ui_config.UIConfig - INFO - Initializing UIConfig
+2026-01-13 17:48:29,072 - src.gui.ui_config.UIConfig - INFO - Initializing UIConfig
+2026-01-14 09:24:35,295 - src.gui.ui_config.UIConfig - INFO - Initializing UIConfig
+2026-01-14 12:53:37,725 - src.gui.ui_config.UIConfig - INFO - Initializing UIConfig
+2026-01-14 13:19:07,180 - src.gui.ui_config.UIConfig - INFO - Initializing UIConfig
+2026-01-14 13:40:47,312 - src.gui.ui_config.UIConfig - INFO - Initializing UIConfig
+2026-01-14 14:01:57,489 - src.gui.ui_config.UIConfig - INFO - Initializing UIConfig
+2026-01-14 14:01:57,492 - src.gui.ui_config.UIConfig - INFO - Initializing UIConfig
+2026-01-14 14:01:57,492 - src.gui.ui_config.UIConfig - INFO - Initializing UIConfig
+2026-01-14 14:01:57,492 - src.gui.ui_config.UIConfig - DEBUG - Merged mode from environment: UILoadingMode.AUTO_DETECT
+2026-01-14 14:01:57,492 - src.gui.ui_config.UIConfig - DEBUG - Merged fallback_enabled from environment: True
+2026-01-14 14:01:57,493 - src.gui.ui_config.UIConfig - DEBUG - Merged fallback_strategy from environment: FallbackStrategy.GRACEFUL
+2026-01-14 14:01:57,493 - src.gui.ui_config.UIConfig - DEBUG - Merged cache_enabled from environment: True
+2026-01-14 14:01:57,493 - src.gui.ui_config.UIConfig - DEBUG - Merged cache_ttl from environment: 300
+2026-01-14 14:01:57,493 - src.gui.ui_config.UIConfig - DEBUG - Merged validate_ui_files from environment: True
+2026-01-14 14:01:57,493 - src.gui.ui_config.UIConfig - DEBUG - Merged validate_widgets from environment: True
+2026-01-14 14:01:57,493 - src.gui.ui_config.UIConfig - DEBUG - Merged log_level from environment: INFO
+2026-01-14 14:01:57,493 - src.gui.ui_config.UIConfig - DEBUG - Merged max_retries from environment: 3
+2026-01-14 14:01:57,493 - src.gui.ui_config.UIConfig - DEBUG - Merged timeout_seconds from environment: 30
+2026-01-14 14:01:57,493 - src.gui.ui_config.UIConfig - DEBUG - Merged enable_profiling from environment: False
+2026-01-14 14:01:57,493 - src.gui.ui_config.UIConfig - INFO - Initializing UIConfig
+2026-01-14 14:01:57,499 - src.gui.ui_config.UIConfig - WARNING - Unknown setting: no_fallback from command_line
+2026-01-14 14:01:57,505 - src.gui.ui_config.UIConfig - WARNING - Unknown setting: no_validate from command_line
+2026-01-14 14:01:57,505 - src.gui.ui_config.UIConfig - WARNING - Unknown setting: no_cache from command_line
+2026-01-14 14:01:57,505 - src.gui.ui_config.UIConfig - DEBUG - Set enable_profiling from command_line: False
+2026-01-14 14:01:57,505 - src.gui.ui_config.UIConfig - DEBUG - Merged mode from command_line: UILoadingMode.AUTO_DETECT
+2026-01-14 14:01:57,505 - src.gui.ui_config.UIConfig - DEBUG - Merged fallback_enabled from command_line: True
+2026-01-14 14:01:57,505 - src.gui.ui_config.UIConfig - DEBUG - Merged fallback_strategy from command_line: FallbackStrategy.GRACEFUL
+2026-01-14 14:01:57,505 - src.gui.ui_config.UIConfig - DEBUG - Merged cache_enabled from command_line: True
+2026-01-14 14:01:57,505 - src.gui.ui_config.UIConfig - DEBUG - Merged cache_ttl from command_line: 300
+2026-01-14 14:01:57,505 - src.gui.ui_config.UIConfig - DEBUG - Merged validate_ui_files from command_line: True
+2026-01-14 14:01:57,506 - src.gui.ui_config.UIConfig - DEBUG - Merged validate_widgets from command_line: True
+2026-01-14 14:01:57,506 - src.gui.ui_config.UIConfig - DEBUG - Merged log_level from command_line: INFO
+2026-01-14 14:01:57,506 - src.gui.ui_config.UIConfig - DEBUG - Merged max_retries from command_line: 3
+2026-01-14 14:01:57,506 - src.gui.ui_config.UIConfig - DEBUG - Merged timeout_seconds from command_line: 30
+2026-01-14 14:01:57,506 - src.gui.ui_config.UIConfig - DEBUG - Merged enable_profiling from command_line: False
+2026-01-14 14:01:57,506 - src.gui.ui_config.UIConfig - INFO - Configuration validation passed
+2026-01-14 14:47:14,402 - src.gui.ui_config.UIConfig - INFO - Initializing UIConfig
+2026-01-14 14:49:59,315 - src.gui.ui_config.UIConfig - INFO - Initializing UIConfig
+2026-01-14 14:54:24,346 - src.gui.ui_config.UIConfig - INFO - Initializing UIConfig
+2026-01-14 15:03:18,250 - src.gui.ui_config.UIConfig - INFO - Initializing UIConfig
+2026-01-14 15:09:36,307 - src.gui.ui_config.UIConfig - INFO - Initializing UIConfig
+2026-01-14 15:09:36,332 - src.gui.ui_config.UIConfig - INFO - Initializing UIConfig
+2026-01-14 15:09:36,332 - src.gui.ui_config.UIConfig - INFO - Initializing UIConfig
+2026-01-14 15:09:36,332 - src.gui.ui_config.UIConfig - DEBUG - Merged mode from environment: UILoadingMode.AUTO_DETECT
+2026-01-14 15:09:36,333 - src.gui.ui_config.UIConfig - DEBUG - Merged fallback_enabled from environment: True
+2026-01-14 15:09:36,333 - src.gui.ui_config.UIConfig - DEBUG - Merged fallback_strategy from environment: FallbackStrategy.GRACEFUL
+2026-01-14 15:09:36,333 - src.gui.ui_config.UIConfig - DEBUG - Merged cache_enabled from environment: True
+2026-01-14 15:09:36,333 - src.gui.ui_config.UIConfig - DEBUG - Merged cache_ttl from environment: 300
+2026-01-14 15:09:36,333 - src.gui.ui_config.UIConfig - DEBUG - Merged validate_ui_files from environment: True
+2026-01-14 15:09:36,333 - src.gui.ui_config.UIConfig - DEBUG - Merged validate_widgets from environment: True
+2026-01-14 15:09:36,333 - src.gui.ui_config.UIConfig - DEBUG - Merged log_level from environment: INFO
+2026-01-14 15:09:36,333 - src.gui.ui_config.UIConfig - DEBUG - Merged max_retries from environment: 3
+2026-01-14 15:09:36,333 - src.gui.ui_config.UIConfig - DEBUG - Merged timeout_seconds from environment: 30
+2026-01-14 15:09:36,333 - src.gui.ui_config.UIConfig - DEBUG - Merged enable_profiling from environment: False
+2026-01-14 15:09:36,333 - src.gui.ui_config.UIConfig - INFO - Initializing UIConfig
+2026-01-14 15:09:36,347 - src.gui.ui_config.UIConfig - WARNING - Unknown setting: no_fallback from command_line
+2026-01-14 15:09:36,347 - src.gui.ui_config.UIConfig - WARNING - Unknown setting: no_validate from command_line
+2026-01-14 15:09:36,348 - src.gui.ui_config.UIConfig - WARNING - Unknown setting: no_cache from command_line
+2026-01-14 15:09:36,348 - src.gui.ui_config.UIConfig - DEBUG - Set enable_profiling from command_line: False
+2026-01-14 15:09:36,348 - src.gui.ui_config.UIConfig - DEBUG - Merged mode from command_line: UILoadingMode.AUTO_DETECT
+2026-01-14 15:09:36,348 - src.gui.ui_config.UIConfig - DEBUG - Merged fallback_enabled from command_line: True
+2026-01-14 15:09:36,348 - src.gui.ui_config.UIConfig - DEBUG - Merged fallback_strategy from command_line: FallbackStrategy.GRACEFUL
+2026-01-14 15:09:36,348 - src.gui.ui_config.UIConfig - DEBUG - Merged cache_enabled from command_line: True
+2026-01-14 15:09:36,348 - src.gui.ui_config.UIConfig - DEBUG - Merged cache_ttl from command_line: 300
+2026-01-14 15:09:36,349 - src.gui.ui_config.UIConfig - DEBUG - Merged validate_ui_files from command_line: True
+2026-01-14 15:09:36,349 - src.gui.ui_config.UIConfig - DEBUG - Merged validate_widgets from command_line: True
+2026-01-14 15:09:36,349 - src.gui.ui_config.UIConfig - DEBUG - Merged log_level from command_line: INFO
+2026-01-14 15:09:36,349 - src.gui.ui_config.UIConfig - DEBUG - Merged max_retries from command_line: 3
+2026-01-14 15:09:36,349 - src.gui.ui_config.UIConfig - DEBUG - Merged timeout_seconds from command_line: 30
+2026-01-14 15:09:36,349 - src.gui.ui_config.UIConfig - DEBUG - Merged enable_profiling from command_line: False
+2026-01-14 15:09:36,349 - src.gui.ui_config.UIConfig - INFO - Configuration validation passed
+2026-01-14 15:10:33,692 - src.gui.ui_config.UIConfig - INFO - Initializing UIConfig
+2026-01-14 15:10:33,699 - src.gui.ui_config.UIConfig - INFO - Initializing UIConfig
+2026-01-14 15:10:33,699 - src.gui.ui_config.UIConfig - INFO - Initializing UIConfig
+2026-01-14 15:10:33,699 - src.gui.ui_config.UIConfig - DEBUG - Merged mode from environment: UILoadingMode.AUTO_DETECT
+2026-01-14 15:10:33,700 - src.gui.ui_config.UIConfig - DEBUG - Merged fallback_enabled from environment: True
+2026-01-14 15:10:33,700 - src.gui.ui_config.UIConfig - DEBUG - Merged fallback_strategy from environment: FallbackStrategy.GRACEFUL
+2026-01-14 15:10:33,700 - src.gui.ui_config.UIConfig - DEBUG - Merged cache_enabled from environment: True
+2026-01-14 15:10:33,700 - src.gui.ui_config.UIConfig - DEBUG - Merged cache_ttl from environment: 300
+2026-01-14 15:10:33,700 - src.gui.ui_config.UIConfig - DEBUG - Merged validate_ui_files from environment: True
+2026-01-14 15:10:33,700 - src.gui.ui_config.UIConfig - DEBUG - Merged validate_widgets from environment: True
+2026-01-14 15:10:33,700 - src.gui.ui_config.UIConfig - DEBUG - Merged log_level from environment: INFO
+2026-01-14 15:10:33,700 - src.gui.ui_config.UIConfig - DEBUG - Merged max_retries from environment: 3
+2026-01-14 15:10:33,700 - src.gui.ui_config.UIConfig - DEBUG - Merged timeout_seconds from environment: 30
+2026-01-14 15:10:33,700 - src.gui.ui_config.UIConfig - DEBUG - Merged enable_profiling from environment: False
+2026-01-14 15:10:33,700 - src.gui.ui_config.UIConfig - INFO - Initializing UIConfig
+2026-01-14 15:10:33,707 - src.gui.ui_config.UIConfig - WARNING - Unknown setting: no_fallback from command_line
+2026-01-14 15:10:33,707 - src.gui.ui_config.UIConfig - WARNING - Unknown setting: no_validate from command_line
+2026-01-14 15:10:33,707 - src.gui.ui_config.UIConfig - WARNING - Unknown setting: no_cache from command_line
+2026-01-14 15:10:33,708 - src.gui.ui_config.UIConfig - DEBUG - Set enable_profiling from command_line: False
+2026-01-14 15:10:33,708 - src.gui.ui_config.UIConfig - DEBUG - Merged mode from command_line: UILoadingMode.AUTO_DETECT
+2026-01-14 15:10:33,708 - src.gui.ui_config.UIConfig - DEBUG - Merged fallback_enabled from command_line: True
+2026-01-14 15:10:33,708 - src.gui.ui_config.UIConfig - DEBUG - Merged fallback_strategy from command_line: FallbackStrategy.GRACEFUL
+2026-01-14 15:10:33,708 - src.gui.ui_config.UIConfig - DEBUG - Merged cache_enabled from command_line: True
+2026-01-14 15:10:33,708 - src.gui.ui_config.UIConfig - DEBUG - Merged cache_ttl from command_line: 300
+2026-01-14 15:10:33,708 - src.gui.ui_config.UIConfig - DEBUG - Merged validate_ui_files from command_line: True
+2026-01-14 15:10:33,708 - src.gui.ui_config.UIConfig - DEBUG - Merged validate_widgets from command_line: True
+2026-01-14 15:10:33,708 - src.gui.ui_config.UIConfig - DEBUG - Merged log_level from command_line: INFO
+2026-01-14 15:10:33,708 - src.gui.ui_config.UIConfig - DEBUG - Merged max_retries from command_line: 3
+2026-01-14 15:10:33,708 - src.gui.ui_config.UIConfig - DEBUG - Merged timeout_seconds from command_line: 30
+2026-01-14 15:10:33,709 - src.gui.ui_config.UIConfig - DEBUG - Merged enable_profiling from command_line: False
+2026-01-14 15:10:33,709 - src.gui.ui_config.UIConfig - INFO - Configuration validation passed
+2026-01-14 15:14:24,443 - src.gui.ui_config.UIConfig - INFO - Initializing UIConfig
+2026-01-14 15:14:48,687 - src.gui.ui_config.UIConfig - INFO - Initializing UIConfig
+2026-01-14 15:14:48,709 - src.gui.ui_config.UIConfig - INFO - Initializing UIConfig
+2026-01-14 15:14:48,710 - src.gui.ui_config.UIConfig - INFO - Initializing UIConfig
+2026-01-14 15:14:48,710 - src.gui.ui_config.UIConfig - DEBUG - Merged mode from environment: UILoadingMode.AUTO_DETECT
+2026-01-14 15:14:48,710 - src.gui.ui_config.UIConfig - DEBUG - Merged fallback_enabled from environment: True
+2026-01-14 15:14:48,711 - src.gui.ui_config.UIConfig - DEBUG - Merged fallback_strategy from environment: FallbackStrategy.GRACEFUL
+2026-01-14 15:14:48,711 - src.gui.ui_config.UIConfig - DEBUG - Merged cache_enabled from environment: True
+2026-01-14 15:14:48,711 - src.gui.ui_config.UIConfig - DEBUG - Merged cache_ttl from environment: 300
+2026-01-14 15:14:48,711 - src.gui.ui_config.UIConfig - DEBUG - Merged validate_ui_files from environment: True
+2026-01-14 15:14:48,711 - src.gui.ui_config.UIConfig - DEBUG - Merged validate_widgets from environment: True
+2026-01-14 15:14:48,711 - src.gui.ui_config.UIConfig - DEBUG - Merged log_level from environment: INFO
+2026-01-14 15:14:48,711 - src.gui.ui_config.UIConfig - DEBUG - Merged max_retries from environment: 3
+2026-01-14 15:14:48,711 - src.gui.ui_config.UIConfig - DEBUG - Merged timeout_seconds from environment: 30
+2026-01-14 15:14:48,711 - src.gui.ui_config.UIConfig - DEBUG - Merged enable_profiling from environment: False
+2026-01-14 15:14:48,711 - src.gui.ui_config.UIConfig - INFO - Initializing UIConfig
+2026-01-14 15:14:48,724 - src.gui.ui_config.UIConfig - WARNING - Unknown setting: no_fallback from command_line
+2026-01-14 15:14:48,724 - src.gui.ui_config.UIConfig - WARNING - Unknown setting: no_validate from command_line
+2026-01-14 15:14:48,725 - src.gui.ui_config.UIConfig - WARNING - Unknown setting: no_cache from command_line
+2026-01-14 15:14:48,727 - src.gui.ui_config.UIConfig - DEBUG - Set enable_profiling from command_line: False
+2026-01-14 15:14:48,727 - src.gui.ui_config.UIConfig - DEBUG - Merged mode from command_line: UILoadingMode.AUTO_DETECT
+2026-01-14 15:14:48,727 - src.gui.ui_config.UIConfig - DEBUG - Merged fallback_enabled from command_line: True
+2026-01-14 15:14:48,727 - src.gui.ui_config.UIConfig - DEBUG - Merged fallback_strategy from command_line: FallbackStrategy.GRACEFUL
+2026-01-14 15:14:48,727 - src.gui.ui_config.UIConfig - DEBUG - Merged cache_enabled from command_line: True
+2026-01-14 15:14:48,727 - src.gui.ui_config.UIConfig - DEBUG - Merged cache_ttl from command_line: 300
+2026-01-14 15:14:48,727 - src.gui.ui_config.UIConfig - DEBUG - Merged validate_ui_files from command_line: True
+2026-01-14 15:14:48,728 - src.gui.ui_config.UIConfig - DEBUG - Merged validate_widgets from command_line: True
+2026-01-14 15:14:48,728 - src.gui.ui_config.UIConfig - DEBUG - Merged log_level from command_line: INFO
+2026-01-14 15:14:48,728 - src.gui.ui_config.UIConfig - DEBUG - Merged max_retries from command_line: 3
+2026-01-14 15:14:48,729 - src.gui.ui_config.UIConfig - DEBUG - Merged timeout_seconds from command_line: 30
+2026-01-14 15:14:48,729 - src.gui.ui_config.UIConfig - DEBUG - Merged enable_profiling from command_line: False
+2026-01-14 15:14:48,729 - src.gui.ui_config.UIConfig - INFO - Configuration validation passed
+2026-01-14 15:14:48,812 - src.gui.ui_config.UIConfig - INFO - Initializing UIConfig
+2026-01-14 15:18:31,919 - src.gui.ui_config.UIConfig - INFO - Initializing UIConfig
+2026-01-14 15:18:31,923 - src.gui.ui_config.UIConfig - INFO - Initializing UIConfig
+2026-01-14 15:18:31,923 - src.gui.ui_config.UIConfig - INFO - Initializing UIConfig
+2026-01-14 15:18:31,923 - src.gui.ui_config.UIConfig - DEBUG - Merged mode from environment: UILoadingMode.AUTO_DETECT
+2026-01-14 15:18:31,923 - src.gui.ui_config.UIConfig - DEBUG - Merged fallback_enabled from environment: True
+2026-01-14 15:18:31,923 - src.gui.ui_config.UIConfig - DEBUG - Merged fallback_strategy from environment: FallbackStrategy.GRACEFUL
+2026-01-14 15:18:31,923 - src.gui.ui_config.UIConfig - DEBUG - Merged cache_enabled from environment: True
+2026-01-14 15:18:31,923 - src.gui.ui_config.UIConfig - DEBUG - Merged cache_ttl from environment: 300
+2026-01-14 15:18:31,924 - src.gui.ui_config.UIConfig - DEBUG - Merged validate_ui_files from environment: True
+2026-01-14 15:18:31,924 - src.gui.ui_config.UIConfig - DEBUG - Merged validate_widgets from environment: True
+2026-01-14 15:18:31,929 - src.gui.ui_config.UIConfig - DEBUG - Merged log_level from environment: INFO
+2026-01-14 15:18:31,929 - src.gui.ui_config.UIConfig - DEBUG - Merged max_retries from environment: 3
+2026-01-14 15:18:31,929 - src.gui.ui_config.UIConfig - DEBUG - Merged timeout_seconds from environment: 30
+2026-01-14 15:18:31,929 - src.gui.ui_config.UIConfig - DEBUG - Merged enable_profiling from environment: False
+2026-01-14 15:18:31,929 - src.gui.ui_config.UIConfig - INFO - Initializing UIConfig
+2026-01-14 15:18:31,937 - src.gui.ui_config.UIConfig - WARNING - Unknown setting: no_fallback from command_line
+2026-01-14 15:18:31,937 - src.gui.ui_config.UIConfig - WARNING - Unknown setting: no_validate from command_line
+2026-01-14 15:18:31,938 - src.gui.ui_config.UIConfig - WARNING - Unknown setting: no_cache from command_line
+2026-01-14 15:18:31,938 - src.gui.ui_config.UIConfig - DEBUG - Set enable_profiling from command_line: False
+2026-01-14 15:18:31,938 - src.gui.ui_config.UIConfig - DEBUG - Merged mode from command_line: UILoadingMode.AUTO_DETECT
+2026-01-14 15:18:31,938 - src.gui.ui_config.UIConfig - DEBUG - Merged fallback_enabled from command_line: True
+2026-01-14 15:18:31,938 - src.gui.ui_config.UIConfig - DEBUG - Merged fallback_strategy from command_line: FallbackStrategy.GRACEFUL
+2026-01-14 15:18:31,938 - src.gui.ui_config.UIConfig - DEBUG - Merged cache_enabled from command_line: True
+2026-01-14 15:18:31,938 - src.gui.ui_config.UIConfig - DEBUG - Merged cache_ttl from command_line: 300
+2026-01-14 15:18:31,938 - src.gui.ui_config.UIConfig - DEBUG - Merged validate_ui_files from command_line: True
+2026-01-14 15:18:31,938 - src.gui.ui_config.UIConfig - DEBUG - Merged validate_widgets from command_line: True
+2026-01-14 15:18:31,938 - src.gui.ui_config.UIConfig - DEBUG - Merged log_level from command_line: INFO
+2026-01-14 15:18:31,938 - src.gui.ui_config.UIConfig - DEBUG - Merged max_retries from command_line: 3
+2026-01-14 15:18:31,939 - src.gui.ui_config.UIConfig - DEBUG - Merged timeout_seconds from command_line: 30
+2026-01-14 15:18:31,939 - src.gui.ui_config.UIConfig - DEBUG - Merged enable_profiling from command_line: False
+2026-01-14 15:18:31,939 - src.gui.ui_config.UIConfig - INFO - Configuration validation passed
+2026-01-14 15:18:32,068 - src.gui.ui_config.UIConfig - INFO - Initializing UIConfig
+2026-01-14 15:21:22,119 - src.gui.ui_config.UIConfig - INFO - Initializing UIConfig
+2026-01-14 15:21:22,122 - src.gui.ui_config.UIConfig - INFO - Initializing UIConfig
+2026-01-14 15:21:22,123 - src.gui.ui_config.UIConfig - INFO - Initializing UIConfig
+2026-01-14 15:21:22,123 - src.gui.ui_config.UIConfig - DEBUG - Merged mode from environment: UILoadingMode.AUTO_DETECT
+2026-01-14 15:21:22,123 - src.gui.ui_config.UIConfig - DEBUG - Merged fallback_enabled from environment: True
+2026-01-14 15:21:22,123 - src.gui.ui_config.UIConfig - DEBUG - Merged fallback_strategy from environment: FallbackStrategy.GRACEFUL
+2026-01-14 15:21:22,123 - src.gui.ui_config.UIConfig - DEBUG - Merged cache_enabled from environment: True
+2026-01-14 15:21:22,123 - src.gui.ui_config.UIConfig - DEBUG - Merged cache_ttl from environment: 300
+2026-01-14 15:21:22,123 - src.gui.ui_config.UIConfig - DEBUG - Merged validate_ui_files from environment: True
+2026-01-14 15:21:22,123 - src.gui.ui_config.UIConfig - DEBUG - Merged validate_widgets from environment: True
+2026-01-14 15:21:22,123 - src.gui.ui_config.UIConfig - DEBUG - Merged log_level from environment: INFO
+2026-01-14 15:21:22,123 - src.gui.ui_config.UIConfig - DEBUG - Merged max_retries from environment: 3
+2026-01-14 15:21:22,124 - src.gui.ui_config.UIConfig - DEBUG - Merged timeout_seconds from environment: 30
+2026-01-14 15:21:22,124 - src.gui.ui_config.UIConfig - DEBUG - Merged enable_profiling from environment: False
+2026-01-14 15:21:22,124 - src.gui.ui_config.UIConfig - INFO - Initializing UIConfig
+2026-01-14 15:21:22,135 - src.gui.ui_config.UIConfig - WARNING - Unknown setting: no_fallback from command_line
+2026-01-14 15:21:22,135 - src.gui.ui_config.UIConfig - WARNING - Unknown setting: no_validate from command_line
+2026-01-14 15:21:22,135 - src.gui.ui_config.UIConfig - WARNING - Unknown setting: no_cache from command_line
+2026-01-14 15:21:22,135 - src.gui.ui_config.UIConfig - DEBUG - Set enable_profiling from command_line: False
+2026-01-14 15:21:22,135 - src.gui.ui_config.UIConfig - DEBUG - Merged mode from command_line: UILoadingMode.AUTO_DETECT
+2026-01-14 15:21:22,135 - src.gui.ui_config.UIConfig - DEBUG - Merged fallback_enabled from command_line: True
+2026-01-14 15:21:22,135 - src.gui.ui_config.UIConfig - DEBUG - Merged fallback_strategy from command_line: FallbackStrategy.GRACEFUL
+2026-01-14 15:21:22,135 - src.gui.ui_config.UIConfig - DEBUG - Merged cache_enabled from command_line: True
+2026-01-14 15:21:22,135 - src.gui.ui_config.UIConfig - DEBUG - Merged cache_ttl from command_line: 300
+2026-01-14 15:21:22,136 - src.gui.ui_config.UIConfig - DEBUG - Merged validate_ui_files from command_line: True
+2026-01-14 15:21:22,136 - src.gui.ui_config.UIConfig - DEBUG - Merged validate_widgets from command_line: True
+2026-01-14 15:21:22,136 - src.gui.ui_config.UIConfig - DEBUG - Merged log_level from command_line: INFO
+2026-01-14 15:21:22,136 - src.gui.ui_config.UIConfig - DEBUG - Merged max_retries from command_line: 3
+2026-01-14 15:21:22,136 - src.gui.ui_config.UIConfig - DEBUG - Merged timeout_seconds from command_line: 30
+2026-01-14 15:21:22,136 - src.gui.ui_config.UIConfig - DEBUG - Merged enable_profiling from command_line: False
+2026-01-14 15:21:22,136 - src.gui.ui_config.UIConfig - INFO - Configuration validation passed
+2026-01-14 15:21:22,299 - src.gui.ui_config.UIConfig - INFO - Initializing UIConfig
+2026-01-14 16:00:00,241 - src.gui.ui_config.UIConfig - INFO - Initializing UIConfig
+2026-01-14 16:01:08,656 - src.gui.ui_config.UIConfig - INFO - Initializing UIConfig
+2026-01-14 16:05:19,221 - src.gui.ui_config.UIConfig - INFO - Initializing UIConfig
+2026-01-14 16:13:39,498 - src.gui.ui_config.UIConfig - INFO - Initializing UIConfig
+2026-01-14 16:22:43,099 - src.gui.ui_config.UIConfig - INFO - Initializing UIConfig
+2026-01-14 16:23:17,252 - src.gui.ui_config.UIConfig - INFO - Initializing UIConfig
+2026-01-14 16:23:17,267 - src.gui.ui_config.UIConfig - INFO - Initializing UIConfig
+2026-01-14 16:23:17,267 - src.gui.ui_config.UIConfig - INFO - Updated ui_base_path from runtime: resources\ui\files
+2026-01-14 16:23:17,268 - src.gui.ui_config.UIConfig - INFO - Configuration validation passed
+2026-01-14 16:23:17,277 - src.gui.ui_config.UIConfig - INFO - Initializing UIConfig
+2026-01-14 16:26:13,431 - src.gui.ui_config.UIConfig - INFO - Initializing UIConfig
+2026-01-14 16:26:13,435 - src.gui.ui_config.UIConfig - INFO - Initializing UIConfig
+2026-01-14 16:26:13,441 - src.gui.ui_config.UIConfig - INFO - Updated ui_base_path from runtime: resources\ui\files
+2026-01-14 16:26:13,442 - src.gui.ui_config.UIConfig - INFO - Configuration validation passed
+2026-01-14 16:26:13,445 - src.gui.ui_config.UIConfig - INFO - Initializing UIConfig
+2026-01-14 17:01:57,465 - src.gui.ui_config.UIConfig - INFO - Initializing UIConfig
+2026-01-14 17:01:57,487 - src.gui.ui_config.UIConfig - INFO - Initializing UIConfig
+2026-01-14 17:01:57,487 - src.gui.ui_config.UIConfig - INFO - Updated ui_base_path from runtime: resources\ui\files
+2026-01-14 17:01:57,488 - src.gui.ui_config.UIConfig - INFO - Configuration validation passed
+2026-01-14 17:01:57,490 - src.gui.ui_config.UIConfig - INFO - Initializing UIConfig
+2026-01-15 09:29:49,714 - src.gui.ui_config.UIConfig - INFO - Initializing UIConfig
+2026-01-15 09:29:49,731 - src.gui.ui_config.UIConfig - INFO - Initializing UIConfig
+2026-01-15 09:29:49,731 - src.gui.ui_config.UIConfig - INFO - Updated ui_base_path from runtime: resources\ui\files
+2026-01-15 09:29:49,732 - src.gui.ui_config.UIConfig - INFO - Configuration validation passed
+2026-01-15 09:29:49,743 - src.gui.ui_config.UIConfig - INFO - Initializing UIConfig

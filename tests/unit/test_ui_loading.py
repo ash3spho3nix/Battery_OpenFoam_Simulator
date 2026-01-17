@@ -23,11 +23,11 @@ from PyQt6.QtCore import Qt
 # Add src to path for testing
 sys.path.insert(0, str(Path(__file__).parent.parent.parent))
 
-from src.gui.ui_loader_enhanced import (
-    EnhancedUILoader, UILoadingError, UIValidationError,
+from src.gui.ui_loader import (
+    UILoader, UILoadingError, UIValidationError,
     UIProgressTracker
 )
-from src.gui.ui_config_enhanced import (
+from src.gui.ui_config import (
     EnhancedUIConfig, UILoadingMode, FallbackStrategy,
     ConfigurationError, ConfigurationValidationError
 )
@@ -37,8 +37,8 @@ from src.gui.widget_naming_standardizer import (
 )
 
 
-class TestEnhancedUILoader:
-    """Test suite for EnhancedUILoader."""
+class TestUILoader:
+    """Test suite for UILoader."""
     
     @pytest.fixture
     def app(self):
@@ -98,15 +98,15 @@ class TestEnhancedUILoader:
     
     @pytest.fixture
     def loader(self):
-        """Create an EnhancedUILoader instance."""
-        config = EnhancedUIConfig()
+        """Create a UILoader instance."""
+        config = UIConfig()
         config.update_setting('mode', UILoadingMode.AUTO_DETECT)
-        return EnhancedUILoader(config)
+        return UILoader(config)
     
     def test_initialization(self):
-        """Test EnhancedUILoader initialization."""
-        config = EnhancedUIConfig()
-        loader = EnhancedUILoader(config)
+        """Test UILoader initialization."""
+        config = UIConfig()
+        loader = UILoader(config)
         
         assert loader.ui_config is not None
         assert loader.progress_tracker is not None
@@ -622,12 +622,12 @@ class TestIntegration:
     def test_complete_ui_loading_workflow(self):
         """Test the complete UI loading workflow."""
         # Create enhanced config
-        config = EnhancedUIConfig()
+        config = UIConfig()
         config.update_setting('mode', UILoadingMode.AUTO_DETECT)
         config.update_setting('fallback_enabled', True)
         
-        # Create enhanced loader
-        loader = EnhancedUILoader(config)
+        # Create loader
+        loader = UILoader(config)
         
         # Test that all components work together
         assert loader.ui_config is config
@@ -643,20 +643,20 @@ class TestIntegration:
     
     def test_error_handling_chain(self):
         """Test the complete error handling chain."""
-        config = EnhancedUIConfig()
-        loader = EnhancedUILoader(config)
+        config = UIConfig()
+        loader = UILoader(config)
         
         # Test that errors are properly propagated
         with pytest.raises(UILoadingError):
             loader._load_ui_files_only("nonexistent", None)
         
         with pytest.raises(ConfigurationError):
-            EnhancedUIConfig.from_environment()  # Should handle missing env vars gracefully
+            UIConfig.from_environment()  # Should handle missing env vars gracefully
     
     def test_performance_and_caching(self):
         """Test performance and caching mechanisms."""
-        config = EnhancedUIConfig()
-        loader = EnhancedUILoader(config)
+        config = UIConfig()
+        loader = UILoader(config)
         
         # Test that caches are properly managed
         assert hasattr(loader, '_ui_file_cache')

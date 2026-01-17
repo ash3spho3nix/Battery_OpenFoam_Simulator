@@ -1,70 +1,43 @@
-"""OpenFOAM execution wrapper for Windows WSL environment.
-Originally MSYS2Executor, now updated to support WSL.
-"""
 import subprocess
 import os
-from pathlib import Path
 import logging
 import threading
+from pathlib import Path
 
 logger = logging.getLogger(__name__)
 
-class MSYS2Executor:
-    """Execute OpenFOAM commands through WSL on Windows.
-    Retains MSYS2Executor name for compatibility.
-    """
-    
-    def __init__(self, msys2_bat="OpenFOAM-MSYS2.bat"):
-        # msys2_bat is legacy param, ignored for WSL
+class WSLExecutor:
+    """Execute OpenFOAM commands through WSL on Windows."""
+
+    def __init__(self):
         self.wsl_verified = False
-        
-    def verify_msys2(self):
-        """Verify WSL OpenFOAM is accessible.
-        Mapped to verify_wsl logic.
-        """
+
+    def verify_wsl(self):
+        """Verify WSL OpenFOAM is accessible."""
         if self.wsl_verified:
             return True
 
         try:
             logger.info("Verifying WSL OpenFOAM installation...")
-            
-            # Use interactive login shell to ensure user environment is loaded
-            # This is key for WSL users who put OpenFOAM sourcing in .bashrc
-            check_cmd = "command -v blockMesh"
-            
+            # Check if WSL is installed and OpenFOAM is available
             result = subprocess.run(
-                ['wsl', 'bash', '-l', '-c', check_cmd],
+                ['wsl', 'bash', '-c', 'which blockMesh'],
                 capture_output=True,
                 text=True,
                 timeout=10
             )
 
-            if result.returncode == 0 and result.stdout.strip():
+            if result.returncode == 0:
                 logger.info(f"OpenFOAM found in WSL: {result.stdout.strip()}")
                 self.wsl_verified = True
                 return True
             else:
-                logger.warning(f"OpenFOAM verification in WSL returned non-zero or empty stdout: {result.returncode}")
-                # Try fallback explicit sourcing if login shell didn't work
-                fallback_cmd = "source ~/.bashrc 2>/dev/null; source /opt/openfoam*/etc/bashrc 2>/dev/null; source /usr/lib/openfoam/openfoam*/etc/bashrc 2>/dev/null; command -v blockMesh"
-                result_fallback = subprocess.run(
-                    ['wsl', 'bash', '-c', fallback_cmd],
-                    capture_output=True,
-                    text=True,
-                    timeout=10
-                )
-                
-                if result_fallback.returncode == 0 and result_fallback.stdout.strip():
-                     logger.info(f"OpenFOAM found in WSL (via fallback sourcing): {result_fallback.stdout.strip()}")
-                     self.wsl_verified = True
-                     return True
-
-                # Check if WSL itself is alive
-                wsl_check = subprocess.run(['wsl', 'echo', 'hello'], capture_output=True, text=True)
-                if wsl_check.returncode != 0:
-                        logger.error("WSL itself seems not working or not installed.")
-                        return False
-                
+                logger.warning(f"OpenFOAM verification in WSL returned non-zero: {result.returncode}")
+                logger.warning(f"stdout: {result.stdout}")
+                logger.warning(f"stderr: {result.stderr}")
+                # Try sourcing bashrc if generic 'which' fails?
+                # OpenFOAM usually requires sourcing /opt/openfoam*/etc/bashrc
+                # We can try to find where it is or assume user has it in .bashrc
                 return False
 
         except subprocess.TimeoutExpired:
@@ -73,43 +46,29 @@ class MSYS2Executor:
         except Exception as e:
             logger.error(f"WSL verification failed: {e}")
             return False
-            
-    def convert_windows_path_to_msys2(self, windows_path):
+
+    def convert_to_wsl_path(self, windows_path):
         r"""Convert Windows path to WSL path.
-        Retains method name for compatibility.
-        
+         
         Examples:
             C:\Users\name\project -> /mnt/c/Users/name/project
         """
         try:
             path = Path(windows_path).resolve()
-            
-            # Get drive letter
             drive = path.drive.replace(':', '').lower()
-            
-            # Get path without drive
-            path_str = str(path)
+            path_str = str(path).replace('\\', '/')
+            # Remove drive letter from path string (e.g. C:/Users... -> /Users...)
             if ':' in path_str:
                 path_without_drive = path_str.split(':', 1)[1]
             else:
                 path_without_drive = path_str
-                
-            # Convert backslashes to forward slashes
-            path_without_drive = path_without_drive.replace('\\', '/')
             
-            # Ensure no leading slash
-            if path_without_drive.startswith('/'):
-                path_without_drive = path_without_drive[1:]
-            
-            # WSL standard mount point
-            wsl_path = f"/mnt/{drive}/{path_without_drive}"
-            
+            wsl_path = f"/mnt/{drive}{path_without_drive}"
             return wsl_path
-            
         except Exception as e:
             logger.error(f"Path conversion failed for {windows_path}: {e}")
-            return str(windows_path).replace('\\', '/')
-        
+            return str(windows_path)
+
     def execute_command(self, command, working_dir=None, timeout=3600):
         """Execute OpenFOAM command through WSL.
 
@@ -122,24 +81,19 @@ class MSYS2Executor:
             tuple: (return_code, stdout, stderr)
         """
         try:
-            # Use login shell to ensure environment is loaded
-            wsl_command_parts = ['wsl', 'bash', '-l', '-c']
+            wsl_command_parts = ['wsl', 'bash', '-c']
             
+            # Construct the shell command string
             if working_dir:
-                wsl_work_dir = self.convert_windows_path_to_msys2(working_dir)
-                cd_cmd = f"cd '{wsl_work_dir}'"
+                wsl_work_dir = self.convert_to_wsl_path(working_dir)
+                # Source bashrc? Assuming user has OpenFOAM configured in .bashrc for now as per instructions "WSL path capture"
+                # But safer to source if we knew where. 
+                # For Phase 1, we just launch WSL.
+                full_command = f"cd '{wsl_work_dir}' && {command}"
             else:
-                cd_cmd = ""
-            
-            # Explicit fallback sourcing still good practice even with -l
-            source_cmd = "source /opt/openfoam*/etc/bashrc 2>/dev/null || source /usr/lib/openfoam/openfoam*/etc/bashrc 2>/dev/null || true"
-            
-            if cd_cmd:
-                full_command = f"{source_cmd} && {cd_cmd} && {command}"
-            else:
-                full_command = f"{source_cmd} && {command}"
+                full_command = command
 
-            logger.info(f"Executing via WSL: {full_command}")
+            logger.info(f"Executing in WSL: {full_command}")
 
             result = subprocess.run(
                 wsl_command_parts + [full_command],
@@ -147,7 +101,7 @@ class MSYS2Executor:
                 text=True,
                 timeout=timeout
             )
-
+            
             if result.stdout:
                 logger.debug(f"stdout: {result.stdout[:200]}")
             if result.stderr:
@@ -157,11 +111,11 @@ class MSYS2Executor:
 
         except subprocess.TimeoutExpired:
             logger.error(f"Command timed out after {timeout}s: {command}")
-            return -1, "", f"Command timed out after {timeout} seconds"
+            return -1, "", "Command timed out after {timeout} seconds"
         except Exception as e:
             logger.error(f"Command execution failed: {e}")
             return -1, "", str(e)
-            
+
     def execute_command_with_callback(self, command, working_dir, output_callback, error_callback, completion_callback=None):
         """Execute command with real-time output callbacks via WSL (Asynchronous).
         
@@ -178,22 +132,15 @@ class MSYS2Executor:
         logger.debug("Starting execute_command_with_callback method")
         try:
             logger.debug("Setting up WSL command parts")
-            # Use login shell
-            wsl_command_parts = ['wsl', 'bash', '-l', '-c']
+            wsl_command_parts = ['wsl', 'bash', '-c']
             
+            # Construct the shell command string
             if working_dir:
-                wsl_work_dir = self.convert_windows_path_to_msys2(working_dir)
-                cd_cmd = f"cd '{wsl_work_dir}'"
+                wsl_work_dir = self.convert_to_wsl_path(working_dir)
+                full_command = f"cd '{wsl_work_dir}' && {command}"
             else:
-                cd_cmd = ""
-                
-            source_cmd = "source /opt/openfoam*/etc/bashrc 2>/dev/null || source /usr/lib/openfoam/openfoam*/etc/bashrc 2>/dev/null || true"
+                full_command = command
             
-            if cd_cmd:
-                full_command = f"{source_cmd} && {cd_cmd} && {command}"
-            else:
-                full_command = f"{source_cmd} && {command}"
-                
             logger.info(f"Starting async execution via WSL: {full_command}")
             
             process = subprocess.Popen(
@@ -254,13 +201,3 @@ class MSYS2Executor:
             logger.error(f"Command execution with callbacks failed: {e}")
             error_callback(f"Execution failed: {str(e)}")
             return -1
-
-# Global instance
-_executor = None
-
-def get_executor():
-    """Get global MSYS2 executor instance."""
-    global _executor
-    if _executor is None:
-        _executor = MSYS2Executor()
-    return _executor

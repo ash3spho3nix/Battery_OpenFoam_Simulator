@@ -15,9 +15,8 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).parent.parent))
 
 # Import test modules
-from src.core.project_manager_enhanced import EnhancedProjectManager
-from src.gui.ui_loader_enhanced import UILoaderEnhanced
-from src.utils.file_operations_enhanced import EnhancedTemplateManager
+from src.core.project_manager import ProjectManager
+from src.gui.ui_loader import UILoader
 from src.openfoam.process_controller import ProcessController
 
 class TestPerformanceBenchmarks:
@@ -55,7 +54,7 @@ class TestPerformanceBenchmarks:
     
     def test_project_creation_performance(self):
         """Test project creation performance."""
-        pm = EnhancedProjectManager(str(self.temp_dir))
+        pm = ProjectManager(str(self.temp_dir))
         
         def create_project():
             return pm.create_project_safe(
@@ -145,7 +144,7 @@ class TestPerformanceBenchmarks:
     
     def test_memory_usage_stability(self):
         """Test memory usage stability over multiple operations."""
-        pm = EnhancedProjectManager(str(self.temp_dir))
+        pm = ProjectManager(str(self.temp_dir))
         
         process = psutil.Process(os.getpid())
         initial_memory = process.memory_info().rss / 1024 / 1024  # MB
@@ -174,7 +173,7 @@ class TestPerformanceBenchmarks:
         import threading
         import queue
         
-        pm = EnhancedProjectManager(str(self.temp_dir))
+        pm = ProjectManager(str(self.temp_dir))
         results = queue.Queue()
         
         def create_project_worker(worker_id):
@@ -251,7 +250,7 @@ class TestPerformanceBenchmarks:
     
     def test_cleanup_performance(self):
         """Test cleanup performance."""
-        pm = EnhancedProjectManager(str(self.temp_dir))
+        pm = ProjectManager(str(self.temp_dir))
         
         # Create test projects
         for i in range(10):

@@ -21,7 +21,6 @@ import logging
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..', 'src'))
 
 from src.gui.interfaces.carbon_interface import CarbonInterface
-from src.gui.interfaces.carbon_interface_execution import CarbonInterfaceExecution
 
 
 class TestCarbonInterfaceIntegration:

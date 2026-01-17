@@ -3,6 +3,7 @@
 *.py[cod]
 *$py.class
 src/resources/templates/
+/src/resources/templates/
 # C extensions
 *.so
 __pycache__/
@@ -30,8 +31,8 @@ lib64/
 # -----------------------------
 # KiloCode (DO NOT COMMIT)
 # -----------------------------
-#.kilocode/
-#.kilocode/*
+.kilocode/
+.kilocode/*
 .kilocodemodes
 .kilocodemodes/*
 #.kilocode/workflows/
@@ -42,7 +43,10 @@ lib64/
 .kilocodesmodes
 kilocodes_summary
 kilocodes_implementation
-#src/SourceCode_reference/
+
+projects/
+custom_projects/
+src/SourceCode_reference/
 src/dev_docs/
 dev_docs/
 test_projects/
