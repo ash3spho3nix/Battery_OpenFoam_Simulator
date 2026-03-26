@@ -1,0 +1,85 @@
+2026-01-15 13:18:02,402 - src.gui.interface_factory.InterfaceFactory - INFO - Creating interface: carbon
+2026-01-15 13:18:20,083 - src.gui.interface_factory.InterfaceFactory - INFO - Creating interface: carbon
+2026-01-15 13:18:20,084 - src.gui.interface_factory.InterfaceFactory - INFO - UI loading mode: ui_files
+2026-01-15 13:18:46,917 - src.gui.interface_factory.InterfaceFactory - INFO - Creating interface: carbon
+2026-01-15 13:18:46,918 - src.gui.interface_factory.InterfaceFactory - INFO - UI loading mode: ui_files
+2026-01-15 13:18:47,022 - src.gui.interface_factory.InterfaceFactory - INFO - Successfully created carbon interface
+2026-01-15 13:18:47,023 - src.gui.interface_factory.InterfaceFactory - DEBUG - Interface validation passed for carbon
+2026-01-15 13:18:47,023 - src.gui.interface_factory.InterfaceFactory - INFO - Successfully created interface: carbon
+2026-01-15 13:27:25,124 - src.gui.interface_factory.InterfaceFactory - INFO - Creating interface: carbon
+2026-01-15 13:27:25,124 - src.gui.interface_factory.InterfaceFactory - INFO - UI loading mode: ui_files
+2026-01-15 13:27:25,277 - src.gui.interface_factory.InterfaceFactory - INFO - Successfully created carbon interface
+2026-01-15 13:27:25,278 - src.gui.interface_factory.InterfaceFactory - DEBUG - Interface validation passed for carbon
+2026-01-15 13:27:25,278 - src.gui.interface_factory.InterfaceFactory - INFO - Successfully created interface: carbon
+2026-01-15 13:27:25,278 - src.gui.interface_factory.InterfaceFactory - INFO - Creating interface: halfcell
+2026-01-15 13:27:25,278 - src.gui.interface_factory.InterfaceFactory - INFO - UI loading mode: ui_files
+2026-01-15 13:27:25,363 - src.gui.interface_factory.InterfaceFactory - ERROR - Failed to create half cell interface: ('Wrong base class of toplevel widget', (<class 'src.gui.interfaces.halfcell_interface.HalfCellInterface'>, 'QDialog'))
+2026-01-15 13:27:25,370 - src.gui.interface_factory.InterfaceFactory - ERROR - Interface creation failed for halfcell: Failed to create interface: halfcell
+Traceback (most recent call last):
+  File "C:\Users\vsharma.A123SYSTEMSEU\Documents\BatterySimulator\BatteryOpenFoamSimulator\Battery_OpenFoam_Simulator\src\gui\interface_factory.py", line 161, in create_interface
+    raise InterfaceFactoryError(f"Failed to create interface: {interface_type}")
+src.gui.interface_factory.InterfaceFactoryError: Failed to create interface: halfcell
+2026-01-15 13:27:25,377 - src.gui.interface_factory.InterfaceFactory - INFO - Creating interface: fullcell
+2026-01-15 13:27:25,378 - src.gui.interface_factory.InterfaceFactory - INFO - UI loading mode: ui_files
+2026-01-15 13:27:25,442 - src.gui.interface_factory.InterfaceFactory - ERROR - Failed to create full cell interface: ('Wrong base class of toplevel widget', (<class 'src.gui.interfaces.fullcell_interface.FullCellInterface'>, 'QDialog'))
+2026-01-15 13:27:25,455 - src.gui.interface_factory.InterfaceFactory - ERROR - Interface creation failed for fullcell: Failed to create interface: fullcell
+Traceback (most recent call last):
+  File "C:\Users\vsharma.A123SYSTEMSEU\Documents\BatterySimulator\BatteryOpenFoamSimulator\Battery_OpenFoam_Simulator\src\gui\interface_factory.py", line 161, in create_interface
+    raise InterfaceFactoryError(f"Failed to create interface: {interface_type}")
+src.gui.interface_factory.InterfaceFactoryError: Failed to create interface: fullcell
+2026-01-15 13:28:08,421 - src.gui.interface_factory.InterfaceFactory - INFO - Creating interface: carbon
+2026-01-15 13:28:08,421 - src.gui.interface_factory.InterfaceFactory - INFO - UI loading mode: ui_files
+2026-01-15 13:28:08,490 - src.gui.interface_factory.InterfaceFactory - INFO - Successfully created carbon interface
+2026-01-15 13:28:08,490 - src.gui.interface_factory.InterfaceFactory - DEBUG - Interface validation passed for carbon
+2026-01-15 13:28:08,490 - src.gui.interface_factory.InterfaceFactory - INFO - Successfully created interface: carbon
+2026-01-15 13:28:08,490 - src.gui.interface_factory.InterfaceFactory - INFO - Creating interface: halfcell
+2026-01-15 13:28:08,491 - src.gui.interface_factory.InterfaceFactory - INFO - UI loading mode: ui_files
+2026-01-15 13:28:08,492 - src.gui.interface_factory.InterfaceFactory - ERROR - Failed to create half cell interface: name 'QWidget' is not defined
+2026-01-15 13:28:08,492 - src.gui.interface_factory.InterfaceFactory - ERROR - Interface creation failed for halfcell: Failed to create interface: halfcell
+Traceback (most recent call last):
+  File "C:\Users\vsharma.A123SYSTEMSEU\Documents\BatterySimulator\BatteryOpenFoamSimulator\Battery_OpenFoam_Simulator\src\gui\interface_factory.py", line 161, in create_interface
+    raise InterfaceFactoryError(f"Failed to create interface: {interface_type}")
+src.gui.interface_factory.InterfaceFactoryError: Failed to create interface: halfcell
+2026-01-15 13:28:08,500 - src.gui.interface_factory.InterfaceFactory - INFO - Creating interface: fullcell
+2026-01-15 13:28:08,500 - src.gui.interface_factory.InterfaceFactory - INFO - UI loading mode: ui_files
+2026-01-15 13:28:08,501 - src.gui.interface_factory.InterfaceFactory - ERROR - Failed to create full cell interface: name 'QWidget' is not defined
+2026-01-15 13:28:08,501 - src.gui.interface_factory.InterfaceFactory - ERROR - Interface creation failed for fullcell: Failed to create interface: fullcell
+Traceback (most recent call last):
+  File "C:\Users\vsharma.A123SYSTEMSEU\Documents\BatterySimulator\BatteryOpenFoamSimulator\Battery_OpenFoam_Simulator\src\gui\interface_factory.py", line 161, in create_interface
+    raise InterfaceFactoryError(f"Failed to create interface: {interface_type}")
+src.gui.interface_factory.InterfaceFactoryError: Failed to create interface: fullcell
+2026-01-15 13:28:38,919 - src.gui.interface_factory.InterfaceFactory - INFO - Creating interface: carbon
+2026-01-15 13:28:38,919 - src.gui.interface_factory.InterfaceFactory - INFO - UI loading mode: ui_files
+2026-01-15 13:28:39,010 - src.gui.interface_factory.InterfaceFactory - INFO - Successfully created carbon interface
+2026-01-15 13:28:39,011 - src.gui.interface_factory.InterfaceFactory - DEBUG - Interface validation passed for carbon
+2026-01-15 13:28:39,011 - src.gui.interface_factory.InterfaceFactory - INFO - Successfully created interface: carbon
+2026-01-15 13:28:39,011 - src.gui.interface_factory.InterfaceFactory - INFO - Creating interface: halfcell
+2026-01-15 13:28:39,011 - src.gui.interface_factory.InterfaceFactory - INFO - UI loading mode: ui_files
+2026-01-15 13:28:39,064 - src.gui.interface_factory.InterfaceFactory - INFO - Successfully created half cell interface
+2026-01-15 13:28:39,064 - src.gui.interface_factory.InterfaceFactory - DEBUG - Interface validation passed for halfcell
+2026-01-15 13:28:39,065 - src.gui.interface_factory.InterfaceFactory - INFO - Successfully created interface: halfcell
+2026-01-15 13:28:39,067 - src.gui.interface_factory.InterfaceFactory - INFO - Creating interface: fullcell
+2026-01-15 13:28:39,067 - src.gui.interface_factory.InterfaceFactory - INFO - UI loading mode: ui_files
+2026-01-15 13:28:39,329 - src.gui.interface_factory.InterfaceFactory - INFO - Successfully created full cell interface
+2026-01-15 13:28:39,345 - src.gui.interface_factory.InterfaceFactory - DEBUG - Interface validation passed for fullcell
+2026-01-15 13:28:39,345 - src.gui.interface_factory.InterfaceFactory - INFO - Successfully created interface: fullcell
+2026-01-15 13:29:17,112 - src.gui.interface_factory.InterfaceFactory - INFO - Creating interface: carbon
+2026-01-15 13:29:17,112 - src.gui.interface_factory.InterfaceFactory - INFO - UI loading mode: ui_files
+2026-01-15 13:29:17,201 - src.gui.interface_factory.InterfaceFactory - INFO - Successfully created carbon interface
+2026-01-15 13:29:17,201 - src.gui.interface_factory.InterfaceFactory - DEBUG - Interface validation passed for carbon
+2026-01-15 13:29:17,202 - src.gui.interface_factory.InterfaceFactory - INFO - Successfully created interface: carbon
+2026-01-15 23:09:17,683 - src.gui.interface_factory.InterfaceFactory - INFO - Creating interface: carbon
+2026-01-15 23:09:17,684 - src.gui.interface_factory.InterfaceFactory - INFO - UI loading mode: ui_files
+2026-01-15 23:09:17,762 - src.gui.interface_factory.InterfaceFactory - INFO - Successfully created carbon interface
+2026-01-15 23:09:17,763 - src.gui.interface_factory.InterfaceFactory - DEBUG - Interface validation passed for carbon
+2026-01-15 23:09:17,764 - src.gui.interface_factory.InterfaceFactory - INFO - Successfully created interface: carbon
+2026-01-16 10:52:49,347 - src.gui.interface_factory.InterfaceFactory - INFO - Creating interface: carbon
+2026-01-16 10:52:49,348 - src.gui.interface_factory.InterfaceFactory - INFO - UI loading mode: ui_files
+2026-01-16 10:52:49,407 - src.gui.interface_factory.InterfaceFactory - INFO - Successfully created carbon interface
+2026-01-16 10:52:49,408 - src.gui.interface_factory.InterfaceFactory - DEBUG - Interface validation passed for carbon
+2026-01-16 10:52:49,409 - src.gui.interface_factory.InterfaceFactory - INFO - Successfully created interface: carbon
+2026-01-16 10:54:07,280 - src.gui.interface_factory.InterfaceFactory - INFO - Creating interface: halfCell
+2026-01-16 10:54:07,281 - src.gui.interface_factory.InterfaceFactory - INFO - UI loading mode: ui_files
+2026-01-16 10:54:07,316 - src.gui.interface_factory.InterfaceFactory - INFO - Successfully created half cell interface
+2026-01-16 10:54:07,319 - src.gui.interface_factory.InterfaceFactory - DEBUG - Interface validation passed for halfCell
+2026-01-16 10:54:07,319 - src.gui.interface_factory.InterfaceFactory - INFO - Successfully created interface: halfCell
